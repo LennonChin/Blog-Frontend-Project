@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="main-wrapper">
     <router-view name="header"></router-view>
     <router-view name="content"></router-view>
     <router-view name="footer"></router-view>
@@ -7,20 +7,18 @@
 </template>
 
 <script>
-  export default {
-    data() {
-      const item = {
-        date: '2016-05-02',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1518 弄'
-      };
-      return {
-        tableData: Array(20).fill(item)
-      };
-    }
-  };
 </script>
 
-<style>
+<style lang="stylus" rel="stylesheet/stylus">
+  .main-wrapper
+    background-color #fff
+    width 1140px
+    margin 0 auto
+    @media only screen and (max-width: 1140px)
+      margin 0 35px
+      width auto
+    @media only screen and (max-width: 576px)
+      margin 0 5px
+      width auto
 
 </style>
