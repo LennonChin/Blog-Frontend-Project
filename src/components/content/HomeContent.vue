@@ -4,6 +4,24 @@
       <photo-wall></photo-wall>
       <section-title :mainTitle="'文章'" :subTitle="'Articles'"></section-title>
       <article-list-cell v-for="article in articles" :article="article" :key="article.title"></article-list-cell>
+      <section-title :mainTitle="'主题'" :subTitle="'Topics'"></section-title>
+      <div class="topic-cards">
+        <el-row :gutter="10">
+          <el-col :xs="24" :sm="12" :md="8" :lg="6" :xl="6">
+            <topic-card></topic-card>
+          </el-col>
+          <el-col :xs="24" :sm="12" :md="8" :lg="6" :xl="6">
+            <topic-card></topic-card>
+          </el-col>
+          <el-col :xs="24" :sm="12" :md="8" :lg="6" :xl="6">
+            <topic-card></topic-card>
+          </el-col>
+          <el-col :xs="24" :sm="12" :md="8" :lg="6" :xl="6">
+            <topic-card></topic-card>
+          </el-col>
+        </el-row>
+      </div>
+      <section-title :mainTitle="'主题'" :subTitle="'Topics'"></section-title>
     </div>
   </div>
 </template>
@@ -12,6 +30,7 @@
   import PhotoWall from '@/components/views/PhotoWall';
   import ArticleListCell from '@/components/views/ArticleListCell';
   import SectionTitle from '@/components/views/SectionTitle';
+  import TopicCard from '@/components/views/TopicCard';
 
   export default {
     data() {
@@ -63,7 +82,8 @@
     components: {
       'photo-wall': PhotoWall,
       'article-list-cell': ArticleListCell,
-      'section-title': SectionTitle
+      'section-title': SectionTitle,
+      'topic-card': TopicCard
     }
   };
 </script>

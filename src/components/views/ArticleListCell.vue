@@ -5,8 +5,8 @@
         <el-col :xs="24" :sm="24" :md="17" :lg="17" :xl="17">
           <div class="text-wrapper">
             <h4 class="title"><a href="">{{article.title}}</a></h4>
-            <p class="info"><span class="author">By / <a href="">{{article.author}}</a></span> At time <span
-                    class="publish-time"><a href="">{{article.publish_time}}</a></span></p>
+            <p class="info"><span class="author">By / <a href="">{{article.author}}</a></span><span
+                    class="publish-time"><a href=""> At time {{article.publish_time}}</a></span></p>
             <div class="line border-1px"></div>
             <div class="tags hidden-md-and-down">
               <el-tag size="small">标签一</el-tag>
@@ -45,11 +45,14 @@
   @import "../../common/stylus/index.styl";
 
   .article-list-cell
-    border 1px solid #eee
     margin-bottom 15px
     > a
       display block
       cursor default
+      border 1px solid main-border-color
+      &:hover
+        border 1px solid main-border-color-hover
+        box-shadow 2px 2px 3px main-border-color
       .text-wrapper
         padding 30px 30px 0 30px
         text-align left
