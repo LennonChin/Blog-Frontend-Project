@@ -4,7 +4,7 @@
       <el-row :gutter="8" type="flex" justify="space-between">
         <el-col :xs="4" :sm="2" :md="2" :lg="2" :xl="2">
           <div class="logo">
-            <i class="el-icon-setting"></i>
+            <router-link to="/home"><i class="el-icon-setting"></i></router-link>
           </div>
         </el-col>
         <el-col :xs="15" :sm="19" :md="6" :lg="9" :xl="9">
@@ -85,9 +85,11 @@
         line-height 90px
         vertical-align middle
         font-size 0
-        .el-icon-setting
-          font-size 40px;
-          color main-color
+        a
+          display: block
+          .el-icon-setting
+            font-size 40px;
+            color main-color
       .search
         .el-select
           width 100px

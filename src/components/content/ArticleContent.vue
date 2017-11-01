@@ -192,17 +192,20 @@
         <p><br></p>
       </article>
     </article-page-content>
+    <article-page-footer></article-page-footer>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
   import ArticlePageHeader from '@/components/views/ArticlePageHeader';
   import ArticlePageContent from '@/components/views/ArticlePageContent';
+  import ArticlePageFooter from '@/components/views/ArticlePageFooter';
 
   export default {
     components: {
       'article-page-header': ArticlePageHeader,
-      'article-page-content': ArticlePageContent
+      'article-page-content': ArticlePageContent,
+      'article-page-footer': ArticlePageFooter
     }
   };
 </script>

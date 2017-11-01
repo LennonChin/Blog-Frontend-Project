@@ -4,7 +4,7 @@
       <el-row :gutter="0">
         <el-col :xs="24" :sm="24" :md="17" :lg="17" :xl="17">
           <div class="text-wrapper">
-            <h4 class="title"><a href="">{{article.title}}</a></h4>
+            <h4 class="title"><router-link to="/article">{{article.title}}</router-link></h4>
             <p class="info"><span class="author">By / <a href="">{{article.author}}</a></span><span
                     class="publish-time">  At time / <a href="">{{article.publish_time}}</a></span></p>
             <div class="line border-1px"></div>
