@@ -6,7 +6,7 @@
           <div class="text-wrapper">
             <h4 class="title"><a href="">{{article.title}}</a></h4>
             <p class="info"><span class="author">By / <a href="">{{article.author}}</a></span><span
-                    class="publish-time"><a href=""> At time {{article.publish_time}}</a></span></p>
+                    class="publish-time">  At time <a href="">{{article.publish_time}}</a></span></p>
             <div class="line border-1px"></div>
             <div class="tags hidden-md-and-down">
               <el-tag size="small">标签一</el-tag>
@@ -16,14 +16,16 @@
               <el-tag size="small" type="danger">标签五</el-tag>
             </div>
             <p class="desc">{{article.desc}}<a href="">View More <i class="el-icon-caret-right"></i></a></p>
-            <p class="operate_info"><span class="readings"> <a href=""><i class="el-icon-view"></i> {{article.readings}}次阅读</a></span>
-              | <span class="comments"><a href=""><i class="el-icon-news"></i> {{article.comments}}个评论</a></span> |
-              <span class="likes"><a href=""><i class="el-icon-star-off"></i> {{article.likes}}个喜欢</a></span></p>
+            <p class="operate_info">
+              <span class="readings"><a href=""><i class="el-icon-view"></i> {{article.readings}}次阅读</a></span> |
+              <span class="comments"><a href=""><i class="el-icon-news"></i> {{article.comments}}个评论</a></span> |
+              <span class="likes"><a href=""><i class="el-icon-star-off"></i> {{article.likes}}个喜欢</a></span>
+            </p>
           </div>
         </el-col>
         <el-col :xs="24" :sm="24" :md="7" :lg="7" :xl="7" class="hidden-sm-and-down">
           <div class="img-wrapper">
-            <img src="../../assets/photowall/photowall_pic_1.jpg" alt="">
+            <img src="../../assets/photowall/photowall_pic_2.jpg" alt="">
           </div>
         </el-col>
       </el-row>
@@ -78,6 +80,8 @@
             &:hover
               color main-color
               text-decoration underline
+          .publish-time
+            margin-left 20px
         .line
           width 50px
           margin-top 30px
