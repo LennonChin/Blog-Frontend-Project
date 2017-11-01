@@ -9,7 +9,7 @@
       <div class="bottom-area">
         <h4 class="title"><a href="">{{article.title}}</a></h4>
         <p class="info"><span class="author">By / <a href="">{{article.author}}</a></span></p>
-        <p class="info"><span class="publish-time">At time <a href="">{{article.publish_time}}</a></span></p>
+        <p class="info"><span class="publish-time">At time / <a href="">{{article.publish_time}}</a></span></p>
         <p class="operate_info">
           <span class="readings"><a href=""> {{article.readings}}次阅读</a></span> |
           <span class="comments"><a href=""> {{article.comments}}个评论</a></span> |

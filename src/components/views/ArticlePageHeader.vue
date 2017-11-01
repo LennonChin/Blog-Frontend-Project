@@ -11,13 +11,13 @@
     <el-row :gutter="0">
       <el-col :xs="24" :sm="10" :md="10" :lg="10" :xl="10">
         <p class="info"><span class="author">By / <a href="">{{article.author}}</a></span><span
-                class="publish-time">  At time <a href="">{{article.publish_time}}</a></span></p>
+                class="publish-time">  At time / <a href="">{{article.publish_time}}</a></span></p>
       </el-col>
       <el-col :xs="24" :sm="14" :md="14" :lg="14" :xl="14">
         <p class="operate_info">
-          <span class="readings"><a href=""><i class="el-icon-view"></i> {{article.readings}}次阅读</a></span> |
-          <span class="comments"><a href=""><i class="el-icon-news"></i> {{article.comments}}个评论</a></span> |
-          <span class="likes"><a href=""><i class="el-icon-star-off"></i> {{article.likes}}个喜欢</a></span>
+          <span class="readings"><a href=""><i class="el-icon-view"></i> {{article.readings}} 阅读</a></span> |
+          <span class="comments"><a href=""><i class="el-icon-news"></i> {{article.comments}} 评论</a></span> |
+          <span class="likes"><a href=""><i class="el-icon-star-off"></i> {{article.likes}} 喜欢</a></span>
         </p>
       </el-col>
     </el-row>
@@ -53,6 +53,7 @@
       margin-bottom 18px
     .title
       font-size 27px
+      line-height 33px
       font-weight 500
       color main-title-color
       margin-bottom 23px
@@ -73,6 +74,8 @@
       text-align right
       font-size 14px
       margin 15px 0
+      @media only screen and (max-width: 768px)
+        text-align left
       span
         margin-right 10px
         + span
