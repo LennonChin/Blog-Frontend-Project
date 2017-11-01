@@ -2,16 +2,68 @@
   <div class="content">
     <div class="photowall-wrapper">
       <photo-wall></photo-wall>
+      <section-title :mainTitle="'文章'" :subTitle="'Articles'"></section-title>
+      <article-list-cell v-for="article in articles" :article="article" :key="article.title"></article-list-cell>
     </div>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
   import PhotoWall from '@/components/views/PhotoWall';
+  import ArticleListCell from '@/components/views/ArticleListCell';
+  import SectionTitle from '@/components/views/SectionTitle';
 
   export default {
+    data() {
+      return {
+        articles: [
+          {
+            'id': 1,
+            'title': '被太阳晒过的风 第四十四章',
+            'author': '子夜晨星',
+            'publish_time': '2017/10/22 17:57:08',
+            'desc': '-1-见了男朋友回来之后喝了一杯没怎么泡好的红糖水和一杯满满的白开水。去上了次厕所，然后坐在床上的时候开始咳嗽不止，去洗了把脸，恍然地瞥见镜子中的自己看起来并不...',
+            'readings': '148',
+            'comments': '2',
+            'likes': '20'
+          },
+          {
+            'id': 2,
+            'title': '被太阳晒过的风 第四十四章',
+            'author': '子夜晨星',
+            'publish_time': '2017/10/22 17:57:08',
+            'desc': '-1-见了男朋友回来之后喝了一杯没怎么泡好的红糖水和一杯满满的白开水。去上了次厕所，然后坐在床上的时候开始咳嗽不止，去洗了把脸，恍然地瞥见镜子中的自己看起来并不...',
+            'readings': '148',
+            'comments': '2',
+            'likes': '20'
+          },
+          {
+            'id': 3,
+            'title': '被太阳晒过的风 第四十四章',
+            'author': '子夜晨星',
+            'publish_time': '2017/10/22 17:57:08',
+            'desc': '-1-见了男朋友回来之后喝了一杯没怎么泡好的红糖水和一杯满满的白开水。去上了次厕所，然后坐在床上的时候开始咳嗽不止，去洗了把脸，恍然地瞥见镜子中的自己看起来并不...',
+            'readings': '148',
+            'comments': '2',
+            'likes': '20'
+          },
+          {
+            'id': 4,
+            'title': '被太阳晒过的风 第四十四章',
+            'author': '子夜晨星',
+            'publish_time': '2017/10/22 17:57:08',
+            'desc': '-1-见了男朋友回来之后喝了一杯没怎么泡好的红糖水和一杯满满的白开水。去上了次厕所，然后坐在床上的时候开始咳嗽不止，去洗了把脸，恍然地瞥见镜子中的自己看起来并不...',
+            'readings': '148',
+            'comments': '2',
+            'likes': '20'
+          }
+        ]
+      };
+    },
     components: {
-      'photo-wall': PhotoWall
+      'photo-wall': PhotoWall,
+      'article-list-cell': ArticleListCell,
+      'section-title': SectionTitle
     }
   };
 </script>

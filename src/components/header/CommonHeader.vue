@@ -72,7 +72,7 @@
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
-  @import "../../common/stylus/base.styl";
+  @import "../../common/stylus/index.styl";
   .header
     padding-top 20px
     @media only screen and (max-width: 1140px)
@@ -87,7 +87,7 @@
         font-size 0
         .el-icon-setting
           font-size 40px;
-          color #409EFF
+          color main-color
       .search
         .el-select
           width 100px
