@@ -2,13 +2,13 @@
   <div class="article-list-cell">
     <a href="">
       <el-row :gutter="0">
-        <el-col :span="17">
+        <el-col :xs="24" :sm="24" :md="17" :lg="17" :xl="17">
           <div class="text-wrapper">
             <h4 class="title"><a href="">{{article.title}}</a></h4>
             <p class="info"><span class="author">By / <a href="">{{article.author}}</a></span> At time <span
                     class="publish-time"><a href="">{{article.publish_time}}</a></span></p>
             <div class="line border-1px"></div>
-            <div class="tags" :gutter="20">
+            <div class="tags hidden-md-and-down">
               <el-tag size="small">标签一</el-tag>
               <el-tag size="small" type="success">标签二</el-tag>
               <el-tag size="small" type="info">标签三</el-tag>
@@ -21,7 +21,7 @@
               <span class="likes"><a href=""><i class="el-icon-star-off"></i> {{article.likes}}个喜欢</a></span></p>
           </div>
         </el-col>
-        <el-col :span="7">
+        <el-col :xs="24" :sm="24" :md="7" :lg="7" :xl="7" class="hidden-sm-and-down">
           <div class="img-wrapper">
             <img src="../../assets/photowall/photowall_pic_1.jpg" alt="">
           </div>
@@ -46,20 +46,23 @@
 
   .article-list-cell
     border 1px solid #eee
-    margin: 15px 0
+    margin-bottom 15px
     > a
       display block
       cursor default
       .text-wrapper
         padding 30px 30px 0 30px
         text-align left
+        @media only screen and (max-width: 768px)
+          padding 15px 15px 0 15px
         .title
           font-size 23px
-          font-weight 400
+          font-weight 100
           a
+            color main-title-color
             cursor pointer
             &:hover
-              color #333
+              color main-title-color-hover
               text-decoration underline
         .info
           margin-top 10px
@@ -93,7 +96,7 @@
               text-decoration underline
         .operate_info
           font-size 14px
-          margin-top 10px
+          margin 15px 0
           span
             margin-right 10px
             + span

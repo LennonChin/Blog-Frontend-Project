@@ -28,6 +28,9 @@
     height 50px
     line-height 50px
     text-align left
+    @media only screen and (max-width: 720px)
+      padding 10px 0
+      text-align center
     .square
       display inline-block
       height 30px
