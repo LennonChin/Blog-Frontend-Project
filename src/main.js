@@ -6,7 +6,32 @@ import '@/common/stylus/index.styl';
 import App from './App.vue';
 
 // Element UI 组件引入
-import { Button, Tabs, TabPane, Submenu, MenuItem, MenuItemGroup, Menu, Col, Row, Input, Select, Option, Dropdown, DropdownMenu, DropdownItem, Tag, Alert } from 'element-ui';
+import {
+  Button,
+  Tabs,
+  TabPane,
+  Submenu,
+  MenuItem,
+  MenuItemGroup,
+  Menu,
+  Col,
+  Row,
+  Input,
+  Select,
+  Option,
+  Dropdown,
+  DropdownMenu,
+  DropdownItem,
+  Tag,
+  Alert,
+  Form,
+  FormItem,
+  DatePicker,
+  TimePicker,
+  Checkbox,
+  Radio,
+  Switch
+} from 'element-ui';
 
 Vue.component(Button.name, Button);
 Vue.component(Tabs.name, Tabs);
@@ -26,6 +51,13 @@ Vue.component(DropdownMenu.name, DropdownMenu);
 Vue.component(DropdownItem.name, DropdownItem);
 Vue.component(Tag.name, Tag);
 Vue.component(Alert.name, Alert);
+Vue.component(Form.name, Form);
+Vue.component(FormItem.name, FormItem);
+Vue.component(DatePicker.name, DatePicker);
+Vue.component(TimePicker.name, TimePicker);
+Vue.component(Checkbox.name, Checkbox);
+Vue.component(Radio.name, Radio);
+Vue.component(Switch.name, Switch);
 
 let vm = new Vue({
   router,
