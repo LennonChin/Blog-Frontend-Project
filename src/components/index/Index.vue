@@ -24,6 +24,7 @@
         margin 15px 35px 0 35px
       @media screen and (min-width: 1140px)
         width 1140px
+        margin 0 auto
 
 
 </style>
