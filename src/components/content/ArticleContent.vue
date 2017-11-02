@@ -44,5 +44,11 @@
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
-
+  .article-content
+    @media only screen and (max-width: 1140px)
+      margin 0 35px
+      width auto
+    @media only screen and (max-width: 576px)
+      margin 0 5px
+      width auto
 </style>

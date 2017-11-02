@@ -5,6 +5,7 @@ import Index from '@/components/index/Index';
 
 // 公共区域
 import CommonHeader from '@/components/header/CommonHeader';
+import SimpleHeader from '@/components/header/SimpleHeader/SimpleHeader';
 import CommonFooter from '@/components/footer/CommonFooter';
 
 // 首页
@@ -24,7 +25,7 @@ export default new Router({
           path: 'home',
           name: 'home',
           components: {
-            header: CommonHeader,
+            header: SimpleHeader,
             content: HomeContent,
             footer: CommonFooter
           }

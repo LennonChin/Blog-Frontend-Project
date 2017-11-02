@@ -92,11 +92,4 @@
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
-  .content
-    .photowall-wrapper
-      margin-top 20px
-      @media only screen and (max-width: 1140px)
-        margin-top 15px
-      @media only screen and (max-width: 576px)
-        margin-top 5px
 </style>
