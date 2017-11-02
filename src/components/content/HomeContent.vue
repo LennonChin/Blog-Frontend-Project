@@ -1,5 +1,5 @@
 <template>
-  <div class="content">
+  <div class="home-content">
     <div class="photowall-wrapper">
       <photo-wall></photo-wall>
       <section-title :mainTitle="'文章'" :subTitle="'Articles'"></section-title>
@@ -92,4 +92,15 @@
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
+  .home-content
+    width auto
+    @media only screen and (max-width: 576px)
+      margin 5px 5px 0 5px
+    @media screen and (min-width: 576px)
+      margin 10px 10px 0 10px
+    @media screen and (min-width: 900px)
+      margin 15px 35px 0 35px
+    @media screen and (min-width: 1140px)
+      width 1140px
+      margin 15px auto 0
 </style>

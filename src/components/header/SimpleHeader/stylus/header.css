@@ -242,6 +242,7 @@ body.docs #nav {
 }
 #mobile-bar .menu-button {
   position: absolute;
+  cursor: pointer;
   width: 24px;
   height: 24px;
   top: 8px;

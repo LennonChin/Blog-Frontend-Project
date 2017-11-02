@@ -12,7 +12,7 @@
             </el-row>
         </div>
         <div class="comment-menu">
-            <el-form ref="form" :model="form" label-width="80px">
+            <el-form ref="form" label-width="80px">
                 <el-input placeholder="请输入评论主题" class="comment-menu-item"></el-input>
                 <el-input
                   type="textarea"

@@ -4,7 +4,7 @@ import HelloWorld from '@/components/HelloWorld';
 import Index from '@/components/index/Index';
 
 // 公共区域
-import CommonHeader from '@/components/header/CommonHeader';
+// import CommonHeader from '@/components/header/CommonHeader';
 import SimpleHeader from '@/components/header/SimpleHeader/SimpleHeader';
 import CommonFooter from '@/components/footer/CommonFooter';
 
@@ -34,7 +34,7 @@ export default new Router({
           path: 'article',
           name: 'article',
           components: {
-            header: CommonHeader,
+            header: SimpleHeader,
             content: ArticleContent,
             footer: CommonFooter
           }

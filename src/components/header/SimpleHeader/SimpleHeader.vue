@@ -1,27 +1,26 @@
 <template>
   <div class="simple-header">
     <div id="mobile-bar">
-      <a class="menu-button"></a>
+      <a class="menu-button" ref="menubutton"></a>
       <a class="logo" href="/"></a>
     </div>
-
     <div id="header">
-      <a id="logo" href="/">
+      <router-link id="logo" to="/home">
         <img src="../../../assets/logo.png">
-        <span>Vue.js</span>
-      </a>
+        <span>Diomedes</span>
+      </router-link>
       <ul id="nav">
         <li>
           <form id="search-form">
         <span class="algolia-autocomplete" style="position: relative; display: inline-block; direction: ltr;"><input
-                type="text" id="search-query-nav" class="search-query st-default-search-input aa-input"
-                autocomplete="off" spellcheck="false" role="combobox" aria-autocomplete="list" aria-expanded="false"
-                aria-owns="algolia-autocomplete-listbox-0" dir="auto" style="position: relative; vertical-align: top;"><pre
-                aria-hidden="true"
-                style="position: absolute; visibility: hidden; white-space: pre; font-family: system-ui; font-size: 12px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; word-spacing: 0px; letter-spacing: normal; text-indent: 0px; text-rendering: auto; text-transform: none;"></pre><span
-                class="aa-dropdown-menu" role="listbox" id="algolia-autocomplete-listbox-0"
-                style="position: absolute; top: 100%; z-index: 100; display: none; left: 0px; right: auto;"><div
-                class="aa-dataset-1"></div></span></span>
+          type="text" id="search-query-nav" class="search-query st-default-search-input aa-input"
+          autocomplete="off" spellcheck="false" role="combobox" aria-autocomplete="list" aria-expanded="false"
+          aria-owns="algolia-autocomplete-listbox-0" dir="auto" style="position: relative; vertical-align: top;"><pre
+          aria-hidden="true"
+          style="position: absolute; visibility: hidden; white-space: pre; font-family: system-ui; font-size: 12px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; word-spacing: 0px; letter-spacing: normal; text-indent: 0px; text-rendering: auto; text-transform: none;"></pre><span
+          class="aa-dropdown-menu" role="listbox" id="algolia-autocomplete-listbox-0"
+          style="position: absolute; top: 100%; z-index: 100; display: none; left: 0px; right: auto;"><div
+          class="aa-dataset-1"></div></span></span>
           </form>
         </li>
         <li class="nav-dropdown-container learn">
@@ -121,11 +120,33 @@
 
       </ul>
     </div>
+    <sidebar ref="sidebar"></sidebar>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
+  import SideBar from '@/components/header/SimpleHeader/SideBar';
 
+  export default {
+    components: {
+      'sidebar': SideBar
+    },
+    mounted: function () {
+      this.$nextTick(function () {
+        this.initMobileMenu();
+      });
+    },
+    methods: {
+      initMobileMenu() {
+        // 显示手机端的菜单
+        var sidebar = this.$refs.sidebar;
+        this.$refs.menubutton.addEventListener('click', function () {
+          sidebar.openSideBar();
+        });
+      }
+    }
+  }
+  ;
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">

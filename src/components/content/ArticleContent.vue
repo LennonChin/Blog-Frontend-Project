@@ -45,10 +45,15 @@
 
 <style lang="stylus" rel="stylesheet/stylus">
   .article-content
-    @media only screen and (max-width: 1140px)
-      margin 0 35px
-      width auto
-    @media only screen and (max-width: 576px)
-      margin 0 5px
-      width auto
+    width auto
+    @media screen and (min-width: 576px)
+      margin 5px 5px 0 5px
+    @media screen and (min-width: 768px)
+      margin 10px 10px 0 10px
+    @media screen and (min-width: 992px)
+      margin 15px 35px 0 35px
+    @media screen and (min-width: 1200px)
+      margin 0 100px 0 445px
+    @media screen and (min-width: 1366px)
+      margin 0 150px 0 495px
 </style>
