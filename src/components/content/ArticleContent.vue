@@ -30,9 +30,9 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import ArticlePageHeader from '@/components/views/ArticlePageHeader';
-  import ArticlePageContent from '@/components/views/ArticlePageContent';
-  import ArticlePageFooter from '@/components/views/ArticlePageFooter';
+  import ArticlePageHeader from '@/components/views/Article/ArticlePageHeader';
+  import ArticlePageContent from '@/components/views/Article/ArticlePageContent';
+  import ArticlePageFooter from '@/components/views/Article/ArticlePageFooter';
 
   export default {
     components: {

@@ -9,5 +9,5 @@
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
-  @import "../../common/stylus/article.styl";
+  @import "../../../common/stylus/article.styl";
 </style>

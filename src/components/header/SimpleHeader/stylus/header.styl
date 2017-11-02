@@ -1,12 +1,10 @@
-/* font */
-@import "fonts.styl";
-/* setting */
-@import "settings.styl";
+/* t */
+@import "../../../../common/stylus/theme.styl";
 
 /* common */
 a
   text-decoration: none
-  color: $medium
+  color: $color-secondary-info
 
 #nav
   .nav-link
@@ -60,7 +58,7 @@ a
       font-size: .9em
       display: block
       &:hover
-        color: $green
+        color: $color-main-primary
   .arrow
     display: inline-block
     vertical-align: middle
@@ -95,7 +93,6 @@ body.docs
   font-size: $body-font-size
   -webkit-font-smoothing: antialiased
   -moz-osx-font-smoothing: grayscale
-  color: $medium
   background-color: white
   margin: 0
   padding-top: $header-height
@@ -137,7 +134,7 @@ body.docs
           content: ""
           width: 0
           height: 0
-          border-left: 5px solid $green
+          border-left: 5px solid $color-main-primary
           border-top: 3px solid transparent
           border-bottom: 3px solid transparent
           position: absolute
@@ -148,7 +145,7 @@ body.docs
 .nav-link
   padding-bottom: 3px
   &:hover, &.current
-    border-bottom: 3px solid $green
+    border-bottom: 3px solid $color-main-primary
   &.team, &.contribute
     margin-left: 10px
 
@@ -156,7 +153,7 @@ body.docs
   position: absolute
   top: 3px
   left: 110%
-  background-color: $green
+  background-color: $color-main-primary
   color: #fff
   line-height: 16px
   height: 16px
@@ -181,7 +178,7 @@ body.docs
   background-size: 20px
   vertical-align: middle !important
   &:focus
-    border-color: $green
+    border-color: $color-main-primary
 
 #logo
   display: inline-block
@@ -271,7 +268,7 @@ body.docs
   .nav-link
     padding-bottom: 1px
     &:hover, &.current
-      border-bottom: 2px solid $green
+      border-bottom: 2px solid $color-main-primary
   #mobile-bar
     display: block
   #main

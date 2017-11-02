@@ -41,7 +41,7 @@
 }
 .sidebar .sidebar-link.current {
   font-weight: 600;
-  color: #42b983;
+  color: #409eff;
 }
 .sidebar .sidebar-link.new:after {
   content: "NEW";
@@ -49,7 +49,7 @@
   font-size: 10px;
   font-weight: 600;
   color: #fff;
-  background-color: #42b983;
+  background-color: #409eff;
   line-height: 14px;
   padding: 0 4px;
   border-radius: 3px;
@@ -101,7 +101,8 @@
   font-weight: normal;
   margin: 0;
 }
-@media screen and (max-width: 1200px) {
+/* 此处的阈值需要修改 1920 -》 1200px */
+@media screen and (max-width: 1920px) {
   .sidebar {
     position: fixed;
     z-index: 8;

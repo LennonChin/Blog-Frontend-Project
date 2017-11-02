@@ -46,10 +46,10 @@
     > a
       display block
       cursor default
-      border 1px solid main-border-color
+      border 1px solid $color-border
       &:hover
-        border 1px solid main-border-color-hover
-        box-shadow 2px 2px 3px main-border-color
+        border 1px solid $color-border-hover
+        box-shadow 2px 2px 3px $color-border
       .top-area
         padding-bottom: 100%
         width: 100%
@@ -72,10 +72,10 @@
           font-size 18px
           margin-bottom 10px
           a
-            color main-title-color
+            color $color-typegraphy-title
             &:hover
               text-decoration underline
-              color main-title-color-hover
+              color $color-typegraphy-title-hover
         .info
           margin-bottom 10px
           font-size 14px
@@ -84,7 +84,7 @@
             color: #777
             cursor pointer
             &:hover
-              color main-color
+              color $color-main-primary
               text-decoration underline
         .operate_info
           font-size 14px
@@ -96,6 +96,6 @@
             a
               cursor pointer
               &:hover
-                color main-color
+                color $color-main-primary
                 text-decoration underline
 </style>

@@ -89,7 +89,7 @@
           display: block
           .el-icon-setting
             font-size 40px;
-            color main-color
+            color $color-main-primary
       .search
         .el-select
           width 100px

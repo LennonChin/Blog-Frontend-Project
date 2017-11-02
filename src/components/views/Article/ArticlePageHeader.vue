@@ -44,7 +44,7 @@
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
-  @import "../../common/stylus/index.styl";
+  @import "../../../common/stylus/index.styl";
 
   .article-page-header
     text-align left
@@ -55,7 +55,7 @@
       font-size 27px
       line-height 33px
       font-weight 500
-      color main-title-color
+      color $color-typegraphy-title
       margin-bottom 23px
     .info
       margin-top 10px
@@ -66,7 +66,7 @@
         color: #777
         cursor pointer
         &:hover
-          color main-color
+          color $color-main-primary
           text-decoration underline
       .publish-time
         margin-left 20px
@@ -83,6 +83,6 @@
         a
           cursor pointer
           &:hover
-            color main-color
+            color $color-main-primary
             text-decoration underline
 </style>

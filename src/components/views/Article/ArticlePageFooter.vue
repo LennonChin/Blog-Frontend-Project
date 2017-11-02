@@ -37,7 +37,7 @@
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
-    @import "../../common/stylus/theme.styl";
+    @import "../../../common/stylus/theme.styl";
 
     .article-page-footer
         text-align left
@@ -52,6 +52,6 @@
                 a
                     font-size 14px
                     &:hover
-                        color main-color
+                        color $color-main-primary
 
 </style>

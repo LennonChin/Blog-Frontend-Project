@@ -25,7 +25,7 @@
         </el-col>
         <el-col :xs="24" :sm="24" :md="7" :lg="7" :xl="7" class="hidden-sm-and-down">
           <div class="img-wrapper">
-            <img src="../../assets/photowall/photowall_pic_2.jpg" alt="">
+            <img src="../../../assets/photowall/photowall_pic_2.jpg" alt="">
           </div>
         </el-col>
       </el-row>
@@ -44,17 +44,17 @@
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
-  @import "../../common/stylus/index.styl";
+  @import "../../../common/stylus/index.styl";
 
   .article-list-cell
     margin-bottom 15px
     > a
       display block
       cursor default
-      border 1px solid main-border-color
+      border 1px solid $color-border
       &:hover
-        border 1px solid main-border-color-hover
-        box-shadow 2px 2px 3px main-border-color
+        border 1px solid $color-border-hover
+        box-shadow 2px 2px 3px $color-border
       .text-wrapper
         padding 30px 30px 0 30px
         text-align left
@@ -65,10 +65,10 @@
           font-weight 100
           line-height 29px
           a
-            color main-title-color
+            color $color-typegraphy-title
             cursor pointer
             &:hover
-              color main-title-color-hover
+              color $color-typegraphy-title-hover
               text-decoration underline
         .info
           margin-top 10px
@@ -79,7 +79,7 @@
             color: #777
             cursor pointer
             &:hover
-              color main-color
+              color $color-main-primary
               text-decoration underline
           .publish-time
             margin-left 20px
@@ -97,7 +97,7 @@
           line-height 20px
           font-weight 200
           a
-            color main-color
+            color $color-main-primary
             font-weight 500
             cursor pointer
             &:hover
@@ -112,7 +112,7 @@
             a
               cursor pointer
               &:hover
-                color main-color
+                color $color-main-primary
                 text-decoration underline
       .img-wrapper
         padding-bottom: 70%

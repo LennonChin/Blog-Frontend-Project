@@ -59,7 +59,7 @@
       font-size 14px
       padding-left 10px
       a
-        color main-color
+        color $color-main-primary
         font-weight 500
         cursor pointer
         &:hover

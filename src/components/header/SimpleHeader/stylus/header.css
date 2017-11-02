@@ -1,32 +1,8 @@
-/* font */
-@font-face {
-  font-family: "Source Sans Pro";
-  src: local("Source Sans Pro"), url("/fonts/Source_Sans_Pro/SourceSansPro-Regular.ttf");
-}
-@font-face {
-  font-family: "Source Sans Pro";
-  src: local("Source Sans Pro Light"), url("/fonts/Source_Sans_Pro/SourceSansPro-Light.ttf");
-  font-weight: 300;
-}
-@font-face {
-  font-family: "Source Sans Pro";
-  src: local("Source Sans Pro Semibold"), url("/fonts/Source_Sans_Pro/SourceSansPro-Semibold.ttf");
-  font-weight: 600;
-}
-@font-face {
-  font-family: "Roboto Mono";
-  src: local("Roboto Mono"), url("/fonts/Roboto_Mono/RobotoMono-Regular.ttf");
-}
-@font-face {
-  font-family: "Dosis";
-  src: local("Dosis Medium"), url("/fonts/Dosis/Dosis-Medium.ttf");
-  font-weight: 500;
-}
-/* setting */
+/* t */
 /* common */
 a {
   text-decoration: none;
-  color: #34495e;
+  color: #878d99;
 }
 #nav .nav-link {
   cursor: pointer;
@@ -88,7 +64,7 @@ a {
   display: block;
 }
 #nav .nav-dropdown a:hover {
-  color: #42b983;
+  color: #409eff;
 }
 #nav .arrow {
   display: inline-block;
@@ -116,7 +92,6 @@ body.docs {
   font-size: 15px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: #34495e;
   background-color: #fff;
   margin: 0;
   padding-top: 40px;
@@ -164,7 +139,7 @@ body.docs #nav {
   content: "";
   width: 0;
   height: 0;
-  border-left: 5px solid #42b983;
+  border-left: 5px solid #409eff;
   border-top: 3px solid transparent;
   border-bottom: 3px solid transparent;
   position: absolute;
@@ -177,7 +152,7 @@ body.docs #nav {
 }
 .nav-link:hover,
 .nav-link.current {
-  border-bottom: 3px solid #42b983;
+  border-bottom: 3px solid #409eff;
 }
 .nav-link.team,
 .nav-link.contribute {
@@ -187,7 +162,7 @@ body.docs #nav {
   position: absolute;
   top: 3px;
   left: 110%;
-  background-color: #42b983;
+  background-color: #409eff;
   color: #fff;
   line-height: 16px;
   height: 16px;
@@ -213,7 +188,7 @@ body.docs #nav {
   vertical-align: middle !important;
 }
 .search-query:focus {
-  border-color: #42b983;
+  border-color: #409eff;
 }
 #logo {
   display: inline-block;
@@ -320,7 +295,7 @@ body.docs #nav {
   }
   .nav-link:hover,
   .nav-link.current {
-    border-bottom: 2px solid #42b983;
+    border-bottom: 2px solid #409eff;
   }
   #mobile-bar {
     display: block;
