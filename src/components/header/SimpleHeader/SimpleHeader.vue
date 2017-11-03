@@ -2,7 +2,7 @@
   <div class="simple-header">
     <div id="mobile-bar">
       <a class="menu-button" ref="menubutton"></a>
-      <a class="logo" href="/"></a>
+      <router-link class="logo" to="/home"></router-link>
     </div>
     <div id="header">
       <router-link id="logo" to="/home">
