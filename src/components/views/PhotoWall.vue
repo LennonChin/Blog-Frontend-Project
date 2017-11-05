@@ -62,6 +62,9 @@
         width: 100%
         img
           width 100%
+          transition: All 0.4s ease-in-out
+          transform: scale(1.0)
+          zoom: 1.0
       &:hover
         img
           transition: All 0.4s ease-in-out
@@ -77,6 +80,9 @@
         width: 100%
         img
           width 100%
+          transition: All 0.4s ease-in-out
+          transform: scale(1.0)
+          zoom: 1.0
       &:hover
         img
           transition: All 0.4s ease-in-out

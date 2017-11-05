@@ -15,6 +15,7 @@ import ArticleContent from '@/components/content/ArticleContent';
 Vue.use(Router);
 
 export default new Router({
+  mode: 'history',
   routes: [
     {
       path: '/',
@@ -22,7 +23,7 @@ export default new Router({
       component: Index,
       children: [
         {
-          path: 'home',
+          path: '/',
           name: 'home',
           components: {
             header: SimpleHeader,
