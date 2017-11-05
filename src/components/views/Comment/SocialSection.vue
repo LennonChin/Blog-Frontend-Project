@@ -14,11 +14,11 @@
     </el-menu>
     <div class="content">
       <div class="likes">
-        <a href=""><img src="../../../assets/avatar.jpeg" alt=""></a>
-        <a href=""><img src="../../../assets/avatar.jpeg" alt=""></a>
-        <a href=""><img src="../../../assets/avatar.jpeg" alt=""></a>
-        <a href=""><img src="../../../assets/avatar.jpeg" alt=""></a>
-        <a href=""><img src="../../../assets/avatar.jpeg" alt=""></a>
+        <a href=""><img src="../../../assets/avatar.png" alt=""></a>
+        <a href=""><img src="../../../assets/avatar.png" alt=""></a>
+        <a href=""><img src="../../../assets/avatar.png" alt=""></a>
+        <a href=""><img src="../../../assets/avatar.png" alt=""></a>
+        <a href=""><img src="../../../assets/avatar.png" alt=""></a>
       </div>
       <div class="operate">
         <a><i class="el-icon-star-off"></i> 赞这篇文章</a>
@@ -113,7 +113,7 @@
             cursor pointer
     .comment-area
       .editor
-        margin 15px 0 15px
+        margin 15px 0 10px
         height 150px
         transition height 0.7s
         &.spread

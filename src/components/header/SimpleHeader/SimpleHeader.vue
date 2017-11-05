@@ -2,10 +2,10 @@
   <div class="simple-header">
     <div id="mobile-bar">
       <a class="menu-button" ref="menubutton"></a>
-      <router-link class="logo" to="/home"></router-link>
+      <router-link class="logo" to="/"></router-link>
     </div>
     <div id="header">
-      <router-link id="logo" to="/home">
+      <router-link id="logo" to="/">
         <img src="../../../assets/logo.png">
         <span>Diomedes</span>
       </router-link>

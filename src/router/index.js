@@ -24,7 +24,7 @@ export default new Router({
       children: [
         {
           path: '/',
-          name: 'home',
+          name: 'index',
           components: {
             header: SimpleHeader,
             content: HomeContent,

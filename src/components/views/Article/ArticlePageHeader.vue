@@ -48,7 +48,8 @@
 
   .article-page-header
     text-align left
-    padding 20px 15px
+    padding 25px 25px 10px 25px
+    margin 15px 0 20px 0
     .tags
       margin-bottom 18px
     .title
@@ -85,4 +86,5 @@
           &:hover
             color $color-main-primary
             text-decoration underline
+
 </style>

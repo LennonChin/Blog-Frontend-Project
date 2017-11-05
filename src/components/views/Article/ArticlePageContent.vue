@@ -10,4 +10,7 @@
 
 <style lang="stylus" rel="stylesheet/stylus">
   @import "../../../common/stylus/article.styl";
+
+  #article-page-content
+    padding 5px
 </style>

@@ -4,10 +4,9 @@
                   :subfield="subfield" :placeholder="placeholder" :toolbars="toolbars" @change="change"></mavon-editor>
     <div class="bottom-area">
       <div class="comment-tip"><a href="https://guides.github.com/features/mastering-markdown/" target="_blank"><i
-        class="el-icon-info"></i> 可以使用MarkDown语法</a></div>
+        class="el-icon-info"></i> 支持MarkDown</a></div>
       <div class="buttons">
-        <el-button size="medium" @click="cancel">取消</el-button>
-        <el-button size="medium" @click="publish" type="primary">发布</el-button>
+        <el-button size="small" @click="publish" type="primary">发布</el-button>
       </div>
     </div>
   </div>
@@ -104,9 +103,6 @@
           this.$set(this.toolbars, 'navigation', true);
           this.$set(this.toolbars, 'subfield', true);
         }
-      },
-      cancel() {
-        console.log('cancel');
       },
       publish() {
         console.log('publish');

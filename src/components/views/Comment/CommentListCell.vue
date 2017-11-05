@@ -3,11 +3,11 @@
     <el-row>
       <el-col :xs="cellSpan('xs')" :sm="cellSpan('sm')" :md="cellSpan('md')" :lg="cellSpan('lg')" :xl="cellSpan('xl')">
         <div class="comment-main">
-          <el-row :gutter="10">
+          <el-row :gutter="8">
             <el-col :xs="cellLeftSpan('xs')" :sm="cellLeftSpan('sm')" :md="cellLeftSpan('md')"
                     :lg="cellLeftSpan('lg')" :xl="cellLeftSpan('xl')">
               <div class="avatar">
-                <img src="../../../assets/avatar.jpeg" alt="">
+                <img src="../../../assets/avatar.png" alt="">
               </div>
             </el-col>
             <el-col :xs="cellRightSpan('xs')" :sm="cellRightSpan('sm')" :md="cellRightSpan('md')"
@@ -26,7 +26,19 @@
                   <span class="like"><i class="el-icon-arrow-up"></i></span>
                   <span class="unlike"><i class="el-icon-arrow-down"></i></span>
                   <span class="reply"><a @click="showEditor = !showEditor"><i class="el-icon-edit"></i> 回复</a></span>
-                  <span class="share"><a href=""><i class="el-icon-share"></i> 分享</a></span>
+                  <el-dropdown>
+                    <span class="el-dropdown-link">
+                      <i class="el-icon-share"></i> 分享<i class="el-icon-arrow-down el-icon--right"></i>
+                    </span>
+                    <el-dropdown-menu slot="dropdown">
+                      <el-dropdown-item>菜单</el-dropdown-item>
+                      <el-dropdown-item>菜单</el-dropdown-item>
+                      <el-dropdown-item>菜单</el-dropdown-item>
+                      <el-dropdown-item disabled>菜单</el-dropdown-item>
+                      <el-dropdown-item divided>菜单</el-dropdown-item>
+                    </el-dropdown-menu>
+                  </el-dropdown>
+                  <span class="reply"><a>查看评论列表</a></span>
                 </div>
                 <div class="comment-area" v-show="showEditor">
                   <div class="reply-editor" :class="{spread: spreadEditor}">
@@ -141,19 +153,24 @@
           font-size 15px
           margin 0 5px
           a
-            color $light
+            color $dark
             &:hover
               color $color-main-primary
               text-decoration underline
-
+        .time
+          font-size 13px
+          color $light
+          margin-left 8px
       .comment-content
         font-size 16px
         line-height 24px
     .operate-area
       margin-top 8px
       font-size 14px
-      span + span
-        margin-left 10px
+      span
+        margin-right 10px
+      .el-dropdown-link
+        cursor pointer
       .like, .unlike
         color $light
         font-weight 700
