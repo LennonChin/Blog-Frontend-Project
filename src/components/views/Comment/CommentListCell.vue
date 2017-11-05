@@ -25,15 +25,13 @@
                 <div class="operate-area">
                   <span class="like"><i class="el-icon-arrow-up"></i></span>
                   <span class="unlike"><i class="el-icon-arrow-down"></i></span>
-                  <span class="reply"><a href=""><i class="el-icon-edit"></i> 回复</a></span>
+                  <span class="reply"><a @click="showEditor = !showEditor"><i class="el-icon-edit"></i> 回复</a></span>
                   <span class="share"><a href=""><i class="el-icon-share"></i> 分享</a></span>
                 </div>
-                <div class="comment-area">
-                  <!--<div class="editor" :class="{spread: spreadEditor}">-->
-                    <!--<mavon-editor @valueChanged="valueChanged"></mavon-editor>-->
-                  <!--</div>-->
-                  <!--<p class="comment-tip"><a href="https://guides.github.com/features/mastering-markdown/" target="_blank"><i-->
-                    <!--class="el-icon-info"></i> 可以使用MarkDown语法</a></p>-->
+                <div class="comment-area" v-show="showEditor">
+                  <div class="reply-editor" :class="{spread: spreadEditor}">
+                    <mavon-editor @valueChanged="valueChanged"></mavon-editor>
+                  </div>
                 </div>
               </div>
             </el-col>
@@ -45,6 +43,8 @@
 </template>
 
 <script type="text/ecmascript-6">
+  import MavonEditor from '@/components/views/MavonEditor';
+
   const CELL_LEFT_SPAN = {
     'xs': 3,
     'sm': 3,
@@ -71,28 +71,35 @@
         default: 'View All'
       }
     },
+    data() {
+      return {
+        showEditor: false,
+        spreadEditor: false
+      };
+    },
     methods: {
       cellSpan(size) {
-        console.log(size);
         var span = {};
         span['offset'] = CELL_LEFT_SPAN[size] * this.commentLevel;
         span['span'] = 24 - span['offset'];
-        console.log(span);
         return span;
       },
       cellLeftSpan(size) {
-        console.log(size);
         var span = {};
         span['span'] = CELL_LEFT_SPAN[size];
-        console.log(span);
         return span;
       },
       cellRightSpan(size) {
         var span = {};
         span['span'] = CELL_RIGHT_SPAN[size];
-        console.log(span);
         return span;
+      },
+      valueChanged(flag) {
+        this.spreadEditor = flag;
       }
+    },
+    components: {
+      'mavon-editor': MavonEditor
     }
   };
 </script>
@@ -150,4 +157,19 @@
       .like, .unlike
         color $light
         font-weight 700
+      .reply
+        cursor pointer
+    .comment-area
+      margin-bottom 10px
+      .reply-editor
+        margin-top 15px
+        height 150px
+        transition height 0.7s
+        &.spread
+          height 250px
+      p.comment-tip
+        a
+          font-size 14px
+          &:hover
+            color $color-main-primary
 </style>

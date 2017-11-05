@@ -20,6 +20,7 @@
         </el-col>
       </el-row>
     </div>
+    <section-title :mainTitle="'时光轴'" :subTitle="'Topics'"></section-title>
     <archive-list-time-title :date="'2017年'" :count="'200'"></archive-list-time-title>
     <archive-list-time-title :date="'10月'" :count="'200'" :dateType="'month'"></archive-list-time-title>
     <archive-list-cell v-for="article in articles" :article="article" :key="article.title"></archive-list-cell>

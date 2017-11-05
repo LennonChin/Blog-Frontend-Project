@@ -1,7 +1,15 @@
 <template>
   <div id="mavon-editor">
-    <mavon-editor style="height: 100%; min-height: 50px; min-width: 200px; z-index: 9;" :toolbarsFlag="toolbarsFlag"
+    <mavon-editor class="editor-area" style="height: 100%; min-height: 50px; min-width: 200px; z-index: 9;" :toolbarsFlag="toolbarsFlag"
                   :subfield="subfield" :placeholder="placeholder" :toolbars="toolbars" @change="change"></mavon-editor>
+    <div class="bottom-area">
+      <div class="comment-tip"><a href="https://guides.github.com/features/mastering-markdown/" target="_blank"><i
+        class="el-icon-info"></i> 可以使用MarkDown语法</a></div>
+      <div class="buttons">
+        <el-button size="medium" @click="cancel">取消</el-button>
+        <el-button size="medium" @click="publish" type="primary">发布</el-button>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -96,6 +104,12 @@
           this.$set(this.toolbars, 'navigation', true);
           this.$set(this.toolbars, 'subfield', true);
         }
+      },
+      cancel() {
+        console.log('cancel');
+      },
+      publish() {
+        console.log('publish');
       }
     },
     mounted() {
@@ -111,4 +125,15 @@
   #mavon-editor
     height 100%
     width 100%
+    display flex
+    flex-direction column
+    .editor-area
+      flex 1
+    .bottom-area
+      flex 0 0 40px
+      height 40px
+      display flex
+      padding-top 15px
+      justify-content: space-between
+
 </style>

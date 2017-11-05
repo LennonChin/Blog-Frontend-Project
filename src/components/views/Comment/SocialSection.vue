@@ -10,7 +10,7 @@
         <el-menu-item index="2-2">Github</el-menu-item>
         <el-menu-item index="2-3">Facebook</el-menu-item>
       </el-submenu>
-      <el-menu-item index="3" style="float: right;"><a href="https://www.ele.me" target="_blank">订单管理</a></el-menu-item>
+      <el-menu-item index="3" style="float: right;"><a href="https://www.ele.me" target="_blank">菜单</a></el-menu-item>
     </el-menu>
     <div class="content">
       <div class="likes">
@@ -27,11 +27,11 @@
                 <i class="el-icon-share"></i> 分享<i class="el-icon-arrow-down el-icon--right"></i>
               </span>
           <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item>黄金糕</el-dropdown-item>
-            <el-dropdown-item>狮子头</el-dropdown-item>
-            <el-dropdown-item>螺蛳粉</el-dropdown-item>
-            <el-dropdown-item disabled>双皮奶</el-dropdown-item>
-            <el-dropdown-item divided>蚵仔煎</el-dropdown-item>
+            <el-dropdown-item>菜单</el-dropdown-item>
+            <el-dropdown-item>菜单</el-dropdown-item>
+            <el-dropdown-item>菜单</el-dropdown-item>
+            <el-dropdown-item disabled>菜单</el-dropdown-item>
+            <el-dropdown-item divided>菜单</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
       </div>
@@ -41,8 +41,6 @@
       <div class="editor" :class="{spread: spreadEditor}">
         <mavon-editor @valueChanged="valueChanged"></mavon-editor>
       </div>
-      <p class="comment-tip"><a href="https://guides.github.com/features/mastering-markdown/" target="_blank"><i
-              class="el-icon-info"></i> 可以使用MarkDown语法</a></p>
     </div>
 
     <div class="comment-list">
@@ -114,17 +112,11 @@
           &:hover
             cursor pointer
     .comment-area
-      margin-bottom 30px
       .editor
         margin 15px 0 15px
-        height 70px
+        height 150px
         transition height 0.7s
         &.spread
           height 350px
-      p.comment-tip
-        a
-          font-size 14px
-          &:hover
-            color $color-main-primary
 
 </style>
