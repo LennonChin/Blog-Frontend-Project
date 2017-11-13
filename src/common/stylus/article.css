@@ -2,6 +2,40 @@
   text-align: left;
   padding: 0 10px;
 }
+#article-page-content > article h1,
+#article-page-content > article h2,
+#article-page-content > article h3,
+#article-page-content > article h4,
+#article-page-content > article h5,
+#article-page-content > article h6,
+#article-page-content > article h7 {
+  padding: 25px 0 15px;
+  font-weight: 700;
+}
+#article-page-content > article h1 {
+  font-size: 27px;
+}
+#article-page-content > article h2 {
+  font-size: 25px;
+}
+#article-page-content > article h3 {
+  font-size: 22px;
+}
+#article-page-content > article h4,
+#article-page-content > article h5,
+#article-page-content > article h6,
+#article-page-content > article h7 {
+  font-size: 20px;
+}
+#article-page-content > article ul {
+  list-style-type: circle;
+  margin: 0;
+  line-height: 1.5em;
+  padding-left: 1em;
+}
+#article-page-content > article li {
+  margin: 0.5em 0;
+}
 #article-page-content > article pre {
   font-size: 16px;
   line-height: 20px;

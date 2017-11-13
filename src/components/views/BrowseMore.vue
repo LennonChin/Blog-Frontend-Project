@@ -23,6 +23,10 @@
     methods: {
       browseMore() {
         this.loading = true;
+        var that = this;
+        setTimeout(function () {
+          that.loading = false;
+        }, 3000);
       }
     }
   };

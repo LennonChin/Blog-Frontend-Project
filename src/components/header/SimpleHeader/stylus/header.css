@@ -134,6 +134,7 @@ body.docs #nav {
 #nav .nav-dropdown .nav-link:hover,
 #nav .nav-dropdown .nav-link.current {
   border-bottom: none;
+  color: #409eff;
 }
 #nav .nav-dropdown .nav-link.current::after {
   content: "";
@@ -153,6 +154,7 @@ body.docs #nav {
 .nav-link:hover,
 .nav-link.current {
   border-bottom: 3px solid #409eff;
+  color: #409eff;
 }
 .nav-link.team,
 .nav-link.contribute {
@@ -293,9 +295,12 @@ body.docs #nav {
   .nav-link {
     padding-bottom: 1px;
   }
-  .nav-link:hover,
   .nav-link.current {
     border-bottom: 2px solid #409eff;
+    color: #409eff;
+  }
+  .nav-link:hover {
+    color: #409eff;
   }
   #mobile-bar {
     display: block;

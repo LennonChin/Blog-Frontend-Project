@@ -2,27 +2,157 @@
   <div class="article-content">
     <article-page-header></article-page-header>
     <article-page-content>
-      <article class="typo container" slot="content">
-        <pre class="brush:javascript;toolbar:false">大学毕业不再住寝室之后，我发展了一个新的爱好，叫做做饭。每天下班回来有点累了，去厨房鼓捣点吃的补充体力，发生不开心的事情心情压抑，去厨房烧点喜欢的菜，不知不觉就平静下来。<br>&nbsp;<br>《食记百味》里面有一句话讲：食物是一种很厉害的东西，带有一种决定性的力量。食物于我是一种治愈，喜欢吃，胖一点也没什么关系。今天给大家推荐10部和食物有关的电影，希望你看了能有一个好心情。</pre>
-        <p>&nbsp;</p>
-        <p><strong>【1】《深夜食堂》</strong></p>
-        <p>导演:&nbsp;松冈锭司</p>
-        <p>编剧:&nbsp;真边克彦&nbsp;/&nbsp;小嶋健作&nbsp;/&nbsp;松冈锭司&nbsp;/&nbsp;安倍夜郎</p>
-        <p>主演:&nbsp;小林薰&nbsp;/&nbsp;高冈早纪&nbsp;/&nbsp;柄本时生&nbsp;/&nbsp;多部未华子&nbsp;/&nbsp;余贵美子&nbsp;</p>
-        <p><br></p>
-        <p>
-          这个电影延续了同名日剧的风格，开头就是：天色已晚，人们都赶在回家的路上，我的一天才刚开始，营业时间从深夜12点到次日7点，人们称这里为深夜食堂，菜单只有这些，可以随意点其他菜，能做的就尽量做是我的经营方针，你问有没有客人，其实还不少呢。</p>
-        <p>&nbsp;</p>
-        <p>
-          电影里面有3个小故事，3道美食，以客人们在桌子下边发现一个骨灰坛为开始，以骨灰坛的主人上门认领为结束。期间穿插着靠山去世，因失去依靠而颓唐不已的小三玉子的故事、乡下女孩美知留因吃霸王餐上门认错反被老板收留的故事和爱上了志愿者明美的灾民谦三求婚未果一路追到东京的故事。</p>
-        <p>&nbsp;</p>
-        <p>
-          剧版里面的熟悉的面孔也都会出现，大家在老板做的热气腾腾的食物里面参与着这些事情的发生，谈一谈、聊一聊，各自吃着各自的食物，下次光顾的时候还要问问上次发生的事情，不知不觉的这些事情也都过去了，像任何一个平静的夜晚，一切缓缓的逝去，但是有一些温暖柔软的部分却被留了下来。</p>
-        <p>&nbsp;</p>
-        <p>喜欢这篇文章的话欢迎你关注我的微信公众号：<strong>【北渺】</strong></p>
-        <p><br></p>
-        <p>希望能成为你的朋友。</p>
-        <p><br></p>
+      <article id="article-main-page" class="typo container" slot="content">
+        <h1>Action</h1>
+        <p>Action 类似于 mutation，不同在于：</p>
+        <ul><li>
+          Action 提交的是 mutation，而不是直接变更状态。</li>
+          <li>
+            Action 可以包含任意异步操作。</li>
+        </ul>
+        <p>让我们来注册一个简单的 action：</p>
+        <pre><code class='language-js' lang='js'>
+const store = new Vuex.Store({
+  state: {
+    count: 0
+  },
+  mutations: {
+    increment (state) {
+      state.count++
+    }
+  },
+  actions: {
+    increment (context) {
+      context.commit(&#39;increment&#39;)
+    }
+  }
+})
+</code></pre>
+        <p>Action 函数接受一个与 store 实例具有相同方法和属性的 context 对象，因此你可以调用 <code>context.commit</code> 提交一个 mutation，或者通过 <code>context.state</code> 和 <code>context.getters</code> 来获取 state 和 getters。当我们在之后介绍到 <a href='modules.md'>Modules</a> 时，你就知道 context 对象为什么不是 store 实例本身了。</p>
+        <p>实践中，我们会经常用到 ES2015 的 <a href='https://github.com/lukehoban/es6features#destructuring'>参数解构</a> 来简化代码（特别是我们需要调用 <code>commit</code> 很多次的时候）：</p>
+        <pre><code class='language-js' lang='js'>
+actions: {
+  increment ({ commit }) {
+    commit(&#39;increment&#39;)
+  }
+}
+</code></pre>
+        <h3>分发 Action</h3>
+        <p>Action 通过 <code>store.dispatch</code> 方法触发：</p>
+        <pre><code class='language-js' lang='js'>
+store.dispatch(&#39;increment&#39;)
+</code></pre>
+        <p>乍一眼看上去感觉多此一举，我们直接分发 mutation 岂不更方便？实际上并非如此，还记得 <strong>mutation 必须同步执行</strong>这个限制么？Action 就不受约束！我们可以在 action 内部执行<strong>异步</strong>操作：</p>
+        <pre><code class='language-js' lang='js'>
+actions: {
+  incrementAsync ({ commit }) {
+    setTimeout(() =&gt; {
+      commit(&#39;increment&#39;)
+    }, 1000)
+  }
+}
+</code></pre>
+        <p>Actions 支持同样的载荷方式和对象方式进行分发：</p>
+        <pre><code class='language-js' lang='js'>
+// 以载荷形式分发
+store.dispatch(&#39;incrementAsync&#39;, {
+  amount: 10
+})
+
+// 以对象形式分发
+store.dispatch({
+  type: &#39;incrementAsync&#39;,
+  amount: 10
+})
+</code></pre>
+        <p>来看一个更加实际的购物车示例，涉及到<strong>调用异步 API</strong> 和<strong>分发多重 mutation</strong>：</p>
+        <pre><code class='language-js' lang='js'>
+actions: {
+  checkout ({ commit, state }, products) {
+    // 把当前购物车的物品备份起来
+    const savedCartItems = [...state.cart.added]
+    // 发出结账请求，然后乐观地清空购物车
+    commit(types.CHECKOUT_REQUEST)
+    // 购物 API 接受一个成功回调和一个失败回调
+    shop.buyProducts(
+      products,
+      // 成功操作
+      () =&gt; commit(types.CHECKOUT_SUCCESS),
+      // 失败操作
+      () =&gt; commit(types.CHECKOUT_FAILURE, savedCartItems)
+    )
+  }
+}
+</code></pre>
+        <p>注意我们正在进行一系列的异步操作，并且通过提交 mutation 来记录 action 产生的副作用（即状态变更）。</p>
+        <h3>在组件中分发 Action</h3>
+        <p>你在组件中使用 <code>this.$store.dispatch(&#39;xxx&#39;)</code> 分发 action，或者使用 <code>mapActions</code> 辅助函数将组件的 methods 映射为 <code>store.dispatch</code> 调用（需要先在根节点注入 <code>store</code>）：</p>
+        <pre><code class='language-js' lang='js'>
+import { mapActions } from &#39;vuex&#39;
+
+export default {
+  // ...
+  methods: {
+    ...mapActions([
+      &#39;increment&#39;, // 将 `this.increment()` 映射为 `this.$store.dispatch(&#39;increment&#39;)`
+
+      // `mapActions` 也支持载荷：
+      &#39;incrementBy&#39; // 将 `this.incrementBy(amount)` 映射为 `this.$store.dispatch(&#39;incrementBy&#39;, amount)`
+    ]),
+    ...mapActions({
+      add: &#39;increment&#39; // 将 `this.add()` 映射为 `this.$store.dispatch(&#39;increment&#39;)`
+    })
+  }
+}
+</code></pre>
+        <h3>组合 Action</h3>
+        <p>Action 通常是异步的，那么如何知道 action 什么时候结束呢？更重要的是，我们如何才能组合多个 action，以处理更加复杂的异步流程？</p>
+        <p>首先，你需要明白 <code>store.dispatch</code> 可以处理被触发的 action 的处理函数返回的 Promise，并且 <code>store.dispatch</code> 仍旧返回 Promise：</p>
+        <pre><code class='language-js' lang='js'>
+actions: {
+  actionA ({ commit }) {
+    return new Promise((resolve, reject) =&gt; {
+      setTimeout(() =&gt; {
+        commit(&#39;someMutation&#39;)
+        resolve()
+      }, 1000)
+    })
+  }
+}
+</code></pre>
+        <p>现在你可以：</p>
+        <pre><code class='language-js' lang='js'>
+store.dispatch(&#39;actionA&#39;).then(() =&gt; {
+  // ...
+})
+</code></pre>
+        <p>在另外一个 action 中也可以：</p>
+        <pre><code class='language-js' lang='js'>
+actions: {
+  // ...
+  actionB ({ dispatch, commit }) {
+    return dispatch(&#39;actionA&#39;).then(() =&gt; {
+      commit(&#39;someOtherMutation&#39;)
+    })
+  }
+}
+</code></pre>
+        <p>最后，如果我们利用 <a href='https://tc39.github.io/ecmascript-asyncawait/'>async / await</a> 这个 JavaScript 即将到来的新特性，我们可以像这样组合 action：</p>
+        <pre><code class='language-js' lang='js'>
+// 假设 getData() 和 getOtherData() 返回的是 Promise
+
+actions: {
+  async actionA ({ commit }) {
+    commit(&#39;gotData&#39;, await getData())
+  },
+  async actionB ({ dispatch, commit }) {
+    await dispatch(&#39;actionA&#39;) // 等待 actionA 完成
+    commit(&#39;gotOtherData&#39;, await getOtherData())
+  }
+}
+</code></pre>
+        <blockquote><p>一个 <code>store.dispatch</code> 在不同模块中可以触发多个 action 函数。在这种情况下，只有当所有触发函数完成后，返回的 Promise 才会执行。</p>
+        </blockquote>
       </article>
     </article-page-content>
     <article-page-footer></article-page-footer>

@@ -20,50 +20,18 @@
   padding-left: 1em;
 }
 .sidebar li {
-  margin-top: 0.5em;
+  margin: 0.5em 0;
 }
-.sidebar .sidebar-inner {
-  width: 260px;
-  padding: 40px 20px 60px 60px;
+.sidebar li > a {
+  font-size: 16px;
+  color: #363636;
 }
-.sidebar .version-select {
-  vertical-align: middle;
-  margin-left: 5px;
+.sidebar li > ul > li > a {
+  font-size: 14px;
+  color: #828282;
 }
 .sidebar .menu-root {
-  padding-left: 0;
-}
-.sidebar .menu-sub {
-  font-size: 0.85em;
-}
-.sidebar .sidebar-link {
-  color: #7f8c8d;
-}
-.sidebar .sidebar-link.current {
-  font-weight: 600;
-  color: #409eff;
-}
-.sidebar .sidebar-link.new:after {
-  content: "NEW";
-  display: inline-block;
-  font-size: 10px;
-  font-weight: 600;
-  color: #fff;
-  background-color: #409eff;
-  line-height: 14px;
-  padding: 0 4px;
-  border-radius: 3px;
-  margin-left: 5px;
-  vertical-align: middle;
-  position: relative;
-  top: -1px;
-}
-.sidebar .sidebar-link:hover {
-  border-bottom: 2px solid #42b983;
-}
-.sidebar .section-link.active {
-  font-weight: bold;
-  color: #42b983;
+  margin-top: 30px;
 }
 .sidebar .main-menu {
   margin-bottom: 20px;
@@ -101,8 +69,47 @@
   font-weight: normal;
   margin: 0;
 }
+/* 原始菜单css start 保留,用于参考
+.slider
+  .sidebar-inner
+    width: 260px
+    padding: $content-padding-top + 10px 20px 60px 60px
+  .version-select
+    vertical-align: middle
+    margin-left: 5px
+  .menu-root
+    padding-left: 0
+  .menu-sub
+    font-size: .85em
+  .sidebar-link
+    color: $light
+    &.current
+      font-weight: 600
+      color: $color-main-primary
+    &.new
+      &:after
+        content: "NEW"
+        display: inline-block
+        font-size: 10px
+        font-weight: 600
+        color: #fff
+        background-color: $color-main-primary
+        line-height: 14px
+        padding: 0 4px
+        border-radius: 3px
+        margin-left: 5px
+        vertical-align: middle
+        position: relative
+        top: -1px
+    &:hover
+      border-bottom: 2px solid $green
+  .section-link
+    &.active
+      font-weight: bold
+      color: $green
+原始菜单css start 保留,用于参考 */
 /* 此处的阈值需要修改 1920 -》 1200px */
-@media screen and (max-width: 1920px) {
+@media screen and (max-width: 1100px) {
   .sidebar {
     position: fixed;
     z-index: 10;

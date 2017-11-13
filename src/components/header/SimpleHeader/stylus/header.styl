@@ -129,6 +129,7 @@ body.docs
     .nav-link
       &:hover, &.current
         border-bottom: none
+        color $color-main-primary
       &.current
         &::after
           content: ""
@@ -146,6 +147,7 @@ body.docs
   padding-bottom: 3px
   &:hover, &.current
     border-bottom: 3px solid $color-main-primary
+    color $color-main-primary
   &.team, &.contribute
     margin-left: 10px
 
@@ -267,8 +269,11 @@ body.docs
     display: none
   .nav-link
     padding-bottom: 1px
-    &:hover, &.current
+    &.current
       border-bottom: 2px solid $color-main-primary
+      color $color-main-primary
+    &:hover
+      color $color-main-primary
   #mobile-bar
     display: block
   #main

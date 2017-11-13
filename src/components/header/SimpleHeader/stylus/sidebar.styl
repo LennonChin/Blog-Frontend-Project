@@ -19,7 +19,55 @@
     line-height: 1.5em
     padding-left: 1em
   li
-    margin-top: .5em
+    margin .5em 0
+    > a
+      font-size 16px
+      color $color-gradually-gray-21
+    > ul > li > a
+      font-size 14px
+      color $color-gradually-gray-51
+
+
+  // 生成Toc目录css
+  .menu-root
+    margin-top 30px
+
+
+  // 导航栏菜单css
+  .main-menu
+    margin-bottom: 20px
+    display: none
+    padding-left: 0
+  .main-sponsor
+    color: $light
+    font-size: .85em
+    .logo
+      color: $light
+      margin: 10px 0
+      // background-color: #f3f3f3
+      padding: 10px 0
+      text-align: center
+      font-weight: bold
+    img, a
+      width: 125px
+      display: inline-block
+  .become-backer
+    border: 1px solid $green
+    border-radius: 2em
+    display: inline-block
+    color: $green
+    font-size: .8em
+    width: 125px
+    padding: 4px 0
+    text-align: center
+    margin-bottom: 20px
+  .nav-dropdown
+    h4
+      font-weight: normal
+      margin: 0
+
+/* 原始菜单css start 保留,用于参考
+.slider
   .sidebar-inner
     width: 260px
     padding: $content-padding-top + 10px 20px 60px 60px
@@ -56,40 +104,10 @@
     &.active
       font-weight: bold
       color: $green
-  .main-menu
-    margin-bottom: 20px
-    display: none
-    padding-left: 0
-  .main-sponsor
-    color: $light
-    font-size: .85em
-    .logo
-      color: $light
-      margin: 10px 0
-      // background-color: #f3f3f3
-      padding: 10px 0
-      text-align: center
-      font-weight: bold
-    img, a
-      width: 125px
-      display: inline-block
-  .become-backer
-    border: 1px solid $green
-    border-radius: 2em
-    display: inline-block
-    color: $green
-    font-size: .8em
-    width: 125px
-    padding: 4px 0
-    text-align: center
-    margin-bottom: 20px
-  .nav-dropdown
-    h4
-      font-weight: normal
-      margin: 0
+原始菜单css start 保留,用于参考 */
 
 /* 此处的阈值需要修改 1920 -》 1200px */
-@media screen and (max-width: 1920px)
+@media screen and (max-width: 1100px)
   .sidebar
     position: fixed
     z-index: 10
