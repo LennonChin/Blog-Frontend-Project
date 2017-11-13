@@ -1,4 +1,4 @@
-@import "theme.styl";
+@import "theme.styl"
 
 #article-page-content
   > article
@@ -22,10 +22,6 @@
       padding-left 1em
     li
       margin .5em 0
-    pre
-      font-size 16px
-      line-height 22px
-      white-space pre-wrap
     p
       font-size 17px
       line-height 25px
@@ -34,3 +30,26 @@
       margin 15px 0
     img
       width 100%
+    pre
+      position relative
+      overflow hidden
+      font-size 16px
+      line-height 24px
+      code
+        display block
+        padding 12px 24px
+        overflow-y auto
+        font-weight 300
+        &.has-numbering
+          margin-left 41px
+      .pre-numbering
+        position absolute
+        top 0
+        left 0
+        width 40px
+        background-color #eee
+        text-align right
+        font-size 16px
+        color #aaa
+        li
+          padding-right 5px

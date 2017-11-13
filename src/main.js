@@ -74,6 +74,22 @@ Vue.directive('highlight', function (el) {
   let blocks = el.querySelectorAll('pre code');
   blocks.forEach((block) => {
     hljs.highlightBlock(block);
+
+    var lineTexts = (block.innerText).split('\n');
+    var lines = lineTexts.length - 1;
+    var ulNode = document.createElement('ul');
+    ulNode.setAttribute('class', 'pre-numbering');
+    for (let i = 1; i <= lines; i++) {
+      var liNode = document.createElement('li');
+      liNode.innerHTML = i + '';
+      ulNode.appendChild(liNode);
+    }
+
+    if (!block.className.match(RegExp('(\\s|^)has-numbering(\\s|$)'))) {
+      block.className += ' has-numbering';
+    }
+
+    block.parentNode.appendChild(ulNode);
   });
 });
 

@@ -36,11 +36,6 @@
 #article-page-content > article li {
   margin: 0.5em 0;
 }
-#article-page-content > article pre {
-  font-size: 16px;
-  line-height: 22px;
-  white-space: pre-wrap;
-}
 #article-page-content > article p {
   font-size: 17px;
   line-height: 25px;
@@ -50,4 +45,32 @@
 }
 #article-page-content > article img {
   width: 100%;
+}
+#article-page-content > article pre {
+  position: relative;
+  overflow: hidden;
+  font-size: 16px;
+  line-height: 24px;
+}
+#article-page-content > article pre code {
+  display: block;
+  padding: 12px 24px;
+  overflow-y: auto;
+  font-weight: 300;
+}
+#article-page-content > article pre code.has-numbering {
+  margin-left: 41px;
+}
+#article-page-content > article pre .pre-numbering {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 40px;
+  background-color: #eee;
+  text-align: right;
+  font-size: 16px;
+  color: #aaa;
+}
+#article-page-content > article pre .pre-numbering li {
+  padding-right: 5px;
 }

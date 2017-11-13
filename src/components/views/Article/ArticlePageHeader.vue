@@ -7,7 +7,7 @@
       <el-tag size="small" type="warning">标签四</el-tag>
       <el-tag size="small" type="danger">标签五</el-tag>
     </div>
-    <p class="title">影单 | 热爱食物是热爱生活的表现</p>
+    <p class="title">Action | 关于Action的解释</p>
     <el-row :gutter="0">
       <el-col :xs="24" :sm="10" :md="10" :lg="10" :xl="10">
         <p class="info"><span class="author">By / <a href="">{{article.author}}</a></span><span
