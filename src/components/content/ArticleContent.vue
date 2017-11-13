@@ -2,7 +2,7 @@
   <div class="article-content">
     <article-page-header></article-page-header>
     <article-page-content>
-      <article id="article-main-page" class="typo container" slot="content">
+      <article id="article-main-page" class="typo container" slot="content" v-highlight>
         <h1>Action</h1>
         <p>Action 类似于 mutation，不同在于：</p>
         <ul><li>
@@ -158,7 +158,7 @@ actions: {
     <article-page-footer></article-page-footer>
   </div>
 </template>
-
+npm
 <script type="text/ecmascript-6">
   import ArticlePageHeader from '@/components/views/Article/ArticlePageHeader';
   import ArticlePageContent from '@/components/views/Article/ArticlePageContent';

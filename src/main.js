@@ -5,6 +5,11 @@ import 'element-ui/lib/theme-chalk/display.css';
 import '@/common/stylus/index.styl';
 import App from './App.vue';
 
+// highlight.js引入
+import hljs from 'highlight.js';
+// 样式文件
+import 'highlight.js/styles/zenburn.css';
+
 // Element UI 组件引入
 import {
   Button,
@@ -63,6 +68,13 @@ let vm = new Vue({
   router,
   el: '#app',
   render: h => h(App)
+});
+
+Vue.directive('highlight', function (el) {
+  let blocks = el.querySelectorAll('pre code');
+  blocks.forEach((block) => {
+    hljs.highlightBlock(block);
+  });
 });
 
 Vue.use({

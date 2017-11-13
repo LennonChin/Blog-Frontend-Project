@@ -38,17 +38,15 @@
 }
 #article-page-content > article pre {
   font-size: 16px;
-  line-height: 20px;
-  display: block;
+  line-height: 22px;
   white-space: pre-wrap;
-  color: #333;
-  font-weight: 200;
 }
 #article-page-content > article p {
   font-size: 17px;
   line-height: 25px;
   color: #333;
   font-weight: 200;
+  margin: 15px 0;
 }
 #article-page-content > article img {
   width: 100%;
