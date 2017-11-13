@@ -3,28 +3,6 @@
     </el-alert>
     <license-tag></license-tag>
     <social-section></social-section>
-    <!--<div class="operate_menu">-->
-      <!--<el-row :gutter="0">-->
-        <!--<el-col :span="3">-->
-          <!--<el-button type="primary" icon="el-icon-star-off" plain round>喜欢</el-button>-->
-        <!--</el-col>-->
-        <!--<el-col :span="21">-->
-        <!--</el-col>-->
-      <!--</el-row>-->
-    <!--</div>-->
-    <!--<div class="comment-menu">-->
-      <!--<el-form ref="form" label-width="80px">-->
-        <!--<el-input placeholder="请输入评论主题" class="comment-menu-item"></el-input>-->
-        <!--<el-input-->
-                <!--type="textarea"-->
-                <!--:rows="15"-->
-                <!--placeholder="请输入评论内容" class="comment-menu-item">-->
-        <!--</el-input>-->
-        <!--<p class="comment-menu-item"><a href="https://guides.github.com/features/mastering-markdown/" target="_blank"><i-->
-                <!--class="el-icon-info"></i> 可以使用MarkDown语法</a></p>-->
-        <!--<el-button type="primary" @click="onSubmit" class="comment-menu-item">发布评论</el-button>-->
-      <!--</el-form>-->
-    <!--</div>-->
   </div>
 </template>
 

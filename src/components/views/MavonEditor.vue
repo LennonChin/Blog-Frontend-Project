@@ -3,8 +3,10 @@
     <mavon-editor class="editor-area" style="height: 100%; min-height: 50px; min-width: 200px; z-index: 9;" :toolbarsFlag="toolbarsFlag"
                   :subfield="subfield" :placeholder="placeholder" :toolbars="toolbars" @change="change"></mavon-editor>
     <div class="bottom-area">
-      <div class="comment-tip"><a href="https://guides.github.com/features/mastering-markdown/" target="_blank"><i
-        class="el-icon-info"></i> 支持MarkDown</a></div>
+      <div class="comment-tip">
+        <a href="https://guides.github.com/features/mastering-markdown/" target="_blank"><i
+        class="el-icon-info"></i> 支持MarkDown</a>
+      </div>
       <div class="buttons">
         <el-button size="small" @click="publish" type="primary">发布</el-button>
       </div>
@@ -49,8 +51,8 @@
           htmlcode: false, // 展示html源码
           help: false, // 帮助
           /* 1.3.5 */
-          undo: true, // 上一步
-          redo: true, // 下一步
+          undo: false, // 上一步
+          redo: false, // 下一步
           trash: true, // 清空
           save: false, // 保存（触发events中的save事件）
           /* 1.4.2 */

@@ -10,7 +10,10 @@
         <el-menu-item index="2-2">Github</el-menu-item>
         <el-menu-item index="2-3">Facebook</el-menu-item>
       </el-submenu>
-      <el-menu-item index="3" style="float: right;"><a href="https://www.ele.me" target="_blank">菜单</a></el-menu-item>
+      <el-menu-item index="3" style="padding: 0;width: 200px;">
+        <el-input v-model="email" placeholder="或输入您的联系邮箱以评论" size="small"></el-input>
+      </el-menu-item>
+      <el-menu-item index="4" style="float: right;"><a href="https://www.ele.me" target="_blank">菜单</a></el-menu-item>
     </el-menu>
     <div class="content">
       <div class="likes">
@@ -71,7 +74,8 @@
     },
     data() {
       return {
-        spreadEditor: false
+        spreadEditor: false,
+        email: ''
       };
     },
     components: {
