@@ -59,12 +59,14 @@
       <comment-cell-list :commentLevel="3"></comment-cell-list>
       <comment-cell-list :commentLevel="1"></comment-cell-list>
     </div>
+    <browse-more></browse-more>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
   import MavonEditor from '@/components/views/MavonEditor';
   import CommentListCell from '@/components/views/Comment/CommentListCell';
+  import BrowseMore from '@/components/views/BrowseMore';
 
   export default {
     props: {
@@ -80,7 +82,8 @@
     },
     components: {
       'mavon-editor': MavonEditor,
-      'comment-cell-list': CommentListCell
+      'comment-cell-list': CommentListCell,
+      'browse-more': BrowseMore
     },
     methods: {
       valueChanged(flag) {
