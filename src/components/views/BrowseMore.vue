@@ -1,7 +1,7 @@
 <template>
   <div class="browse-more" :class="{loading: loading}">
     <a @click="browseMore">
-      <p class="text" v-show="!loading">浏览更多</p>
+      <p class="text" v-show="!loading">{{tipText}}</p>
       <div class="spinner" v-show="loading">
         <div class="line1"></div>
         <div class="line2"></div>
@@ -15,6 +15,11 @@
 
 <script type="text/ecmascript-6">
   export default {
+    props: {
+      tipText: {
+        default: '浏览更多'
+      }
+    },
     data() {
       return {
         loading: false
