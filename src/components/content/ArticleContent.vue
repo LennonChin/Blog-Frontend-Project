@@ -2,13 +2,16 @@
   <div class="article-content">
     <article-page-header></article-page-header>
     <article-page-content>
-      <article id="article-main-page" class="typo container" slot="content" v-highlight>
+      <article id="article-main-page" class="typo container" slot="content" ref="article">
         <h1>Action</h1>
         <p>Action 类似于 mutation，不同在于：</p>
-        <ul><li>
-          Action 提交的是 mutation，而不是直接变更状态。</li>
+        <ul>
           <li>
-            Action 可以包含任意异步操作。</li>
+            Action 提交的是 mutation，而不是直接变更状态。
+          </li>
+          <li>
+            Action 可以包含任意异步操作。
+          </li>
         </ul>
         <p>让我们来注册一个简单的 action：</p>
         <pre><code class='language-js' lang='js'>
@@ -28,8 +31,11 @@ const store = new Vuex.Store({
   }
 })
 </code></pre>
-        <p>Action 函数接受一个与 store 实例具有相同方法和属性的 context 对象，因此你可以调用 <code>context.commit</code> 提交一个 mutation，或者通过 <code>context.state</code> 和 <code>context.getters</code> 来获取 state 和 getters。当我们在之后介绍到 <a href='modules.md'>Modules</a> 时，你就知道 context 对象为什么不是 store 实例本身了。</p>
-        <p>实践中，我们会经常用到 ES2015 的 <a href='https://github.com/lukehoban/es6features#destructuring'>参数解构</a> 来简化代码（特别是我们需要调用 <code>commit</code> 很多次的时候）：</p>
+        <p>Action 函数接受一个与 store 实例具有相同方法和属性的 context 对象，因此你可以调用 <code>context.commit</code> 提交一个 mutation，或者通过 <code>context.state</code>
+          和 <code>context.getters</code> 来获取 state 和 getters。当我们在之后介绍到 <a href='modules.md'>Modules</a> 时，你就知道 context
+          对象为什么不是 store 实例本身了。</p>
+        <p>实践中，我们会经常用到 ES2015 的 <a href='https://github.com/lukehoban/es6features#destructuring'>参数解构</a>
+          来简化代码（特别是我们需要调用 <code>commit</code> 很多次的时候）：</p>
         <pre><code class='language-js' lang='js'>
 actions: {
   increment ({ commit }) {
@@ -42,7 +48,8 @@ actions: {
         <pre><code class='language-js' lang='js'>
 store.dispatch(&#39;increment&#39;)
 </code></pre>
-        <p>乍一眼看上去感觉多此一举，我们直接分发 mutation 岂不更方便？实际上并非如此，还记得 <strong>mutation 必须同步执行</strong>这个限制么？Action 就不受约束！我们可以在 action 内部执行<strong>异步</strong>操作：</p>
+        <p>乍一眼看上去感觉多此一举，我们直接分发 mutation 岂不更方便？实际上并非如此，还记得 <strong>mutation 必须同步执行</strong>这个限制么？Action 就不受约束！我们可以在
+          action 内部执行<strong>异步</strong>操作：</p>
         <pre><code class='language-js' lang='js'>
 actions: {
   incrementAsync ({ commit }) {
@@ -86,7 +93,8 @@ actions: {
 </code></pre>
         <p>注意我们正在进行一系列的异步操作，并且通过提交 mutation 来记录 action 产生的副作用（即状态变更）。</p>
         <h3>在组件中分发 Action</h3>
-        <p>你在组件中使用 <code>this.$store.dispatch(&#39;xxx&#39;)</code> 分发 action，或者使用 <code>mapActions</code> 辅助函数将组件的 methods 映射为 <code>store.dispatch</code> 调用（需要先在根节点注入 <code>store</code>）：</p>
+        <p>你在组件中使用 <code>this.$store.dispatch(&#39;xxx&#39;)</code> 分发 action，或者使用 <code>mapActions</code> 辅助函数将组件的
+          methods 映射为 <code>store.dispatch</code> 调用（需要先在根节点注入 <code>store</code>）：</p>
         <pre><code class='language-js' lang='js'>
 import { mapActions } from &#39;vuex&#39;
 
@@ -107,7 +115,8 @@ export default {
 </code></pre>
         <h3>组合 Action</h3>
         <p>Action 通常是异步的，那么如何知道 action 什么时候结束呢？更重要的是，我们如何才能组合多个 action，以处理更加复杂的异步流程？</p>
-        <p>首先，你需要明白 <code>store.dispatch</code> 可以处理被触发的 action 的处理函数返回的 Promise，并且 <code>store.dispatch</code> 仍旧返回 Promise：</p>
+        <p>首先，你需要明白 <code>store.dispatch</code> 可以处理被触发的 action 的处理函数返回的 Promise，并且 <code>store.dispatch</code> 仍旧返回
+          Promise：</p>
         <pre><code class='language-js' lang='js'>
 actions: {
   actionA ({ commit }) {
@@ -137,7 +146,8 @@ actions: {
   }
 }
 </code></pre>
-        <p>最后，如果我们利用 <a href='https://tc39.github.io/ecmascript-asyncawait/'>async / await</a> 这个 JavaScript 即将到来的新特性，我们可以像这样组合 action：</p>
+        <p>最后，如果我们利用 <a href='https://tc39.github.io/ecmascript-asyncawait/'>async / await</a> 这个 JavaScript
+          即将到来的新特性，我们可以像这样组合 action：</p>
         <pre><code class='language-js' lang='js'>
 // 假设 getData() 和 getOtherData() 返回的是 Promise
 
@@ -163,12 +173,45 @@ npm
   import ArticlePageHeader from '@/components/views/Article/ArticlePageHeader';
   import ArticlePageContent from '@/components/views/Article/ArticlePageContent';
   import ArticlePageFooter from '@/components/views/Article/ArticlePageFooter';
+  // highlight.js引入
+  import hljs from 'highlight.js';
+  // 样式文件
+  import 'highlight.js/styles/zenburn.css';
+
+  var HLJS = hljs;
 
   export default {
     components: {
       'article-page-header': ArticlePageHeader,
       'article-page-content': ArticlePageContent,
       'article-page-footer': ArticlePageFooter
+    },
+    mounted: function () {
+      this.addCodeLineNumber();
+    },
+    methods: {
+      addCodeLineNumber() {
+        // 添加行号
+        let blocks = this.$refs.article.querySelectorAll('pre code');
+        blocks.forEach((block) => {
+          HLJS.highlightBlock(block);
+          var lineTexts = (block.innerText).split('\n');
+          var lines = lineTexts.length - 1;
+          var ulNode = document.createElement('ul');
+          ulNode.setAttribute('class', 'pre-numbering');
+          for (let i = 1; i <= lines; i++) {
+            var liNode = document.createElement('li');
+            liNode.innerHTML = i + '. ';
+            ulNode.appendChild(liNode);
+          }
+
+          if (!block.parentNode.className.match(RegExp('(\\s|^)prettyprint(\\s|$)'))) {
+            block.parentNode.className += ' prettyprint';
+          }
+
+          block.parentNode.appendChild(ulNode);
+        });
+      }
     }
   };
 </script>

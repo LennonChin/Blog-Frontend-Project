@@ -32,24 +32,55 @@
       width 100%
     pre
       position relative
-      overflow hidden
-      font-size 16px
-      line-height 24px
-      code
-        display block
-        padding 12px 24px
-        overflow-y auto
-        font-weight 300
-        &.has-numbering
-          margin-left 41px
-      .pre-numbering
-        position absolute
-        top 0
-        left 0
-        width 40px
-        background-color #eee
-        text-align right
-        font-size 16px
-        color #aaa
-        li
-          padding-right 5px
+      display block
+      box-sizing border-box
+      padding 10px
+      margin 0 0 10.5px
+      line-height 1.7
+      font-size 18px
+      font-family "Source Code Pro", monospace
+      color #333
+      background-color rgba(128, 128, 128, .05)
+      border 1px solid rgba(128, 128, 128, .075)
+      border-radius 0
+      word-break break-all
+      word-wrap break-word
+      &.prettyprint
+        position relative
+        padding 5px 5px 3px 60px
+        margin 0 0 1.7em
+        line-height 1.7
+        border 0 solid #888
+        overflow-y hidden
+        overflow-x auto
+        white-space nowrap
+        code
+          box-sizing border-box
+          padding 0
+          font-size 18px
+          font-family "Source Code Pro", monospace
+          color inherit
+          background-color transparent
+          border-radius 0
+          white-space pre
+          word-wrap normal
+        .pre-numbering
+          position absolute
+          box-sizing border-box
+          width 50px
+          top 0
+          left 0
+          margin 0
+          padding-top 36.5px
+          line-height 1.7
+          text-align right
+          background-color #eee
+          border-right 1px solid #ddd
+          list-style none
+          > li
+            margin 0
+
+
+
+
+
