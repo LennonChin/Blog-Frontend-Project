@@ -28,13 +28,15 @@
   font-size: 20px;
 }
 #article-page-content > article ul {
-  list-style-type: circle;
-  margin: 0;
+  list-style-type: square;
   line-height: 1.5em;
-  padding-left: 1em;
+  padding-left: 2.5em;
 }
 #article-page-content > article li {
+  list-style-type: square;
   margin: 0.5em 0;
+  color: #333;
+  font-weight: 200;
 }
 #article-page-content > article p {
   font-size: 17px;
@@ -46,57 +48,36 @@
 #article-page-content > article img {
   width: 100%;
 }
-#article-page-content > article pre {
-  position: relative;
+#article-page-content > article code.hljs {
   display: block;
-  box-sizing: border-box;
-  padding: 10px;
-  margin: 0 0 10.5px;
-  line-height: 1.7;
-  font-size: 18px;
+  padding: 1px;
+  border: 0;
+  margin: 0;
+  width: 100%;
+  font-size: 16px;
+  font-weight: 200;
   font-family: "Source Code Pro", monospace;
+  background: #eee !important;
   color: #333;
-  background-color: rgba(128,128,128,0.05);
-  border: 1px solid rgba(128,128,128,0.075);
-  border-radius: 0;
+  white-space: pre-wrap;
+}
+#article-page-content > article code.hljs > ul {
+  list-style: decimal;
+  margin: 30px 0 0 55px !important;
+  padding: 0;
+  background-color: #fff;
+}
+#article-page-content > article code.hljs > ul > li {
+  list-style: decimal-leading-zero;
+  padding: 5px !important;
+  margin: 0 !important;
+  line-height: 18px;
+  background: #fff;
+  border-left: 1px solid #ddd !important;
   word-break: break-all;
   word-wrap: break-word;
 }
-#article-page-content > article pre.prettyprint {
-  position: relative;
-  padding: 5px 5px 3px 60px;
-  margin: 0 0 1.7em;
-  line-height: 1.7;
-  border: 0 solid #888;
-  overflow-y: hidden;
-  overflow-x: auto;
-  white-space: nowrap;
-}
-#article-page-content > article pre.prettyprint code {
-  box-sizing: border-box;
-  padding: 0;
-  font-size: 18px;
-  font-family: "Source Code Pro", monospace;
+#article-page-content > article code.hljs > ul > li:nth-of-type(even) {
+  background-color: #fcfcfc;
   color: inherit;
-  background-color: transparent;
-  border-radius: 0;
-  white-space: pre;
-  word-wrap: normal;
-}
-#article-page-content > article pre.prettyprint .pre-numbering {
-  position: absolute;
-  box-sizing: border-box;
-  width: 50px;
-  top: 0;
-  left: 0;
-  margin: 0;
-  padding-top: 36.5px;
-  line-height: 1.7;
-  text-align: right;
-  background-color: #eee;
-  border-right: 1px solid #ddd;
-  list-style: none;
-}
-#article-page-content > article pre.prettyprint .pre-numbering > li {
-  margin: 0;
 }

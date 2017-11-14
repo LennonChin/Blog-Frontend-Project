@@ -195,21 +195,8 @@ npm
         let blocks = this.$refs.article.querySelectorAll('pre code');
         blocks.forEach((block) => {
           HLJS.highlightBlock(block);
-          var lineTexts = (block.innerText).split('\n');
-          var lines = lineTexts.length - 1;
-          var ulNode = document.createElement('ul');
-          ulNode.setAttribute('class', 'pre-numbering');
-          for (let i = 1; i <= lines; i++) {
-            var liNode = document.createElement('li');
-            liNode.innerHTML = i + '. ';
-            ulNode.appendChild(liNode);
-          }
-
-          if (!block.parentNode.className.match(RegExp('(\\s|^)prettyprint(\\s|$)'))) {
-            block.parentNode.className += ' prettyprint';
-          }
-
-          block.parentNode.appendChild(ulNode);
+          // 去前后空格并添加行号
+          block.innerHTML = '<ul><li>' + block.innerHTML.replace(/(^\s*)|(\s*$)/g, '').replace(/\n/g, '\n</li><li>') + '\n</li></ul>';
         });
       }
     }

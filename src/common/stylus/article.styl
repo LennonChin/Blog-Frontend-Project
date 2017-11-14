@@ -16,12 +16,14 @@
     h4, h5, h6, h7
       font-size 20px
     ul
-      list-style-type circle
-      margin 0
+      list-style-type square
       line-height 1.5em
-      padding-left 1em
+      padding-left 2.5em
     li
+      list-style-type square
       margin .5em 0
+      color $color-typegraphy-title
+      font-weight 200
     p
       font-size 17px
       line-height 25px
@@ -30,55 +32,35 @@
       margin 15px 0
     img
       width 100%
-    pre
-      position relative
+    code.hljs
       display block
-      box-sizing border-box
-      padding 10px
-      margin 0 0 10.5px
-      line-height 1.7
-      font-size 18px
+      padding 1px
+      border 0
+      margin 0
+      width 100%
+      font-size 16px
+      font-weight 200
       font-family "Source Code Pro", monospace
+      background #eee !important
       color #333
-      background-color rgba(128, 128, 128, .05)
-      border 1px solid rgba(128, 128, 128, .075)
-      border-radius 0
-      word-break break-all
-      word-wrap break-word
-      &.prettyprint
-        position relative
-        padding 5px 5px 3px 60px
-        margin 0 0 1.7em
-        line-height 1.7
-        border 0 solid #888
-        overflow-y hidden
-        overflow-x auto
-        white-space nowrap
-        code
-          box-sizing border-box
-          padding 0
-          font-size 18px
-          font-family "Source Code Pro", monospace
-          color inherit
-          background-color transparent
-          border-radius 0
-          white-space pre
-          word-wrap normal
-        .pre-numbering
-          position absolute
-          box-sizing border-box
-          width 50px
-          top 0
-          left 0
-          margin 0
-          padding-top 36.5px
-          line-height 1.7
-          text-align right
-          background-color #eee
-          border-right 1px solid #ddd
-          list-style none
-          > li
-            margin 0
+      white-space pre-wrap
+      > ul
+        list-style decimal
+        margin 30px 0 0 55px !important
+        padding 0
+        background-color #fff
+        > li
+          list-style decimal-leading-zero
+          padding 5px!important
+          margin 0 !important
+          line-height 18px
+          background #fff
+          border-left 1px solid #ddd !important
+          word-break break-all
+          word-wrap break-word
+          &:nth-of-type(even)
+            background-color #fcfcfc
+            color inherit
 
 
 
