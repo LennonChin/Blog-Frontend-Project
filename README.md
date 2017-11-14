@@ -1,6 +1,6 @@
-# my-project
+# Blog-Front-Project
 
-> A Vue.js project
+> Blog front code developing with Vue.js
 
 ## Build Setup
 
