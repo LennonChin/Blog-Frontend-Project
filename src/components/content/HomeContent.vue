@@ -14,7 +14,7 @@
             <el-col :xs="24" :sm="12" :md="8" :lg="8" :xl="8">
               <topic-card></topic-card>
             </el-col>
-            <el-col :xs="24" :sm="12" :md="8" :lg="6" :xl="8">
+            <el-col :xs="24" :sm="12" :md="8" :lg="8" :xl="8">
               <topic-card></topic-card>
             </el-col>
             <el-col :xs="24" :sm="12" :md="8" :lg="8" :xl="8">
@@ -40,6 +40,7 @@
       </el-col>
       <el-col :lg="6" :xl="6" class="hidden-md-and-down">
         <about></about>
+        <friend-links></friend-links>
       </el-col>
     </el-row>
 
@@ -56,6 +57,7 @@
   import ArchiveListTimeTitle from '@/components/views/Archive/ArchiveListTimeTitle';
   import ArchiveListCell from '@/components/views/Archive/ArchiveListCell';
   import About from '@/components/views/About';
+  import FriendLinks from '@/components/views/FriendLinks';
 
   export default {
     data() {
@@ -113,7 +115,8 @@
       'article-page-content': ArticlePageContent,
       'archive-list-time-title': ArchiveListTimeTitle,
       'archive-list-cell': ArchiveListCell,
-      'about': About
+      'about': About,
+      'friend-links': FriendLinks
     }
   };
 </script>

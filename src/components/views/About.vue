@@ -84,7 +84,7 @@
       font-size 22px
       color $color-typegraphy-title
       line-height 30px
-      font-weight 500
+      font-weight 700
     .desc
       font-size 15px
       color $color-secondary-info
@@ -107,8 +107,9 @@
       background-color $color-gradually-gray-91
       margin 10px 20px
     h4
-      font-size 20px
+      font-size 19px
       margin 30px 0 20px
+      font-weight 600
     .progresses
       padding 0 20px
       p.title
