@@ -30,7 +30,8 @@ import {
   TimePicker,
   Checkbox,
   Radio,
-  Switch
+  Switch,
+  Progress
 } from 'element-ui';
 
 Vue.component(Button.name, Button);
@@ -58,6 +59,7 @@ Vue.component(TimePicker.name, TimePicker);
 Vue.component(Checkbox.name, Checkbox);
 Vue.component(Radio.name, Radio);
 Vue.component(Switch.name, Switch);
+Vue.component(Progress.name, Progress);
 
 let vm = new Vue({
   router,

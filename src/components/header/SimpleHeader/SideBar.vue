@@ -246,17 +246,19 @@
     methods: {
       openSideBar() {
         this.showMobileSideBar = !this.showMobileSideBar;
+      },
+      refreshMenu() {
+        /* eslint-disable */
+        new TOC('article-main-page', {
+          'level': 3,
+          'top': 200,
+          'class': 'list',
+          'targetId': 'sidebar-toc'
+        });
       }
     },
     mounted: function () {
-      console.log('======');
-      var a = new TOC('article-main-page', {
-        'level': 3,
-        'top': 200,
-        'class': 'list',
-        'targetId': 'sidebar-toc'
-      });
-      a.a();
+      this.refreshMenu();
     }
   };
 </script>

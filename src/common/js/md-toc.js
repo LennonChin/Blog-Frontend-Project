@@ -112,8 +112,4 @@ Toc.prototype._showToc = function() {
   // }
 };
 
-Toc.prototype.a = function() {
-  console.log('toc aaaa');
-};
-
 export default Toc;

@@ -1,40 +1,48 @@
 <template>
   <div class="home-content">
-    <photo-wall></photo-wall>
-    <section-title :mainTitle="'文章'" :subTitle="'Articles'"></section-title>
-    <article-list-cell v-for="article in articles" :article="article" :key="article.title"></article-list-cell>
-    <section-title :mainTitle="'主题'" :subTitle="'Topics'"></section-title>
-    <div class="topic-cards">
-      <el-row :gutter="10">
-        <el-col :xs="24" :sm="12" :md="8" :lg="6" :xl="6">
-          <topic-card></topic-card>
-        </el-col>
-        <el-col :xs="24" :sm="12" :md="8" :lg="6" :xl="6">
-          <topic-card></topic-card>
-        </el-col>
-        <el-col :xs="24" :sm="12" :md="8" :lg="6" :xl="6">
-          <topic-card></topic-card>
-        </el-col>
-        <el-col :xs="24" :sm="12" :md="8" :lg="6" :xl="6">
-          <topic-card></topic-card>
-        </el-col>
-      </el-row>
-    </div>
-    <section-title :mainTitle="'时光轴'" :subTitle="'Topics'"></section-title>
-    <archive-list-time-title :date="'2017年'" :count="'200'"></archive-list-time-title>
-    <archive-list-time-title :date="'10月'" :count="'200'" :dateType="'month'"></archive-list-time-title>
-    <archive-list-cell v-for="article in articles" :article="article" :key="article.title"></archive-list-cell>
-    <archive-list-time-title :date="'9月'" :count="'200'" :dateType="'month'"></archive-list-time-title>
-    <archive-list-cell v-for="article in articles" :article="article" :key="article.title"></archive-list-cell>
-    <archive-list-time-title :date="'8月'" :count="'200'" :dateType="'month'"></archive-list-time-title>
-    <archive-list-cell v-for="article in articles" :article="article" :key="article.title"></archive-list-cell>
-    <archive-list-time-title :date="'2016年'" :count="'200'"></archive-list-time-title>
-    <archive-list-time-title :date="'12月'" :count="'200'" :dateType="'month'"></archive-list-time-title>
-    <archive-list-cell v-for="article in articles" :article="article" :key="article.title"></archive-list-cell>
-    <archive-list-time-title :date="'11月'" :count="'200'" :dateType="'month'"></archive-list-time-title>
-    <archive-list-cell v-for="article in articles" :article="article" :key="article.title"></archive-list-cell>
-    <archive-list-time-title :date="'10月'" :count="'200'" :dateType="'month'"></archive-list-time-title>
-    <archive-list-cell v-for="article in articles" :article="article" :key="article.title"></archive-list-cell>
+    <el-row :gutter="20">
+      <el-col :xs="24" :sm="24" :md="24" :lg="18" :xl="18">
+        <photo-wall></photo-wall>
+        <section-title :mainTitle="'文章'" :subTitle="'Articles'"></section-title>
+        <article-list-cell v-for="article in articles" :article="article" :key="article.title"></article-list-cell>
+        <section-title :mainTitle="'主题'" :subTitle="'Topics'"></section-title>
+        <div class="topic-cards">
+          <el-row :gutter="10">
+            <el-col :xs="24" :sm="12" :md="8" :lg="8" :xl="8">
+              <topic-card></topic-card>
+            </el-col>
+            <el-col :xs="24" :sm="12" :md="8" :lg="8" :xl="8">
+              <topic-card></topic-card>
+            </el-col>
+            <el-col :xs="24" :sm="12" :md="8" :lg="6" :xl="8">
+              <topic-card></topic-card>
+            </el-col>
+            <el-col :xs="24" :sm="12" :md="8" :lg="8" :xl="8">
+              <topic-card></topic-card>
+            </el-col>
+          </el-row>
+        </div>
+        <section-title :mainTitle="'时光轴'" :subTitle="'Topics'"></section-title>
+        <archive-list-time-title :date="'2017年'" :count="'200'"></archive-list-time-title>
+        <archive-list-time-title :date="'10月'" :count="'200'" :dateType="'month'"></archive-list-time-title>
+        <archive-list-cell v-for="article in articles" :article="article" :key="article.title"></archive-list-cell>
+        <archive-list-time-title :date="'9月'" :count="'200'" :dateType="'month'"></archive-list-time-title>
+        <archive-list-cell v-for="article in articles" :article="article" :key="article.title"></archive-list-cell>
+        <archive-list-time-title :date="'8月'" :count="'200'" :dateType="'month'"></archive-list-time-title>
+        <archive-list-cell v-for="article in articles" :article="article" :key="article.title"></archive-list-cell>
+        <archive-list-time-title :date="'2016年'" :count="'200'"></archive-list-time-title>
+        <archive-list-time-title :date="'12月'" :count="'200'" :dateType="'month'"></archive-list-time-title>
+        <archive-list-cell v-for="article in articles" :article="article" :key="article.title"></archive-list-cell>
+        <archive-list-time-title :date="'11月'" :count="'200'" :dateType="'month'"></archive-list-time-title>
+        <archive-list-cell v-for="article in articles" :article="article" :key="article.title"></archive-list-cell>
+        <archive-list-time-title :date="'10月'" :count="'200'" :dateType="'month'"></archive-list-time-title>
+        <archive-list-cell v-for="article in articles" :article="article" :key="article.title"></archive-list-cell>
+      </el-col>
+      <el-col :lg="6" :xl="6" class="hidden-md-and-down">
+        <about></about>
+      </el-col>
+    </el-row>
+
   </div>
 </template>
 
@@ -47,6 +55,7 @@
   import ArticlePageContent from '@/components/views/Article/ArticlePageContent';
   import ArchiveListTimeTitle from '@/components/views/Archive/ArchiveListTimeTitle';
   import ArchiveListCell from '@/components/views/Archive/ArchiveListCell';
+  import About from '@/components/views/About';
 
   export default {
     data() {
@@ -103,7 +112,8 @@
       'article-page-header': ArticlePageHeader,
       'article-page-content': ArticlePageContent,
       'archive-list-time-title': ArchiveListTimeTitle,
-      'archive-list-cell': ArchiveListCell
+      'archive-list-cell': ArchiveListCell,
+      'about': About
     }
   };
 </script>
@@ -117,8 +127,8 @@
       margin 10px 10px 0 10px
     @media screen and (min-width: 900px)
       margin 15px 35px 0 35px
-    @media screen and (min-width: 1140px)
-      width 1140px
+    @media screen and (min-width: 1280px)
+      width 1280px
       margin 15px auto 0
       margin-bottom 200px
 </style>

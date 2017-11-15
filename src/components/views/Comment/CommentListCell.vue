@@ -14,14 +14,14 @@
                     :lg="cellRightSpan('lg')" :xl="cellRightSpan('xl')">
               <div class="content">
                 <p class="title">
-                  <span class="name"><a href="">MyName</a></span>
+                  <span class="name"><a href="">Tom</a></span>
                   <span class="name-tag">Mod</span>
                   <span class="reply-icon"><i class="el-icon-caret-right"></i></span>
-                  <span class="reply-name"><a href="">CrossoverJie</a></span>
+                  <span class="reply-name"><a href="">Jerry</a></span>
                   <span class="time">2 days age</span>
                 </p>
                 <p class="comment-content">
-                  针对于这种情况只能尽可能的保证可用吧。对于C多个进程的情况，各个MQ都有方法处理重复消费，或者是本身的消费支持幂等也能解决，而且数据库也可能挂了哦。</p>
+                  针对于这种情况只能尽可能的保证可用吧。各个MQ都有方法处理重复消费，或者是本身的消费支持幂等也能解决，而且数据库也可能挂了哦。</p>
                 <div class="operate-area">
                   <span class="like"><i class="el-icon-arrow-up"></i></span>
                   <span class="unlike"><i class="el-icon-arrow-down"></i></span>
