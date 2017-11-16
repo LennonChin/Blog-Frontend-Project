@@ -1,7 +1,7 @@
 <template>
   <div class="article-content">
     <el-row :gutter="15">
-      <el-col :xs="24" :sm="24" :md="24" :lg="17" :xl="17">
+      <el-col :xs="24" :sm="24" :md="17" :lg="17" :xl="17">
         <article-page-header></article-page-header>
         <article-page-content>
           <article id="article-main-page" class="typo container" slot="content" ref="article">
@@ -195,7 +195,7 @@ actions: {
         </article-page-content>
         <article-page-footer></article-page-footer>
       </el-col>
-      <el-col :xs="24" :sm="24" :md="24" :lg="7" :xl="7">
+      <el-col :md="7" :lg="7" :xl="7" class="hidden-sm-and-down">
         <about></about>
         <affix :offsetTop="60">
           <side-toc style="margin-top: 15px;"></side-toc>

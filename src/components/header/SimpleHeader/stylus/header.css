@@ -281,7 +281,7 @@ body.docs #nav {
     margin-left: 290px;
   }
 }
-@media screen and (max-width: 900px) {
+@media screen and (max-width: 992px) {
   body {
     -webkit-text-size-adjust: none;
     font-size: 14px;
