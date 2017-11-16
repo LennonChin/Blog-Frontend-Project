@@ -1,7 +1,7 @@
 <template>
   <div class="home-content">
-    <el-row :gutter="20">
-      <el-col :xs="24" :sm="24" :md="24" :lg="18" :xl="18">
+    <el-row :gutter="15">
+      <el-col :xs="24" :sm="24" :md="24" :lg="17" :xl="17">
         <photo-wall></photo-wall>
         <section-title :mainTitle="'文章'" :subTitle="'Articles'"></section-title>
         <article-list-cell v-for="article in articles" :article="article" :key="article.title"></article-list-cell>
@@ -38,12 +38,12 @@
         <archive-list-time-title :date="'10月'" :count="'200'" :dateType="'month'"></archive-list-time-title>
         <archive-list-cell v-for="article in articles" :article="article" :key="article.title"></archive-list-cell>
       </el-col>
-      <el-col :lg="6" :xl="6" class="hidden-md-and-down">
-        <about></about>
+      <el-col :lg="7" :xl="7" class="hidden-md-and-down">
+        <!--<about></about>-->
         <friend-links></friend-links>
+        <side-toc></side-toc>
       </el-col>
     </el-row>
-
   </div>
 </template>
 
@@ -58,6 +58,7 @@
   import ArchiveListCell from '@/components/views/Archive/ArchiveListCell';
   import About from '@/components/views/About';
   import FriendLinks from '@/components/views/FriendLinks';
+  import SideToc from '@/components/views/SideToc';
 
   export default {
     data() {
@@ -116,7 +117,8 @@
       'archive-list-time-title': ArchiveListTimeTitle,
       'archive-list-cell': ArchiveListCell,
       'about': About,
-      'friend-links': FriendLinks
+      'friend-links': FriendLinks,
+      'side-toc': SideToc
     }
   };
 </script>

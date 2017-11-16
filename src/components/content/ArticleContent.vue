@@ -1,20 +1,22 @@
 <template>
   <div class="article-content">
-    <article-page-header></article-page-header>
-    <article-page-content>
-      <article id="article-main-page" class="typo container" slot="content" ref="article">
-        <h1>Action</h1>
-        <p>Action 类似于 mutation，不同在于：</p>
-        <ul>
-          <li>
-            Action 提交的是 mutation，而不是直接变更状态。
-          </li>
-          <li>
-            Action 可以包含任意异步操作。
-          </li>
-        </ul>
-        <p>让我们来注册一个简单的 action：</p>
-        <pre><code class='language-js' lang='js'>
+    <el-row :gutter="15">
+      <el-col :xs="24" :sm="24" :md="24" :lg="17" :xl="17">
+        <article-page-header></article-page-header>
+        <article-page-content>
+          <article id="article-main-page" class="typo container" slot="content" ref="article">
+            <h1>Action</h1>
+            <p>Action 类似于 mutation，不同在于：</p>
+            <ul>
+              <li>
+                Action 提交的是 mutation，而不是直接变更状态。
+              </li>
+              <li>
+                Action 可以包含任意异步操作。
+              </li>
+            </ul>
+            <p>让我们来注册一个简单的 action：</p>
+            <pre><code class='language-js' lang='js'>
 const store = new Vuex.Store({
   state: {
     count: 0
@@ -31,26 +33,28 @@ const store = new Vuex.Store({
   }
 })
 </code></pre>
-        <p>Action 函数接受一个与 store 实例具有相同方法和属性的 context 对象，因此你可以调用 <code>context.commit</code> 提交一个 mutation，或者通过 <code>context.state</code>
-          和 <code>context.getters</code> 来获取 state 和 getters。当我们在之后介绍到 <a href='modules.md'>Modules</a> 时，你就知道 context
-          对象为什么不是 store 实例本身了。</p>
-        <p>实践中，我们会经常用到 ES2015 的 <a href='https://github.com/lukehoban/es6features#destructuring'>参数解构</a>
-          来简化代码（特别是我们需要调用 <code>commit</code> 很多次的时候）：</p>
-        <pre><code class='language-js' lang='js'>
+            <p>Action 函数接受一个与 store 实例具有相同方法和属性的 context 对象，因此你可以调用 <code>context.commit</code> 提交一个 mutation，或者通过
+              <code>context.state</code>
+              和 <code>context.getters</code> 来获取 state 和 getters。当我们在之后介绍到 <a href='modules.md'>Modules</a> 时，你就知道
+              context
+              对象为什么不是 store 实例本身了。</p>
+            <p>实践中，我们会经常用到 ES2015 的 <a href='https://github.com/lukehoban/es6features#destructuring'>参数解构</a>
+              来简化代码（特别是我们需要调用 <code>commit</code> 很多次的时候）：</p>
+            <pre><code class='language-js' lang='js'>
 actions: {
   increment ({ commit }) {
     commit(&#39;increment&#39;)
   }
 }
 </code></pre>
-        <h3>分发 Action</h3>
-        <p>Action 通过 <code>store.dispatch</code> 方法触发：</p>
-        <pre><code class='language-js' lang='js'>
+            <h3>分发 Action</h3>
+            <p>Action 通过 <code>store.dispatch</code> 方法触发：</p>
+            <pre><code class='language-js' lang='js'>
 store.dispatch(&#39;increment&#39;)
 </code></pre>
-        <p>乍一眼看上去感觉多此一举，我们直接分发 mutation 岂不更方便？实际上并非如此，还记得 <strong>mutation 必须同步执行</strong>这个限制么？Action 就不受约束！我们可以在
-          action 内部执行<strong>异步</strong>操作：</p>
-        <pre><code class='language-js' lang='js'>
+            <p>乍一眼看上去感觉多此一举，我们直接分发 mutation 岂不更方便？实际上并非如此，还记得 <strong>mutation 必须同步执行</strong>这个限制么？Action 就不受约束！我们可以在
+              action 内部执行<strong>异步</strong>操作：</p>
+            <pre><code class='language-js' lang='js'>
 actions: {
   incrementAsync ({ commit }) {
     setTimeout(() =&gt; {
@@ -59,8 +63,8 @@ actions: {
   }
 }
 </code></pre>
-        <p>Actions 支持同样的载荷方式和对象方式进行分发：</p>
-        <pre><code class='language-js' lang='js'>
+            <p>Actions 支持同样的载荷方式和对象方式进行分发：</p>
+            <pre><code class='language-js' lang='js'>
 // 以载荷形式分发
 store.dispatch(&#39;incrementAsync&#39;, {
   amount: 10
@@ -72,8 +76,8 @@ store.dispatch({
   amount: 10
 })
 </code></pre>
-        <p>来看一个更加实际的购物车示例，涉及到<strong>调用异步 API</strong> 和<strong>分发多重 mutation</strong>：</p>
-        <pre><code class='language-js' lang='js'>
+            <p>来看一个更加实际的购物车示例，涉及到<strong>调用异步 API</strong> 和<strong>分发多重 mutation</strong>：</p>
+            <pre><code class='language-js' lang='js'>
 actions: {
   checkout ({ commit, state }, products) {
     // 把当前购物车的物品备份起来
@@ -91,11 +95,11 @@ actions: {
   }
 }
 </code></pre>
-        <p>注意我们正在进行一系列的异步操作，并且通过提交 mutation 来记录 action 产生的副作用（即状态变更）。</p>
-        <h3>在组件中分发 Action</h3>
-        <p>你在组件中使用 <code>this.$store.dispatch(&#39;xxx&#39;)</code> 分发 action，或者使用 <code>mapActions</code> 辅助函数将组件的
-          methods 映射为 <code>store.dispatch</code> 调用（需要先在根节点注入 <code>store</code>）：</p>
-        <pre><code class='language-js' lang='js'>
+            <p>注意我们正在进行一系列的异步操作，并且通过提交 mutation 来记录 action 产生的副作用（即状态变更）。</p>
+            <h3>在组件中分发 Action</h3>
+            <p>你在组件中使用 <code>this.$store.dispatch(&#39;xxx&#39;)</code> 分发 action，或者使用 <code>mapActions</code> 辅助函数将组件的
+              methods 映射为 <code>store.dispatch</code> 调用（需要先在根节点注入 <code>store</code>）：</p>
+            <pre><code class='language-js' lang='js'>
 import { mapActions } from &#39;vuex&#39;
 
 export default {
@@ -113,11 +117,11 @@ export default {
   }
 }
 </code></pre>
-        <h3>组合 Action</h3>
-        <p>Action 通常是异步的，那么如何知道 action 什么时候结束呢？更重要的是，我们如何才能组合多个 action，以处理更加复杂的异步流程？</p>
-        <p>首先，你需要明白 <code>store.dispatch</code> 可以处理被触发的 action 的处理函数返回的 Promise，并且 <code>store.dispatch</code> 仍旧返回
-          Promise：</p>
-        <pre><code class='language-js' lang='js'>
+            <h3>组合 Action</h3>
+            <p>Action 通常是异步的，那么如何知道 action 什么时候结束呢？更重要的是，我们如何才能组合多个 action，以处理更加复杂的异步流程？</p>
+            <p>首先，你需要明白 <code>store.dispatch</code> 可以处理被触发的 action 的处理函数返回的 Promise，并且 <code>store.dispatch</code> 仍旧返回
+              Promise：</p>
+            <pre><code class='language-js' lang='js'>
 actions: {
   actionA ({ commit }) {
     return new Promise((resolve, reject) =&gt; {
@@ -129,14 +133,14 @@ actions: {
   }
 }
 </code></pre>
-        <p>现在你可以：</p>
-        <pre><code class='language-js' lang='js'>
+            <p>现在你可以：</p>
+            <pre><code class='language-js' lang='js'>
 store.dispatch(&#39;actionA&#39;).then(() =&gt; {
   // ...
 })
 </code></pre>
-        <p>在另外一个 action 中也可以：</p>
-        <pre><code class='language-js' lang='js'>
+            <p>在另外一个 action 中也可以：</p>
+            <pre><code class='language-js' lang='js'>
 actions: {
   // ...
   actionB ({ dispatch, commit }) {
@@ -146,9 +150,32 @@ actions: {
   }
 }
 </code></pre>
-        <p>最后，如果我们利用 <a href='https://tc39.github.io/ecmascript-asyncawait/'>async / await</a> 这个 JavaScript
-          即将到来的新特性，我们可以像这样组合 action：</p>
-        <pre><code class='language-js' lang='js'>
+            <h4>现在你可以</h4>
+            <p>现在你可以：</p>
+            <pre><code class='language-js' lang='js'>
+store.dispatch(&#39;actionA&#39;).then(() =&gt; {
+  // ...
+})
+</code></pre>
+            <p>在另外一个 action 中也可以：</p>
+            <pre><code class='language-js' lang='js'>
+actions: {
+  // ...
+  actionB ({ dispatch, commit }) {
+    return dispatch(&#39;actionA&#39;).then(() =&gt; {
+      commit(&#39;someOtherMutation&#39;)
+    })
+  }
+}
+</code></pre>
+            <h5>另外一个</h5>
+            <p>Action 通常是异步的，那么如何知道 action 什么时候结束呢？更重要的是，我们如何才能组合多个 action，以处理更加复杂的异步流程？</p>
+            <p>首先，你需要明白 <code>store.dispatch</code> 可以处理被触发的 action 的处理函数返回的 Promise，并且 <code>store.dispatch</code> 仍旧返回
+              Promise：</p>
+            <h3>后记</h3>
+            <p>最后，如果我们利用 <a href='https://tc39.github.io/ecmascript-asyncawait/'>async / await</a> 这个 JavaScript
+              即将到来的新特性，我们可以像这样组合 action：</p>
+            <pre><code class='language-js' lang='js'>
 // 假设 getData() 和 getOtherData() 返回的是 Promise
 
 actions: {
@@ -161,11 +188,19 @@ actions: {
   }
 }
 </code></pre>
-        <blockquote><p>一个 <code>store.dispatch</code> 在不同模块中可以触发多个 action 函数。在这种情况下，只有当所有触发函数完成后，返回的 Promise 才会执行。</p>
-        </blockquote>
-      </article>
-    </article-page-content>
-    <article-page-footer></article-page-footer>
+            <blockquote><p>一个 <code>store.dispatch</code> 在不同模块中可以触发多个 action 函数。在这种情况下，只有当所有触发函数完成后，返回的 Promise 才会执行。
+            </p>
+            </blockquote>
+          </article>
+        </article-page-content>
+        <article-page-footer></article-page-footer>
+      </el-col>
+      <el-col :xs="24" :sm="24" :md="24" :lg="7" :xl="7">
+        <about></about>
+        <friend-links></friend-links>
+        <side-toc></side-toc>
+      </el-col>
+    </el-row>
   </div>
 </template>
 npm
@@ -173,6 +208,9 @@ npm
   import ArticlePageHeader from '@/components/views/Article/ArticlePageHeader';
   import ArticlePageContent from '@/components/views/Article/ArticlePageContent';
   import ArticlePageFooter from '@/components/views/Article/ArticlePageFooter';
+  import About from '@/components/views/About';
+  import FriendLinks from '@/components/views/FriendLinks';
+  import SideToc from '@/components/views/SideToc';
   // highlight.js引入
   import hljs from 'highlight.js';
   // 样式文件
@@ -184,7 +222,10 @@ npm
     components: {
       'article-page-header': ArticlePageHeader,
       'article-page-content': ArticlePageContent,
-      'article-page-footer': ArticlePageFooter
+      'article-page-footer': ArticlePageFooter,
+      'about': About,
+      'friend-links': FriendLinks,
+      'side-toc': SideToc
     },
     mounted: function () {
       this.addCodeLineNumber();
@@ -212,8 +253,8 @@ npm
       margin 10px 10px 0 10px
     @media screen and (min-width: 900px)
       margin 15px 35px 0 35px
-    @media screen and (min-width: 1140px)
-      margin 0 100px 0 445px
-    @media screen and (min-width: 1366px)
-      margin 0 150px 0 495px
+    @media screen and (min-width: 1280px)
+      width 1280px
+      margin 15px auto 0
+      margin-bottom 200px
 </style>

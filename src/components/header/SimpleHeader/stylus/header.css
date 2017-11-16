@@ -142,7 +142,7 @@ body.docs #nav {
   height: 0;
   border-left: 5px solid #409eff;
   border-top: 3px solid transparent;
-  border-bottom: 3px solid transparent;
+  border-bottom: 2px solid transparent;
   position: absolute;
   top: 50%;
   margin-top: -4px;
@@ -153,7 +153,7 @@ body.docs #nav {
 }
 .nav-link:hover,
 .nav-link.current {
-  border-bottom: 3px solid #409eff;
+  border-bottom: 2px solid #409eff;
   color: #409eff;
 }
 .nav-link.team,

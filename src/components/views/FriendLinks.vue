@@ -6,7 +6,7 @@
         <a href="">
           <img src="../../assets/logo.png" alt="">
           <div class="right">
-            <p class="title">百度的个人博客</p>
+            <p class="title">百度的个人</p>
             <p class="link">www.baidu.com</p>
           </div>
         </a>
@@ -15,7 +15,7 @@
         <a href="">
           <img src="../../assets/logo.png" alt="">
           <div class="right">
-            <p class="title">百度的个人博客</p>
+            <p class="title">百度的个人</p>
             <p class="link">www.baidu.com</p>
           </div>
         </a>
@@ -24,7 +24,7 @@
         <a href="">
           <img src="../../assets/logo.png" alt="">
           <div class="right">
-            <p class="title">百度的个人博客</p>
+            <p class="title">百度的个人</p>
             <p class="link">www.baidu.com</p>
           </div>
         </a>
@@ -33,7 +33,7 @@
         <a href="">
           <img src="../../assets/logo.png" alt="">
           <div class="right">
-            <p class="title">百度的个人博客</p>
+            <p class="title">百度的个人</p>
             <p class="link">www.baidu.com</p>
           </div>
         </a>
@@ -53,13 +53,13 @@
   .friend-links
     position relative
     margin-top 20px
-    text-align center
     border 1px solid $color-border
     padding-bottom 20px
     h4
       font-size 18px
       padding 13px 0
       line-height 28px
+      text-align center
       border-bottom 1px solid $color-border
     ul.link-list
       margin-top 10px

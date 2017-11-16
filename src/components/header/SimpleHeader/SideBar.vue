@@ -250,7 +250,7 @@
       refreshMenu() {
         /* eslint-disable */
         new TOC('article-main-page', {
-          'level': 3,
+          'level': 5,
           'top': 200,
           'class': 'list',
           'targetId': 'sidebar-toc'
@@ -265,4 +265,6 @@
 
 <style lang="stylus" rel="stylesheet/stylus">
   @import "stylus/sidebar.styl";
+  .sidebar
+    overscroll-behavior contain
 </style>
