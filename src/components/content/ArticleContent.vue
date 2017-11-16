@@ -197,8 +197,9 @@ actions: {
       </el-col>
       <el-col :xs="24" :sm="24" :md="24" :lg="7" :xl="7">
         <about></about>
-        <friend-links></friend-links>
-        <side-toc></side-toc>
+        <affix :offsetTop="60">
+          <side-toc style="margin-top: 15px;"></side-toc>
+        </affix>
       </el-col>
     </el-row>
   </div>
@@ -211,6 +212,7 @@ npm
   import About from '@/components/views/About';
   import FriendLinks from '@/components/views/FriendLinks';
   import SideToc from '@/components/views/SideToc';
+  import Affix from '@/components/views/Affix';
   // highlight.js引入
   import hljs from 'highlight.js';
   // 样式文件
@@ -225,7 +227,8 @@ npm
       'article-page-footer': ArticlePageFooter,
       'about': About,
       'friend-links': FriendLinks,
-      'side-toc': SideToc
+      'side-toc': SideToc,
+      'affix': Affix
     },
     mounted: function () {
       this.addCodeLineNumber();

@@ -1,39 +1,41 @@
 <template>
-  <div class="side-toc">
-    <h4>目录</h4>
-    <div class="list" ref="list">
-      <div class="active-indicator"></div>
-      <ul class="menu-root">
-        <li><a class="nav-link" href="http://localhost:8090/article#tip0">Action</a>
-          <ul>
-            <li><a class="nav-link" href="http://localhost:8090/article#tip1">分发 Action</a></li>
-            <li class="active"><a class="nav-link" href="http://localhost:8090/article#tip2">在组件中分发 Action在组件中分发 Action在组件中分发 Action在组件中分发 Action在组件中分发 Action</a></li>
-            <li><a class="nav-link" href="http://localhost:8090/article#tip3">组合 Action</a>
-              <ul>
-                <li><a class="nav-link" href="http://localhost:8090/article#tip4">现在你可以</a>
-                  <ul>
-                    <li><a class="nav-link" href="http://localhost:8090/article#tip5">另外一个</a></li>
-                  </ul>
-                </li>
-              </ul>
-            </li>
-            <li><a class="nav-link" href="http://localhost:8090/article#tip6">后记</a></li>
-            <li><a class="nav-link" href="http://localhost:8090/article#tip1">分发 Action</a></li>
-            <li><a class="nav-link" href="http://localhost:8090/article#tip2">在组件中分发 Action在组件中分发 Action在组件中分发 Action在组件中分发 Action在组件中分发 Action</a></li>
-            <li><a class="nav-link" href="http://localhost:8090/article#tip3">组合 Action</a>
-              <ul>
-                <li><a class="nav-link" href="http://localhost:8090/article#tip4">现在你可以</a>
-                  <ul>
-                    <li><a class="nav-link" href="http://localhost:8090/article#tip5">另外一个</a></li>
-                  </ul>
-                </li>
-              </ul>
-            </li>
-          </ul>
-        </li>
-      </ul>
+    <div class="side-toc">
+      <h4>目录</h4>
+      <div class="list" ref="list">
+        <div class="active-indicator"></div>
+        <ul class="menu-root">
+          <li><a class="nav-link" href="http://localhost:8090/article#tip0">Action</a>
+            <ul>
+              <li><a class="nav-link" href="http://localhost:8090/article#tip1">分发 Action</a></li>
+              <li class="active"><a class="nav-link" href="http://localhost:8090/article#tip2">在组件中分发 Action在组件中分发 Action在组件中分发 Action在组件中分发 Action在组件中分发 Action</a>
+              </li>
+              <li><a class="nav-link" href="http://localhost:8090/article#tip3">组合 Action</a>
+                <ul>
+                  <li><a class="nav-link" href="http://localhost:8090/article#tip4">现在你可以</a>
+                    <ul>
+                      <li><a class="nav-link" href="http://localhost:8090/article#tip5">另外一个</a></li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+              <li><a class="nav-link" href="http://localhost:8090/article#tip6">后记</a></li>
+              <li><a class="nav-link" href="http://localhost:8090/article#tip1">分发 Action</a></li>
+              <li><a class="nav-link" href="http://localhost:8090/article#tip2">在组件中分发 Action在组件中分发 Action在组件中分发 Action在组件中分发 Action在组件中分发 Action</a>
+              </li>
+              <li><a class="nav-link" href="http://localhost:8090/article#tip3">组合 Action</a>
+                <ul>
+                  <li><a class="nav-link" href="http://localhost:8090/article#tip4">现在你可以</a>
+                    <ul>
+                      <li><a class="nav-link" href="http://localhost:8090/article#tip5">另外一个</a></li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
     </div>
-  </div>
 </template>
 
 <script type="text/ecmascript-6">
@@ -42,7 +44,6 @@
       recalcActive() {
         // 先计算list相对于页面的顶部距离
         var listScrollTop = this.$refs.list.getBoundingClientRect().top + document.documentElement.scrollTop;
-        console.log(this.$refs.list);
         // 再计算active相对于页面的顶部距离
         var activeLiNode = this.$refs.list.querySelector('.active');
         var activeLiNodeScrollTop = activeLiNode.getBoundingClientRect().top + document.documentElement.scrollTop;
@@ -62,8 +63,8 @@
 
   .side-toc
     position relative
-    margin-top 20px
     border 1px solid $color-border
+    background #fff
     padding-bottom 20px
     h4
       font-size 18px

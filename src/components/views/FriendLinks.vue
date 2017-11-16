@@ -52,7 +52,6 @@
 
   .friend-links
     position relative
-    margin-top 20px
     border 1px solid $color-border
     padding-bottom 20px
     h4
