@@ -39,7 +39,7 @@
         <archive-list-cell v-for="article in articles" :article="article" :key="article.title"></archive-list-cell>
       </el-col>
       <el-col :lg="7" :xl="7" class="hidden-md-and-down">
-        <about></about>
+        <!--<about></about>-->
         <friend-links style="margin-top:15px;"></friend-links>
       </el-col>
     </el-row>

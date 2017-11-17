@@ -196,9 +196,9 @@ actions: {
         <article-page-footer></article-page-footer>
       </el-col>
       <el-col :md="7" :lg="7" :xl="7" class="hidden-sm-and-down">
-        <about></about>
-        <affix :offsetTop="60">
-          <side-toc style="margin-top: 15px;"></side-toc>
+        <friend-links style="margin-bottom: 15px;"></friend-links>
+        <affix :offsetTop="75">
+          <side-toc></side-toc>
         </affix>
       </el-col>
     </el-row>

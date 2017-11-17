@@ -1,49 +1,55 @@
 <template>
   <div class="friend-links">
-    <h4>友情链接</h4>
-    <ul class="link-list">
-      <li>
-        <a href="">
-          <img src="../../assets/logo.png" alt="">
-          <div class="right">
-            <p class="title">百度的个人</p>
-            <p class="link">www.baidu.com</p>
-          </div>
-        </a>
-      </li>
-      <li>
-        <a href="">
-          <img src="../../assets/logo.png" alt="">
-          <div class="right">
-            <p class="title">百度的个人</p>
-            <p class="link">www.baidu.com</p>
-          </div>
-        </a>
-      </li>
-      <li>
-        <a href="">
-          <img src="../../assets/logo.png" alt="">
-          <div class="right">
-            <p class="title">百度的个人</p>
-            <p class="link">www.baidu.com</p>
-          </div>
-        </a>
-      </li>
-      <li>
-        <a href="">
-          <img src="../../assets/logo.png" alt="">
-          <div class="right">
-            <p class="title">百度的个人</p>
-            <p class="link">www.baidu.com</p>
-          </div>
-        </a>
-      </li>
-    </ul>
+    <panel :title="'友情链接'">
+      <ul class="link-list" slot="content">
+        <li>
+          <a href="">
+            <img src="../../assets/logo.png" alt="">
+            <div class="right">
+              <p class="title">百度的个人</p>
+              <p class="link">www.baidu.com</p>
+            </div>
+          </a>
+        </li>
+        <li>
+          <a href="">
+            <img src="../../assets/logo.png" alt="">
+            <div class="right">
+              <p class="title">百度的个人</p>
+              <p class="link">www.baidu.com</p>
+            </div>
+          </a>
+        </li>
+        <li>
+          <a href="">
+            <img src="../../assets/logo.png" alt="">
+            <div class="right">
+              <p class="title">百度的个人</p>
+              <p class="link">www.baidu.com</p>
+            </div>
+          </a>
+        </li>
+        <li>
+          <a href="">
+            <img src="../../assets/logo.png" alt="">
+            <div class="right">
+              <p class="title">百度的个人</p>
+              <p class="link">www.baidu.com</p>
+            </div>
+          </a>
+        </li>
+      </ul>
+    </panel>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
+  import Panel from '@/components/views/Panel';
+
   export default {
+    components: {
+      'panel': Panel
+    }
   };
 </script>
 
@@ -52,16 +58,8 @@
 
   .friend-links
     position relative
-    border 1px solid $color-border
-    padding-bottom 20px
-    h4
-      font-size 18px
-      padding 13px 0
-      line-height 28px
-      text-align center
-      border-bottom 1px solid $color-border
     ul.link-list
-      margin-top 10px
+      padding 15px 0
       li
         padding 2px 25px
         a
