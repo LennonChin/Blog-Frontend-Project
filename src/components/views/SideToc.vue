@@ -4,20 +4,20 @@
     <div class="list" slot="content" ref="list">
       <div class="active-indicator"></div>
       <ul class="menu-root">
-        <li><a @mouseenter="beActive" class="tip0 toc-link">Action</a>
+        <li><a class="tip0 toc-link">Action</a>
           <ul>
-            <li><a @mouseenter="beActive" class="tip1 toc-link">分发 Action</a></li>
-            <li><a @mouseenter="beActive" class="tip2 toc-link">在组件中分发 Action</a></li>
-            <li><a @mouseenter="beActive" class="tip3 toc-link">组合 Action</a>
+            <li><a class="tip1 toc-link">分发 Action</a></li>
+            <li><a class="tip2 toc-link">在组件中分发 Action</a></li>
+            <li><a class="tip3 toc-link">组合 Action</a>
               <ul>
-                <li><a @mouseenter="beActive" class="tip4 toc-link">现在你可以</a>
+                <li><a class="tip4 toc-link">现在你可以</a>
                   <ul>
-                    <li><a @mouseenter="beActive" class="tip5 toc-link">另外一个</a></li>
+                    <li><a class="tip5 toc-link">另外一个</a></li>
                   </ul>
                 </li>
               </ul>
             </li>
-            <li><a @mouseenter="beActive" class="tip6 toc-link">后记</a></li>
+            <li><a class="tip6 toc-link">后记</a></li>
           </ul>
         </li>
       </ul>

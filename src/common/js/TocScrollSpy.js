@@ -146,6 +146,7 @@ TocScrollSpy.prototype._bindTitleAndToc = function () {
     let activeTocEl = that.tocElement.querySelector('.' + activeId);
     activeTocEl.addEventListener('click', function () {
       window.scrollTo(0, that._getElementTop(element) - that.articleMarginTop);
+      that._updateTocStatus(element);
     });
   });
 };
