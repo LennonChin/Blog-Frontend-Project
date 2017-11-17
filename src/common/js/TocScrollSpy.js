@@ -86,28 +86,16 @@ TocScrollSpy.prototype._handleScroll = function () {
   // 筛选哪个H标签离得近
   let fitDistance = windowScrollTop + this.articleMarginTop;
   let distances = [];
-  let that = this;
   this.elTitleElementScrollTops.map(function (scrollTop, index) {
     // 对数组各个数值求差值
     let distance = scrollTop - fitDistance;
     distances.push(Math.abs(distance));
-    if (distance > 0 && distance < 30) {
-      let calcElement = that._getCurrentTitleElement(index);
-      if (calcElement !== that.currentTitleElement) {
-        that.currentTitleElement = calcElement;
-        that._updateTocStatus(that.currentTitleElement);
-        that.currentElementUpdated = true;
-      }
-    }
   });
-  if (!this.currentElementUpdated) {
-    let index = distances.indexOf(Math.min.apply(null, distances));
-    let calcElement = this._getCurrentTitleElement(index);
-    if (calcElement !== this.currentTitleElement) {
-      this.currentTitleElement = calcElement;
-      this._updateTocStatus(this.currentTitleElement);
-      this.currentElementUpdated = true;
-    }
+  let index = distances.indexOf(Math.min.apply(null, distances));
+  let calcElement = this._getCurrentTitleElement(index);
+  if (calcElement !== this.currentTitleElement) {
+    this.currentTitleElement = calcElement;
+    this._updateTocStatus(this.currentTitleElement);
   }
 };
 
