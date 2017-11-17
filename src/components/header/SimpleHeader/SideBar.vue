@@ -235,7 +235,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import TOC from '../../../common/js/md-toc';
+  import TOC from '../../../common/js/MarkdownToc';
 
   export default {
     data() {

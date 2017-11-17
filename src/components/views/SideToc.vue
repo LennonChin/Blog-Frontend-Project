@@ -1,41 +1,28 @@
 <template>
-    <div class="side-toc">
-      <h4>目录</h4>
-      <div class="list" slot="content" ref="list">
-        <div class="active-indicator"></div>
-        <ul class="menu-root">
-          <li><a @mouseenter="beActive" class="toc-link" href="http://localhost:8090/article#tip0">Action</a>
-            <ul>
-              <li><a @mouseenter="beActive" class="toc-link" href="http://localhost:8090/article#tip1">分发 Action</a></li>
-              <li><a @mouseenter="beActive" class="toc-link" href="http://localhost:8090/article#tip2">在组件中分发 Action在组件中分发 Action在组件中分发 Action在组件中分发 Action在组件中分发 Action</a>
-              </li>
-              <li><a @mouseenter="beActive" class="toc-link" href="http://localhost:8090/article#tip3">组合 Action</a>
-                <ul>
-                  <li><a @mouseenter="beActive" class="toc-link" href="http://localhost:8090/article#tip4">现在你可以</a>
-                    <ul>
-                      <li><a @mouseenter="beActive" class="toc-link" href="http://localhost:8090/article#tip5">另外一个</a></li>
-                    </ul>
-                  </li>
-                </ul>
-              </li>
-              <li><a @mouseenter="beActive" class="toc-link" href="http://localhost:8090/article#tip6">后记</a></li>
-              <li><a @mouseenter="beActive" class="toc-link" href="http://localhost:8090/article#tip1">分发 Action</a></li>
-              <li><a @mouseenter="beActive" class="toc-link" href="http://localhost:8090/article#tip2">在组件中分发 Action在组件中分发 Action在组件中分发 Action在组件中分发 Action在组件中分发 Action</a>
-              </li>
-              <li><a @mouseenter="beActive" class="toc-link" href="http://localhost:8090/article#tip3">组合 Action</a>
-                <ul>
-                  <li><a @mouseenter="beActive" class="toc-link" href="http://localhost:8090/article#tip4">现在你可以</a>
-                    <ul>
-                      <li><a @mouseenter="beActive" class="toc-link" href="http://localhost:8090/article#tip5">另外一个</a></li>
-                    </ul>
-                  </li>
-                </ul>
-              </li>
-            </ul>
-          </li>
-        </ul>
-      </div>
+  <div class="side-toc" id="side-toc">
+    <h4>目录</h4>
+    <div class="list" slot="content" ref="list">
+      <div class="active-indicator"></div>
+      <ul class="menu-root">
+        <li><a @mouseenter="beActive" class="tip0 toc-link">Action</a>
+          <ul>
+            <li><a @mouseenter="beActive" class="tip1 toc-link">分发 Action</a></li>
+            <li><a @mouseenter="beActive" class="tip2 toc-link">在组件中分发 Action</a></li>
+            <li><a @mouseenter="beActive" class="tip3 toc-link">组合 Action</a>
+              <ul>
+                <li><a @mouseenter="beActive" class="tip4 toc-link">现在你可以</a>
+                  <ul>
+                    <li><a @mouseenter="beActive" class="tip5 toc-link">另外一个</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+            <li><a @mouseenter="beActive" class="tip6 toc-link">后记</a></li>
+          </ul>
+        </li>
+      </ul>
     </div>
+  </div>
 </template>
 
 <script type="text/ecmascript-6">
@@ -67,6 +54,9 @@
     },
     mounted: function () {
       this.recalcActive();
+    },
+    updated: function () {
+      this.recalcActive();
     }
   };
 </script>
@@ -93,7 +83,7 @@
         background-color $color-gradually-gray-101
         border-left 2px solid $color-main-primary
         z-index 1
-        transition top 0.2s ease-out, height 0.2s ease-out
+        transition all 0.2s ease-out
       ul
         position relative
         padding-left: 1em
@@ -102,6 +92,7 @@
           list-style-type: square
           line-height 2.2em
           > a
+            cursor pointer
             display block
             height 100%
             width 100%

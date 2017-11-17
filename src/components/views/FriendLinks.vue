@@ -44,7 +44,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import Panel from '@/components/views/Panel';
+  import Panel from '@/components/utils/Panel';
 
   export default {
     components: {

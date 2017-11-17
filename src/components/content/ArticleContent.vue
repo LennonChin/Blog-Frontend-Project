@@ -212,11 +212,13 @@ npm
   import About from '@/components/views/About';
   import FriendLinks from '@/components/views/FriendLinks';
   import SideToc from '@/components/views/SideToc';
-  import Affix from '@/components/views/Affix';
+  import Affix from '@/components/utils/Affix';
   // highlight.js引入
   import hljs from 'highlight.js';
   // 样式文件
   import 'highlight.js/styles/zenburn.css';
+  // TOC滚动监听
+  import TocScrollSpy from '@/common/js/TocScrollSpy';
 
   var HLJS = hljs;
 
@@ -232,8 +234,16 @@ npm
     },
     mounted: function () {
       this.addCodeLineNumber();
+      this.addTocScrollSpy();
     },
     methods: {
+      addTocScrollSpy() {
+        /* eslint-disable */
+        new TocScrollSpy('article-main-page', 'side-toc', {
+          'spayLevel': 5,
+          'articleMarginTop': 70
+        });
+      },
       addCodeLineNumber() {
         // 添加行号
         let blocks = this.$refs.article.querySelectorAll('pre code');
