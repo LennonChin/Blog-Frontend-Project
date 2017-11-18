@@ -1,6 +1,5 @@
 <template>
   <div class="article-page-footer">
-    </el-alert>
     <license-tag></license-tag>
     <social-section></social-section>
   </div>

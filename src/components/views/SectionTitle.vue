@@ -4,7 +4,7 @@
     <span class="main-title">{{mainTitle}}</span>
     <span class="vertical-line"></span>
     <span class="sub-title">{{subTitle}}</span>
-    <span class="view-more"><a href="">{{tipText}} <i class="el-icon-caret-right"></i></a></span>
+    <span class="view-more"><a href="">{{tipText}} <iv-icon type="arrow-right-b"></iv-icon></a></span>
   </div>
 </template>
 
@@ -25,9 +25,9 @@
 
   .section-title
     padding 20px 0
-    height 50px
     line-height 50px
     text-align left
+    box-sizing border-box
     @media only screen and (max-width: 720px)
       padding 10px 0
       text-align center

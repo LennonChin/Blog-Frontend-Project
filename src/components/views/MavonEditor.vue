@@ -5,10 +5,10 @@
     <div class="bottom-area">
       <div class="comment-tip">
         <a href="https://guides.github.com/features/mastering-markdown/" target="_blank"><i
-        class="el-icon-info"></i> 支持MarkDown</a>
+        class="iv-icon-info"></i> 支持MarkDown</a>
       </div>
       <div class="buttons">
-        <el-button size="small" @click="publish" type="primary">发布</el-button>
+        <iv-button size="small" @click="publish" type="primary">发布</iv-button>
       </div>
     </div>
   </div>

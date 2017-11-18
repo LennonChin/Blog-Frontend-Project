@@ -70,7 +70,7 @@
             zoom: 1.05
       .bottom-area
         text-align left
-        padding 25px 18px 18px 25px
+        padding 20px 18px 18px 20px
         .title
           font-size 18px
           margin-bottom 10px

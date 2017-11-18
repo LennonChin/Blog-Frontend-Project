@@ -103,7 +103,6 @@ body.docs {
 }
 body.docs #header {
   background-color: #fff;
-  height: 40px;
   padding: 10px 60px;
   z-index: 11;
   position: fixed;

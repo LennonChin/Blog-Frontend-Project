@@ -1,10 +1,10 @@
 <template>
   <div class="article-list-year-title" :class="styleType">
-    <span class="date"><i :class="iconType"></i></span>
+    <span class="date"><i class="ivu-icon" :class="iconType"></i></span>
     <span class="main-title">{{date}}</span>
     <span class="vertical-line"></span>
     <span class="sub-title">共 <a href="">{{count}}</a> 篇</span>
-    <span class="view-more"><a href="">{{tipText}} <i class="el-icon-caret-right"></i></a></span>
+    <span class="view-more"><a href="">{{tipText}} <iv-icon type="arrow-right-b"></iv-icon></a></span>
   </div>
 </template>
 
@@ -26,8 +26,8 @@
       },
       iconType () {
         return {
-          'el-icon-date': this.dateType === 'year',
-          'el-icon-time': this.dateType === 'month'
+          'ivu-icon-calendar': this.dateType === 'year',
+          'ivu-icon-clock': this.dateType === 'month'
         };
       }
     }
@@ -43,7 +43,6 @@
     text-align left
     &.style-date-year
       padding 15px 0
-      height 50px
       line-height 50px
       @media only screen and (max-width: 720px)
         padding 8px 0
@@ -56,7 +55,7 @@
           content ''
           position absolute
           top 0px
-          left 18px
+          left 17px
           width 4px
           background-color: $color-main-primary
           height 20%
@@ -65,7 +64,7 @@
           content ''
           position absolute
           bottom 0px
-          left 18px
+          left 17px
           width 4px
           background-color: $color-main-primary
           height 20%
@@ -99,7 +98,6 @@
             text-decoration underline
     &.style-date-month
       padding 15px 0
-      height 30px
       line-height 30px
       @media only screen and (max-width: 720px)
         padding 8px 0
@@ -113,7 +111,7 @@
           content ''
           position absolute
           top 0px
-          left 18px
+          left 17px
           width 4px
           background-color: $color-main-primary
           height 20%
@@ -122,7 +120,7 @@
           content ''
           position absolute
           bottom 0px
-          left 18px
+          left 17px
           width 4px
           background-color: $color-main-primary
           height 20%

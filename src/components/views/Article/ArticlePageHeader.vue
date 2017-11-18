@@ -1,26 +1,25 @@
 <template>
   <div class="article-page-header">
     <div class="tags">
-      <el-tag size="small">标签一</el-tag>
-      <el-tag size="small" type="success">标签二</el-tag>
-      <el-tag size="small" type="info">标签三</el-tag>
-      <el-tag size="small" type="warning">标签四</el-tag>
-      <el-tag size="small" type="danger">标签五</el-tag>
+      <iv-tag color="blue">标签二</iv-tag>
+      <iv-tag color="green">标签三</iv-tag>
+      <iv-tag color="red">标签四</iv-tag>
+      <iv-tag color="yellow">标签五</iv-tag>
     </div>
     <p class="title">Action | 关于Action的解释</p>
-    <el-row :gutter="0">
-      <el-col :xs="24" :sm="10" :md="10" :lg="10" :xl="10">
+    <iv-row>
+      <iv-col :xs="24" :sm="10" :md="10" :lg="10" style="padding-left: 0;padding-right: 0;">
         <p class="info"><span class="author">By / <a href="">{{article.author}}</a></span><span
                 class="publish-time">  At time / <a href="">{{article.publish_time}}</a></span></p>
-      </el-col>
-      <el-col :xs="24" :sm="14" :md="14" :lg="14" :xl="14">
+      </iv-col>
+      <iv-col :xs="24" :sm="14" :md="14" :lg="14" style="padding-left: 0;padding-right: 0;">
         <p class="operate_info">
-          <span class="readings"><a href=""><i class="el-icon-view"></i> {{article.readings}} 阅读</a></span> |
-          <span class="comments"><a href=""><i class="el-icon-news"></i> {{article.comments}} 评论</a></span> |
-          <span class="likes"><a href=""><i class="el-icon-star-off"></i> {{article.likes}} 喜欢</a></span>
+          <span class="readings"><a href=""><iv-icon type="eye"></iv-icon> {{article.readings}} 阅读</a></span> |
+          <span class="comments"><a href=""><iv-icon type="compose"></iv-icon> {{article.comments}} 评论</a></span> |
+          <span class="likes"><a href=""><iv-icon type="heart"></iv-icon> {{article.likes}} 喜欢</a></span>
         </p>
-      </el-col>
-    </el-row>
+      </iv-col>
+    </iv-row>
   </div>
 </template>
 

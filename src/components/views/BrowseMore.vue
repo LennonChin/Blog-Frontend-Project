@@ -41,8 +41,7 @@
   @import "../../common/stylus/theme.styl";
 
   .browse-more
-    width 100px
-    height 30px
+    width 110px
     padding 5px
     margin 10px auto
     border 1px solid $color-main-primary

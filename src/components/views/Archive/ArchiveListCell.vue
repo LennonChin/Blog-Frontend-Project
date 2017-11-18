@@ -2,7 +2,7 @@
   <div class="archive-list-cell">
     <p>
       <a href="">
-        <el-tag size="mini">{{article.publish_time | formateDate}}</el-tag>
+        <iv-tag>{{article.publish_time | formateDate}}</iv-tag>
         <span class="title">{{article.title}}</span>
       </a>
     </p>
@@ -36,7 +36,7 @@
       min-height 25px
       top 0
       bottom 0
-      left 18px
+      left 17px
       width 4px
       background-color: $color-main-primary
     p

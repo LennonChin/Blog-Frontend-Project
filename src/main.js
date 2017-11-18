@@ -1,65 +1,39 @@
 import Vue from 'vue';
 import router from '@/router';
-import 'element-ui/lib/theme-chalk/index.css';
-import 'element-ui/lib/theme-chalk/display.css';
+import 'iview/dist/styles/iview.css';
 import '@/common/stylus/index.styl';
 import App from './App.vue';
 
-// Element UI 组件引入
+// iView UI 组件引入
 import {
-  Button,
-  Tabs,
-  TabPane,
-  Submenu,
-  MenuItem,
-  MenuItemGroup,
-  Menu,
-  Col,
   Row,
+  Col,
+  Button,
   Input,
-  Select,
-  Option,
+  Progress,
+  Tag,
   Dropdown,
   DropdownMenu,
   DropdownItem,
-  Tag,
-  Alert,
-  Form,
-  FormItem,
-  DatePicker,
-  TimePicker,
-  Checkbox,
-  Radio,
-  Switch,
-  Progress
-} from 'element-ui';
+  Menu,
+  Submenu,
+  MenuItem,
+  Icon
+} from 'iview';
 
-Vue.component(Button.name, Button);
-Vue.component(Tabs.name, Tabs);
-Vue.component(TabPane.name, TabPane);
-
-Vue.component(Col.name, Col);
-Vue.component(Row.name, Row);
-Vue.component(Submenu.name, Submenu);
-Vue.component(MenuItem.name, MenuItem);
-Vue.component(MenuItemGroup.name, MenuItemGroup);
-Vue.component(Menu.name, Menu);
-Vue.component(Select.name, Select);
-Vue.component(Input.name, Input);
-Vue.component(Option.name, Option);
-Vue.component(Dropdown.name, Dropdown);
-Vue.component(DropdownMenu.name, DropdownMenu);
-Vue.component(DropdownItem.name, DropdownItem);
-Vue.component(Tag.name, Tag);
-Vue.component(Alert.name, Alert);
-Vue.component(Form.name, Form);
-Vue.component(FormItem.name, FormItem);
-Vue.component(DatePicker.name, DatePicker);
-Vue.component(TimePicker.name, TimePicker);
-Vue.component(Checkbox.name, Checkbox);
-Vue.component(Radio.name, Radio);
-Vue.component(Switch.name, Switch);
-Vue.component(Progress.name, Progress);
+Vue.component('iv-row', Row);
+Vue.component('iv-col', Col);
+Vue.component('iv-button', Button);
+Vue.component('iv-input', Input);
+Vue.component('iv-progress', Progress);
+Vue.component('iv-tag', Tag);
+Vue.component('iv-dropdown', Dropdown);
+Vue.component('iv-dropdown-menu', DropdownMenu);
+Vue.component('iv-dropdown-item', DropdownItem);
+Vue.component('iv-menu', Menu);
+Vue.component('iv-submenu', Submenu);
+Vue.component('iv-menu-item', MenuItem);
+Vue.component('iv-icon', Icon);
 
 let vm = new Vue({
   router,

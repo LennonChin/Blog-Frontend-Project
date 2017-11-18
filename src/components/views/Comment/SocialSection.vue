@@ -1,20 +1,24 @@
 <template>
   <div class="social-section">
-    <el-menu :default-active="'1'" class="el-menu-demo" :active-text-color="'#409EFF'" mode="horizontal">
-      <el-menu-item index="1" style="padding-left: 0;">
-        <i class="el-icon-star-on"></i>{{recommends}} 人觉得很赞
-      </el-menu-item>
-      <el-submenu index="2">
-        <template slot="title">登录以评论</template>
-        <el-menu-item index="2-1">Google+</el-menu-item>
-        <el-menu-item index="2-2">Github</el-menu-item>
-        <el-menu-item index="2-3">Facebook</el-menu-item>
-      </el-submenu>
-      <el-menu-item index="3" style="padding: 0;width: 200px;">
-        <el-input v-model="email" placeholder="或输入您的联系邮箱以评论" size="small"></el-input>
-      </el-menu-item>
-      <el-menu-item index="4" style="float: right;"><a href="https://www.ele.me" target="_blank">菜单</a></el-menu-item>
-    </el-menu>
+    <iv-menu :active-name="'1'" class="iv-menu-demo" :active-text-color="'#409EFF'" mode="horizontal">
+      <iv-menu-item name="1" style="padding-left: 0;">
+        <iv-icon type="heart"></iv-icon>
+        {{recommends}} 人觉得很赞
+      </iv-menu-item>
+      <iv-submenu name="2">
+        <template slot="title">
+          <iv-icon type="log-in"></iv-icon>
+          登录以评论
+        </template>
+        <iv-menu-item name="2-1">Google+</iv-menu-item>
+        <iv-menu-item name="2-2">Github</iv-menu-item>
+        <iv-menu-item name="2-3">Facebook</iv-menu-item>
+      </iv-submenu>
+      <iv-menu-item name="3" style="padding: 0;width: 200px;">
+        <iv-input v-model="email" placeholder="或输入您的联系邮箱以评论" size="default"></iv-input>
+      </iv-menu-item>
+      <iv-menu-item name="4" style="float: right;"><a href="https://www.ele.me" target="_blank">菜单</a></iv-menu-item>
+    </iv-menu>
     <div class="content">
       <div class="likes">
         <a href=""><img src="../../../assets/avatar.png" alt=""></a>
@@ -24,19 +28,19 @@
         <a href=""><img src="../../../assets/avatar.png" alt=""></a>
       </div>
       <div class="operate">
-        <a><i class="el-icon-star-off"></i> 赞这篇文章</a>
-        <el-dropdown>
-              <span class="el-dropdown-link">
-                <i class="el-icon-share"></i> 分享<i class="el-icon-arrow-down el-icon--right"></i>
-              </span>
-          <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item>菜单</el-dropdown-item>
-            <el-dropdown-item>菜单</el-dropdown-item>
-            <el-dropdown-item>菜单</el-dropdown-item>
-            <el-dropdown-item disabled>菜单</el-dropdown-item>
-            <el-dropdown-item divided>菜单</el-dropdown-item>
-          </el-dropdown-menu>
-        </el-dropdown>
+        <a><iv-icon type="heart-outline"></iv-icon> 赞这篇文章</a>
+        <iv-dropdown>
+          <span class="iv-dropdown-link">
+            <iv-icon type="android-share-alt"></iv-icon> 分享 <iv-icon type="arrow-down-b"></iv-icon>
+          </span>
+          <iv-dropdown-menu slot="list">
+            <iv-dropdown-item>菜单</iv-dropdown-item>
+            <iv-dropdown-item>菜单</iv-dropdown-item>
+            <iv-dropdown-item>菜单</iv-dropdown-item>
+            <iv-dropdown-item disabled>菜单</iv-dropdown-item>
+            <iv-dropdown-item divided>菜单</iv-dropdown-item>
+          </iv-dropdown-menu>
+        </iv-dropdown>
       </div>
     </div>
 
@@ -111,7 +115,7 @@
             height 40px
       .operate
         margin 20px 0
-        a, .el-dropdown-link
+        a, .iv-dropdown-link
           display inline-block
           margin-right 15px
           font-size 15px

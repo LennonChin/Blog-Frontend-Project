@@ -1,34 +1,39 @@
 <template>
   <div class="article-list-cell">
     <a href="">
-      <el-row :gutter="0">
-        <el-col :xs="24" :sm="24" :md="17" :lg="17" :xl="17">
+      <iv-row>
+        <iv-col :xs="24" :sm="24" :md="17" :lg="17" style="padding-left: 0;padding-right: 0;">
           <div class="text-wrapper">
-            <h4 class="title"><router-link to="/article">{{article.title}}</router-link></h4>
-            <p class="info"><span class="author">By / <a href="">{{article.author}}</a></span><span
-                    class="publish-time">  At time / <a href="">{{article.publish_time}}</a></span></p>
-            <div class="line border-1px"></div>
-            <div class="tags hidden-md-and-down">
-              <el-tag size="small">标签一</el-tag>
-              <el-tag size="small" type="success">标签二</el-tag>
-              <el-tag size="small" type="info">标签三</el-tag>
-              <el-tag size="small" type="warning">标签四</el-tag>
-              <el-tag size="small" type="danger">标签五</el-tag>
+            <h4 class="title">
+              <router-link to="/article">{{article.title}}</router-link>
+            </h4>
+            <p class="info">
+
+            </p>
+            <div class="tags">
+              <iv-tag color="blue">标签二</iv-tag>
+              <iv-tag color="green">标签三</iv-tag>
+              <iv-tag color="red">标签四</iv-tag>
+              <iv-tag color="yellow">标签五</iv-tag>
             </div>
-            <p class="desc">{{article.desc}}<a href="">View More <i class="el-icon-caret-right"></i></a></p>
+            <p class="desc">{{article.desc}}<a href=""> View More
+              <iv-icon type="arrow-right-b"></iv-icon>
+            </a></p>
             <p class="operate_info">
-              <span class="readings"><a href=""><i class="el-icon-view"></i> {{article.readings}} 阅读</a></span> |
-              <span class="comments"><a href=""><i class="el-icon-news"></i> {{article.comments}} 评论</a></span> |
-              <span class="likes"><a href=""><i class="el-icon-star-off"></i> {{article.likes}} 喜欢</a></span>
+              <span class="author">By / <a href="">{{article.author}}</a></span>
+              <span class="publish-time">At time / <a href="">{{article.publish_time}}</a></span>
+              <span class="readings"><a href=""><iv-icon type="eye"></iv-icon> {{article.readings}} 阅读</a></span>
+              <span class="comments"><a href=""><iv-icon type="compose"></iv-icon> {{article.comments}} 评论</a></span>
+              <span class="likes"><a href=""><iv-icon type="heart"></iv-icon> {{article.likes}} 喜欢</a></span>
             </p>
           </div>
-        </el-col>
-        <el-col :xs="24" :sm="24" :md="7" :lg="7" :xl="7" class="hidden-sm-and-down">
+        </iv-col>
+        <iv-col :xs="0" :sm="0" :md="7" :lg="7" style="padding-left: 0px;padding-right: 0px">
           <div class="img-wrapper">
             <img src="../../../assets/photowall/photowall_pic_2.jpg" alt="">
           </div>
-        </el-col>
-      </el-row>
+        </iv-col>
+      </iv-row>
     </a>
   </div>
 </template>
@@ -43,7 +48,7 @@
   };
 </script>
 
-<style lang="stylus" rel="stylesheet/stylus">
+<style lang="stylus" rel="stylesheet/stylus" scoped>
   @import "../../../common/stylus/index.styl";
 
   .article-list-cell
@@ -56,7 +61,7 @@
         border 1px solid $color-border-hover
         box-shadow 2px 2px 3px $color-border
       .text-wrapper
-        padding 30px 30px 0 30px
+        padding 20px 20px 0 20px
         text-align left
         @media only screen and (max-width: 768px)
           padding 15px 15px 0 15px
@@ -104,11 +109,11 @@
               text-decoration underline
         .operate_info
           font-size 14px
-          margin 15px 0
+          margin 15px 0 20px
           span
-            margin-right 10px
+            margin-right 8px
             + span
-              margin-left 10px
+              margin-left 8px
             a
               cursor pointer
               &:hover

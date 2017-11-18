@@ -75,7 +75,7 @@
             flex 0 0 50px
             width 50px
             height 50px
-            padding 5px 0
+            margin 5px 0
           .right
             display flex
             flex-direction column

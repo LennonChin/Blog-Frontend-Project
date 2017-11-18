@@ -1,48 +1,48 @@
 <template>
   <div class="photowall">
-    <el-row>
-      <el-col :span="12">
+    <iv-row>
+      <iv-col span="12" style="padding-left: 0;padding-right: 0;">
         <div class="big-photo">
           <a href="">
             <img src="../../assets/photowall/photowall_pic_1.jpg" alt="">
           </a>
         </div>
-      </el-col>
-      <el-col :span="12">
-        <el-row>
-          <el-col :span="12">
+      </iv-col>
+      <iv-col span="12" style="padding-left: 0;padding-right: 0;">
+        <iv-row>
+          <iv-col span="12" style="padding-left: 0;padding-right: 0;">
             <div class="small-photo">
               <a href="">
                 <img src="../../assets/photowall/photowall_pic_2.jpg" alt="">
               </a>
             </div>
-          </el-col>
-          <el-col :span="12">
+          </iv-col>
+          <iv-col span="12" style="padding-left: 0;padding-right: 0;">
             <div class="small-photo">
               <a href="">
                 <img src="../../assets/photowall/photowall_pic_3.jpg" alt="">
               </a>
             </div>
-          </el-col>
-        </el-row>
-        <el-row>
-          <el-col :span="12">
+          </iv-col>
+        </iv-row>
+        <iv-row>
+          <iv-col span="12" style="padding-left: 0;padding-right: 0;">
             <div class="small-photo">
               <a href="">
                 <img src="../../assets/photowall/photowall_pic_4.jpg" alt="">
               </a>
             </div>
-          </el-col>
-          <el-col :span="12">
+          </iv-col>
+          <iv-col span="12" style="padding-left: 0;padding-right: 0;">
             <div class="small-photo">
               <a href="">
                 <img src="../../assets/photowall/photowall_pic_5.jpg" alt="">
               </a>
             </div>
-          </el-col>
-        </el-row>
-      </el-col>
-    </el-row>
+          </iv-col>
+        </iv-row>
+      </iv-col>
+    </iv-row>
   </div>
 </template>
 
@@ -50,7 +50,7 @@
 
 </script>
 
-<style lang="stylus" rel="stylesheet/stylus">
+<style lang="stylus" rel="stylesheet/stylus" scoped>
   .photowall
     .big-photo
       padding-bottom: 100%
