@@ -18,7 +18,9 @@ import {
   Menu,
   Submenu,
   MenuItem,
-  Icon
+  Icon,
+  LoadingBar,
+  Affix
 } from 'iview';
 
 Vue.component('iv-row', Row);
@@ -34,6 +36,25 @@ Vue.component('iv-menu', Menu);
 Vue.component('iv-submenu', Submenu);
 Vue.component('iv-menu-item', MenuItem);
 Vue.component('iv-icon', Icon);
+Vue.component('iv-loadingBar', LoadingBar);
+Vue.component('iv-affix', Affix);
+
+// 配置加载进度条
+LoadingBar.config({
+  color: '#5cb85c',
+  failedColor: '#f0ad4e',
+  height: 2
+});
+
+router.beforeEach((to, from, next) => {
+  LoadingBar.start();
+  next();
+});
+
+router.afterEach((to, from, next) => {
+  LoadingBar.finish();
+  window.scrollTo(0, 0);
+});
 
 let vm = new Vue({
   router,
