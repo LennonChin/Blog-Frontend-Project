@@ -20,7 +20,11 @@ import {
   MenuItem,
   Icon,
   LoadingBar,
-  Affix
+  Affix,
+  Select,
+  Option,
+  Carousel,
+  CarouselItem
 } from 'iview';
 
 Vue.component('iv-row', Row);
@@ -38,6 +42,10 @@ Vue.component('iv-menu-item', MenuItem);
 Vue.component('iv-icon', Icon);
 Vue.component('iv-loadingBar', LoadingBar);
 Vue.component('iv-affix', Affix);
+Vue.component('iv-select', Select);
+Vue.component('iv-option', Option);
+Vue.component('iv-carousel', Carousel);
+Vue.component('iv-carousel-item', CarouselItem);
 
 let vm = new Vue({
   router,

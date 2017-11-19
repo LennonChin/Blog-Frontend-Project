@@ -199,9 +199,9 @@ actions: {
       </iv-col>
       <iv-col :xs="0" :sm="0" :md="0" :lg="7">
         <div class="layout-right">
-          <friend-links style="margin-bottom: 15px;"></friend-links>
           <iv-affix :offset-top="75">
             <side-toc></side-toc>
+            <friend-links style="margin-top: 15px;"></friend-links>
           </iv-affix>
         </div>
       </iv-col>
@@ -243,7 +243,7 @@ npm
         /* eslint-disable */
         new TocScrollSpy('article-main-page', 'side-toc', {
           'spayLevel': 5,
-          'articleMarginTop': 70
+          'articleMarginTop': 60
         });
       },
       addCodeLineNumber() {

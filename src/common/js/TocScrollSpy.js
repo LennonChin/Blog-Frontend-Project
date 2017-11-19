@@ -1,3 +1,5 @@
+import { scrollTop } from './SmoothScroll';
+
 var TocScrollSpy = function (articleId, tocId, options) {
   this.articleElement = document.getElementById(articleId);
   this.tocElement = document.getElementById(tocId);
@@ -133,8 +135,10 @@ TocScrollSpy.prototype._bindTitleAndToc = function () {
     let activeId = element.id;
     let activeTocEl = that.tocElement.querySelector('.' + activeId);
     activeTocEl.addEventListener('click', function () {
-      window.scrollTo(0, that._getElementTop(element) - that.articleMarginTop);
-      that._updateTocStatus(element);
+      const pageScroll = that._getPageScroll().top;
+      const toScroll = that._getElementTop(element) - that.articleMarginTop;
+      const duration = Math.min(Math.abs(toScroll - pageScroll) / window.innerHeight * 500, 1000);
+      scrollTop(window, pageScroll, toScroll, duration);
     });
   });
 };

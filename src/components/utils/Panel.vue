@@ -20,13 +20,13 @@
 
   .panel
     position relative
-    border 1px solid $color-border
+    background #fff
+    border-left 1px solid $color-border
     h4
       font-size 18px
-      padding 13px 0
-      line-height 28px
-      text-align center
-      border-bottom 1px solid $color-border
+      padding 13px 20px 0
+      line-height 18px
+      text-align left
     .content
       margin-top 10px
 </style>

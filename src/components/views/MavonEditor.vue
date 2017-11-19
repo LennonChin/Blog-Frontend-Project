@@ -1,14 +1,43 @@
 <template>
   <div id="mavon-editor">
+    <div class="operate">
+      <iv-row :gutter="15">
+        <iv-col span="6">
+          <iv-input v-model="name" placeholder="请输入您的昵称" size="large">
+            <span slot="prepend">昵称 </span>
+          </iv-input>
+        </iv-col>
+        <iv-col span="12">
+          <iv-input v-model="email" placeholder="联系方式（邮箱或手机号）以评论" size="large">
+            <iv-select v-model="select" slot="prepend" style="width: 80px">
+              <iv-option value="email">邮箱 </iv-option>
+              <iv-option value="mobile">手机号 </iv-option>
+            </iv-select>
+          </iv-input>
+        </iv-col>
+        <iv-col span="6" class-name="iv-dropdown-link">
+          <iv-dropdown>
+            <iv-icon type="log-in"></iv-icon> 或登录以评论 <iv-icon type="arrow-down-b"></iv-icon>
+            <iv-dropdown-menu slot="list">
+              <iv-dropdown-item>菜单</iv-dropdown-item>
+              <iv-dropdown-item>菜单</iv-dropdown-item>
+              <iv-dropdown-item>菜单</iv-dropdown-item>
+              <iv-dropdown-item disabled>菜单</iv-dropdown-item>
+              <iv-dropdown-item divided>菜单</iv-dropdown-item>
+            </iv-dropdown-menu>
+          </iv-dropdown>
+        </iv-col>
+      </iv-row>
+    </div>
     <mavon-editor class="editor-area" style="height: 100%; min-height: 50px; min-width: 200px; z-index: 9;" :toolbarsFlag="toolbarsFlag"
                   :subfield="subfield" :placeholder="placeholder" :toolbars="toolbars" @change="change"></mavon-editor>
     <div class="bottom-area">
       <div class="comment-tip">
-        <a href="https://guides.github.com/features/mastering-markdown/" target="_blank"><i
-        class="iv-icon-info"></i> 支持MarkDown</a>
+        <a href="https://guides.github.com/features/mastering-markdown/" target="_blank"><iv-icon
+          type="information-circled"></iv-icon> 支持MarkDown</a>
       </div>
       <div class="buttons">
-        <iv-button size="small" @click="publish" type="primary">发布</iv-button>
+        <iv-button size="default" @click="publish" type="primary">发布</iv-button>
       </div>
     </div>
   </div>
@@ -24,12 +53,18 @@
       },
       placeholder: {
         default: '输入评论内容...'
+      },
+      toolbarsFlag: {
+        default: false
       }
     },
     data() {
       return {
+        name: '',
+        select: 'email',
+        email: '',
+        mobile: '',
         valueChanged: false,
-        toolbarsFlag: false,
         toolbars: {
           bold: true, // 粗体
           italic: true, // 斜体
@@ -120,11 +155,24 @@
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
+  @import "../../common/stylus/theme.styl";
+
   #mavon-editor
     height 100%
     width 100%
     display flex
     flex-direction column
+    .operate
+      margin-bottom 15px
+      .iv-dropdown-link
+        display block
+        height 36px
+        line-height 36px
+        text-align right
+        font-size 15px
+        color $color-main-primary
+        &:hover
+          cursor pointer
     .editor-area
       flex 1
     .bottom-area

@@ -12,6 +12,7 @@ import CommonFooter from '@/components/footer/CommonFooter';
 // 首页
 import HomeContent from '@/components/content/HomeContent';
 import ArticleContent from '@/components/content/ArticleContent';
+import PhotographContent from '@/components/content/PhotographContent';
 
 Vue.use(Router);
 
@@ -38,6 +39,15 @@ let router = new Router({
           components: {
             header: SimpleHeader,
             content: ArticleContent,
+            footer: CommonFooter
+          }
+        },
+        {
+          path: 'photograph',
+          name: 'photograph',
+          components: {
+            header: SimpleHeader,
+            content: PhotographContent,
             footer: CommonFooter
           }
         }
