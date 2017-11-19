@@ -1,31 +1,34 @@
 <template>
   <div class="side-toc" id="side-toc">
-    <h4>目录</h4>
-    <div class="list" slot="content" ref="list">
-      <div class="active-indicator"></div>
-      <ul class="menu-root">
-        <li><a class="tip0 toc-link">Action</a>
-          <ul>
-            <li><a class="tip1 toc-link">分发 Action</a></li>
-            <li><a class="tip2 toc-link">在组件中分发 Action</a></li>
-            <li><a class="tip3 toc-link">组合 Action</a>
-              <ul>
-                <li><a class="tip4 toc-link">现在你可以</a>
-                  <ul>
-                    <li><a class="tip5 toc-link">另外一个</a></li>
-                  </ul>
-                </li>
-              </ul>
-            </li>
-            <li><a class="tip6 toc-link">后记</a></li>
-          </ul>
-        </li>
-      </ul>
-    </div>
+    <panel :title="'目录'">
+      <div class="list" slot="content" ref="list">
+        <div class="active-indicator"></div>
+        <ul class="menu-root">
+          <li><a class="tip0 toc-link">Action</a>
+            <ul>
+              <li><a class="tip1 toc-link">分发 Action</a></li>
+              <li><a class="tip2 toc-link">在组件中分发 Action</a></li>
+              <li><a class="tip3 toc-link">组合 Action</a>
+                <ul>
+                  <li><a class="tip4 toc-link">现在你可以</a>
+                    <ul>
+                      <li><a class="tip5 toc-link">另外一个</a></li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+              <li><a class="tip6 toc-link">后记</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </panel>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
+  import Panel from '@/components/utils/Panel';
+
   export default {
     methods: {
       recalcActive() {
@@ -57,6 +60,9 @@
     },
     updated: function () {
       this.recalcActive();
+    },
+    components: {
+      'panel': Panel
     }
   };
 </script>
@@ -67,7 +73,6 @@
   .side-toc
     position relative
     background #fff
-    border-left 1px solid $color-border
     h4
       font-size 18px
       padding 13px 13px 0
@@ -75,7 +80,7 @@
       text-align left
     .list
       position relative
-      padding 15px 25px
+      padding 0 25px 15px
       .active-indicator
         position absolute
         left -1px

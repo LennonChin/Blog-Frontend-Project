@@ -199,9 +199,9 @@ actions: {
       </iv-col>
       <iv-col :xs="0" :sm="0" :md="0" :lg="7">
         <div class="layout-right">
-          <iv-affix :offset-top="75">
-            <side-toc></side-toc>
-            <friend-links style="margin-top: 15px;"></friend-links>
+          <recommend></recommend>
+          <iv-affix :offset-top="60">
+            <side-toc style="margin-top: 15px;"></side-toc>
           </iv-affix>
         </div>
       </iv-col>
@@ -216,6 +216,7 @@ npm
   import About from '@/components/views/About';
   import FriendLinks from '@/components/views/FriendLinks';
   import SideToc from '@/components/views/SideToc';
+  import Recommend from '@/components/views/Recommend';
   // highlight.js引入
   import hljs from 'highlight.js';
   // 样式文件
@@ -232,7 +233,8 @@ npm
       'article-page-footer': ArticlePageFooter,
       'about': About,
       'friend-links': FriendLinks,
-      'side-toc': SideToc
+      'side-toc': SideToc,
+      'recommend': Recommend
     },
     mounted: function () {
       this.addCodeLineNumber();

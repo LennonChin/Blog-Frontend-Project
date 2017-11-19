@@ -1,7 +1,7 @@
 <template>
   <div class="panel">
     <h4>{{title}}</h4>
-    <slot name="content" class="content"></slot>
+    <slot name="content"></slot>
   </div>
 </template>
 
@@ -24,9 +24,7 @@
     border-left 1px solid $color-border
     h4
       font-size 18px
-      padding 13px 20px 0
+      padding 13px 20px 13px
       line-height 18px
       text-align left
-    .content
-      margin-top 10px
 </style>

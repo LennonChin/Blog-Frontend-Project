@@ -59,7 +59,7 @@
           position relative
           display: block
           width: 100%
-          padding-bottom: 100%
+          padding-bottom: 110%
           .desc, .background
             position absolute
             opacity 0.0
@@ -88,13 +88,13 @@
             zoom: 1.0
             z-index 9
             + img
-              margin-top 10%
+              margin-top 8%
               z-index 8
               transition: All 0.4s ease-in-out
               transform: scale(0.9) rotate(90deg)
               zoom: 0.9
               + img
-                margin-top 20%
+                margin-top 16%
                 box-shadow none
                 z-index 7
                 transition: All 0.4s ease-in-out
@@ -105,11 +105,17 @@
             opacity 1.0
             transition: All 0.5s ease-in-out
           .background
-            background-color rgba(33, 33, 33, 0.5)
+            background-color rgba(33, 33, 33, 0.4)
+          img
+            transition: All 0.4s ease-in-out
+            + img
+              transform translate(0, 8px) scale(0.9) rotate(90deg)
+              + img
+                transform translate(0, 15px) scale(0.8) rotate(270deg)
       .bottom-area
         position relative
         text-align center
-        padding 25px 18px 18px 20px
+        padding 15px 18px 18px 20px
         z-index 6
         .title
           font-size 18px
