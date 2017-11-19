@@ -19,7 +19,7 @@
           <p class="title">Java</p>
         </iv-col>
         <iv-col :span="18">
-          <iv-progress status="active" :hide-info="false" :stroke-width="16" :percent="80" class="bar"></iv-progress>
+          <iv-progress status="normal" :hide-info="true" :stroke-width="8" :percent="80" class="bar"></iv-progress>
         </iv-col>
       </iv-row>
       <iv-row :gutter="20">
@@ -27,7 +27,7 @@
           <p class="title">Hadoop</p>
         </iv-col>
         <iv-col :span="18">
-          <iv-progress status="active" :hide-info="false" :stroke-width="16" :percent="70" class="bar"></iv-progress>
+          <iv-progress status="wrong" :hide-info="true" :stroke-width="8" :percent="70" class="bar"></iv-progress>
         </iv-col>
       </iv-row>
       <iv-row :gutter="20">
@@ -35,7 +35,7 @@
           <p class="title">Python</p>
         </iv-col>
         <iv-col :span="18">
-          <iv-progress :hide-info="false" :stroke-width="16" :percent="60" status="active" class="bar"></iv-progress>
+          <iv-progress status="success" :hide-info="true" :stroke-width="8" :percent="60" class="bar"></iv-progress>
         </iv-col>
       </iv-row>
       <iv-row :gutter="20">
@@ -43,7 +43,7 @@
           <p class="title">Spark</p>
         </iv-col>
         <iv-col :span="18">
-          <iv-progress :hide-info="false" :stroke-width="16" :percent="50" status="active" class="bar"></iv-progress>
+          <iv-progress status="active" :hide-info="true" :stroke-width="8" :percent="50" class="bar"></iv-progress>
         </iv-col>
       </iv-row>
     </div>

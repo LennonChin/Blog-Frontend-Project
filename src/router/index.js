@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
+import {LoadingBar} from 'iview';
 import HelloWorld from '@/components/HelloWorld';
 import Index from '@/components/index/Index';
 
@@ -14,7 +15,7 @@ import ArticleContent from '@/components/content/ArticleContent';
 
 Vue.use(Router);
 
-export default new Router({
+let router = new Router({
   mode: 'history',
   routes: [
     {
@@ -49,3 +50,22 @@ export default new Router({
     }
   ]
 });
+
+// 配置加载进度条
+LoadingBar.config({
+  color: '#5cb85c',
+  failedColor: '#f0ad4e',
+  height: 2
+});
+
+router.beforeEach((to, from, next) => {
+  LoadingBar.start();
+  next();
+});
+
+router.afterEach((to, from, next) => {
+  LoadingBar.finish();
+  window.scrollTo(0, 0);
+});
+
+export default router;

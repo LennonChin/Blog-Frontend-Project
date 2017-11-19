@@ -39,23 +39,6 @@ Vue.component('iv-icon', Icon);
 Vue.component('iv-loadingBar', LoadingBar);
 Vue.component('iv-affix', Affix);
 
-// 配置加载进度条
-LoadingBar.config({
-  color: '#5cb85c',
-  failedColor: '#f0ad4e',
-  height: 2
-});
-
-router.beforeEach((to, from, next) => {
-  LoadingBar.start();
-  next();
-});
-
-router.afterEach((to, from, next) => {
-  LoadingBar.finish();
-  window.scrollTo(0, 0);
-});
-
 let vm = new Vue({
   router,
   el: '#app',
