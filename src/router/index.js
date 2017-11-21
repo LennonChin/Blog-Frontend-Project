@@ -13,6 +13,7 @@ import CommonFooter from '@/components/footer/CommonFooter';
 import HomeContent from '@/components/content/HomeContent';
 import ArticleContent from '@/components/content/ArticleContent';
 import PhotographContent from '@/components/content/PhotographContent';
+import MovieContent from '@/components/content/MovieContent';
 
 Vue.use(Router);
 
@@ -48,6 +49,15 @@ let router = new Router({
           components: {
             header: SimpleHeader,
             content: PhotographContent,
+            footer: CommonFooter
+          }
+        },
+        {
+          path: 'movie',
+          name: 'movie',
+          components: {
+            header: SimpleHeader,
+            content: MovieContent,
             footer: CommonFooter
           }
         }

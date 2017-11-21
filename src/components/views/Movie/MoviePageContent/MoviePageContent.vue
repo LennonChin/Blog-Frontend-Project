@@ -1,5 +1,5 @@
 <template>
-  <div id="article-page-content">
+  <div id="movie-page-content">
     <slot name="content"></slot>
   </div>
 </template>
@@ -10,8 +10,8 @@
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
-  @import "../../../common/stylus/article.styl";
+  @import "../../../../common/stylus/article.styl";
 
-  #article-page-content
+  #movie-page-content
     padding 5px
 </style>
