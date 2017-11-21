@@ -72,12 +72,11 @@
       border-bottom 1px solid rgba(222, 222, 222, 0.3)
     .infos
       display flex
-      margin-top 20px
+      margin 20px 0
       .img
         flex 0 0 200px
-        padding-bottom: 25%
         width: 200px
-        height: 0
+        height: 290px
         overflow hidden
         img
           width 100%
