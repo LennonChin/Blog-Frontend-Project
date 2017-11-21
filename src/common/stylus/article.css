@@ -1,53 +1,53 @@
-#article-page-content > article {
+article#article-main-page {
   text-align: left;
 }
-#article-page-content > article h1,
-#article-page-content > article h2,
-#article-page-content > article h3,
-#article-page-content > article h4,
-#article-page-content > article h5,
-#article-page-content > article h6,
-#article-page-content > article h7 {
+article#article-main-page h1,
+article#article-main-page h2,
+article#article-main-page h3,
+article#article-main-page h4,
+article#article-main-page h5,
+article#article-main-page h6,
+article#article-main-page h7 {
   padding: 25px 0 15px;
   font-weight: 700;
 }
-#article-page-content > article h1 {
+article#article-main-page h1 {
   font-size: 27px;
 }
-#article-page-content > article h2 {
+article#article-main-page h2 {
   font-size: 25px;
 }
-#article-page-content > article h3 {
+article#article-main-page h3 {
   font-size: 22px;
 }
-#article-page-content > article h4,
-#article-page-content > article h5,
-#article-page-content > article h6,
-#article-page-content > article h7 {
+article#article-main-page h4,
+article#article-main-page h5,
+article#article-main-page h6,
+article#article-main-page h7 {
   font-size: 20px;
 }
-#article-page-content > article ul {
+article#article-main-page ul {
   list-style-type: square;
   line-height: 1.5em;
   padding-left: 2.5em;
 }
-#article-page-content > article li {
+article#article-main-page li {
   list-style-type: square;
   margin: 0.5em 0;
   color: #333;
   font-weight: 200;
 }
-#article-page-content > article p {
+article#article-main-page p {
   font-size: 17px;
   line-height: 25px;
   color: #333;
   font-weight: 200;
   margin: 15px 0;
 }
-#article-page-content > article img {
+article#article-main-page img {
   width: 100%;
 }
-#article-page-content > article code.hljs {
+article#article-main-page code.hljs {
   display: block;
   padding: 1px;
   border: 0;
@@ -60,13 +60,13 @@
   color: #333;
   white-space: pre-wrap;
 }
-#article-page-content > article code.hljs > ul {
+article#article-main-page code.hljs > ul {
   list-style: decimal;
   margin: 30px 0 0 55px !important;
   padding: 0;
   background-color: #fff;
 }
-#article-page-content > article code.hljs > ul > li {
+article#article-main-page code.hljs > ul > li {
   list-style: decimal-leading-zero;
   padding: 5px !important;
   margin: 0 !important;
@@ -76,7 +76,7 @@
   word-break: break-all;
   word-wrap: break-word;
 }
-#article-page-content > article code.hljs > ul > li:nth-of-type(even) {
+article#article-main-page code.hljs > ul > li:nth-of-type(even) {
   background-color: #fcfcfc;
   color: inherit;
 }

@@ -1,5 +1,5 @@
 <template>
-  <div id="movie-page-content">
+  <div id="article-page-content">
     <slot name="content"></slot>
   </div>
 </template>
