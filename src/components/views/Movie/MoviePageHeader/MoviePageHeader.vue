@@ -51,37 +51,53 @@
     z-index 10
     @media only screen and (max-width: 576px)
       margin 0 5px 0 5px
+      padding-top 5px
     @media screen and (min-width: 576px)
       margin 0 10px 0 10px
+      padding-top 10px
     @media screen and (min-width: 900px)
       margin 0 35px 0 35px
+      padding-top 15px
     @media screen and (min-width: 1280px)
       width 1280px
       margin 0 auto
+      padding-top 20px
     .title
-      padding-top 30px
       color $color-gradually-gray-91
       font-size 22px
       font-weight 700
       line-height 25px
-      margin-bottom 10px
+      margin-bottom 5px
     .desc
       color $color-gradually-gray-91
       font-size 15px
-      padding-bottom 15px
+      line-height 20px
+      padding-bottom 10px
       border-bottom 1px solid rgba(222, 222, 222, 0.3)
     .infos
-      display flex
-      margin 20px 0
+      padding 10px 0 10px
       .img
-        flex 0 0 200px
-        width: 200px
-        height: 290px
+        float left
+        margin-bottom 10px
+        height: 0
         overflow hidden
+        @media only screen and (max-width: 576px)
+          width: 30%
+          padding 0 10px 39% 0
+          margin-bottom 5px
+        @media screen and (min-width: 576px)
+          width: 25%
+          padding 0 10px 33% 0
+          margin-bottom 5px
+        @media screen and (min-width: 900px)
+          width: 28%
+          padding 0 15px 39% 0
+        @media screen and (min-width: 1280px)
+          width: 25%
+          padding 0 15px 35% 0
         img
           width 100%
       .info
-        padding 10px 5px 0 20px
         p
           color $color-gradually-gray-91
           font-size 15px

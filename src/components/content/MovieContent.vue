@@ -262,15 +262,16 @@ actions: {
 <style lang="stylus" rel="stylesheet/stylus">
   .movie-content
     .header-wrapper
-      overflow hidden
       position relative
+      overflow hidden
       > img
         position absolute
         left 0
         top 0
         width 100%
+        height 100%
         filter blur(5px)
-        transform: scale(1.5)
+        transform  scale(1.5)
         zoom 1.5
     .content-wrapper
       width auto
