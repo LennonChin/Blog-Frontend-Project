@@ -1,7 +1,7 @@
 <template>
   <div class="album-carousel">
-    <span id="prevTop" class="btn prev" @click="prev" @onmouseover="onmouseover" @onmouseout="onmouseout"></span>
-    <span id="nextTop" class="btn next" @click="next" @onmouseover="onmouseover" @onmouseout="onmouseout"></span>
+    <span id="prevTop" class="btn prev" @click="prev" @mouseover="onmouseover" @mouseout="onmouseout"></span>
+    <span id="nextTop" class="btn next" @click="next" @mouseover="onmouseover" @mouseout="onmouseout"></span>
     <div class="preview-box">
       <div id="picBox" class="picBox">
         <ul ref="picBox">
@@ -29,15 +29,63 @@
               <img src="../../../assets/photowall/photowall_pic_5.jpg">
             </a>
           </li>
+          <li>
+            <a href="#" target="_blank">
+              <img src="../../../assets/photowall/photowall_pic_2.jpg">
+            </a>
+          </li>
+          <li>
+            <a href="#" target="_blank">
+              <img src="../../../assets/photowall/photowall_pic_3.jpg">
+            </a>
+          </li>
+          <li>
+            <a href="#" target="_blank">
+              <img src="../../../assets/photowall/photowall_pic_4.jpg">
+            </a>
+          </li>
+          <li>
+            <a href="#" target="_blank">
+              <img src="../../../assets/photowall/photowall_pic_5.jpg">
+            </a>
+          </li>
+          <li>
+            <a href="#" target="_blank">
+              <img src="../../../assets/photowall/photowall_pic_2.jpg">
+            </a>
+          </li>
+          <li>
+            <a href="#" target="_blank">
+              <img src="../../../assets/photowall/photowall_pic_3.jpg">
+            </a>
+          </li>
+          <li>
+            <a href="#" target="_blank">
+              <img src="../../../assets/photowall/photowall_pic_4.jpg">
+            </a>
+          </li>
+          <li>
+            <a href="#" target="_blank">
+              <img src="../../../assets/photowall/photowall_pic_5.jpg">
+            </a>
+          </li>
         </ul>
       </div>
     </div>
     <div class="thumb-box">
-      <span id="prev" class="btn prev" @click="prev" @onmouseover="onmouseover" @onmouseout="onmouseout"></span>
-      <span id="next" class="btn next" @click="next" @onmouseover="onmouseover" @onmouseout="onmouseout"></span>
+      <span id="prev" class="btn prev" @click="prev" @mouseover="onmouseover" @mouseout="onmouseout"></span>
+      <span id="next" class="btn next" @click="next" @mouseover="onmouseover" @mouseout="onmouseout"></span>
       <div id="listBox" class="listBox">
         <ul ref="listBox">
           <li class="on"><img src="../../../assets/photowall/photowall_pic_1.jpg"></li>
+          <li><img src="../../../assets/photowall/photowall_pic_2.jpg"></li>
+          <li><img src="../../../assets/photowall/photowall_pic_3.jpg"></li>
+          <li><img src="../../../assets/photowall/photowall_pic_4.jpg"></li>
+          <li><img src="../../../assets/photowall/photowall_pic_5.jpg"></li>
+          <li><img src="../../../assets/photowall/photowall_pic_2.jpg"></li>
+          <li><img src="../../../assets/photowall/photowall_pic_3.jpg"></li>
+          <li><img src="../../../assets/photowall/photowall_pic_4.jpg"></li>
+          <li><img src="../../../assets/photowall/photowall_pic_5.jpg"></li>
           <li><img src="../../../assets/photowall/photowall_pic_2.jpg"></li>
           <li><img src="../../../assets/photowall/photowall_pic_3.jpg"></li>
           <li><img src="../../../assets/photowall/photowall_pic_4.jpg"></li>
@@ -53,30 +101,31 @@
     data() {
       return {
         index: 0,
-        timer: setInterval(this.autoPlay, 4000),
+        timer: null,
         picBox: null,
         listBox: null
       };
     },
     methods: {
       prev() {
+        console.log('prev');
         this.index--;
-        this.index = this.index === -1 ? this.len2 - 1 : this.index;
+        this.index = this.index === -1 ? this.listBox.lis.length - 1 : this.index;
         this.Change();
       },
       next() {
+        console.log('next');
         this.index++;
-        this.index = this.index === this.len2 ? 0 : this.index;
+        this.index = this.index === this.listBox.lis.length ? 0 : this.index;
         this.Change();
       },
       onmouseover() {
+        console.log('onmouseover');
         clearInterval(this.timer);
       },
       onmouseout() {
+        console.log('onmouseout');
         this.timer = setInterval(this.autoPlay, 4000);
-      },
-      G(s) {
-        return document.getElementById(s);
       },
       getStyle(obj, attr) {
         if (obj.currentStyle) {
@@ -92,8 +141,10 @@
         let that = this;
         el.timer = setInterval(function () {
           for (let attr in options) {
+            // 获取原属性值
             let iCur = parseInt(that.getStyle(el, attr));
             if (!iCur) iCur = 0;
+            // 使用现在的属性值和原属性质计算速度
             let iSpeed = (options[attr] - iCur) / 5;
             iSpeed = iSpeed > 0 ? Math.ceil(iSpeed) : Math.floor(iSpeed);
             el.style[attr] = iCur + iSpeed + 'px';
@@ -104,26 +155,24 @@
         }, 30);
       },
       Change() {
-        // 获取两个ul
-
-        let num = 5;
-        let num2 = Math.ceil(num / 2);
+        let rowHalfCount = this.listBox.lis.length / 2;
+        let revertCount = Math.ceil(rowHalfCount / 2);
 
         this.Animate(this.picBox.el, {
           left: -this.index * this.picBox.liWidth
         });
 
-        if (this.index < num2) {
+        if (this.index < revertCount) {
           this.Animate(this.listBox.el, {
             left: 0
           });
-        } else if (this.index + num2 <= this.listBox.lis.length) {
+        } else if (this.index + revertCount <= this.listBox.lis.length) {
           this.Animate(this.listBox.el, {
-            left: -(this.index - num2 + 1) * this.listBox.liWidth
+            left: -(this.index - revertCount + 1) * this.listBox.liWidth
           });
         } else {
           this.Animate(this.listBox.el, {
-            left: -(this.listBox.lis.length - num) * this.listBox.liWidth
+            left: -(this.listBox.lis.length - rowHalfCount) * this.listBox.liWidth
           });
         }
 
@@ -155,22 +204,23 @@
         this.picBox.el.style.width = this.picBox.lis.length * this.picBox.liWidth + 'px';
         this.listBox.el.style.width = this.listBox.lis.length * this.listBox.liWidth + 'px';
 
+        // 重置大图li的默认宽度，因为CSS中给的100%，而此时ul宽度已改变
         var that = this;
         Object.keys(this.picBox.lis).forEach(function (key) {
           that.picBox.lis[key].style.width = that.picBox.liWidth + 'px';
         });
 
-        console.log(this.picBox.lis[0].offsetWidth);
-        console.log(this.listBox.lis[0].offsetWidth);
-
-        for (let i = 0; i < this.listBox.liCount; i++) {
+        // 给小图添加点击事件
+        for (let i = 0; i < this.listBox.lis.length; i++) {
           this.listBox.lis[i].index = i;
-          let that = this;
           this.listBox.lis[i].onclick = function () {
             that.index = this.index;
-            this.Change();
+            that.Change();
           };
         }
+
+        // 开启定时器
+        this.timer = setInterval(this.autoPlay, 4000);
       }
     },
     mounted() {
@@ -198,6 +248,11 @@
         height: 100%
         overflow: hidden;
         ul
+          position absolute
+          left 0
+          top 0
+          right 0
+          bottom 0
           width 100%;
           height: 100%;
           li
@@ -244,6 +299,11 @@
         padding 5px
         overflow: hidden;
         ul
+          position absolute
+          left 0
+          top 0
+          right 0
+          bottom 0
           width 100%
           height: 100%;
           li
