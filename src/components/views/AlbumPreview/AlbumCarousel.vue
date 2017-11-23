@@ -270,6 +270,7 @@
       i
         display inline-block
         line-height 60px
+        cursor pointer
         + i
           margin 0 20px
           float right
