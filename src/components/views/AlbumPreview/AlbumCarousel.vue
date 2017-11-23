@@ -1,5 +1,10 @@
 <template>
   <div class="album-carousel">
+    <p class="top-bar">
+      <iv-icon type="android-expand"></iv-icon>
+      <iv-icon type="android-close"></iv-icon>
+      <iv-icon type="ios-download-outline"></iv-icon>
+    </p>
     <span id="prevTop" class="btn prev" @click="prev" @mouseover="onmouseover" @mouseout="onmouseout"></span>
     <span id="nextTop" class="btn next" @click="next" @mouseover="onmouseover" @mouseout="onmouseout"></span>
     <div class="preview-box">
@@ -73,8 +78,6 @@
       </div>
     </div>
     <div class="thumb-box">
-      <span id="prev" class="btn prev" @click="prev" @mouseover="onmouseover" @mouseout="onmouseout"></span>
-      <span id="next" class="btn next" @click="next" @mouseover="onmouseover" @mouseout="onmouseout"></span>
       <div id="listBox" class="listBox">
         <ul ref="listBox">
           <li class="on"><img src="../../../assets/photowall/photowall_pic_1.jpg"></li>
@@ -238,12 +241,51 @@
     height 100%
     margin: 0 auto
     background #000
-    #prevTop, #nextTop
-      display: none
+    #prevTop
+      position: absolute;
+      height: 48px;
+      width: 24px;
+      left: 11px;
+      top: 40%;
+      background: url(../../../assets/photowall/prevBtn.png) no-repeat;
+      cursor: pointer;
+      z-index: 99;
+    #nextTop
+      position: absolute;
+      height: 48px;
+      width: 24px;
+      top: 40%;
+      right: 11px;
+      background: url(../../../assets/photowall/nextBtn.png) no-repeat;
+      cursor: pointer;
+      z-index: 99;
+    .top-bar
+      height 60px
+      line-height 60px
+      font-size 30px
+      width 100%
+      padding 0 20px
+      color $color-gradually-gray-81
+      border-bottom 1px solid $color-gradually-gray-21
+      i
+        display inline-block
+        line-height 60px
+        + i
+          margin 0 20px
+          float right
     .preview-box
       width: 100%;
       height: 100%
-      padding-bottom 150px
+      padding 60px 0 150px 0
+      margin-top -60px
+      @media only screen and (max-width: 576px)
+        padding-bottom 90px
+      @media screen and (min-width: 576px)
+        padding-bottom 130px
+      @media screen and (min-width: 900px)
+        padding-bottom 150px
+      @media screen and (min-width: 1280px)
+        padding-bottom 150px
       .picBox
         position: relative;
         width: 100%;
@@ -263,12 +305,13 @@
             width: 100%;
             height: 100%
             a
-              display: block;
+              display: flex;
               width: 100%;
               height: 100%
-              text-align: center;
+              justify-content: center
+              box-align: center
+              align-items: center
               img
-                vertical-align: middle;
                 max-height: 100%;
                 max-width: 100%;
     .thumb-box
@@ -276,24 +319,14 @@
       height: 120px;
       margin-top: -150px;
       position: relative;
-      #prev
-        position: absolute;
-        height: 48px;
-        width: 24px;
-        left: 11px;
-        top: 35px;
-        background: url(../../../assets/photowall/prevBtn.png) no-repeat;
-        cursor: pointer;
-        z-index: 99;
-      #next
-        position: absolute;
-        height: 48px;
-        width: 25px;
-        top: 35px;
-        right: 11px;
-        background: url(../../../assets/photowall/nextBtn.png) no-repeat;
-        cursor: pointer;
-        z-index: 99;
+      @media only screen and (max-width: 576px)
+        margin-top: -90px;
+      @media screen and (min-width: 576px)
+        margin-top: -130px;
+      @media screen and (min-width: 900px)
+        margin-top: -150px;
+      @media screen and (min-width: 1280px)
+        margin-top: -150px;
       .listBox
         position: relative;
         width: 100%

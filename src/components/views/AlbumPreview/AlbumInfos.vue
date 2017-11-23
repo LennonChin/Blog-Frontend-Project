@@ -64,9 +64,22 @@
   .album-infos
     background #000
     width 100%
-    height 100vh
-    border-left 1px solid $color-gradually-gray-21
-    overflow-y auto
+    @media only screen and (max-width: 576px)
+      height inherit
+      overflow-y visible
+      border-left none
+    @media screen and (min-width: 576px)
+      height inherit
+      overflow-y visible
+      border-left none
+    @media screen and (min-width: 900px)
+      height 100vh
+      overflow-y auto
+      border-left 1px solid $color-gradually-gray-21
+    @media screen and (min-width: 1280px)
+      height 100vh
+      overflow-y auto
+      border-left 1px solid $color-gradually-gray-21
     .operate_info
       height 60px
       line-height 60px

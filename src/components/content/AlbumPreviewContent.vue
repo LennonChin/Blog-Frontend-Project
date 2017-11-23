@@ -1,10 +1,10 @@
 <template>
   <div class="album-preview-content">
     <iv-row>
-      <iv-col :xs="24" :sm="24" :md="18" :lg="18">
+      <iv-col :xs="24" :sm="24" :md="16" :lg="18">
         <album-preview></album-preview>
       </iv-col>
-      <iv-col :xs="24" :sm="24" :md="6" :lg="6">
+      <iv-col :xs="24" :sm="24" :md="8" :lg="6">
         <album-infos></album-infos>
       </iv-col>
     </iv-row>
