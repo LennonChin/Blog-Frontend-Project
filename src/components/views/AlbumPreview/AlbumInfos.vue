@@ -18,15 +18,15 @@
       <p class="title">极光飞舞</p>
       <p class="desc">格陵兰岛南部峡湾，漫天飞舞的极光。</p>
       <p class="tags">
-        <span class="tag"><span class="sharp"># </span>我要上开屏</span>
-        <span class="tag"><span># </span>旅行</span>
-        <span class="tag"><span># </span>格陵兰</span>
-        <span class="tag"><span># </span>广角</span>
-        <span class="tag"><span class="sharp"># </span>色彩</span>
-        <span class="tag"><span># </span>极光风光</span>
-        <span class="tag"><span># </span>情绪</span>
-        <span class="tag"><span># </span>尼康</span>
-        <span class="tag"><span># </span>后期</span>
+        <span class="tag"><a href=""><span class="sharp"># </span>我要上开屏</a></span>
+        <span class="tag"><a href=""><span># </span>旅行</a></span>
+        <span class="tag"><a href=""><span># </span>格陵兰</a></span>
+        <span class="tag"><a href=""><span># </span>广角</a></span>
+        <span class="tag"><a href=""><span class="sharp"># </span>色彩</a></span>
+        <span class="tag"><a href=""><span># </span>极光风光</a></span>
+        <span class="tag"><a href=""><span># </span>情绪</a></span>
+        <span class="tag"><a href=""><span># </span>尼康</a></span>
+        <span class="tag"><a href=""><span># </span>后期</a></span>
       </p>
     </div>
     <div class="camera">
@@ -35,7 +35,7 @@
       <p class="env">f/2.8, 15s, ISO1600</p>
     </div>
     <div class="social">
-      <social-section></social-section>
+      <social-section :theme="'dark-theme'"></social-section>
     </div>
   </div>
 </template>
@@ -77,6 +77,8 @@
         text-align center
         a
           color $color-gradually-gray-91
+          &:hover
+            color $color-secondary-warning
     .author
       padding 10px 20px 20px
       border-bottom 1px solid $color-gradually-gray-21
@@ -129,13 +131,13 @@
           font-size 14px
           font-weight 100
           &.tag
-            color $color-gradually-gray-91
             margin-right 8px
+            a
+              color $color-gradually-gray-91
+              &:hover
+                color $color-secondary-warning
           &.sharp
-            color $color-main-primary
-
-
-
+            color $color-secondary-warning
     .camera
       padding 20px
       border-bottom 1px solid $color-gradually-gray-21
@@ -149,5 +151,13 @@
         color $color-gradually-gray-61
 
     .social
-      padding 0 5px 20px
+      padding 0 20px 20px
+      @media only screen and (max-width: 576px)
+        padding 0 5px 20px
+      @media screen and (min-width: 576px)
+        padding 0 10px 20px
+      @media screen and (min-width: 900px)
+        padding 0 15px 20px
+      @media screen and (min-width: 1280px)
+        padding 0 20px 20px
 </style>

@@ -14,15 +14,15 @@
                     :lg="cellRightSpan('lg')" :xl="cellRightSpan('xl')">
               <div class="content">
                 <p class="title">
-                  <span class="name"><a href="">Tom</a></span>
+                  <span class="name" :class="theme"><a href="">Tom</a></span>
                   <span class="name-tag">Mod</span>
-                  <span class="reply-icon"><iv-icon type="forward"></iv-icon></span>
-                  <span class="reply-name"><a href="">Jerry</a></span>
+                  <span class="reply-icon" :class="theme"><iv-icon type="forward"></iv-icon></span>
+                  <span class="reply-name" :class="theme"><a href="">Jerry</a></span>
                   <span class="time">2 days age</span>
                 </p>
-                <p class="comment-content">
+                <p class="comment-content" :class="theme">
                   针对于这种情况只能尽可能的保证可用吧。各个MQ都有方法处理重复消费，或者是本身的消费支持幂等也能解决，而且数据库也可能挂了哦。</p>
-                <div class="operate-area">
+                <div class="operate-area" :class="theme">
                   <span class="like"><iv-icon type="thumbsup"></iv-icon></span>
                   <span class="unlike"><iv-icon type="thumbsdown"></iv-icon></span>
                   <span class="reply"><a @click="showEditor = !showEditor"><iv-icon type="forward"></iv-icon> 回复</a></span>
@@ -42,7 +42,7 @@
                 </div>
                 <div class="comment-area" v-show="showEditor">
                   <div class="reply-editor" :class="{spread: spreadEditor}">
-                    <mavon-editor @valueChanged="valueChanged"></mavon-editor>
+                    <mavon-editor :theme="theme" @valueChanged="valueChanged"></mavon-editor>
                   </div>
                 </div>
               </div>
@@ -79,6 +79,10 @@
       count: '',
       tipText: {
         default: 'View All'
+      },
+      theme: {
+        Type: String,
+        default: ''
       }
     },
     data() {
@@ -125,7 +129,7 @@
         border-radius $border-radius
         width 100%
     .content
-      margin-top 5px
+      margin 5px 0 8px
       .title
         font-size 0
         margin-bottom 5px
@@ -137,6 +141,9 @@
             font-weight 700
             &:hover
               text-decoration underline
+          &.dark-theme
+            a
+              color $color-secondary-warning
         .name-tag
           font-size 12px
           background-color $color-secondary-info
@@ -155,6 +162,13 @@
             &:hover
               color $color-main-primary
               text-decoration underline
+
+          &.dark-theme
+            a
+              color $color-gradually-gray-71
+              &:hover
+                color $color-secondary-warning
+                text-decoration underline
         .time
           font-size 13px
           color $light
@@ -162,6 +176,8 @@
       .comment-content
         font-size 16px
         line-height 24px
+        &.dark-theme
+          color $color-gradually-gray-71
     .operate-area
       margin-top 8px
       font-size 14px
@@ -174,6 +190,13 @@
         font-weight 700
       .reply
         cursor pointer
+      &.dark-theme
+        .iv-dropdown-link
+          &:hover
+            color $color-secondary-warning
+        .reply
+          a
+            color $color-secondary-warning
     .comment-area
       margin-bottom 10px
       .reply-editor

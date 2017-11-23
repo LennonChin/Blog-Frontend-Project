@@ -1,13 +1,13 @@
 <template>
-  <div id="mavon-editor">
+  <div id="mavon-editor" :class="theme">
     <div class="operate">
       <iv-row :gutter="15">
-        <iv-col span="6">
+        <iv-col :xs="8" :sm="8" :md="6" :lg="6">
           <iv-input v-model="name" placeholder="请输入您的昵称" size="large">
             <span slot="prepend">昵称 </span>
           </iv-input>
         </iv-col>
-        <iv-col span="12">
+        <iv-col :xs="16" :sm="16" :md="12" :lg="11">
           <iv-input v-model="email" placeholder="联系方式（邮箱或手机号）以评论" size="large">
             <iv-select v-model="select" slot="prepend" style="width: 80px">
               <iv-option value="email">邮箱 </iv-option>
@@ -15,7 +15,7 @@
             </iv-select>
           </iv-input>
         </iv-col>
-        <iv-col span="6" class-name="iv-dropdown-link">
+        <iv-col :xs="24" :sm="24" :md="6" :lg="7" class-name="iv-dropdown-link">
           <iv-dropdown>
             <iv-icon type="log-in"></iv-icon> 或登录以评论 <iv-icon type="arrow-down-b"></iv-icon>
             <iv-dropdown-menu slot="list">
@@ -37,7 +37,7 @@
           type="information-circled"></iv-icon> 支持MarkDown</a>
       </div>
       <div class="buttons">
-        <iv-button size="default" @click="publish" type="primary">发布</iv-button>
+        <iv-button size="default" @click="publish" :type="buttonType">发布</iv-button>
       </div>
     </div>
   </div>
@@ -48,6 +48,10 @@
   import 'mavon-editor/dist/css/index.css';
   export default {
     props: {
+      theme: {
+        Type: String,
+        default: ''
+      },
       subfield: {
         default: false
       },
@@ -101,6 +105,11 @@
           preview: true // 预览
         }
       };
+    },
+    computed: {
+      buttonType: function () {
+        return this.theme === 'dark-theme' ? 'warning' : 'primary';
+      }
     },
     name: 'editor',
     components: {
@@ -181,5 +190,26 @@
       display flex
       padding-top 15px
       justify-content: space-between
+    &.dark-theme
+      .operate
+        margin-bottom 15px
+        .iv-dropdown-link
+          display block
+          height 36px
+          line-height 36px
+          text-align right
+          font-size 15px
+          color $color-gradually-gray-61
+          &:hover
+            color $color-secondary-warning
+            border-bottom 2px solid $color-secondary-warning
+            cursor pointer
+      .bottom-area
+        .comment-tip
+          a
+            color $color-gradually-gray-61
+            &:hover
+              color $color-secondary-warning
+
 
 </style>

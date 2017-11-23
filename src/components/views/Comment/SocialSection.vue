@@ -1,6 +1,6 @@
 <template>
   <div class="social-section">
-    <iv-menu :active-name="'1'" class="iv-menu-demo" :active-text-color="'#409EFF'" mode="horizontal">
+    <iv-menu :active-name="'1'" :class="theme" mode="horizontal">
       <iv-menu-item name="1" style="padding-left: 0;">
         <iv-icon type="heart"></iv-icon>
         {{recommends}} 人觉得很赞
@@ -18,7 +18,6 @@
         <iv-menu-item name="3-2">菜单</iv-menu-item>
         <iv-menu-item name="3-3">菜单</iv-menu-item>
       </iv-submenu>
-      <iv-menu-item name="4" style="float: right;"><a href="https://www.ele.me" target="_blank">菜单</a></iv-menu-item>
     </iv-menu>
     <div class="content">
       <div class="likes">
@@ -32,22 +31,22 @@
 
     <div class="comment-area">
       <div class="editor" :class="{spread: spreadEditor}">
-        <mavon-editor @valueChanged="valueChanged"></mavon-editor>
+        <mavon-editor :theme="theme" @valueChanged="valueChanged"></mavon-editor>
       </div>
     </div>
 
     <div class="comment-list">
-      <comment-cell-list :commentLevel="0"></comment-cell-list>
-      <comment-cell-list :commentLevel="1"></comment-cell-list>
-      <comment-cell-list :commentLevel="1"></comment-cell-list>
-      <comment-cell-list :commentLevel="0"></comment-cell-list>
-      <comment-cell-list :commentLevel="0"></comment-cell-list>
-      <comment-cell-list :commentLevel="1"></comment-cell-list>
-      <comment-cell-list :commentLevel="1"></comment-cell-list>
-      <comment-cell-list :commentLevel="1"></comment-cell-list>
-      <comment-cell-list :commentLevel="2"></comment-cell-list>
-      <comment-cell-list :commentLevel="3"></comment-cell-list>
-      <comment-cell-list :commentLevel="1"></comment-cell-list>
+      <comment-cell-list :theme="theme" :commentLevel="0"></comment-cell-list>
+      <comment-cell-list :theme="theme" :commentLevel="1"></comment-cell-list>
+      <comment-cell-list :theme="theme" :commentLevel="1"></comment-cell-list>
+      <comment-cell-list :theme="theme" :commentLevel="0"></comment-cell-list>
+      <comment-cell-list :theme="theme" :commentLevel="0"></comment-cell-list>
+      <comment-cell-list :theme="theme" :commentLevel="1"></comment-cell-list>
+      <comment-cell-list :theme="theme" :commentLevel="1"></comment-cell-list>
+      <comment-cell-list :theme="theme" :commentLevel="1"></comment-cell-list>
+      <comment-cell-list :theme="theme" :commentLevel="2"></comment-cell-list>
+      <comment-cell-list :theme="theme" :commentLevel="3"></comment-cell-list>
+      <comment-cell-list :theme="theme" :commentLevel="1"></comment-cell-list>
     </div>
     <browse-more></browse-more>
   </div>
@@ -62,6 +61,10 @@
     props: {
       recommends: {
         default: 1
+      },
+      theme: {
+        Type: String,
+        default: ''
       }
     },
     data() {
@@ -87,10 +90,25 @@
   };
 </script>
 
-<style lang="stylus" rel="stylesheet/stylus">
+<style lang="stylus" rel="stylesheet/stylus" scoped>
   @import "../.././../common/stylus/theme.styl";
-
+  // #mavon-editor .operate .iv-dropdown-link
   .social-section
+    .dark-theme
+      background #000
+      &::after
+        display none
+      .ivu-menu-item
+        &:hover
+          color $color-secondary-warning
+          border-bottom 2px solid $color-secondary-warning
+      .ivu-menu-item-active
+        color $color-secondary-warning
+        border-bottom 2px solid $color-secondary-warning
+      .ivu-menu-submenu
+        &:hover
+          color $color-secondary-warning
+          border-bottom 2px solid $color-secondary-warning
     .content
       margin 15px 0
       .likes

@@ -241,7 +241,6 @@
     #prevTop, #nextTop
       display: none
     .preview-box
-      display none
       width: 100%;
       height: 100%
       padding-bottom 150px
@@ -269,11 +268,10 @@
               height: 100%
               text-align: center;
               img
+                vertical-align: middle;
                 max-height: 100%;
                 max-width: 100%;
-                vertical-align: middle;
     .thumb-box
-      display none
       width: 100%;
       height: 120px;
       margin-top: -150px;
