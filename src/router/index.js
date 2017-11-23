@@ -14,6 +14,7 @@ import HomeContent from '@/components/content/HomeContent';
 import ArticleContent from '@/components/content/ArticleContent';
 import PhotographContent from '@/components/content/PhotographContent';
 import MovieContent from '@/components/content/MovieContent';
+import MovieListContent from '@/components/content/MovieListContent';
 import AlbumPreviewContent from '@/components/content/AlbumPreviewContent';
 
 Vue.use(Router);
@@ -59,6 +60,15 @@ let router = new Router({
           components: {
             header: SimpleHeader,
             content: MovieContent,
+            footer: CommonFooter
+          }
+        },
+        {
+          path: 'movielist',
+          name: 'movielist',
+          components: {
+            header: SimpleHeader,
+            content: MovieListContent,
             footer: CommonFooter
           }
         },
