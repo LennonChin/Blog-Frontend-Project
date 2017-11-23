@@ -37,7 +37,6 @@
     </div>
     <browse-more></browse-more>
     <section-title :mainTitle="'游记'" :subTitle="'天下之美'"></section-title>
-    <album-carousel></album-carousel>
   </div>
 </template>
 
@@ -46,15 +45,13 @@
   import SectionTitle from '@/components/views/SectionTitle';
   import ThumbCard from '@/components/views/ThumbCard';
   import BrowseMore from '@/components/views/BrowseMore';
-  import AlbumCarousel from '@/components/views/AlbumPreview';
 
   export default {
     components: {
       'classify': Classify,
       'section-title': SectionTitle,
       'thumb-card': ThumbCard,
-      'browse-more': BrowseMore,
-      'album-carousel': AlbumCarousel
+      'browse-more': BrowseMore
     }
   };
 </script>

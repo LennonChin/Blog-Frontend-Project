@@ -235,13 +235,16 @@
   .album-carousel
     position: relative
     width: 100%
-    margin: 15px auto 0
+    height 100%
+    margin: 0 auto
     background #000
     #prevTop, #nextTop
       display: none
     .preview-box
+      display none
       width: 100%;
-      height: 600px
+      height: 100%
+      padding-bottom 150px
       .picBox
         position: relative;
         width: 100%;
@@ -270,9 +273,10 @@
                 max-width: 100%;
                 vertical-align: middle;
     .thumb-box
+      display none
       width: 100%;
       height: 120px;
-      margin-top: 12px;
+      margin-top: -150px;
       position: relative;
       #prev
         position: absolute;
