@@ -6,44 +6,63 @@
         <ul class="recent">
           <li>
             <a href="">
-              <div class="img">
-                <img src="../../../assets/movie/13.jpg" alt="">
-              </div>
-              <div class="user">
-                <p class="title">东方快车谋杀案</p>
-                <p class="link">2017-11-21 12:00:09</p>
-                <p class="content">终于赶上告别版的盗3了，可惜看不到末场的演出了！可惜看不到末场的演出了！</p>
-              </div>
+              <iv-row>
+                <iv-col :xs="24" :sm="24" :md="7" :lg="6">
+                  <div class="img">
+                    <img src="../../../assets/movie/13.jpg" alt="">
+                  </div>
+                </iv-col>
+                <iv-col :xs="24" :sm="24" :md="17" :lg="18">
+                  <div class="info">
+                    <p class="title">东方快车谋杀案</p>
+                    <p class="link">2017-11-21 12:00:09</p>
+                    <p class="content">终于赶上告别版的盗3了，可惜看不到末场的演出了！可惜看不到末场的演出了！</p>
+                  </div>
+                </iv-col>
+              </iv-row>
             </a>
           </li>
           <li>
             <a href="">
-              <div class="img">
-                <img src="../../../assets/movie/13.jpg" alt="">
-              </div>
-              <div class="user">
-                <p class="title">东方快车谋杀案</p>
-                <p class="link">2017-11-21 12:00:09</p>
-                <p class="content">终于赶上告别版的盗3了，可惜看不到末场的演出了！可惜看不到末场的演出了！</p>
-              </div>
+              <iv-row>
+                <iv-col :xs="24" :sm="24" :md="7" :lg="6">
+                  <div class="img">
+                    <img src="../../../assets/movie/14.jpg" alt="">
+                  </div>
+                </iv-col>
+                <iv-col :xs="24" :sm="24" :md="17" :lg="18">
+                  <div class="info">
+                    <p class="title">东方快车谋杀案</p>
+                    <p class="link">2017-11-21 12:00:09</p>
+                    <p class="content">终于赶上告别版的盗3了，可惜看不到末场的演出了！可惜看不到末场的演出了！</p>
+                  </div>
+                </iv-col>
+              </iv-row>
             </a>
           </li>
           <li>
             <a href="">
-              <div class="img">
-                <img src="../../../assets/movie/13.jpg" alt="">
-              </div>
-              <div class="user">
-                <p class="title">东方快车谋杀案</p>
-                <p class="link">2017-11-21 12:00:09</p>
-                <p class="content">终于赶上告别版的盗3了，可惜看不到末场的演出了！可惜看不到末场的演出了！</p>
-              </div>
+              <iv-row>
+                <iv-col :xs="24" :sm="24" :md="7" :lg="6">
+                  <div class="img">
+                    <img src="../../../assets/movie/15.jpg" alt="">
+                  </div>
+                </iv-col>
+                <iv-col :xs="24" :sm="24" :md="17" :lg="18">
+                  <div class="info">
+                    <p class="title">东方快车谋杀案</p>
+                    <p class="link">2017-11-21 12:00:09</p>
+                    <p class="content">终于赶上告别版的盗3了，可惜看不到末场的演出了！可惜看不到末场的演出了！</p>
+                  </div>
+                </iv-col>
+              </iv-row>
             </a>
           </li>
         </ul>
       </iv-col>
       <iv-col :xs="24" :sm="24" :md="8" :lg="8">
         <div class="recommend">
+          <h4>推荐观影</h4>
           <a href="">
             <p class="title">你以为毕业后还能去搬砖？别做梦了，机器人已经连房子都会盖啦</p>
             <div class="tags">
@@ -61,7 +80,7 @@
             <div class="img">
               <img src="../../../assets/recommend.jpg" alt="">
             </div>
-            <p class="desc">希望不管是机器人的设计者还是使用者都能明白，使用机器的目的是帮助我们实现更多创造性的工作，保护我们免于危险，激发我们的人性和爱。</p>
+            <p class="desc">希望不管是机器人的设计者还是使用者都能明白，使用机器的目的是帮助我们实现更多创造性的工作，使用机器的目的是帮助我们实现更多创造性的工作，希望不管是机器人的设计者还是使用者都能明白，使用机器的目的是帮助我们实现更多创造性的工作，保护我们免于危险，激发我们的人性和爱。</p>
           </a>
         </div>
       </iv-col>
@@ -86,22 +105,28 @@
         font-size 16px
         float right
     .recent
-      padding 20px
+      padding 20px 20px 0 20px
       li
+        margin-bottom 10px
         a
-          display flex
           .img
-            flex 0 0 190px
-            width 190px
-            height 120px
-            margin 5px 0
+            width 100%
+            height 0
+            padding-bottom 65%
+            margin-bottom 10px
             overflow hidden
             img
               transition: All 0.4s ease-in-out
               width 100%
-          .user
-            padding-left 12px
-            height 55px
+          .info
+            @media only screen and (max-width: 768px)
+              padding-bottom 10px
+            @media screen and (min-width: 768px)
+              padding-bottom 10px
+            @media screen and (min-width: 992px)
+              padding 0 0 10px 12px
+            @media screen and (min-width: 1200px)
+              padding 0 0 10px 12px
             p
               text-align left
               font-weight 100
@@ -132,7 +157,26 @@
             p.content
               color $color-gradually-gray-61
     .recommend
-      padding 20px 25px 20px 20px
+      margin 20px 0 10px 20px
+      padding 0 25px 20px 20px
+      border-left 1px solid $color-border
+      @media only screen and (max-width: 768px)
+        margin 0 0 20px 0
+        padding 0 20px
+        border-left none
+      @media screen and (min-width: 768px)
+        margin 0 0 20px 0
+        padding 0 20px
+        border-left none
+      @media screen and (min-width: 992px)
+        padding 0 25px 20px 20px
+        border-left 1px solid $color-border
+      @media screen and (min-width: 1200px)
+        padding 0 25px 20px 20px
+        border-left 1px solid $color-border
+      h4
+        font-size 20px
+        padding 0 0 10px 0
       a
         display block
         overflow hidden

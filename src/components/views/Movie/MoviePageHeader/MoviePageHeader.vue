@@ -49,17 +49,17 @@
     position relative
     width auto
     z-index 10
-    @media only screen and (max-width: 576px)
+    @media only screen and (max-width: 768px)
       margin 0 5px 0 5px
       padding-top 5px
-    @media screen and (min-width: 576px)
+    @media screen and (min-width: 768px)
       margin 0 10px 0 10px
       padding-top 10px
-    @media screen and (min-width: 900px)
+    @media screen and (min-width: 992px)
       margin 0 35px 0 35px
       padding-top 15px
-    @media screen and (min-width: 1280px)
-      width 1280px
+    @media screen and (min-width: 1200px)
+      width 1200px
       margin 0 auto
       padding-top 20px
     .title
@@ -81,18 +81,18 @@
         margin-bottom 10px
         height: 0
         overflow hidden
-        @media only screen and (max-width: 576px)
+        @media only screen and (max-width: 768px)
           width: 30%
           padding 0 10px 39% 0
           margin-bottom 5px
-        @media screen and (min-width: 576px)
+        @media screen and (min-width: 768px)
           width: 25%
           padding 0 10px 33% 0
           margin-bottom 5px
-        @media screen and (min-width: 900px)
+        @media screen and (min-width: 992px)
           width: 28%
           padding 0 15px 39% 0
-        @media screen and (min-width: 1280px)
+        @media screen and (min-width: 1200px)
           width: 25%
           padding 0 15px 35% 0
         img
