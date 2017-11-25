@@ -1,15 +1,12 @@
 <template>
   <div class="article-list-cell">
     <a href="">
-      <iv-row>
-        <iv-col :xs="24" :sm="24" :md="17" :lg="17" style="padding-left: 0;padding-right: 0;">
+      <iv-row type="flex">
+        <iv-col :xs="24" :sm="24" :md="textSpan" :lg="textSpan" :order="textOrderType" style="padding-left: 0;padding-right: 0;">
           <div class="text-wrapper">
             <h4 class="title">
               <router-link to="/article">{{article.title}}</router-link>
             </h4>
-            <p class="info">
-
-            </p>
             <div class="tags">
               <iv-tag color="blue">标签二</iv-tag>
               <iv-tag color="green">标签三</iv-tag>
@@ -20,7 +17,6 @@
               <iv-icon type="arrow-right-b"></iv-icon>
             </a></p>
             <p class="operate_info">
-              <span class="author">By / <a href="">{{article.author}}</a></span>
               <span class="publish-time">At time / <a href="">{{article.publish_time}}</a></span>
               <span class="readings"><a href=""><iv-icon type="eye"></iv-icon> {{article.readings}} 阅读</a></span>
               <span class="comments"><a href=""><iv-icon type="compose"></iv-icon> {{article.comments}} 评论</a></span>
@@ -28,8 +24,8 @@
             </p>
           </div>
         </iv-col>
-        <iv-col :xs="0" :sm="0" :md="7" :lg="7" style="padding-left: 0px;padding-right: 0px">
-          <div class="img-wrapper">
+        <iv-col :xs="0" :sm="0" :md="imgSpan" :lg="imgSpan" :order="imgOrderType" style="padding-left: 0px;padding-right: 0px">
+          <div class="img-wrapper" :class="themeClass">
             <img src="../../../assets/photowall/photowall_pic_2.jpg" alt="">
           </div>
         </iv-col>
@@ -39,10 +35,46 @@
 </template>
 
 <script type="text/ecmascript-6">
+  const ARTICLE_TYPE_BIG_IMAGE = 2;
+  const ARTICLE_TYPE_NO_IMAGE = 3;
+
   export default {
     props: {
       article: {
         Type: Object
+      }
+    },
+    computed: {
+      textOrderType: function () {
+        return this.article.type === ARTICLE_TYPE_BIG_IMAGE ? 2 : 1;
+      },
+      imgOrderType: function () {
+        return this.article.type === ARTICLE_TYPE_BIG_IMAGE ? 1 : 2;
+      },
+      textSpan: function () {
+        if (this.article.type === ARTICLE_TYPE_BIG_IMAGE) {
+          return 24;
+        } else if (this.article.type === ARTICLE_TYPE_NO_IMAGE) {
+          return 24;
+        } else {
+          return 17;
+        }
+      },
+      imgSpan: function () {
+        if (this.article.type === ARTICLE_TYPE_BIG_IMAGE) {
+          return 24;
+        } else if (this.article.type === ARTICLE_TYPE_NO_IMAGE) {
+          return 0;
+        } else {
+          return 7;
+        }
+      },
+      themeClass: function () {
+        if (this.article.type === ARTICLE_TYPE_BIG_IMAGE) {
+          return 'big-image';
+        } else {
+          return '';
+        }
       }
     }
   };
@@ -68,7 +100,7 @@
         .title
           font-size 23px
           font-weight 100
-          line-height 29px
+          line-height 27px
           a
             color $color-typegraphy-title
             cursor pointer
@@ -120,10 +152,12 @@
                 color $color-main-primary
                 text-decoration underline
       .img-wrapper
-        padding-bottom: 70%
+        padding-bottom: 85%
         width: 100%
         height: 0
         overflow hidden
+        &.big-image
+          padding-bottom 26%
         img
           width 100%
 </style>

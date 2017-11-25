@@ -1,6 +1,6 @@
 <template>
   <div class="photograph-content">
-    <iv-carousel :value="0" :radius-dot="true" loop autoplay style="margin-bottom: 20px; padding-bottom: 30%; width: 100%; height: 0; overflow:hidden;">
+    <iv-carousel :value="0" :radius-dot="true" loop autoplay style="padding-bottom: 30%; width: 100%; height: 0; overflow:hidden;">
       <iv-carousel-item>
         <img width="100%" src="../../assets/photowall/carousel1.jpg" alt="">
       </iv-carousel-item>
@@ -11,7 +11,7 @@
         <img width="100%" src="../../assets/photowall/carousel3.jpg" alt="">
       </iv-carousel-item>
     </iv-carousel>
-    <classify></classify>
+    <classify-wall></classify-wall>
     <section-title :mainTitle="'游记'" :subTitle="'天下之美'"></section-title>
     <div class="thumb-cards">
       <iv-row>
@@ -41,14 +41,14 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import Classify from '@/components/views/Classify';
+  import ClassifyWall from '@/components/views/Classify/ClassifyWall';
   import SectionTitle from '@/components/views/SectionTitle';
   import ThumbCard from '@/components/views/ThumbCard';
   import BrowseMore from '@/components/views/BrowseMore';
 
   export default {
     components: {
-      'classify': Classify,
+      'classify-wall': ClassifyWall,
       'section-title': SectionTitle,
       'thumb-card': ThumbCard,
       'browse-more': BrowseMore
