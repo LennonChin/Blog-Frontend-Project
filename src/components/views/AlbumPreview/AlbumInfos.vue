@@ -62,7 +62,6 @@
   @import "../../../common/stylus/theme.styl";
 
   .album-infos
-    background #000
     width 100%
     @media only screen and (max-width: 768px)
       height inherit

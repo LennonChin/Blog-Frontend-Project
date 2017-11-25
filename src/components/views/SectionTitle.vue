@@ -11,6 +11,7 @@
       <li><a class="active" href="">最新</a></li>
       <li><a href="">点赞最多</a></li>
       <li><a href="">评论最多</a></li>
+      <li><a href="">推荐</a></li>
     </ul>
   </div>
 </template>

@@ -16,6 +16,7 @@
 
 <style lang="stylus" rel="stylesheet/stylus">
   .album-preview
+    background #000
     width 100%
     height 100vmin
     @media only screen and (max-width: 768px)

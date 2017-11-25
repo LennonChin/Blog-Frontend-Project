@@ -26,7 +26,7 @@
         </iv-col>
         <iv-col :xs="0" :sm="0" :md="imgSpan" :lg="imgSpan" :order="imgOrderType" style="padding-left: 0px;padding-right: 0px">
           <div class="img-wrapper" :class="themeClass">
-            <img src="../../../assets/photowall/photowall_pic_2.jpg" alt="">
+            <img src="../../../assets/photowall/photowall_pic_4.jpg" alt="">
           </div>
         </iv-col>
       </iv-row>
