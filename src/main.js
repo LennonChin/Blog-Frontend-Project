@@ -24,7 +24,10 @@ import {
   Select,
   Option,
   Carousel,
-  CarouselItem
+  CarouselItem,
+  DatePicker,
+  DatePickerCell,
+  Spin
 } from 'iview';
 
 Vue.component('iv-row', Row);
@@ -46,6 +49,9 @@ Vue.component('iv-select', Select);
 Vue.component('iv-option', Option);
 Vue.component('iv-carousel', Carousel);
 Vue.component('iv-carousel-item', CarouselItem);
+Vue.component('iv-date-picker', DatePicker);
+Vue.component('iv-date-picker-cell', DatePickerCell);
+Vue.component('iv-spin', Spin);
 
 let vm = new Vue({
   router,

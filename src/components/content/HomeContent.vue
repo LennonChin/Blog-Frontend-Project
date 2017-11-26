@@ -4,7 +4,9 @@
       <iv-col :xs="24" :sm="24" :md="24" :lg="17" :xl="17">
         <div class="layout-left">
           <photo-wall></photo-wall>
-          <section-title :mainTitle="'文章'" :subTitle="'Articles'"></section-title>
+          <section-title :mainTitle="'文章'" :subTitle="'Articles'">
+            <title-menu-filter slot="menu"></title-menu-filter>
+          </section-title>
           <article-list-cell v-for="article in articles" :article="article" :key="article.title"></article-list-cell>
           <section-title :mainTitle="'主题'" :subTitle="'Topics'"></section-title>
           <div class="topic-cards">
@@ -23,21 +25,6 @@
               </iv-col>
             </iv-row>
           </div>
-          <section-title :mainTitle="'时光轴'" :subTitle="'Topics'"></section-title>
-          <archive-list-time-title :date="'2017年'" :count="'200'"></archive-list-time-title>
-          <archive-list-time-title :date="'10月'" :count="'200'" :dateType="'month'"></archive-list-time-title>
-          <archive-list-cell v-for="article in articles" :article="article" :key="article.title"></archive-list-cell>
-          <archive-list-time-title :date="'9月'" :count="'200'" :dateType="'month'"></archive-list-time-title>
-          <archive-list-cell v-for="article in articles" :article="article" :key="article.title"></archive-list-cell>
-          <archive-list-time-title :date="'8月'" :count="'200'" :dateType="'month'"></archive-list-time-title>
-          <archive-list-cell v-for="article in articles" :article="article" :key="article.title"></archive-list-cell>
-          <archive-list-time-title :date="'2016年'" :count="'200'"></archive-list-time-title>
-          <archive-list-time-title :date="'12月'" :count="'200'" :dateType="'month'"></archive-list-time-title>
-          <archive-list-cell v-for="article in articles" :article="article" :key="article.title"></archive-list-cell>
-          <archive-list-time-title :date="'11月'" :count="'200'" :dateType="'month'"></archive-list-time-title>
-          <archive-list-cell v-for="article in articles" :article="article" :key="article.title"></archive-list-cell>
-          <archive-list-time-title :date="'10月'" :count="'200'" :dateType="'month'"></archive-list-time-title>
-          <archive-list-cell v-for="article in articles" :article="article" :key="article.title"></archive-list-cell>
         </div>
       </iv-col>
       <iv-col :xs="0" :sm="0" :md="0" :lg="7">
@@ -53,7 +40,8 @@
 <script type="text/ecmascript-6">
   import PhotoWall from '@/components/views/PhotoWall';
   import ArticleListCell from '@/components/views/Article/ArticleListCell';
-  import SectionTitle from '@/components/views/SectionTitle';
+  import SectionTitle from '@/components/views/SectionTitle/SectionTitle';
+  import TitleMenuFilter from '@/components/views/SectionTitle/TitleMenuFilter';
   import TopicCard from '@/components/views/TopicCard';
   import ArticlePageHeader from '@/components/views/Article/ArticlePageHeader';
   import ArticlePageContent from '@/components/views/Article/ArticlePageContent';
@@ -118,6 +106,7 @@
       'photo-wall': PhotoWall,
       'article-list-cell': ArticleListCell,
       'section-title': SectionTitle,
+      'title-menu-filter': TitleMenuFilter,
       'topic-card': TopicCard,
       'article-page-header': ArticlePageHeader,
       'article-page-content': ArticlePageContent,

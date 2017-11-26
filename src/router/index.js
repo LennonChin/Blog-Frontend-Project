@@ -17,6 +17,7 @@ import PhotographContent from '@/components/content/PhotographContent';
 import MovieContent from '@/components/content/MovieContent';
 import MovieListContent from '@/components/content/MovieListContent';
 import AlbumPreviewContent from '@/components/content/AlbumPreviewContent';
+import TimeLineContent from '@/components/content/TimeLineContent';
 
 Vue.use(Router);
 
@@ -65,6 +66,13 @@ let router = new Router({
           }
         },
         {
+          path: 'album',
+          name: 'album',
+          components: {
+            content: AlbumPreviewContent
+          }
+        },
+        {
           path: 'movie',
           name: 'movie',
           components: {
@@ -83,10 +91,12 @@ let router = new Router({
           }
         },
         {
-          path: 'album',
-          name: 'album',
+          path: 'timeline',
+          name: 'timeline',
           components: {
-            content: AlbumPreviewContent
+            header: SimpleHeader,
+            content: TimeLineContent,
+            footer: CommonFooter
           }
         }
       ]

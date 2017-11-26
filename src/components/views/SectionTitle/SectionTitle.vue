@@ -7,12 +7,9 @@
       <span class="sub-title">{{subTitle}}</span>
       <span class="view-more"><a href="">{{tipText}} <iv-icon type="arrow-right-b"></iv-icon></a></span>
     </div>
-    <ul class="sort">
-      <li><a class="active" href="">最新</a></li>
-      <li><a href="">点赞最多</a></li>
-      <li><a href="">评论最多</a></li>
-      <li><a href="">推荐</a></li>
-    </ul>
+    <div class="menu">
+      <slot name="menu"></slot>
+    </div>
   </div>
 </template>
 
@@ -29,17 +26,19 @@
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
-  @import "../../common/stylus/index.styl"
+  @import "../../../common/stylus/index.styl"
 
   .section-title
     display flex
     justify-content space-between
     padding 20px 0
+    height 90px
     line-height 50px
     text-align left
     box-sizing border-box
-    @media only screen and (max-width: 720px)
+    @media only screen and (max-width: 768px)
       padding 10px 0
+      height 70px
     .title
       .square
         display inline-block
@@ -74,14 +73,11 @@
           cursor pointer
           &:hover
             text-decoration underline
-    .sort
+    .menu
+      height 100%
+      line-height inherit
       float right
-      li
-        float left
-        margin 0 10px
-        a
-          padding 6px 0
-          &:hover, &.active
-            color $color-main-primary
-            border-bottom 2px solid $color-main-primary
+      @media only screen and (max-width: 768px)
+        display none
+
 </style>
