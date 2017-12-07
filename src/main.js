@@ -4,6 +4,10 @@ import 'iview/dist/styles/iview.css';
 import '@/common/stylus/index.styl';
 import App from './App.vue';
 
+// 全局加载resource拦截器
+import './axios/';
+import Axios from 'axios';
+
 // iView UI 组件引入
 import {
   Row,
@@ -26,6 +30,8 @@ import {
   Carousel,
   CarouselItem
 } from 'iview';
+
+Vue.prototype.$http = Axios;
 
 Vue.component('iv-row', Row);
 Vue.component('iv-col', Col);
