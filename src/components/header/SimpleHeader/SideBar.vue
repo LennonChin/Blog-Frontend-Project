@@ -4,15 +4,10 @@
       <ul class="main-menu">
         <li>
           <form id="search-form">
-            <span class="algolia-autocomplete" style="position: relative; display: inline-block; direction: ltr;"><input
-                    type="text" id="search-query-sidebar" class="search-query st-default-search-input aa-input"
-                    autocomplete="off" spellcheck="false" role="combobox" aria-autocomplete="list" aria-expanded="false"
-                    aria-owns="algolia-autocomplete-listbox-2" dir="auto"
-                    style="position: relative; vertical-align: top;"><pre aria-hidden="true"
-                                                                          style="position: absolute; visibility: hidden; white-space: pre; font-family: system-ui; font-size: 12px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; word-spacing: 0px; letter-spacing: normal; text-indent: 0px; text-rendering: auto; text-transform: none;"></pre><span
-                    class="aa-dropdown-menu" role="listbox" id="algolia-autocomplete-listbox-2"
-                    style="position: absolute; top: 100%; z-index: 100; display: none; left: 0px; right: auto;"><div
-                    class="aa-dataset-3"></div></span></span>
+            <span class="algolia-autocomplete" style="position: relative; display: inline-block; direction: ltr;">
+              <input type="text" id="search-query-sidebar" class="search-query st-default-search-input aa-input"
+                     style="position: relative; vertical-align: top;">
+            </span>
           </form>
         </li>
         <li class="nav-dropdown-container learn" v-for="category_level1 in this.categorys">
@@ -20,7 +15,8 @@
           <ul class="nav-dropdown" v-if="category_level1.sub_category.length > 0">
             <li>
               <ul>
-                <li v-for="category_level2 in category_level1.sub_category"><a href="/v2/guide/" class="nav-link">{{  category_level2.name }}</a> </li>
+                <li v-for="category_level2 in category_level1.sub_category"><a href="/v2/guide/" class="nav-link">{{
+                  category_level2.name }}</a></li>
               </ul>
             </li>
           </ul>
