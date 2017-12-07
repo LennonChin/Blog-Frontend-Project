@@ -48,11 +48,11 @@
   .article-page-header
     text-align left
     padding 25px 5px 10px 5px
-    @media only screen and (max-width: 576px)
+    @media only screen and (max-width: 768px)
       padding-top 10px
-    @media screen and (min-width: 576px)
+    @media screen and (min-width: 768px)
       padding-top 10px
-    @media screen and (min-width: 900px)
+    @media screen and (min-width: 992px)
       padding-top 25px
     .tags
       margin-bottom 18px

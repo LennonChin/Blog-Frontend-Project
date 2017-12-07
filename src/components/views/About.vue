@@ -1,15 +1,15 @@
 <template>
   <div class="about">
     <img class="background" src="../../assets/background.jpg" alt="">
-    <img class="avatar" src="../../assets/logo.png" alt="">
+    <img class="avatar" src="../../assets/avatar.png" alt="">
     <p class="name">Lennon Chin</p>
     <p class="desc">Write the code, Change the World</p>
     <ul class="social">
-      <li><a href=""><img src="../../assets/logo.png" alt=""></a></li>
-      <li><a href=""><img src="../../assets/logo.png" alt=""></a></li>
-      <li><a href=""><img src="../../assets/logo.png" alt=""></a></li>
-      <li><a href=""><img src="../../assets/logo.png" alt=""></a></li>
-      <li><a href=""><img src="../../assets/logo.png" alt=""></a></li>
+      <li><a href=""><img src="../../assets/icon/GitHub.png" alt=""></a></li>
+      <li><a href=""><img src="../../assets/icon/G+.png" alt=""></a></li>
+      <li><a href=""><img src="../../assets/icon/Facebook.png" alt=""></a></li>
+      <li><a href=""><img src="../../assets/icon/Twitter.png" alt=""></a></li>
+      <li><a href=""><img src="../../assets/icon/zhihu.png" alt=""></a></li>
     </ul>
     <div class="line"></div>
     <h4>技能值</h4>

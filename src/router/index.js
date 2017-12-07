@@ -12,10 +12,12 @@ import CommonFooter from '@/components/footer/CommonFooter';
 // 首页
 import HomeContent from '@/components/content/HomeContent';
 import ArticleContent from '@/components/content/ArticleContent';
+import ArticleListContent from '@/components/content/ArticleListContent';
 import PhotographContent from '@/components/content/PhotographContent';
 import MovieContent from '@/components/content/MovieContent';
 import MovieListContent from '@/components/content/MovieListContent';
 import AlbumPreviewContent from '@/components/content/AlbumPreviewContent';
+import TimeLineContent from '@/components/content/TimeLineContent';
 
 Vue.use(Router);
 
@@ -46,12 +48,28 @@ let router = new Router({
           }
         },
         {
+          path: 'articlelist',
+          name: 'articlelist',
+          components: {
+            header: SimpleHeader,
+            content: ArticleListContent,
+            footer: CommonFooter
+          }
+        },
+        {
           path: 'photograph',
           name: 'photograph',
           components: {
             header: SimpleHeader,
             content: PhotographContent,
             footer: CommonFooter
+          }
+        },
+        {
+          path: 'album',
+          name: 'album',
+          components: {
+            content: AlbumPreviewContent
           }
         },
         {
@@ -73,10 +91,12 @@ let router = new Router({
           }
         },
         {
-          path: 'album',
-          name: 'album',
+          path: 'timeline',
+          name: 'timeline',
           components: {
-            content: AlbumPreviewContent
+            header: SimpleHeader,
+            content: TimeLineContent,
+            footer: CommonFooter
           }
         }
       ]

@@ -4,7 +4,7 @@
       <ul class="link-list" slot="content">
         <li>
           <a href="">
-            <img src="../../assets/logo.png" alt="">
+            <img src="../../assets/avatar.png" alt="">
             <div class="right">
               <p class="title">百度的个人</p>
               <p class="link">www.baidu.com</p>
@@ -13,7 +13,7 @@
         </li>
         <li>
           <a href="">
-            <img src="../../assets/logo.png" alt="">
+            <img src="../../assets/avatar.png" alt="">
             <div class="right">
               <p class="title">百度的个人</p>
               <p class="link">www.baidu.com</p>
@@ -22,7 +22,7 @@
         </li>
         <li>
           <a href="">
-            <img src="../../assets/logo.png" alt="">
+            <img src="../../assets/avatar.png" alt="">
             <div class="right">
               <p class="title">百度的个人</p>
               <p class="link">www.baidu.com</p>
@@ -31,7 +31,7 @@
         </li>
         <li>
           <a href="">
-            <img src="../../assets/logo.png" alt="">
+            <img src="../../assets/avatar.png" alt="">
             <div class="right">
               <p class="title">百度的个人</p>
               <p class="link">www.baidu.com</p>

@@ -62,21 +62,20 @@
   @import "../../../common/stylus/theme.styl";
 
   .album-infos
-    background #000
     width 100%
-    @media only screen and (max-width: 576px)
+    @media only screen and (max-width: 768px)
       height inherit
       overflow-y visible
       border-left none
-    @media screen and (min-width: 576px)
+    @media screen and (min-width: 768px)
       height inherit
       overflow-y visible
       border-left none
-    @media screen and (min-width: 900px)
+    @media screen and (min-width: 992px)
       height 100vh
       overflow-y auto
       border-left 1px solid $color-gradually-gray-21
-    @media screen and (min-width: 1280px)
+    @media screen and (min-width: 1200px)
       height 100vh
       overflow-y auto
       border-left 1px solid $color-gradually-gray-21
@@ -165,12 +164,12 @@
 
     .social
       padding 0 20px 20px
-      @media only screen and (max-width: 576px)
+      @media only screen and (max-width: 768px)
         padding 0 5px 20px
-      @media screen and (min-width: 576px)
+      @media screen and (min-width: 768px)
         padding 0 10px 20px
-      @media screen and (min-width: 900px)
+      @media screen and (min-width: 992px)
         padding 0 15px 20px
-      @media screen and (min-width: 1280px)
+      @media screen and (min-width: 1200px)
         padding 0 20px 20px
 </style>

@@ -98,11 +98,24 @@
   .classify
     overflow hidden
     p.header-title
-      font-size 30px
       text-align center
-      padding 20px 0
-      margin-bottom 20px
       border 2px dotted #ccc
+      @media only screen and (max-width: 768px)
+        font-size 21px
+        padding 12px 0
+        margin 10px 0 6px
+      @media screen and (min-width: 768px)
+        font-size 24px
+        padding 15px 0
+        margin 15px 0 10px
+      @media screen and (min-width: 992px)
+        font-size 28px
+        padding 18px 0
+        margin 18px 0 14px
+      @media screen and (min-width: 1200px)
+        font-size 30px
+        padding 20px 0
+        margin 20px 0 16px
     a.content
       display block
       position relative

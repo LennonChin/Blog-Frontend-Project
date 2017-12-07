@@ -240,7 +240,6 @@
     width: 100%
     height 100%
     margin: 0 auto
-    background #000
     #prevTop
       position: absolute;
       height: 48px;
@@ -279,13 +278,13 @@
       height: 100%
       padding 60px 0 150px 0
       margin-top -60px
-      @media only screen and (max-width: 576px)
+      @media only screen and (max-width: 768px)
         padding-bottom 90px
-      @media screen and (min-width: 576px)
+      @media screen and (min-width: 768px)
         padding-bottom 130px
-      @media screen and (min-width: 900px)
+      @media screen and (min-width: 992px)
         padding-bottom 150px
-      @media screen and (min-width: 1280px)
+      @media screen and (min-width: 1200px)
         padding-bottom 150px
       .picBox
         position: relative;
@@ -320,13 +319,13 @@
       height: 120px;
       margin-top: -150px;
       position: relative;
-      @media only screen and (max-width: 576px)
+      @media only screen and (max-width: 768px)
         margin-top: -90px;
-      @media screen and (min-width: 576px)
+      @media screen and (min-width: 768px)
         margin-top: -130px;
-      @media screen and (min-width: 900px)
+      @media screen and (min-width: 992px)
         margin-top: -150px;
-      @media screen and (min-width: 1280px)
+      @media screen and (min-width: 1200px)
         margin-top: -150px;
       .listBox
         position: relative;

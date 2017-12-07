@@ -4,14 +4,7 @@
     <iv-row>
       <iv-col :xs="24" :sm="24" :md="6" :lg="8">
         <div class="left">
-          <a href="">
-            <img src="../../../assets/movie/1.jpg" alt="">
-            <div class="info">
-              <p class="title">魔都最美展《蜷川实花展》 “漫步花海，情迷蜷川”</p>
-              <p class="desc">
-                本次展览将展出近1000件艺术作品，包含花朵系列（Flowers）、金鱼系列（Liquid Dreams）</p>
-            </div>
-          </a>
+          <movie-list-item></movie-list-item>
         </div>
       </iv-col>
       <iv-col :xs="24" :sm="24" :md="18" :lg="16">
@@ -36,7 +29,7 @@
             <div class="right">
               <a href="">
                 <div class="img">
-                  <img src="../../../assets/movie/2.jpg" alt="">
+                  <img src="../../../assets/movie/3.jpg" alt="">
                 </div>
                 <div class="info">
                   <p class="title">东方快车谋杀案</p>
@@ -52,7 +45,7 @@
             <div class="right">
               <a href="">
                 <div class="img">
-                  <img src="../../../assets/movie/2.jpg" alt="">
+                  <img src="../../../assets/movie/7.jpg" alt="">
                 </div>
                 <div class="info">
                   <p class="title">东方快车谋杀案</p>
@@ -68,7 +61,7 @@
             <div class="right">
               <a href="">
                 <div class="img">
-                  <img src="../../../assets/movie/2.jpg" alt="">
+                  <img src="../../../assets/movie/6.jpg" alt="">
                 </div>
                 <div class="info">
                   <p class="title">东方快车谋杀案</p>
@@ -85,7 +78,7 @@
           <iv-col :xs="24" :sm="24" :md="12" :lg="12">
             <div class="comment">
               <a href="">
-                <img src="../../../assets/logo.png" alt="">
+                <img src="../../../assets/avatar.png" alt="">
                 <div class="user">
                   <p class="title">东方快车谋杀案</p>
                   <p class="time">2017-11-21 12:00:09</p>
@@ -97,7 +90,7 @@
           <iv-col :xs="24" :sm="24" :md="12" :lg="12">
             <div class="comment">
               <a href="">
-                <img src="../../../assets/logo.png" alt="">
+                <img src="../../../assets/avatar.png" alt="">
                 <div class="user">
                   <p class="title">东方快车谋杀案</p>
                   <p class="time">2017-11-21 12:00:09</p>
@@ -113,7 +106,13 @@
 </template>
 
 <script type="text/ecmascript-6">
+  import MovieListItem from '@/components/views/Movie/MovieListItem';
 
+  export default {
+    components: {
+      'movie-list-item': MovieListItem
+    }
+  };
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
@@ -128,52 +127,8 @@
       a
         font-size 16px
         float right
-
     .left
       padding 20px
-      a
-        position relative
-        display block
-        padding-bottom: 135%
-        width: 100%
-        height: 0
-        overflow hidden
-        img
-          width 100%
-          transition: All 0.4s ease-in-out
-          transform: scale(1.0)
-          zoom: 1.0
-        .info
-          position absolute
-          bottom 0
-          left 0
-          width 100%
-          height 130px
-          padding 15px
-          background rgba($color-secondary-warning, 0.9)
-          transition: All 0.4s ease-in-out
-          opacity 1.0
-          .title
-            font-size 22px
-            line-height 26px
-            color $color-typegraphy-title
-            margin-bottom 10px
-          .desc
-            font-size 15px
-            line-height 20px
-            color $color-gradually-gray-31
-        &:hover
-          img
-            transition: All 0.4s ease-in-out
-            transform: scale(1.05)
-            zoom: 1.05
-          .info
-            height 160px
-            background rgba($color-gradually-gray-101, 1.0)
-            .title
-              color $color-gradually-gray-11
-            .desc
-              color $color-gradually-gray-11
     .right
       padding 20px 20px 0
       a
@@ -200,10 +155,11 @@
             font-size 15px
             font-weight 100
             line-height 19px
-            color $color-gradually-gray-31
+            color $color-gradually-gray-61
             text-align justify
             margin-bottom 3px
             > span
+              color $color-gradually-gray-41
               font-weight 700
         &:hover
           img
