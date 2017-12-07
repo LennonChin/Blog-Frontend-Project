@@ -4,7 +4,7 @@
       <iv-col span="12" style="padding-left: 0;padding-right: 0;">
         <div class="big-photo">
           <a href="">
-            <img src="../../assets/photowall/photowall_pic_1.jpg" alt="">
+            <img :src="this.banners[0].image !== 'undefined' ? this.banners[0].image : ''" alt="">
           </a>
         </div>
       </iv-col>
@@ -13,14 +13,14 @@
           <iv-col span="12" style="padding-left: 0;padding-right: 0;">
             <div class="small-photo">
               <a href="">
-                <img src="../../assets/photowall/photowall_pic_2.jpg" alt="">
+                <img :src="this.banners[1].image !== 'undefined' ? this.banners[1].image : ''" alt="">
               </a>
             </div>
           </iv-col>
           <iv-col span="12" style="padding-left: 0;padding-right: 0;">
             <div class="small-photo">
               <a href="">
-                <img src="../../assets/photowall/photowall_pic_3.jpg" alt="">
+                <img :src="this.banners[2].image !== 'undefined' ? this.banners[2].image : ''" alt="">
               </a>
             </div>
           </iv-col>
@@ -29,14 +29,14 @@
           <iv-col span="12" style="padding-left: 0;padding-right: 0;">
             <div class="small-photo">
               <a href="">
-                <img src="../../assets/photowall/photowall_pic_4.jpg" alt="">
+                <img :src="this.banners[3].image !== 'undefined' ? this.banners[3].image : ''" alt="">
               </a>
             </div>
           </iv-col>
           <iv-col span="12" style="padding-left: 0;padding-right: 0;">
             <div class="small-photo">
               <a href="">
-                <img src="../../assets/photowall/photowall_pic_5.jpg" alt="">
+                <img :src="this.banners[4].image !== 'undefined' ? this.banners[4].image : ''" alt="">
               </a>
             </div>
           </iv-col>
@@ -47,7 +47,28 @@
 </template>
 
 <script type="text/ecmascript-6">
+  import {getIndexBanner} from '@/api/api';
 
+  export default {
+    data() {
+      return {
+        banners: []
+      };
+    },
+    mounted() {
+      this.getBanners();
+    },
+    methods: {
+      getBanners() {
+        getIndexBanner({}).then((response) => {
+          console.log(response);
+          this.banners = response.data;
+        }).catch(function (error) {
+          console.log(error);
+        });
+      }
+    }
+  };
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>
