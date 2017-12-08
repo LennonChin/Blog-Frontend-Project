@@ -36,6 +36,9 @@ let router = new Router({
             header: SimpleHeader,
             content: HomeContent,
             footer: CommonFooter
+          },
+          meta: {
+            title: '首页'
           }
         },
         {
@@ -45,6 +48,9 @@ let router = new Router({
             header: SimpleHeader,
             content: ArticleContent,
             footer: CommonFooter
+          },
+          meta: {
+            title: '文章'
           }
         },
         {
@@ -54,6 +60,9 @@ let router = new Router({
             header: SimpleHeader,
             content: ArticleListContent,
             footer: CommonFooter
+          },
+          meta: {
+            title: '文章列表'
           }
         },
         {
@@ -121,8 +130,13 @@ router.beforeEach((to, from, next) => {
   next();
 });
 
+let titleIdiom = ['蜂采百花酿甜蜜,人读群书明真理官网', '己所不欲,勿施于人', '学习就如钻探石油'];
+
 router.afterEach((to, from, next) => {
+  // 停止进度条
   LoadingBar.finish();
+  // 修改网页标题
+  document.title = to.matched[to.matched.length - 1].meta.title + ' - ' + titleIdiom[Math.floor(Math.random() * (titleIdiom.length - 1))];
   window.scrollTo(0, 0);
 });
 

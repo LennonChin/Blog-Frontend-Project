@@ -4,7 +4,7 @@
       <iv-col span="12" style="padding-left: 0;padding-right: 0;">
         <div class="big-photo">
           <a href="">
-            <img :src="this.banners[0].image !== 'undefined' ? this.banners[0].image : ''" alt="">
+            <img :src="getBannerImage(0)" alt="">
           </a>
         </div>
       </iv-col>
@@ -13,14 +13,14 @@
           <iv-col span="12" style="padding-left: 0;padding-right: 0;">
             <div class="small-photo">
               <a href="">
-                <img :src="this.banners[1].image !== 'undefined' ? this.banners[1].image : ''" alt="">
+                <img :src="getBannerImage(1)" alt="">
               </a>
             </div>
           </iv-col>
           <iv-col span="12" style="padding-left: 0;padding-right: 0;">
             <div class="small-photo">
               <a href="">
-                <img :src="this.banners[2].image !== 'undefined' ? this.banners[2].image : ''" alt="">
+                <img :src="getBannerImage(2)" alt="">
               </a>
             </div>
           </iv-col>
@@ -29,14 +29,14 @@
           <iv-col span="12" style="padding-left: 0;padding-right: 0;">
             <div class="small-photo">
               <a href="">
-                <img :src="this.banners[3].image !== 'undefined' ? this.banners[3].image : ''" alt="">
+                <img :src="getBannerImage(3)" alt="">
               </a>
             </div>
           </iv-col>
           <iv-col span="12" style="padding-left: 0;padding-right: 0;">
             <div class="small-photo">
               <a href="">
-                <img :src="this.banners[4].image !== 'undefined' ? this.banners[4].image : ''" alt="">
+                <img :src="getBannerImage(4)" alt="">
               </a>
             </div>
           </iv-col>
@@ -55,17 +55,21 @@
         banners: []
       };
     },
-    mounted() {
+    created() {
       this.getBanners();
     },
     methods: {
       getBanners() {
         getIndexBanner({}).then((response) => {
-          console.log(response);
           this.banners = response.data;
         }).catch(function (error) {
           console.log(error);
         });
+      },
+      getBannerImage(index) {
+        if (this.banners.length - 1 >= index) {
+          return this.banners[index].image;
+        }
       }
     }
   };
