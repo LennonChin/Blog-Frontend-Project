@@ -7,6 +7,9 @@ a {
 #nav .nav-link {
   cursor: pointer;
 }
+#nav .nav-dropdown-container {
+  padding: 0 10px;
+}
 #nav .nav-dropdown-container .nav-link:hover:not(.current) {
   border-bottom: none;
 }
@@ -340,4 +343,3 @@ body.docs #nav {
     transform: rotate(360deg);
   }
 }
-/*# sourceMappingURL=header.css.map */

@@ -7,7 +7,7 @@
           <section-title :mainTitle="'文章'" :subTitle="'Articles'">
             <title-menu-filter slot="menu"></title-menu-filter>
           </section-title>
-          <article-list-cell v-for="article in articles" :article="article" :key="article.title"></article-list-cell>
+          <article-list-cell v-for="article in articles" :article="article" :key="article.id"></article-list-cell>
           <section-title :mainTitle="'主题'" :subTitle="'Topics'"></section-title>
           <div class="topic-cards">
             <iv-row :gutter="10">
@@ -51,56 +51,28 @@
   import FriendLinks from '@/components/views/FriendLinks';
   import SideToc from '@/components/views/SideToc';
 
+  // API
+  import { getArticles } from '@/api/api';
+
   export default {
     data() {
       return {
-        articles: [
-          {
-            'id': 1,
-            'title': '被迫向现实低头，再爱也只能到此为止',
-            'author': '男孩与榴莲',
-            'publish_time': '2017-10-22 17:57:08',
-            'desc': '离奇消失亚伯勒郡有一条出名的“S”形单向公路，路面狭窄，两侧耸立着高大的石墙，只能容一辆车子通行',
-            'readings': '148',
-            'comments': '2',
-            'likes': '20',
-            'type': 1
-          },
-          {
-            'id': 2,
-            'title': '我曾经喜欢过一个人',
-            'author': '不能吃糖的0240',
-            'publish_time': '2017-10-22 17:57:08',
-            'desc': '离奇消失亚伯勒郡有一条出名的“S”形单向公路，路面狭窄，两侧耸立着高大的石墙，只能容一辆车子通行',
-            'readings': '148',
-            'comments': '2',
-            'likes': '20',
-            'type': 1
-          },
-          {
-            'id': 3,
-            'title': '离开你以后我还是很喜欢很喜欢你',
-            'author': 'JUNE.',
-            'publish_time': '2017-10-22 17:57:08',
-            'desc': '离奇消失亚伯勒郡有一条出名的“S”形单向公路，路面狭窄，两侧耸立着高大的石墙，只能容一辆车子通行',
-            'readings': '148',
-            'comments': '2',
-            'likes': '20',
-            'type': 2
-          },
-          {
-            'id': 4,
-            'title': '思念如马，自别离，未停蹄！相思若柳，飘满城，尽飞絮！',
-            'author': '每日小情书',
-            'publish_time': '2017-10-22 17:57:08',
-            'desc': '离奇消失亚伯勒郡有一条出名的“S”形单向公路，路面狭窄，两侧耸立着高大的石墙，只能容一辆车子通行',
-            'readings': '148',
-            'comments': '2',
-            'likes': '20',
-            'type': 3
-          }
-        ]
+        articles: []
       };
+    },
+    created() {
+      this.getArticles();
+    },
+    methods: {
+      getArticles() {
+        getArticles({
+          params: {}
+        }).then((response) => {
+          this.articles = response.data.results;
+        }).catch(function (error) {
+          console.log(error);
+        });
+      }
     },
     components: {
       'photo-wall': PhotoWall,

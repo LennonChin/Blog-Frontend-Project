@@ -16,3 +16,8 @@ export const getCategory = params => {
 export const getIndexBanner = params => {
   return axios.get(`${localHost}/banners/`);
 };
+
+// 获取轮播图
+export const getArticles = params => {
+  return axios.get(`${localHost}/articles/`);
+};

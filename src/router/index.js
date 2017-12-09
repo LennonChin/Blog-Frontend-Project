@@ -130,13 +130,22 @@ router.beforeEach((to, from, next) => {
   next();
 });
 
-let titleIdiom = ['蜂采百花酿甜蜜,人读群书明真理官网', '己所不欲,勿施于人', '学习就如钻探石油'];
+let titleIdiom = [
+  '蜂采百花酿甜蜜，人读群书明真理',
+  '己所不欲，勿施于人',
+  '理想是人生的太阳',
+  '人生贵知心，定交无暮早',
+  '真实是人生的命脉，是一切价值的根基',
+  '人生中最困难者，莫过于选择',
+  '有所作为是生活的最高境界',
+  '爱情不过是一种疯'
+];
 
 router.afterEach((to, from, next) => {
   // 停止进度条
   LoadingBar.finish();
   // 修改网页标题
-  document.title = to.matched[to.matched.length - 1].meta.title + ' - ' + titleIdiom[Math.floor(Math.random() * (titleIdiom.length - 1))];
+  document.title = to.matched[to.matched.length - 1].meta.title + ' - ' + titleIdiom[Math.floor(Math.random() * titleIdiom.length)];
   window.scrollTo(0, 0);
 });
 
