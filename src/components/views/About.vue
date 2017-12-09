@@ -10,7 +10,7 @@
     <div class="line"></div>
     <h4>技能值</h4>
     <div class="progresses">
-      <iv-row v-for="master in bloggerInfo.masters" :gutter="20">
+      <iv-row v-for="master in bloggerInfo.masters" :gutter="20" :key="master.id">
         <iv-col :span="6">
           <p class="title">{{ master.name }}</p>
         </iv-col>
