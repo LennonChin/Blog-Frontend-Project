@@ -44,7 +44,7 @@
 
 <script type="text/ecmascript-6">
   import SideBar from '@/components/header/SimpleHeader/SideBar';
-  import {getCategory} from '@/api/api';
+  import {getCategorys} from '@/api/api';
 
   export default {
     data() {
@@ -63,7 +63,7 @@
     },
     methods: {
       initHeaderMenu() {
-        getCategory({
+        getCategorys({
           params: {
             'level_min': 1,
             'level_max': 1

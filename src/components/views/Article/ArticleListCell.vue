@@ -2,7 +2,8 @@
   <div class="article-list-cell">
     <a href="">
       <iv-row type="flex">
-        <iv-col :xs="24" :sm="24" :md="textSpan" :lg="textSpan" :order="textOrderType" style="padding-left: 0;padding-right: 0;">
+        <iv-col :xs="24" :sm="24" :md="textSpan" :lg="textSpan" :order="textOrderType"
+                style="padding-left: 0;padding-right: 0;">
           <div class="text-wrapper">
             <h4 class="title">
               <router-link to="/article">{{article.title}}</router-link>
@@ -21,7 +22,8 @@
             </p>
           </div>
         </iv-col>
-        <iv-col :xs="0" :sm="0" :md="imgSpan" :lg="imgSpan" :order="imgOrderType" style="padding-left: 0px;padding-right: 0px">
+        <iv-col :xs="0" :sm="0" :md="imgSpan" :lg="imgSpan" :order="imgOrderType"
+                style="padding-left: 0px;padding-right: 0px">
           <div class="img-wrapper" :class="themeClass">
             <img :src="article.front_image" alt="">
           </div>
@@ -32,8 +34,9 @@
 </template>
 
 <script type="text/ecmascript-6">
-  const ARTICLE_TYPE_BIG_IMAGE = 2;
   const ARTICLE_TYPE_NO_IMAGE = 0;
+  const ARTICLE_TYPE_NORMAL_IMAGE = 1;
+  const ARTICLE_TYPE_BIG_IMAGE = 2;
 
   export default {
     props: {
@@ -43,31 +46,37 @@
     },
     computed: {
       textOrderType: function () {
-        return this.article.front_image_type === ARTICLE_TYPE_BIG_IMAGE ? 2 : 1;
+        return parseInt(this.article.front_image_type) === ARTICLE_TYPE_BIG_IMAGE ? 2 : 1;
       },
       imgOrderType: function () {
-        return this.article.front_image_type === ARTICLE_TYPE_BIG_IMAGE ? 1 : 2;
+        return parseInt(this.article.front_image_type) === ARTICLE_TYPE_BIG_IMAGE ? 1 : 2;
       },
       textSpan: function () {
-        if (this.article.front_image_type === ARTICLE_TYPE_BIG_IMAGE) {
-          return 24;
-        } else if (this.article.front_image_type === ARTICLE_TYPE_NO_IMAGE) {
-          return 24;
-        } else {
-          return 17;
+        switch (parseInt(this.article.front_image_type)) {
+          case ARTICLE_TYPE_NO_IMAGE:
+            return 24;
+          case ARTICLE_TYPE_NORMAL_IMAGE:
+            return 17;
+          case ARTICLE_TYPE_BIG_IMAGE:
+            return 24;
+          default:
+            return 24;
         }
       },
       imgSpan: function () {
-        if (this.article.type === ARTICLE_TYPE_BIG_IMAGE) {
-          return 24;
-        } else if (this.article.type === ARTICLE_TYPE_NO_IMAGE) {
-          return 0;
-        } else {
-          return 7;
+        switch (parseInt(this.article.front_image_type)) {
+          case ARTICLE_TYPE_NO_IMAGE:
+            return 0;
+          case ARTICLE_TYPE_NORMAL_IMAGE:
+            return 7;
+          case ARTICLE_TYPE_BIG_IMAGE:
+            return 24;
+          default:
+            return 0;
         }
       },
       themeClass: function () {
-        if (this.article.type === ARTICLE_TYPE_BIG_IMAGE) {
+        if (parseInt(this.article.front_image_type) === ARTICLE_TYPE_BIG_IMAGE) {
           return 'big-image';
         } else {
           return '';

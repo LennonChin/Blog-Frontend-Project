@@ -47,7 +47,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import {getIndexBanner} from '@/api/api';
+  import {getIndexBanners} from '@/api/api';
 
   export default {
     data() {
@@ -56,16 +56,13 @@
       };
     },
     created() {
-      this.getBanners();
+      getIndexBanners({}).then((response) => {
+        this.banners = response.data;
+      }).catch(function (error) {
+        console.log(error);
+      });
     },
     methods: {
-      getBanners() {
-        getIndexBanner({}).then((response) => {
-          this.banners = response.data;
-        }).catch(function (error) {
-          console.log(error);
-        });
-      },
       getBannerImage(index) {
         if (this.banners.length - 1 >= index) {
           return this.banners[index].image;

@@ -1,49 +1,21 @@
 <template>
   <div class="about">
-    <img class="background" src="../../assets/background.jpg" alt="">
-    <img class="avatar" src="../../assets/avatar.png" alt="">
-    <p class="name">Lennon Chin</p>
-    <p class="desc">Write the code, Change the World</p>
+    <img class="background" :src="bloggerInfo.background" alt="">
+    <img class="avatar" :src="bloggerInfo.avatar" alt="">
+    <p class="name">{{ bloggerInfo.name_en }}</p>
+    <p class="desc">{{ bloggerInfo.desc }}</p>
     <ul class="social">
-      <li><a href=""><img src="../../assets/icon/GitHub.png" alt=""></a></li>
-      <li><a href=""><img src="../../assets/icon/G+.png" alt=""></a></li>
-      <li><a href=""><img src="../../assets/icon/Facebook.png" alt=""></a></li>
-      <li><a href=""><img src="../../assets/icon/Twitter.png" alt=""></a></li>
-      <li><a href=""><img src="../../assets/icon/zhihu.png" alt=""></a></li>
+      <li v-for="social in bloggerInfo.socials"><a :href="social.url"><img :src="social.image" alt=""></a></li>
     </ul>
     <div class="line"></div>
     <h4>技能值</h4>
     <div class="progresses">
-      <iv-row :gutter="20">
+      <iv-row v-for="master in bloggerInfo.masters" :gutter="20">
         <iv-col :span="6">
-          <p class="title">Java</p>
+          <p class="title">{{ master.name }}</p>
         </iv-col>
         <iv-col :span="18">
-          <iv-progress status="normal" :hide-info="true" :stroke-width="8" :percent="80" class="bar"></iv-progress>
-        </iv-col>
-      </iv-row>
-      <iv-row :gutter="20">
-        <iv-col :span="6">
-          <p class="title">Hadoop</p>
-        </iv-col>
-        <iv-col :span="18">
-          <iv-progress status="wrong" :hide-info="true" :stroke-width="8" :percent="70" class="bar"></iv-progress>
-        </iv-col>
-      </iv-row>
-      <iv-row :gutter="20">
-        <iv-col :span="6">
-          <p class="title">Python</p>
-        </iv-col>
-        <iv-col :span="18">
-          <iv-progress status="success" :hide-info="true" :stroke-width="8" :percent="60" class="bar"></iv-progress>
-        </iv-col>
-      </iv-row>
-      <iv-row :gutter="20">
-        <iv-col :span="6">
-          <p class="title">Spark</p>
-        </iv-col>
-        <iv-col :span="18">
-          <iv-progress status="active" :hide-info="true" :stroke-width="8" :percent="50" class="bar"></iv-progress>
+          <iv-progress status="normal" :hide-info="true" :stroke-width="8" :percent="master.experience" class="bar"></iv-progress>
         </iv-col>
       </iv-row>
     </div>
@@ -51,8 +23,28 @@
 </template>
 
 <script type="text/ecmascript-6">
-  export default {
+  import {getBloggerInfo} from '@/api/api';
 
+  export default {
+    data() {
+      return {
+        bloggerInfo: {}
+      };
+    },
+    created() {
+      this.getDatas();
+    },
+    methods: {
+      getDatas() {
+        getBloggerInfo({
+          params: {}
+        }).then((response) => {
+          this.bloggerInfo = response.data[0];
+        }).catch(function (error) {
+          console.log(error);
+        });
+      }
+    }
   };
 </script>
 

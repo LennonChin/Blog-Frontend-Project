@@ -4,11 +4,11 @@
       <iv-col :xs="24" :sm="24" :md="24" :lg="17" :xl="17">
         <div class="layout-left">
           <photo-wall></photo-wall>
-          <section-title :mainTitle="'文章'" :subTitle="'Articles'">
+          <section-title v-if="this.specialCategory(1) !== 'undefined'" :mainTitle="this.specialCategory(1).name" :subTitle="this.specialCategory(1).code">
             <title-menu-filter slot="menu"></title-menu-filter>
           </section-title>
           <article-list-cell v-for="article in articles" :article="article" :key="article.id"></article-list-cell>
-          <section-title :mainTitle="'主题'" :subTitle="'Topics'"></section-title>
+          <section-title v-if="this.specialCategory(5) !== 'undefined'" :mainTitle="this.specialCategory(5).name" :subTitle="this.specialCategory(5).code"></section-title>
           <div class="topic-cards">
             <iv-row :gutter="10">
               <iv-col :xs="24" :sm="12" :md="8" :lg="8" :xl="8">
@@ -52,26 +52,40 @@
   import SideToc from '@/components/views/SideToc';
 
   // API
-  import { getArticles } from '@/api/api';
+  import { getArticles, getCategory } from '@/api/api';
 
   export default {
     data() {
       return {
+        categorys: [],
         articles: []
       };
     },
     created() {
-      this.getArticles();
+      getArticles({
+        params: {}
+      }).then((response) => {
+        this.articles = response.data.results;
+      }).catch(function (error) {
+        console.log(error);
+      });
+      getCategory({
+        params: {
+          'level_min': 1,
+          'level_max': 1
+        }
+      }).then((response) => {
+        this.categorys = response.data;
+      }).catch(function (error) {
+        console.log(error);
+      });
     },
     methods: {
-      getArticles() {
-        getArticles({
-          params: {}
-        }).then((response) => {
-          this.articles = response.data.results;
-        }).catch(function (error) {
-          console.log(error);
-        });
+      specialCategory(id) {
+        if (this.categorys.length === 0) return 'undefined';
+        return this.categorys.filter((category) => {
+          return category.id === id;
+        })[0];
       }
     },
     components: {

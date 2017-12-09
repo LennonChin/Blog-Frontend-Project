@@ -2,39 +2,12 @@
   <div class="friend-links">
     <panel :title="'友情链接'">
       <ul class="link-list" slot="content">
-        <li>
-          <a href="">
-            <img src="../../assets/avatar.png" alt="">
+        <li v-for="friendLink in friendLinks">
+          <a :href="friendLink.url" target="_blank">
+            <img :src="friendLink.image" alt="">
             <div class="right">
-              <p class="title">百度的个人</p>
-              <p class="link">www.baidu.com</p>
-            </div>
-          </a>
-        </li>
-        <li>
-          <a href="">
-            <img src="../../assets/avatar.png" alt="">
-            <div class="right">
-              <p class="title">百度的个人</p>
-              <p class="link">www.baidu.com</p>
-            </div>
-          </a>
-        </li>
-        <li>
-          <a href="">
-            <img src="../../assets/avatar.png" alt="">
-            <div class="right">
-              <p class="title">百度的个人</p>
-              <p class="link">www.baidu.com</p>
-            </div>
-          </a>
-        </li>
-        <li>
-          <a href="">
-            <img src="../../assets/avatar.png" alt="">
-            <div class="right">
-              <p class="title">百度的个人</p>
-              <p class="link">www.baidu.com</p>
+              <p class="title">{{ friendLink.name }}</p>
+              <p class="link">{{ friendLink.url }}</p>
             </div>
           </a>
         </li>
@@ -45,8 +18,28 @@
 
 <script type="text/ecmascript-6">
   import Panel from '@/components/utils/Panel';
+  import { getFriendLinks } from '@/api/api';
 
   export default {
+    data() {
+      return {
+        friendLinks: []
+      };
+    },
+    created() {
+      this.getDatas();
+    },
+    methods: {
+      getDatas() {
+        getFriendLinks({
+          params: {}
+        }).then((response) => {
+          this.friendLinks = response.data;
+        }).catch(function (error) {
+          console.log(error);
+        });
+      }
+    },
     components: {
       'panel': Panel
     }
