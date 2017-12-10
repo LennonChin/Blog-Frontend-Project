@@ -10,13 +10,13 @@ var Toc = function Toc(id, options) {
   this._init();
 };
 
-Toc.prototype._init = function() {
+Toc.prototype._init = function () {
   this._collectTitleElements();
   this._createTocContent();
   this._showToc();
 };
 
-Toc.prototype._collectTitleElements = function() {
+Toc.prototype._collectTitleElements = function () {
   this._elTitlesNames = [];
   this.elTitleElements = [];
   for (var i = 1; i < 7; i++) {
@@ -35,7 +35,7 @@ Toc.prototype._collectTitleElements = function() {
   }
 };
 
-Toc.prototype._createTocContent = function() {
+Toc.prototype._createTocContent = function () {
   this._elTitleElementsLen = this.elTitleElements.length;
   if (!this._elTitleElementsLen) return;
   this.tocContent = '';
@@ -48,9 +48,9 @@ Toc.prototype._createTocContent = function() {
     this._elTitleElement = this.elTitleElements[i];
     this._elTitleElementName = this._elTitleElement.tagName;
     this._elTitleElementText = this._elTitleElement.innerHTML;
-    this._elTitleElement.setAttribute('id', 'tip' + i);
-
-    this.tocContent += '<li><a class="nav-link" href="' + url + '#tip' + i + '">' + this._elTitleElementText + '</a>';
+    let customeId = this._elTitleElement.id;
+    this._elTitleElement.setAttribute('id', customeId);
+    this.tocContent += '<li><a href="' + url + '#' + customeId + '">' + this._elTitleElementText + '</a>';
 
     if (j !== this._elTitleElementsLen) {
       this._elNextTitleElementName = this.elTitleElements[j].tagName;
@@ -83,13 +83,12 @@ Toc.prototype._createTocContent = function() {
       }
     }
   }
-  this.tocContent = '<ul class="menu-root">' + this.tocContent + '</ul>';
+  this.toc = document.createElement('ul');
+  this.toc.setAttribute('class', this.tocClass);
+  this.toc.innerHTML = this.tocContent;
 };
 
-Toc.prototype._showToc = function() {
-  this.toc = document.createElement('div');
-  this.toc.innerHTML = this.tocContent;
-  this.toc.setAttribute('class', this.tocClass);
+Toc.prototype._showToc = function () {
   if (!this.options.targetId) {
     // 没有传入目标id，追加到生成目录的div内
     this.el.appendChild(this.toc);
@@ -97,19 +96,6 @@ Toc.prototype._showToc = function() {
     // 有传入目标id，直接在目标id内生成div
     document.getElementById(this.options.targetId).appendChild(this.toc);
   }
-
-  // var self = this;
-
-  // if (this.tocTop > -1) {
-  //   window.onscroll = function() {
-  //     var t = document.documentElement.scrollTop || document.body.scrollTop;
-  //     if (t < self.tocTop) {
-  //       self.toc.setAttribute('style', 'position:absolute;top:' + self.tocTop + 'px;');
-  //     } else {
-  //       self.toc.setAttribute('style', 'position:fixed;top:10px;');
-  //     }
-  //   };
-  // }
 };
 
 export default Toc;

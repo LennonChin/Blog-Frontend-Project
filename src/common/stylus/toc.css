@@ -1,0 +1,29 @@
+ul.menu-root {
+  position: relative;
+  padding-left: 1.2em;
+  z-index: 2;
+  max-height: 80vh;
+  overflow-y: auto;
+  margin-top: 10px;
+}
+ul.menu-root > li {
+  list-style-type: square;
+  line-height: 2em;
+}
+ul.menu-root > li > a {
+  cursor: pointer;
+  display: block;
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  font-size: 16px;
+  color: $color-gradually-gray-21;
+}
+ul.menu-root > li > a.active {
+  color: $color-main-primary;
+}
+ul.menu-root > li > ul > li > a {
+  font-size: 16px;
+  color: $color-gradually-gray-51;
+}

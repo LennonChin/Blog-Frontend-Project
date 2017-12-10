@@ -1,26 +1,8 @@
 <template>
-  <div class="side-toc" id="side-toc">
+  <div class="side-toc">
     <panel :title="'目录'">
-      <div class="list" slot="content" ref="list">
+      <div class="list" slot="content" ref="list" id="side-toc">
         <div class="active-indicator"></div>
-        <ul class="menu-root">
-          <li><a class="tip0 toc-link">Action</a>
-            <ul>
-              <li><a class="tip1 toc-link">分发 Action</a></li>
-              <li><a class="tip2 toc-link">在组件中分发 Action</a></li>
-              <li><a class="tip3 toc-link">组合 Action</a>
-                <ul>
-                  <li><a class="tip4 toc-link">现在你可以</a>
-                    <ul>
-                      <li><a class="tip5 toc-link">另外一个</a></li>
-                    </ul>
-                  </li>
-                </ul>
-              </li>
-              <li><a class="tip6 toc-link">后记</a></li>
-            </ul>
-          </li>
-        </ul>
       </div>
     </panel>
   </div>
@@ -67,8 +49,9 @@
   };
 </script>
 
-<style lang="stylus" rel="stylesheet/stylus" scoped>
+<style lang="stylus" rel="stylesheet/stylus">
   @import "../../common/stylus/theme.styl";
+  @import "../../common/stylus/toc.styl";
 
   .side-toc
     position relative
@@ -89,26 +72,5 @@
         border-left 2px solid $color-main-primary
         z-index 1
         transition all 0.2s ease-out
-      ul
-        position relative
-        padding-left: 1em
-        z-index 2
-        > li
-          list-style-type: square
-          line-height 2.2em
-          > a
-            cursor pointer
-            display block
-            height 100%
-            width 100%
-            margin 0
-            padding 0
-            font-size 16px
-            color $color-gradually-gray-21
-            &.active
-              color $color-main-primary
-          > ul > li > a
-            font-size 16px
-            color $color-gradually-gray-51
 
 </style>

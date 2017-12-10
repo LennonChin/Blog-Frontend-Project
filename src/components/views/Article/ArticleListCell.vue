@@ -1,12 +1,12 @@
 <template>
   <div class="article-list-cell">
-    <a href="">
+    <router-link :to="'/article/' + article.detail" target="_blank">
       <iv-row type="flex">
         <iv-col :xs="24" :sm="24" :md="textSpan" :lg="textSpan" :order="textOrderType"
                 style="padding-left: 0;padding-right: 0;">
           <div class="text-wrapper">
             <h4 class="title">
-              <router-link to="/article">{{article.title}}</router-link>
+              <router-link :to="{ name: 'article/detail', params:{ articleId: article.detail}}" target="_blank">{{article.title}}</router-link>
             </h4>
             <div class="tags">
               <iv-tag color="blue" v-for="tag in article.tags" :key="tag.id">{{ tag.name }}</iv-tag>
@@ -29,7 +29,7 @@
           </div>
         </iv-col>
       </iv-row>
-    </a>
+    </router-link>
   </div>
 </template>
 

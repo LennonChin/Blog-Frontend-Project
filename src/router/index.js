@@ -42,15 +42,28 @@ let router = new Router({
           }
         },
         {
-          path: 'article',
-          name: 'article',
+          path: 'articles',
+          name: 'articles',
+          components: {
+            header: SimpleHeader,
+            content: ArticleListContent,
+            footer: CommonFooter
+          },
+          meta: {
+            title: '文章列表'
+          }
+        },
+        {
+          path: 'article/detail/:articleId',
+          name: 'article/detail',
           components: {
             header: SimpleHeader,
             content: ArticleContent,
             footer: CommonFooter
           },
           meta: {
-            title: '文章'
+            title: '文章详情',
+            need_log: false
           }
         },
         {

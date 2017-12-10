@@ -19,9 +19,9 @@ var TocScrollSpy = function (articleId, tocId, options) {
 TocScrollSpy.prototype._init = function () {
   this._collectTitleElementScrollTops();
   this._bindSpy();
-  this._bindTitleAndToc();
+  // this._bindTitleAndToc();
   // 先执行一次，获取初始的位置
-  this._handleScroll.bind(this)();
+  // this._handleScroll.bind(this)();
 };
 
 TocScrollSpy.prototype._collectTitleElementScrollTops = function () {
@@ -106,8 +106,10 @@ TocScrollSpy.prototype._getCurrentTitleElement = function (index) {
   return this.elTitleElements[index];
 };
 
+/* eslint-disable */
 TocScrollSpy.prototype._updateTocStatus = function (currentTitleElement) {
   let activeId = currentTitleElement.id;
+  return;
   let activeTocEl = this.tocElement.querySelector('.' + activeId);
   let activeANode = this.tocElement.querySelector('.active');
   if (activeANode !== null) {

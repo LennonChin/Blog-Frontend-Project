@@ -147,7 +147,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import TOC from '../../../common/js/MarkdownToc';
+//  import TOC from '../../../common/js/MarkdownToc';
 
   export default {
     props: {
@@ -167,12 +167,12 @@
       },
       refreshMenu() {
         /* eslint-disable */
-        new TOC('article-main-page', {
-          'level': 5,
-          'top': 200,
-          'class': 'list',
-          'targetId': 'sidebar-toc'
-        });
+//        new TOC('article-main-page', {
+//          'level': 5,
+//          'top': 200,
+//          'class': 'list',
+//          'targetId': 'sidebar-toc'
+//        });
       }
     },
     mounted: function () {

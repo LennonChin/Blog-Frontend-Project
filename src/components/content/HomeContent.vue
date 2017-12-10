@@ -52,7 +52,7 @@
   import SideToc from '@/components/views/SideToc';
 
   // API
-  import { getArticles, getCategory } from '@/api/api';
+  import { getArticleBaseInfo, getCategory } from '@/api/api';
 
   export default {
     data() {
@@ -62,7 +62,7 @@
       };
     },
     created() {
-      getArticles({
+      getArticleBaseInfo({
         params: {}
       }).then((response) => {
         this.articles = response.data.results;

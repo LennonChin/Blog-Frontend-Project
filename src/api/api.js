@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-let localHost = 'http://127.0.0.1:8000';
+let localHost = 'http://192.168.1.3:8000';
 
 // 获取博主信息
 export const getBloggerInfo = params => {
@@ -35,7 +35,20 @@ export const getIndexBanners = params => {
   return axios.get(`${localHost}/banners/`);
 };
 
-// 获取文章
-export const getArticles = params => {
-  return axios.get(`${localHost}/articles/`);
+// 获取文章基本信息
+export const getArticleBaseInfo = params => {
+  if ('id' in params) {
+    return axios.get(`${localHost}/articleBaseInfos/${params.id}/`);
+  } else {
+    return axios.get(`${localHost}/articleBaseInfos/`, params);
+  }
+};
+
+// 获取文章基本信息
+export const getArticleDetailInfo = params => {
+  if ('id' in params) {
+    return axios.get(`${localHost}/articleDetailInfos/` + params.id + '/');
+  } else {
+    return axios.get(`${localHost}/articleDetailInfos/`, params);
+  }
 };
