@@ -16,9 +16,10 @@ Toc.prototype._init = function () {
   this._showToc();
 };
 
+// 收集所有的H标签
 Toc.prototype._collectTitleElements = function () {
   this._elTitlesNames = [];
-  this.elTitleElements = [];
+  this.titleElements = [];
   for (var i = 1; i < 7; i++) {
     if (this.el.getElementsByTagName('h' + i).length) {
       this._elTitlesNames.push('h' + i);
@@ -30,30 +31,28 @@ Toc.prototype._collectTitleElements = function () {
   for (var j = 0; j < this.elChilds.length; j++) {
     this._elChildName = this.elChilds[j].tagName.toLowerCase();
     if (this._elTitlesNames.toString().match(this._elChildName)) {
-      this.elTitleElements.push(this.elChilds[j]);
+      this.titleElements.push(this.elChilds[j]);
     }
   }
 };
 
 Toc.prototype._createTocContent = function () {
-  this._elTitleElementsLen = this.elTitleElements.length;
+  this._elTitleElementsLen = this.titleElements.length;
   if (!this._elTitleElementsLen) return;
   this.tocContent = '';
   this._tempLists = [];
 
-  // 本页面的完整地址，某些情况下base标签和页面地址不一致，会造成锚点混乱
   var url = location.origin + location.pathname;
   for (var i = 0; i < this._elTitleElementsLen; i++) {
     var j = i + 1;
-    this._elTitleElement = this.elTitleElements[i];
+    this._elTitleElement = this.titleElements[i];
     this._elTitleElementName = this._elTitleElement.tagName;
     this._elTitleElementText = this._elTitleElement.innerHTML;
-    let customeId = this._elTitleElement.id;
-    this._elTitleElement.setAttribute('id', customeId);
-    this.tocContent += '<li><a href="' + url + '#' + customeId + '">' + this._elTitleElementText + '</a>';
+    let elTitleElementId = this._elTitleElement.id;
+    this.tocContent += '<li class="' + elTitleElementId + '"><a href="' + url + '#' + elTitleElementId + '">' + this._elTitleElementText + '</a>';
 
     if (j !== this._elTitleElementsLen) {
-      this._elNextTitleElementName = this.elTitleElements[j].tagName;
+      this._elNextTitleElementName = this.titleElements[j].tagName;
       if (this._elTitleElementName !== this._elNextTitleElementName) {
         var checkColse = false;
         var y = 1;

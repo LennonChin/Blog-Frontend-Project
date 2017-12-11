@@ -36,8 +36,9 @@ npm
   import hljs from 'highlight.js';
   // 样式文件
   import 'highlight.js/styles/zenburn.css';
-  // TOC滚动监听
+  // TOC
   import TOC from '@/common/js/MarkdownToc';
+  // TOC滚动监听
   import TocScrollSpy from '@/common/js/TocScrollSpy';
   // API
   import {getArticleDetailInfo} from '@/api/api';
@@ -84,7 +85,7 @@ npm
           'class': 'menu-root',
           'targetId': 'side-toc'
         });
-        new TocScrollSpy('article-main-page', {
+        new TocScrollSpy('article-main-page', 'side-toc', {
           'spayLevel': 5,
           'articleMarginTop': 60
         });
@@ -104,7 +105,6 @@ npm
         this.$nextTick(() => {
           this.addCodeLineNumber();
           this.addTocScrollSpy();
-          this.$refs.sideToc.recalcActive();
           window.scrollTo(0, 0);
         });
       }

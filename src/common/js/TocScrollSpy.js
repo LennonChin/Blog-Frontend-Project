@@ -19,7 +19,7 @@ var TocScrollSpy = function (articleId, tocId, options) {
 TocScrollSpy.prototype._init = function () {
   this._collectTitleElementScrollTops();
   this._bindSpy();
-  // this._bindTitleAndToc();
+  this._bindTitleAndToc();
   // 先执行一次，获取初始的位置
   // this._handleScroll.bind(this)();
 };
@@ -109,7 +109,6 @@ TocScrollSpy.prototype._getCurrentTitleElement = function (index) {
 /* eslint-disable */
 TocScrollSpy.prototype._updateTocStatus = function (currentTitleElement) {
   let activeId = currentTitleElement.id;
-  return;
   let activeTocEl = this.tocElement.querySelector('.' + activeId);
   let activeANode = this.tocElement.querySelector('.active');
   if (activeANode !== null) {
@@ -118,7 +117,7 @@ TocScrollSpy.prototype._updateTocStatus = function (currentTitleElement) {
   activeTocEl.classList.add('active');
 
   // 先计算list相对于页面的顶部距离
-  let listNode = this.tocElement.querySelector('.list');
+  let listNode = this.tocElement.querySelector('.menu-root');
   let listScrollTop = listNode.getBoundingClientRect().top + document.documentElement.scrollTop;
   // 再计算active相对于页面的顶部距离
   let activeAnode = listNode.querySelector('.active');
@@ -126,7 +125,7 @@ TocScrollSpy.prototype._updateTocStatus = function (currentTitleElement) {
     return;
   }
   let activeANodeScrollTop = activeAnode.getBoundingClientRect().top + document.documentElement.scrollTop;
-  let activeIndicator = listNode.querySelector('.active-indicator');
+  let activeIndicator = listNode.parentNode.querySelector('.active-indicator');
   activeIndicator.style.top = activeANodeScrollTop - listScrollTop + 'px';
   activeIndicator.style.height = activeAnode.clientHeight + 'px';
 };
