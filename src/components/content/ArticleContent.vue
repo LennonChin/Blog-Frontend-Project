@@ -14,7 +14,7 @@
       </iv-col>
       <iv-col :xs="0" :sm="0" :md="0" :lg="7">
         <div class="layout-right">
-          <recommend></recommend>
+          <!--<recommend></recommend>-->
           <iv-affix :offset-top="60">
             <side-toc style="margin-top: 15px;" ref="sideToc"></side-toc>
           </iv-affix>
@@ -85,6 +85,7 @@ npm
           'class': 'menu-root',
           'targetId': 'side-toc'
         });
+        return;
         new TocScrollSpy('article-main-page', 'side-toc', {
           'spayLevel': 5,
           'articleMarginTop': 60

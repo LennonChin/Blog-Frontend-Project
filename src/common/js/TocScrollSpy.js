@@ -1,4 +1,4 @@
-import { scrollTop } from './SmoothScroll';
+import {scrollTop} from './SmoothScroll';
 
 var TocScrollSpy = function (articleId, tocId, options) {
   this.articleElement = document.getElementById(articleId);
@@ -135,7 +135,14 @@ TocScrollSpy.prototype._bindTitleAndToc = function () {
   this.elTitleElements.map(function (element) {
     let activeId = element.id;
     let activeTocEl = that.tocElement.querySelector('.' + activeId);
-    activeTocEl.addEventListener('click', function () {
+    activeTocEl.addEventListener('click', function (e) {
+      if (e && e.stopPropagation)
+        // 因此它支持W3C的stopPropagation()方法
+        e.stopPropagation();
+      else {
+        // 否则，我们需要使用IE的方式来取消事件冒泡
+        window.event.cancelBubble = true;
+      }
       const pageScroll = that._getPageScroll().top;
       const toScroll = that._getElementTop(element) - that.articleMarginTop;
       const duration = Math.min(Math.abs(toScroll - pageScroll) / window.innerHeight * 500, 1000);

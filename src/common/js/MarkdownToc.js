@@ -1,3 +1,4 @@
+/* eslint-disable */
 var Toc = function Toc(id, options) {
   this.el = document.getElementById(id);
   if (!this.el) return;
@@ -12,6 +13,7 @@ var Toc = function Toc(id, options) {
 
 Toc.prototype._init = function () {
   this._collectTitleElements();
+  // this._createToc();
   this._createTocContent();
   this._showToc();
 };
@@ -85,6 +87,87 @@ Toc.prototype._createTocContent = function () {
   this.toc = document.createElement('ul');
   this.toc.setAttribute('class', this.tocClass);
   this.toc.innerHTML = this.tocContent;
+};
+
+Toc.prototype._createToc = function () {
+  this.headers = this.titleElements;
+
+  // 获取header的总个数
+  let headersLength = this.headers.length;
+  if (this.headersLength === 0) return;
+  // var url = location.origin + location.pathname;
+
+  // 最外层ul
+  let containerUlNode = document.createElement('ul');
+  containerUlNode.classList.add(this.tocClass);
+
+  let lastestLevel = 0;
+  let lastestLiNode = null;
+
+  for (let currentIndex = 0; currentIndex < headersLength; currentIndex++) {
+
+    let currentHeader = this.headers[currentIndex];
+    let currentHeaderText = currentHeader.innerHTML;
+    // 当前header的级别
+    let currentHeaderLevel = parseInt(currentHeader.tagName.toLowerCase().charAt(1));
+
+    if (currentHeaderLevel === lastestLevel) {
+      // 当前级别与上一个相等,用上一个li的父元素添加当前li
+      if (lastestLiNode) {
+        let liNode = document.createElement('li');
+        let aNode = document.createElement('a');
+        aNode.innerHTML = currentHeaderText;
+        lastestLiNode.parentNode.appendChild(liNode);
+        // 记录最后一个li
+        lastestLiNode = liNode;
+      }
+    }
+
+    if (currentHeaderLevel > lastestLevel) {
+      // 当前级别比上一个小
+      // 如果只隔了一个级别,比如之前为h3,现在为h4,先查询上一个li中有没有ul
+      if (currentHeaderLevel - lastestLevel === 1) {
+        if (!lastestLiNode) {
+          // 第一个创建的li
+          let liNode = document.createElement('li');
+          containerUlNode.appendChild(liNode);
+          // 记录最后一个li
+          lastestLiNode = liNode;
+        }
+        if (lastestLiNode.childNodes.length > 0 && lastestLiNode.childNodes[lastestLiNode.childNodes.length - 1].tagName.toLowerCase() === 'ul') {
+          // 如果有就用该ul添加
+          let liNode = document.createElement('li');
+          let aNode = document.createElement('a');
+          aNode.innerHTML = currentHeaderText;
+          lastestLiNode.childNodes[lastestLiNode.childNodes.length - 1].appendChild(liNode);
+          // 记录最后一个li
+          lastestLiNode = liNode;
+        } else {
+          // 如果没有有就新增ul并添加
+          let ulNode = document.createElement('ul');
+          lastestLiNode.appendChild(ulNode);
+          let liNode = document.createElement('li');
+          let aNode = document.createElement('a');
+          aNode.innerHTML = currentHeaderText;
+          ulNode.appendChild(liNode);
+          // 记录最后一个li
+          lastestLiNode = liNode;
+        }
+      }
+
+      // 如果只隔了多个级别,比如之前为h3,现在为h6,则遍历构建
+      if (currentHeaderLevel - lastestLevel > 1) {
+
+      }
+    }
+
+    if (currentHeaderLevel < lastestLevel) {
+      // 当前级别比上一个小,比如之前为h5,现在为h2
+    }
+
+    lastestLevel = currentHeaderLevel;
+  }
+  console.log(containerUlNode);
 };
 
 Toc.prototype._showToc = function () {
