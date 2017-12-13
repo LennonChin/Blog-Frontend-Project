@@ -4,7 +4,16 @@ article#article-main-page
   text-align left
   h1, h2, h3, h4, h5, h6, h7
     padding 25px 0 15px
+    padding-top:100px;
+    margin-top:-100px;
     font-weight 700
+    &:focus
+      outline none
+    &::before
+      display: block
+      content: " "
+      height 0
+      visibility: hidden
   h1
     font-size 27px
   h2
@@ -58,7 +67,6 @@ article#article-main-page
         &:nth-of-type(even)
           background-color #fafafa
           color inherit
-
 
 
 

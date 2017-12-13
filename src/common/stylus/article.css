@@ -9,7 +9,30 @@ article#article-main-page h5,
 article#article-main-page h6,
 article#article-main-page h7 {
   padding: 25px 0 15px;
+  padding-top: 100px;
+  margin-top: -100px;
   font-weight: 700;
+}
+article#article-main-page h1:focus,
+article#article-main-page h2:focus,
+article#article-main-page h3:focus,
+article#article-main-page h4:focus,
+article#article-main-page h5:focus,
+article#article-main-page h6:focus,
+article#article-main-page h7:focus {
+  outline: none;
+}
+article#article-main-page h1::before,
+article#article-main-page h2::before,
+article#article-main-page h3::before,
+article#article-main-page h4::before,
+article#article-main-page h5::before,
+article#article-main-page h6::before,
+article#article-main-page h7::before {
+  display: block;
+  content: " ";
+  height: 0;
+  visibility: hidden;
 }
 article#article-main-page h1 {
   font-size: 27px;

@@ -1,24 +1,64 @@
-ul.menu-root
-  position relative
-  padding-left: 1.2em
-  z-index 2
-  max-height 80vh
-  overflow-y auto
-  margin-top 10px
-  > li
-    list-style-type: square
-    line-height 2em
-    > a
-      cursor pointer
-      display block
-      height 100%
-      width 100%
-      margin 0
-      padding 0
-      font-size 16px
-      color $color-gradually-gray-21
-      &.active
-        color $color-main-primary
-    > ul > li > a
-      font-size 16px
-      color $color-gradually-gray-51
+@import "../../common/stylus/theme.styl";
+
+.toc {
+  overflow-y: auto
+}
+
+.toc > ul {
+  overflow: hidden;
+  position: relative
+}
+
+.toc > ul li {
+  list-style: none
+}
+
+.toc-list {
+  margin: 0;
+  padding-left: 10px
+}
+
+.toc-list-item > a.toc-link
+  height 30px
+  line-height 30px
+  padding 5px 0
+
+
+a.toc-link {
+  color: currentColor;
+  height: 100%
+}
+
+.is-collapsible {
+  max-height: 1000px;
+  overflow: hidden;
+  transition: all 300ms ease-in-out
+}
+
+.is-collapsed {
+  max-height: 0
+}
+
+.is-position-fixed {
+  position: fixed !important;
+  top: 0
+}
+
+.is-active-link {
+  font-weight: 700
+}
+
+.toc-link::before {
+  background-color: $color-border;
+  content: ' ';
+  display: inline-block;
+  height: inherit;
+  left: 0;
+  margin: -1px 0 0 -1px;
+  position: absolute;
+  width: 1px
+}
+
+.is-active-link::before {
+  background-color: #54BC4B
+}

@@ -1,30 +1,52 @@
-ul.menu-root {
-  position: relative;
-  padding-left: 1.2em;
-  z-index: 2;
-  max-height: 80vh;
+.toc {
   overflow-y: auto;
-  margin-top: 10px;
 }
-ul.menu-root > li {
-  list-style-type: square;
-  line-height: 2em;
+.toc > ul {
+  overflow: hidden;
+  position: relative;
 }
-ul.menu-root > li > a {
-  cursor: pointer;
-  display: block;
-  height: 100%;
-  width: 100%;
+.toc > ul li {
+  list-style: none;
+}
+.toc-list {
   margin: 0;
-  padding: 0;
-  font-size: 16px;
-  color: $color-gradually-gray-21;
+  padding-left: 10px;
 }
-ul.menu-root > li > a.active {
-  color: $color-main-primary;
+.toc-list-item > a.toc-link {
+  height: 30px;
+  line-height: 30px;
+  padding: 5px 0;
 }
-ul.menu-root > li > ul > li > a {
-  font-size: 16px;
-  color: $color-gradually-gray-51;
+a.toc-link {
+  color: currentColor;
+  height: 100%;
+}
+.is-collapsible {
+  max-height: 1000px;
+  overflow: hidden;
+  transition: all 300ms ease-in-out;
+}
+.is-collapsed {
+  max-height: 0;
+}
+.is-position-fixed {
+  position: fixed !important;
+  top: 0;
+}
+.is-active-link {
+  font-weight: 700;
+}
+.toc-link::before {
+  background-color: #eee;
+  content: ' ';
+  display: inline-block;
+  height: inherit;
+  left: 0;
+  margin: -1px 0 0 -1px;
+  position: absolute;
+  width: 1px;
+}
+.is-active-link::before {
+  background-color: #54bc4b;
 }
 /*# sourceMappingURL=toc.css.map */

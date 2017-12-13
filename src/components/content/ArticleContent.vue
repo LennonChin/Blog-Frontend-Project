@@ -37,9 +37,7 @@ npm
   // 样式文件
   import 'highlight.js/styles/zenburn.css';
   // TOC
-  import TOC from '@/common/js/MarkdownToc';
-  // TOC滚动监听
-  import TocScrollSpy from '@/common/js/TocScrollSpy';
+  import tocbot from 'tocbot';
   // API
   import {getArticleDetailInfo} from '@/api/api';
 
@@ -79,16 +77,25 @@ npm
       },
       addTocScrollSpy() {
         /* eslint-disable */
-        new TOC('article-main-page', {
-          'level': 5,
-          'top': 200,
-          'class': 'menu-root',
-          'targetId': 'side-toc'
-        });
-        return;
-        new TocScrollSpy('article-main-page', 'side-toc', {
-          'spayLevel': 5,
-          'articleMarginTop': 60
+        tocbot.init({
+          tocSelector: '#side-toc',
+          contentSelector: '#article-main-page',
+          headingSelector: 'h1, h2, h3, h4, h5',
+          linkClass: 'toc-link',
+          activeLinkClass: 'is-active-link',
+          listClass: 'toc-list',
+          isCollapsedClass: 'is-collapsed',
+          collapsibleClass: 'is-collapsible',
+          listItemClass: 'toc-list-item',
+          collapseDepth: 0,
+          scrollSmooth: true,
+          scrollSmoothDuration: 420,
+          headingsOffset: 1,
+          throttleTimeout: 50,
+          positionFixedClass: 'is-position-fixed',
+          fixedSidebarOffset: 'auto',
+          includeHtml: false,
+          onClick: false
         });
       },
       addCodeLineNumber() {
