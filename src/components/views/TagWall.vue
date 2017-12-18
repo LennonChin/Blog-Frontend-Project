@@ -2,7 +2,7 @@
   <div class="tag-wall">
     <panel :title="'相关标签'">
       <div slot="content" class="content">
-        <iv-tag v-for="tag in tags" type="dot" color="blue" :key="tag" style="margin: 0 5px 5px 0;">{{ tag }}
+        <iv-tag v-for="tag in tags" type="dot" color="blue" :key="tag.id" style="margin: 0 5px 5px 0;">{{ tag.name }}
         </iv-tag>
       </div>
     </panel>
@@ -11,12 +11,27 @@
 
 <script type="text/ecmascript-6">
   import Panel from '@/components/utils/Panel';
+  import { getTags } from '@/api/api';
 
   export default {
     data() {
       return {
-        tags: ['iOS', '大数据', 'python', '流式计算', 'Linux', 'Big Date', 'PHP', 'iOS', '大数据', 'python', '流式计算', 'Linux', 'Big Date', 'PHP', 'iOS', '大数据', 'python', '流式计算', 'Linux', 'Big Date', 'PHP', 'iOS', '大数据', 'python', '流式计算', 'Linux', 'Big Date', 'PHP', 'iOS', '大数据', 'python', '流式计算', 'Linux', 'Big Date', 'PHP', 'iOS', '大数据', 'python', '流式计算', 'Linux', 'Big Date', 'PHP', 'iOS', '大数据', 'python', '流式计算', 'Linux', 'iOS', '大数据', 'python', 'iOS', '大数据', 'python', '流式计算', 'Linux', 'Big Date', 'PHP', 'Java', 'Spring', 'HTML', 'CSS', '流式计算', 'Linux', 'Big Date', 'PHP', '流式计算', 'Linux', 'Big Date', 'PHP']
+        tags: []
       };
+    },
+    created() {
+      this.getDatas();
+    },
+    methods: {
+      getDatas() {
+        getTags({
+          params: {}
+        }).then((response) => {
+          this.tags = response.data;
+        }).catch(function (error) {
+          console.log(error);
+        });
+      }
     },
     components: {
       'panel': Panel

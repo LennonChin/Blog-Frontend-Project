@@ -140,6 +140,7 @@ LoadingBar.config({
 
 router.beforeEach((to, from, next) => {
   LoadingBar.start();
+  document.title = '加载中...';
   next();
 });
 

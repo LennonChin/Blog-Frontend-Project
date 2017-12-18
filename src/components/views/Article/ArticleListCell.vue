@@ -1,6 +1,6 @@
 <template>
   <div class="article-list-cell">
-    <router-link :to="'/article/' + article.detail" target="_blank">
+    <router-link :to="{ name: 'article/detail', params:{ articleId: article.detail}}" target="_blank">
       <iv-row type="flex">
         <iv-col :xs="24" :sm="24" :md="textSpan" :lg="textSpan" :order="textOrderType"
                 style="padding-left: 0;padding-right: 0;">
@@ -11,14 +11,16 @@
             <div class="tags">
               <iv-tag color="blue" v-for="tag in article.tags" :key="tag.id">{{ tag.name }}</iv-tag>
             </div>
-            <p class="desc">{{article.desc.substr(0, 70)}}<a href=""> View More
+            <p class="desc">{{article.desc.substr(0, 70)}}
+              <router-link :to="{ name: 'article/detail', params:{ articleId: article.detail}}" target="_blank"> View More
               <iv-icon type="arrow-right-b"></iv-icon>
-            </a></p>
+            </router-link>
+            </p>
             <p class="operate_info">
-              <span class="publish-time">At time / <a href="">{{article.add_time}}</a></span>
-              <span class="readings"><a href=""><iv-icon type="eye"></iv-icon> {{article.click_num}} 阅读</a></span>
-              <span class="comments"><a href=""><iv-icon type="compose"></iv-icon> {{article.comment_num}} 评论</a></span>
-              <span class="likes"><a href=""><iv-icon type="heart"></iv-icon> {{article.like_num}} 喜欢</a></span>
+              <span class="publish-time">At time / <a>{{article.add_time}}</a></span>
+              <span class="readings"><a><iv-icon type="eye"></iv-icon> {{article.click_num}} 阅读</a></span>
+              <span class="comments"><a><iv-icon type="compose"></iv-icon> {{article.comment_num}} 评论</a></span>
+              <span class="likes"><a><iv-icon type="heart"></iv-icon> {{article.like_num}} 喜欢</a></span>
             </p>
           </div>
         </iv-col>

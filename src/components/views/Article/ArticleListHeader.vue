@@ -1,6 +1,6 @@
 <template>
   <div class="article-list-header">
-    <classify-menu></classify-menu>
+    <classify-menu @selectCategory="selectCategory"></classify-menu>
     <section-title :mainTitle="'文章列表'" :subTitle="'Articles'"></section-title>
   </div>
 </template>
@@ -10,6 +10,11 @@
   import ClassifyMenu from '@/components/views/Classify/ClassifyMenu';
 
   export default {
+    methods: {
+      selectCategory(categoryId) {
+        this.$emit('selectCategory', categoryId);
+      }
+    },
     components: {
       'section-title': SectionTitle,
       'classify-menu': ClassifyMenu

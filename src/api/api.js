@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-let localHost = 'http://169.254.5.243:8000';
+let localHost = 'http://169.254.45.198:8000';
 
 // 获取博主信息
 export const getBloggerInfo = params => {
@@ -27,6 +27,14 @@ export const getCategory = params => {
     return axios.get(`${localHost}/category/` + params.id + '/');
   } else {
     return axios.get(`${localHost}/category/`, params);
+  }
+};
+
+export const getTags = params => {
+  if ('id' in params) {
+    return axios.get(`${localHost}/tags/` + params.id + '/');
+  } else {
+    return axios.get(`${localHost}/tags/`, params);
   }
 };
 
