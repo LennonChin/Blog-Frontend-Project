@@ -1,23 +1,23 @@
 <template>
-  <div class="thumb-card">
+  <div class="thumb-card" v-if="album != undefined">
     <a href="">
       <div class="top-area">
         <a href="">
-          <p class="desc">不望祁连山顶雪，错将张掖认江南</p>
+          <p class="desc">{{ album.desc }}</p>
           <div class="background"></div>
-          <img src="../../../assets/photowall/photowall_pic_3.jpg" alt="">
-          <img src="../../../assets/photowall/photowall_pic_3.jpg" alt="">
-          <img src="../../../assets/photowall/photowall_pic_3.jpg" alt="">
+          <img :src="album.front_image" alt="">
+          <img :src="album.front_image" alt="">
+          <img :src="album.front_image" alt="">
         </a>
       </div>
       <div class="bottom-area">
-        <h4 class="title"><a href="">{{article.title}}</a></h4>
-        <p class="info"><span class="author">By / <a href="">{{article.author}}</a></span></p>
-        <p class="info"><span class="publish-time">At time / <a href="">{{article.publish_time}}</a></span></p>
+        <h4 class="title"><a href="">{{ album.title }}</a></h4>
+        <p class="info"><span class="author">By / <a href="">{{ album.author }}</a></span></p>
+        <p class="info"><span class="publish-time">At time / <a href="">{{ album.add_time}}</a></span></p>
         <p class="operate_info">
-          <span class="readings"><a href=""> {{article.readings}}次阅读</a></span> |
-          <span class="comments"><a href=""> {{article.comments}}个评论</a></span> |
-          <span class="likes"><a href=""> {{article.likes}}个喜欢</a></span></p>
+          <span class="readings"><a href=""> {{ album.click_num}}次阅读</a></span> |
+          <span class="comments"><a href=""> {{ album.comment_num}}个评论</a></span> |
+          <span class="likes"><a href=""> {{ album.like_num }}个喜欢</a></span></p>
       </div>
     </a>
   </div>
@@ -25,19 +25,10 @@
 
 <script type="text/ecmascript-6">
   export default {
-    data() {
-      return {
-        article: {
-          'id': 1,
-          'title': '被太阳晒过的风 第四十四章',
-          'author': '子夜晨星',
-          'publish_time': '2017/10/22 17:57:08',
-          'desc': '-1-见了男朋友回来之后喝了一杯没怎么泡好的红糖水和一杯满满的白开水。去上了次厕所，然后坐在床上的时候开始咳嗽不止，去洗了把脸，恍然地瞥见镜子中的自己看起来并不...',
-          'readings': '148',
-          'comments': '2',
-          'likes': '20'
-        }
-      };
+    props: {
+      album: {
+        Type: Object
+      }
     }
   };
 </script>
@@ -118,8 +109,10 @@
         padding 15px 18px 18px 20px
         z-index 6
         .title
+          vertical-align middle
           font-size 18px
-          margin-bottom 10px
+          line-height 25px
+          height 60px
           a
             color $color-typegraphy-title
             &:hover

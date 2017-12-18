@@ -1,6 +1,7 @@
 <template>
   <div class="photograph-content">
-    <iv-carousel :value="0" :radius-dot="true" loop autoplay style="padding-bottom: 30%; width: 100%; height: 0; overflow:hidden;">
+    <iv-carousel :value="0" :radius-dot="true" loop autoplay
+                 style="padding-bottom: 30%; width: 100%; height: 0; overflow:hidden;">
       <iv-carousel-item>
         <img width="100%" src="../../assets/photowall/carousel1.jpg" alt="">
       </iv-carousel-item>
@@ -11,27 +12,12 @@
         <img width="100%" src="../../assets/photowall/carousel3.jpg" alt="">
       </iv-carousel-item>
     </iv-carousel>
-    <classify-wall></classify-wall>
+    <classify-wall @selectCategory="selectCategory"></classify-wall>
     <section-title :mainTitle="'游记'" :subTitle="'天下之美'"></section-title>
     <div class="thumb-cards">
       <iv-row>
-        <iv-col :xs="24" :sm="12" :md="8" :lg="8">
-          <thumb-card></thumb-card>
-        </iv-col>
-        <iv-col :xs="24" :sm="12" :md="8" :lg="8">
-          <thumb-card></thumb-card>
-        </iv-col>
-        <iv-col :xs="24" :sm="12" :md="8" :lg="8">
-          <thumb-card></thumb-card>
-        </iv-col>
-        <iv-col :xs="24" :sm="12" :md="8" :lg="8">
-          <thumb-card></thumb-card>
-        </iv-col>
-        <iv-col :xs="24" :sm="12" :md="8" :lg="8">
-          <thumb-card></thumb-card>
-        </iv-col>
-        <iv-col :xs="24" :sm="12" :md="8" :lg="8">
-          <thumb-card></thumb-card>
+        <iv-col :xs="24" :sm="12" :md="8" :lg="8" v-for="album in albums" :key="album.tag">
+          <thumb-card :album="album"></thumb-card>
         </iv-col>
       </iv-row>
     </div>
@@ -45,7 +31,40 @@
   import ThumbCard from '@/components/views/ThumbCard';
   import BrowseMore from '@/components/views/BrowseMore';
 
+  // API
+  import {getAlbumBaseInfo} from '@/api/api';
+
   export default {
+    data() {
+      return {
+        albums: [],
+        selectedCategory: undefined
+      };
+    },
+    created() {
+      this.getDatas();
+    },
+    methods: {
+      getDatas() {
+        getAlbumBaseInfo({
+          params: {
+            top_category: this.selectedCategory
+          }
+        }).then((response) => {
+          this.albums = response.data.results;
+        }).catch(function (error) {
+          console.log(error);
+        });
+      },
+      selectCategory(categoryId) {
+        this.selectedCategory = categoryId;
+      }
+    },
+    watch: {
+      selectedCategory: function () {
+        this.getDatas();
+      }
+    },
     components: {
       'classify-wall': ClassifyWall,
       'section-title': SectionTitle,

@@ -1,6 +1,6 @@
 <template>
-  <div class="recommend" v-if="articles.length > 0">
-    <panel :title="'推荐阅读'">
+  <div class="hot" v-if="articles.length > 0">
+    <panel :title="'热门阅读'">
       <div slot="content" class="content">
         <div class="top">
           <router-link :to="{ name: 'article/detail', params:{ articleId: articleSlice(0, 1)[0].detail}}" target="_blank">
@@ -55,7 +55,7 @@
       getDatas() {
         getArticleBaseInfo({
           params: {
-            is_recommend: true,
+            is_hot: true,
             page_size: 5
           }
         }).then((response) => {
@@ -77,7 +77,7 @@
 <style lang="stylus" rel="stylesheet/stylus">
   @import "../../../common/stylus/index.styl";
 
-  .recommend
+  .hot
     .content
       padding 5px 20px
     .top, .others

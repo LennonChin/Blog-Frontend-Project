@@ -1,89 +1,12 @@
 <template>
-  <div class="classify">
+  <div class="classify"  v-if="categorys != undefined">
     <p class="header-title">摄影分类</p>
     <iv-row>
-      <iv-col :xs="8" :sm="6" :md="4" :lg="4">
-        <a href="" class="content">
-          <img src="../../../assets/class1.jpg" alt="">
-          <p class="title">游记</p>
-          <p class="desc">天下之美</p>
-        </a>
-      </iv-col>
-      <iv-col :xs="8" :sm="6" :md="4" :lg="4">
-        <a href="" class="content">
-          <img src="../../../assets/class2.jpg" alt="">
-          <p class="title">游记</p>
-          <p class="desc">天下之美</p>
-        </a>
-      </iv-col>
-      <iv-col :xs="8" :sm="6" :md="4" :lg="4">
-        <a href="" class="content">
-          <img src="../../../assets/class3.jpg" alt="">
-          <p class="title">游记</p>
-          <p class="desc">天下之美</p>
-        </a>
-      </iv-col>
-      <iv-col :xs="8" :sm="6" :md="4" :lg="4">
-        <a href="" class="content">
-          <img src="../../../assets/class4.jpg" alt="">
-          <p class="title">游记</p>
-          <p class="desc">天下之美</p>
-        </a>
-      </iv-col>
-      <iv-col :xs="8" :sm="6" :md="4" :lg="4">
-        <a href="" class="content">
-          <img src="../../../assets/class5.jpg" alt="">
-          <p class="title">游记</p>
-          <p class="desc">天下之美</p>
-        </a>
-      </iv-col>
-      <iv-col :xs="8" :sm="6" :md="4" :lg="4">
-        <a href="" class="content">
-          <img src="../../../assets/class6.jpg" alt="">
-          <p class="title">游记</p>
-          <p class="desc">天下之美</p>
-        </a>
-      </iv-col>
-      <iv-col :xs="8" :sm="6" :md="4" :lg="4">
-        <a href="" class="content">
-          <img src="../../../assets/class7.jpg" alt="">
-          <p class="title">游记</p>
-          <p class="desc">天下之美</p>
-        </a>
-      </iv-col>
-      <iv-col :xs="8" :sm="6" :md="4" :lg="4">
-        <a href="" class="content">
-          <img src="../../../assets/class8.jpg" alt="">
-          <p class="title">游记</p>
-          <p class="desc">天下之美</p>
-        </a>
-      </iv-col>
-      <iv-col :xs="8" :sm="6" :md="4" :lg="4">
-        <a href="" class="content">
-          <img src="../../../assets/class9.jpg" alt="">
-          <p class="title">游记</p>
-          <p class="desc">天下之美</p>
-        </a>
-      </iv-col>
-      <iv-col :xs="8" :sm="6" :md="4" :lg="4">
-        <a href="" class="content">
-          <img src="../../../assets/class10.jpg" alt="">
-          <p class="title">游记</p>
-          <p class="desc">天下之美</p>
-        </a>
-      </iv-col>
-      <iv-col :xs="8" :sm="6" :md="4" :lg="4">
-        <a href="" class="content">
-          <img src="../../../assets/class11.jpg" alt="">
-          <p class="title">游记</p>
-          <p class="desc">天下之美</p>
-        </a>
-      </iv-col>
-      <iv-col :xs="8" :sm="6" :md="4" :lg="4">
-        <a href="" class="content">
-          <img src="../../../assets/class12.jpg" alt="">
-          <p class="title">游记</p>
-          <p class="desc">天下之美</p>
+      <iv-col :xs="8" :sm="6" :md="4" :lg="4" v-for="category in categorys.sub_category" :key="category.id">
+        <a class="content" @click="selectCategory(category.id)">
+          <img :src="category.image" alt="">
+          <p class="title">{{ category.name }}</p>
+          <p class="desc">{{ category.desc }}</p>
         </a>
       </iv-col>
     </iv-row>
@@ -91,7 +14,36 @@
 </template>
 
 <script type="text/ecmascript-6">
+  import { getCategorys } from '@/api/api';
 
+  export default {
+    data() {
+      return {
+        categorys: undefined
+      };
+    },
+    created() {
+      this.getDatas();
+    },
+    methods: {
+      getDatas() {
+        getCategorys({
+          params: {
+            level_min: 1,
+            level_max: 1
+          },
+          id: 5
+        }).then((response) => {
+          this.categorys = response.data;
+        }).catch(function (error) {
+          console.log(error);
+        });
+      },
+      selectCategory(categoryId) {
+        this.$emit('selectCategory', categoryId);
+      }
+    }
+  };
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">

@@ -11,17 +11,8 @@
           <section-title v-if="this.specialCategory(5) !== 'undefined'" :mainTitle="this.specialCategory(5).name" :subTitle="this.specialCategory(5).code"></section-title>
           <div class="topic-cards">
             <iv-row :gutter="10">
-              <iv-col :xs="24" :sm="12" :md="8" :lg="8" :xl="8">
-                <topic-card></topic-card>
-              </iv-col>
-              <iv-col :xs="24" :sm="12" :md="8" :lg="8" :xl="8">
-                <topic-card></topic-card>
-              </iv-col>
-              <iv-col :xs="24" :sm="12" :md="8" :lg="8" :xl="8">
-                <topic-card></topic-card>
-              </iv-col>
-              <iv-col :xs="24" :sm="12" :md="8" :lg="8" :xl="8">
-                <topic-card></topic-card>
+              <iv-col :xs="24" :sm="12" :md="8" :lg="8" :xl="8" v-for="album in albums" :key="album.id">
+                <topic-card :album="album"></topic-card>
               </iv-col>
             </iv-row>
           </div>
@@ -30,6 +21,8 @@
       <iv-col :xs="0" :sm="0" :md="0" :lg="7">
         <div class="layout-right">
           <about></about>
+          <recommend style="margin-top:15px;"></recommend>
+          <hot style="margin-top:15px;"></hot>
           <friend-links style="margin-top:15px;"></friend-links>
         </div>
       </iv-col>
@@ -48,39 +41,59 @@
   import ArchiveListTimeTitle from '@/components/views/Archive/ArchiveListTimeTitle';
   import ArchiveListCell from '@/components/views/Archive/ArchiveListCell';
   import About from '@/components/views/About';
+  import Recommend from '@/components/views/Recommend';
+  import Hot from '@/components/views/Hot/Hot';
   import FriendLinks from '@/components/views/FriendLinks';
   import SideToc from '@/components/views/SideToc';
 
   // API
-  import { getArticleBaseInfo, getCategory } from '@/api/api';
+  import { getArticleBaseInfo, getCategory, getAlbumBaseInfo } from '@/api/api';
 
   export default {
     data() {
       return {
         categorys: [],
-        articles: []
+        articles: [],
+        albums: []
       };
     },
     created() {
-      getArticleBaseInfo({
-        params: {}
-      }).then((response) => {
-        this.articles = response.data.results;
-      }).catch(function (error) {
-        console.log(error);
-      });
-      getCategory({
-        params: {
-          'level_min': 1,
-          'level_max': 1
-        }
-      }).then((response) => {
-        this.categorys = response.data;
-      }).catch(function (error) {
-        console.log(error);
-      });
+      this.getDatas();
     },
     methods: {
+      getDatas() {
+        // 分类
+        getCategory({
+          params: {
+            'level_min': 1,
+            'level_max': 1
+          }
+        }).then((response) => {
+          this.categorys = response.data;
+        }).catch(function (error) {
+          console.log(error);
+        });
+
+        // 文章
+        getArticleBaseInfo({
+          params: {
+            page_size: 5
+          }
+        }).then((response) => {
+          this.articles = response.data.results;
+        }).catch(function (error) {
+          console.log(error);
+        });
+
+        // 图集
+        getAlbumBaseInfo({
+          params: {}
+        }).then((response) => {
+          this.albums = response.data.results;
+        }).catch(function (error) {
+          console.log(error);
+        });
+      },
       specialCategory(id) {
         if (this.categorys.length === 0) return 'undefined';
         return this.categorys.filter((category) => {
@@ -99,6 +112,8 @@
       'archive-list-time-title': ArchiveListTimeTitle,
       'archive-list-cell': ArchiveListCell,
       'about': About,
+      'recommend': Recommend,
+      'hot': Hot,
       'friend-links': FriendLinks,
       'side-toc': SideToc
     }

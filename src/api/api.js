@@ -52,11 +52,29 @@ export const getArticleBaseInfo = params => {
   }
 };
 
-// 获取文章基本信息
+// 获取文章详细信息
 export const getArticleDetailInfo = params => {
   if ('id' in params) {
     return axios.get(`${localHost}/articleDetailInfos/` + params.id + '/');
   } else {
     return axios.get(`${localHost}/articleDetailInfos/`, params);
+  }
+};
+
+// 获取图集基本信息
+export const getAlbumBaseInfo = params => {
+  if ('id' in params) {
+    return axios.get(`${localHost}/albumBaseInfos/${params.id}/`);
+  } else {
+    return axios.get(`${localHost}/albumBaseInfos/`, params);
+  }
+};
+
+// 获取图集详细信息
+export const getAlbumDetailInfo = params => {
+  if ('id' in params) {
+    return axios.get(`${localHost}/albumDetailInfos/` + params.id + '/');
+  } else {
+    return axios.get(`${localHost}/albumDetailInfos/`, params);
   }
 };

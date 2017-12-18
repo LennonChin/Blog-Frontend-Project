@@ -9,7 +9,7 @@
               <router-link :to="{ name: 'article/detail', params:{ articleId: article.detail}}" target="_blank">{{article.title}}</router-link>
             </h4>
             <div class="tags">
-              <iv-tag color="blue" v-for="tag in article.tags" :key="tag.id">{{ tag.name }}</iv-tag>
+              <iv-tag :color="tag.color" v-for="tag in article.tags" :key="tag.id">{{ tag.name }}</iv-tag>
             </div>
             <p class="desc">{{article.desc.substr(0, 70)}}
               <router-link :to="{ name: 'article/detail', params:{ articleId: article.detail}}" target="_blank"> View More
