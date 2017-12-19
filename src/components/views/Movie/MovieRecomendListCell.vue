@@ -4,73 +4,25 @@
     <iv-row>
       <iv-col :xs="24" :sm="24" :md="6" :lg="8">
         <div class="left">
-          <movie-list-item></movie-list-item>
+          <movie-list-item :movie="movies[0]"></movie-list-item>
         </div>
       </iv-col>
       <iv-col :xs="24" :sm="24" :md="18" :lg="16">
         <iv-row>
-          <iv-col :xs="24" :sm="24" :md="12" :lg="12">
+          <iv-col :xs="24" :sm="24" :md="12" :lg="12" v-for="movie in movies.slice(1, 5)" :key="movie.id">
             <div class="right">
-              <a href="">
+              <router-link :to="{ name: 'movie/detail', params:{ movieId: movie.detail}}" target="_blank">
                 <div class="img">
-                  <img src="../../../assets/movie/2.jpg" alt="">
+                  <img :src="movie.front_image" alt="">
                 </div>
                 <div class="info">
-                  <p class="title">东方快车谋杀案</p>
-                  <p class="desc"><span>导演：</span>肯尼思·布拉纳</p>
-                  <p class="desc"><span>主演：</span>肯尼思·布拉纳,约翰尼·德普,佩内洛普·克鲁兹</p>
-                  <p class="desc"><span>类型：</span>犯罪,剧情,悬疑</p>
-                  <p class="desc"><span>剧情介绍：</span>影片讲述大侦探在东方快车上巧破一桩谋杀奇案的故事。</p>
+                  <p class="title">{{ movie.title }}</p>
+                  <p class="desc"><span>导演：</span>{{ movie.director }}</p>
+                  <p class="desc"><span>主演：</span>{{ movie.actors.slice(0, 20) }}</p>
+                  <p class="desc"><span>类型：</span>{{ movie.category.name }}</p>
+                  <p class="desc"><span>剧情介绍：</span>{{ movie.desc.slice(0, 30) + '...' }}</p>
                 </div>
-              </a>
-            </div>
-          </iv-col>
-          <iv-col :xs="24" :sm="24" :md="12" :lg="12">
-            <div class="right">
-              <a href="">
-                <div class="img">
-                  <img src="../../../assets/movie/3.jpg" alt="">
-                </div>
-                <div class="info">
-                  <p class="title">东方快车谋杀案</p>
-                  <p class="desc"><span>导演：</span>肯尼思·布拉纳</p>
-                  <p class="desc"><span>主演：</span>肯尼思·布拉纳,约翰尼·德普,佩内洛普·克鲁兹</p>
-                  <p class="desc"><span>类型：</span>犯罪,剧情,悬疑</p>
-                  <p class="desc"><span>剧情介绍：</span>影片讲述大侦探在东方快车上巧破一桩谋杀奇案的故事。</p>
-                </div>
-              </a>
-            </div>
-          </iv-col>
-          <iv-col :xs="24" :sm="24" :md="12" :lg="12">
-            <div class="right">
-              <a href="">
-                <div class="img">
-                  <img src="../../../assets/movie/7.jpg" alt="">
-                </div>
-                <div class="info">
-                  <p class="title">东方快车谋杀案</p>
-                  <p class="desc"><span>导演：</span>肯尼思·布拉纳</p>
-                  <p class="desc"><span>主演：</span>肯尼思·布拉纳,约翰尼·德普,佩内洛普·克鲁兹</p>
-                  <p class="desc"><span>类型：</span>犯罪,剧情,悬疑</p>
-                  <p class="desc"><span>剧情介绍：</span>影片讲述大侦探在东方快车上巧破一桩谋杀奇案的故事。</p>
-                </div>
-              </a>
-            </div>
-          </iv-col>
-          <iv-col :xs="24" :sm="24" :md="12" :lg="12">
-            <div class="right">
-              <a href="">
-                <div class="img">
-                  <img src="../../../assets/movie/6.jpg" alt="">
-                </div>
-                <div class="info">
-                  <p class="title">东方快车谋杀案</p>
-                  <p class="desc"><span>导演：</span>肯尼思·布拉纳</p>
-                  <p class="desc"><span>主演：</span>肯尼思·布拉纳,约翰尼·德普,佩内洛普·克鲁兹</p>
-                  <p class="desc"><span>类型：</span>犯罪,剧情,悬疑</p>
-                  <p class="desc"><span>剧情介绍：</span>影片讲述大侦探在东方快车上巧破一桩谋杀奇案的故事。</p>
-                </div>
-              </a>
+              </router-link>
             </div>
           </iv-col>
         </iv-row>
@@ -109,6 +61,11 @@
   import MovieListItem from '@/components/views/Movie/MovieListItem';
 
   export default {
+    props: {
+      movies: {
+        Type: Array
+      }
+    },
     components: {
       'movie-list-item': MovieListItem
     }

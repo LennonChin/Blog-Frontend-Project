@@ -1,8 +1,8 @@
 <template>
   <div class="thumb-card" v-if="album != undefined">
-    <a href="">
+    <router-link :to="{ name: 'album/detail', params:{ albumId: album.id}}" target="_blank">
       <div class="top-area">
-        <a href="">
+        <a>
           <p class="desc">{{ album.desc }}</p>
           <div class="background"></div>
           <img :src="album.front_image" alt="">
@@ -11,7 +11,9 @@
         </a>
       </div>
       <div class="bottom-area">
-        <h4 class="title"><a href="">{{ album.title }}</a></h4>
+        <h4 class="title">
+          <router-link :to="{ name: 'album/detail', params:{ albumId: album.id }}" target="_blank">{{ album.title }}</router-link>
+        </h4>
         <p class="info"><span class="author">By / <a href="">{{ album.author }}</a></span></p>
         <p class="info"><span class="publish-time">At time / <a href="">{{ album.add_time}}</a></span></p>
         <p class="operate_info">
@@ -19,7 +21,7 @@
           <span class="comments"><a href=""> {{ album.comment_num}}个评论</a></span> |
           <span class="likes"><a href=""> {{ album.like_num }}个喜欢</a></span></p>
       </div>
-    </a>
+    </router-link>
   </div>
 </template>
 

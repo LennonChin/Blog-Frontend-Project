@@ -59,8 +59,6 @@ npm
       'side-toc': SideToc,
       'recommend': Recommend
     },
-    mounted: function () {
-    },
     created() {
       this.articleId = this.$route.params.articleId;
       this.getDatas();

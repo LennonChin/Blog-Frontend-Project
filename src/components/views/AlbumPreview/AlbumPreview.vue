@@ -1,6 +1,6 @@
 <template>
   <div class="album-preview">
-    <album-carousel></album-carousel>
+    <album-carousel :pictures="album.pictures"></album-carousel>
   </div>
 </template>
 
@@ -8,6 +8,12 @@
   import AlbumCarousel from '@/components/views/AlbumPreview/AlbumCarousel';
 
   export default {
+    props: {
+      album: {
+        Type: Object,
+        default: undefined
+      }
+    },
     components: {
       'album-carousel': AlbumCarousel
     }

@@ -10,68 +10,9 @@
     <div class="preview-box">
       <div id="picBox" class="picBox">
         <ul ref="picBox">
-          <li>
+          <li v-for="pircture in pictures">
             <a href="#" target="_blank">
-              <img src="../../../assets/photowall/photowall_pic_1.jpg">
-            </a>
-          <li>
-            <a href="#" target="_blank">
-              <img src="../../../assets/photowall/photowall_pic_2.jpg">
-            </a>
-          </li>
-          <li>
-            <a href="#" target="_blank">
-              <img src="../../../assets/photowall/photowall_pic_3.jpg">
-            </a>
-          </li>
-          <li>
-            <a href="#" target="_blank">
-              <img src="../../../assets/photowall/photowall_pic_4.jpg">
-            </a>
-          </li>
-          <li>
-            <a href="#" target="_blank">
-              <img src="../../../assets/photowall/photowall_pic_5.jpg">
-            </a>
-          </li>
-          <li>
-            <a href="#" target="_blank">
-              <img src="../../../assets/photowall/photowall_pic_2.jpg">
-            </a>
-          </li>
-          <li>
-            <a href="#" target="_blank">
-              <img src="../../../assets/photowall/photowall_pic_3.jpg">
-            </a>
-          </li>
-          <li>
-            <a href="#" target="_blank">
-              <img src="../../../assets/photowall/photowall_pic_4.jpg">
-            </a>
-          </li>
-          <li>
-            <a href="#" target="_blank">
-              <img src="../../../assets/photowall/photowall_pic_5.jpg">
-            </a>
-          </li>
-          <li>
-            <a href="#" target="_blank">
-              <img src="../../../assets/photowall/photowall_pic_2.jpg">
-            </a>
-          </li>
-          <li>
-            <a href="#" target="_blank">
-              <img src="../../../assets/photowall/photowall_pic_3.jpg">
-            </a>
-          </li>
-          <li>
-            <a href="#" target="_blank">
-              <img src="../../../assets/photowall/photowall_pic_4.jpg">
-            </a>
-          </li>
-          <li>
-            <a href="#" target="_blank">
-              <img src="../../../assets/photowall/photowall_pic_5.jpg">
+              <img :src="pircture.image">
             </a>
           </li>
         </ul>
@@ -80,19 +21,8 @@
     <div class="thumb-box">
       <div id="listBox" class="listBox">
         <ul ref="listBox">
-          <li class="on"><img src="../../../assets/photowall/photowall_pic_1.jpg"></li>
-          <li><img src="../../../assets/photowall/photowall_pic_2.jpg"></li>
-          <li><img src="../../../assets/photowall/photowall_pic_3.jpg"></li>
-          <li><img src="../../../assets/photowall/photowall_pic_4.jpg"></li>
-          <li><img src="../../../assets/photowall/photowall_pic_5.jpg"></li>
-          <li><img src="../../../assets/photowall/photowall_pic_2.jpg"></li>
-          <li><img src="../../../assets/photowall/photowall_pic_3.jpg"></li>
-          <li><img src="../../../assets/photowall/photowall_pic_4.jpg"></li>
-          <li><img src="../../../assets/photowall/photowall_pic_5.jpg"></li>
-          <li><img src="../../../assets/photowall/photowall_pic_2.jpg"></li>
-          <li><img src="../../../assets/photowall/photowall_pic_3.jpg"></li>
-          <li><img src="../../../assets/photowall/photowall_pic_4.jpg"></li>
-          <li><img src="../../../assets/photowall/photowall_pic_5.jpg"></li>
+          <li v-for="pircture in pictures"><img :src="pircture.image"></li>
+          <!--<li class="on"><img src="../../../assets/photowall/photowall_pic_2.jpg"></li>-->
         </ul>
       </div>
     </div>
@@ -101,6 +31,12 @@
 
 <script type="text/ecmascript-6">
   export default {
+    props: {
+      pictures: {
+        Type: Array,
+        default: []
+      }
+    },
     data() {
       return {
         index: 0,
@@ -108,6 +44,13 @@
         picBox: null,
         listBox: null
       };
+    },
+    watch: {
+      pictures: function (newPictures) {
+        this.$nextTick(() => {
+          this.initPreview();
+        });
+      }
     },
     methods: {
       prev() {
@@ -227,7 +170,6 @@
       }
     },
     mounted() {
-      this.initPreview();
     }
   };
 </script>`

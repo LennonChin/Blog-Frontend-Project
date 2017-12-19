@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-let localHost = 'http://169.254.45.198:8000';
+let localHost = 'http://169.254.195.98:8000';
 
 // 获取博主信息
 export const getBloggerInfo = params => {
@@ -76,5 +76,23 @@ export const getAlbumDetailInfo = params => {
     return axios.get(`${localHost}/albumDetailInfos/` + params.id + '/');
   } else {
     return axios.get(`${localHost}/albumDetailInfos/`, params);
+  }
+};
+
+// 获取电影基本信息
+export const getMovieBaseInfo = params => {
+  if ('id' in params) {
+    return axios.get(`${localHost}/movieBaseInfos/${params.id}/`);
+  } else {
+    return axios.get(`${localHost}/movieBaseInfos/`, params);
+  }
+};
+
+// 获取电影详细信息
+export const getMovieDetailInfo = params => {
+  if ('id' in params) {
+    return axios.get(`${localHost}/movieDetailInfos/` + params.id + '/');
+  } else {
+    return axios.get(`${localHost}/movieDetailInfos/`, params);
   }
 };

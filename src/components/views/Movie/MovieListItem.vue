@@ -1,18 +1,25 @@
 <template>
-  <div class="movie-list-cell">
-    <a href="">
-      <img src="../../../assets/movie/4.jpg" alt="">
+  <div class="movie-list-cell" v-if="movie != undefined">
+    <router-link :to="{ name: 'movie/detail', params:{ movieId: movie.detail}}" target="_blank">
+      <img :src="movie.front_image" alt="">
       <div class="info">
-        <p class="title">魔都最美展《蜷川实花展》 “漫步花海，情迷蜷川”</p>
+        <p class="title"> {{ movie.title }}</p>
         <p class="desc">
-          本次展览将展出近1000件艺术作品，包含花朵系列（Flowers）、金鱼系列（Liquid Dreams）</p>
+          {{ movie.desc.slice(0, 80) + '...' }}</p>
       </div>
-    </a>
+    </router-link>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
-
+  export default {
+    props: {
+      movie: {
+        Type: Object,
+        default: undefined
+      }
+    }
+  };
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">

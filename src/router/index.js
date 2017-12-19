@@ -67,49 +67,49 @@ let router = new Router({
           }
         },
         {
-          path: 'articlelist',
-          name: 'articlelist',
-          components: {
-            header: SimpleHeader,
-            content: ArticleListContent,
-            footer: CommonFooter
-          },
-          meta: {
-            title: '文章列表'
-          }
-        },
-        {
-          path: 'photograph',
-          name: 'photograph',
+          path: 'albums',
+          name: 'albums',
           components: {
             header: SimpleHeader,
             content: PhotographContent,
             footer: CommonFooter
+          },
+          meta: {
+            title: '图集',
+            need_log: false
           }
         },
         {
-          path: 'album',
-          name: 'album',
+          path: 'album/detail/:albumId',
+          name: 'album/detail',
           components: {
             content: AlbumPreviewContent
+          },
+          meta: {
+            title: '图集详情',
+            need_log: false
           }
         },
         {
-          path: 'movie',
-          name: 'movie',
-          components: {
-            header: SimpleHeader,
-            content: MovieContent,
-            footer: CommonFooter
-          }
-        },
-        {
-          path: 'movielist',
-          name: 'movielist',
+          path: 'movies',
+          name: 'movies',
           components: {
             header: SimpleHeader,
             content: MovieListContent,
             footer: CommonFooter
+          }
+        },
+        {
+          path: 'movie/detail/:movieId',
+          name: 'movie/detail',
+          components: {
+            header: SimpleHeader,
+            content: MovieContent,
+            footer: CommonFooter
+          },
+          meta: {
+            title: '电影详情',
+            need_log: false
           }
         },
         {

@@ -1,32 +1,24 @@
 <template>
   <div class="album-infos">
     <p class="operate_info">
-      <span class="readings"><a href=""><iv-icon type="eye"></iv-icon> 10 阅读</a></span>
-      <span class="comments"><a href=""><iv-icon type="compose"></iv-icon> 10 评论</a></span>
-      <span class="likes"><a href=""><iv-icon type="heart"></iv-icon> 10 喜欢</a></span>
+      <span class="readings"><a href=""><iv-icon type="eye"></iv-icon> {{ album.click_num }} 阅读</a></span>
+      <span class="comments"><a href=""><iv-icon type="compose"></iv-icon> {{ album.comment_num }} 评论</a></span>
+      <span class="likes"><a href=""><iv-icon type="heart"></iv-icon> {{ album.like_num }} 喜欢</a></span>
     </p>
     <div class="author">
       <a href="">
         <img src="../../../assets/logo.png" alt="">
         <div class="right">
-          <p class="name">北岛极光</p>
-          <p class="time">2017-11-21 19:01:23</p>
+          <p class="name">{{ album.author }}</p>
+          <p class="time">{{ album.add_time }}</p>
         </div>
       </a>
     </div>
     <div class="infos">
-      <p class="title">极光飞舞</p>
-      <p class="desc">格陵兰岛南部峡湾，漫天飞舞的极光。</p>
+      <p class="title">{{ album.title }}</p>
+      <p class="desc">{{ album.subtitle }}</p>
       <p class="tags">
-        <span class="tag"><a href=""><span class="sharp"># </span>我要上开屏</a></span>
-        <span class="tag"><a href=""><span># </span>旅行</a></span>
-        <span class="tag"><a href=""><span># </span>格陵兰</a></span>
-        <span class="tag"><a href=""><span># </span>广角</a></span>
-        <span class="tag"><a href=""><span class="sharp"># </span>色彩</a></span>
-        <span class="tag"><a href=""><span># </span>极光风光</a></span>
-        <span class="tag"><a href=""><span># </span>情绪</a></span>
-        <span class="tag"><a href=""><span># </span>尼康</a></span>
-        <span class="tag"><a href=""><span># </span>后期</a></span>
+        <span class="tag" v-for="tag in album.tags" :key="tag.id"><a href=""><span :class="tag.color"># </span>{{ tag.name }}</a></span>
       </p>
     </div>
     <div class="camera">
@@ -45,6 +37,12 @@
   import SocialSection from '@/components/views/Comment/SocialSection';
 
   export default {
+    props: {
+      album: {
+        Type: Object,
+        default: undefined
+      }
+    },
     methods: {
       onSubmit() {
         console.log('submit!');
@@ -148,7 +146,7 @@
               color $color-gradually-gray-91
               &:hover
                 color $color-secondary-warning
-          &.sharp
+          &.yellow
             color $color-secondary-warning
     .camera
       padding 20px
