@@ -2,18 +2,20 @@
   <div class="album-preview-content">
     <iv-row>
       <iv-col :xs="24" :sm="24" :md="16" :lg="18">
-        <album-preview v-if="album != undefined" :album="album"></album-preview>
+        <div class="album-preview">
+          <album-carousel v-if="album != undefined && album.pictures.length > 0" :pictures="album.pictures" @slideToIndex="slideToIndex"></album-carousel>
+        </div>
       </iv-col>
       <iv-col :xs="24" :sm="24" :md="8" :lg="6">
-        <album-infos v-if="album != undefined" :album="album"></album-infos>
+        <album-infos v-if="album != undefined" :album="album" ref="albumInfos"></album-infos>
       </iv-col>
     </iv-row>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
-  import AlbumPreview from '@/components/views/AlbumPreview/AlbumPreview';
   import AlbumInfos from '@/components/views/AlbumPreview/AlbumInfos';
+  import AlbumCarousel from '@/components/views/AlbumPreview/AlbumCarousel';
   // API
   import { getAlbumDetailInfo } from '@/api/api';
 
@@ -37,11 +39,14 @@
         }).catch(function (error) {
           console.log(error);
         });
+      },
+      slideToIndex(index) {
+        this.$refs.albumInfos.selectPicture(index);
       }
     },
     components: {
-      'album-preview': AlbumPreview,
-      'album-infos': AlbumInfos
+      'album-infos': AlbumInfos,
+      'album-carousel': AlbumCarousel
     }
   };
 </script>
@@ -53,4 +58,16 @@
     left 0
     width 100%
     background #000
+    .album-preview
+      background #000
+      width 100%
+      height 100vmin
+      @media only screen and (max-width: 768px)
+        height 130vmin
+      @media screen and (min-width: 768px)
+        height 130vmin
+      @media screen and (min-width: 992px)
+        height 100vmin
+      @media screen and (min-width: 1200px)
+        height 100vmin
 </style>

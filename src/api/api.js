@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-let localHost = 'http://169.254.195.98:8000';
+let localHost = 'http://169.254.113.48:8000';
 
 // 获取博主信息
 export const getBloggerInfo = params => {

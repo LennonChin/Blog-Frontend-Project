@@ -16,15 +16,17 @@
     </div>
     <div class="infos">
       <p class="title">{{ album.title }}</p>
-      <p class="desc">{{ album.subtitle }}</p>
+      <p class="desc">{{ album.desc }}</p>
       <p class="tags">
         <span class="tag" v-for="tag in album.tags" :key="tag.id"><a href=""><span :class="tag.color"># </span>{{ tag.name }}</a></span>
       </p>
     </div>
-    <div class="camera">
-      <p class="version">Nikon D750</p>
-      <p class="setting">AF-S Zoom-Nikkor 14-24mm f/2.8G ED</p>
-      <p class="env">f/2.8, 15s, ISO1600</p>
+    <div class="picture" v-if="currentPicture != undefined">
+      <p class="title">{{ currentPicture.title }}</p>
+      <p class="desc">{{ currentPicture.desc }}</p>
+      <p class="device">{{ currentPicture.camera.device }}</p>
+      <p class="version">{{ currentPicture.camera.version }}</p>
+      <p class="environment">{{ currentPicture.camera.environment }}</p>
     </div>
     <div class="social">
       <social-section :theme="'dark-theme'"></social-section>
@@ -43,9 +45,19 @@
         default: undefined
       }
     },
+    data() {
+      return {
+        currentPicture: undefined
+      };
+    },
     methods: {
       onSubmit() {
         console.log('submit!');
+      },
+      selectPicture(index) {
+        if (index < this.album.pictures.length) {
+          this.currentPicture = this.album.pictures[index];
+        }
       }
     },
     components: {
@@ -148,14 +160,26 @@
                 color $color-secondary-warning
           &.yellow
             color $color-secondary-warning
-    .camera
+    .picture
       padding 20px
       border-bottom 1px solid $color-gradually-gray-21
-      .version
+      .title
+        font-size 18px
+        line-height 22px
+        font-weight 700
+        margin-bottom 10px
+        color $color-gradually-gray-71
+      .desc
+        font-size 14px
+        line-height 20px
+        font-weight 500
+        margin-bottom 10px
+        color $color-gradually-gray-71
+      .device
         font-size 15px
         line-height 22px
         color $color-gradually-gray-81
-      .setting, .env
+      .version, .environment
         font-size 14px
         line-height 22px
         color $color-gradually-gray-61

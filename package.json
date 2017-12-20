@@ -17,6 +17,7 @@
     "mavon-editor": "^2.3.1",
     "tocbot": "^4.0.0",
     "vue": "^2.5.6",
+    "vue-awesome-swiper": "^3.0.6",
     "vue-router": "^3.0.1"
   },
   "devDependencies": {
