@@ -27,8 +27,6 @@ import {
   Affix,
   Select,
   Option,
-  Carousel,
-  CarouselItem,
   DatePicker,
   DatePickerCell,
   Spin
@@ -53,8 +51,6 @@ Vue.component('iv-loadingBar', LoadingBar);
 Vue.component('iv-affix', Affix);
 Vue.component('iv-select', Select);
 Vue.component('iv-option', Option);
-Vue.component('iv-carousel', Carousel);
-Vue.component('iv-carousel-item', CarouselItem);
 Vue.component('iv-date-picker', DatePicker);
 Vue.component('iv-date-picker-cell', DatePickerCell);
 Vue.component('iv-spin', Spin);

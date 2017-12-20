@@ -1,17 +1,28 @@
 <template>
   <div class="photograph-content">
-    <iv-carousel :value="0" :radius-dot="true" loop autoplay
-                 style="padding-bottom: 30%; width: 100%; height: 0; overflow:hidden;">
-      <iv-carousel-item>
-        <img width="100%" src="../../assets/photowall/carousel1.jpg" alt="">
-      </iv-carousel-item>
-      <iv-carousel-item>
-        <img width="100%" src="../../assets/photowall/carousel2.jpg" alt="">
-      </iv-carousel-item>
-      <iv-carousel-item>
-        <img width="100%" src="../../assets/photowall/carousel3.jpg" alt="">
-      </iv-carousel-item>
-    </iv-carousel>
+    <swiper :options="swiperOption" class="gallery-top" ref="swiperTop">
+      <swiper-slide>
+        <a>
+          <img width="100%" data-src="../../assets/photowall/carousel1.jpg" alt="" class="swiper-lazy">
+          <div class="swiper-lazy-preloader swiper-lazy-preloader-white"></div>
+        </a>
+      </swiper-slide>
+      <swiper-slide>
+        <a>
+          <img width="100%" data-src="../../assets/photowall/carousel2.jpg" alt="" class="swiper-lazy">
+          <div class="swiper-lazy-preloader swiper-lazy-preloader-white"></div>
+        </a>
+      </swiper-slide>
+      <swiper-slide>
+        <a>
+          <img width="100%" data-src="../../assets/photowall/carousel3.jpg" alt="" class="swiper-lazy">
+          <div class="swiper-lazy-preloader swiper-lazy-preloader-white"></div>
+        </a>
+      </swiper-slide>
+      <div class="swiper-pagination" slot="pagination"></div>
+      <div class="swiper-button-prev" slot="button-prev"></div>
+      <div class="swiper-button-next" slot="button-next"></div>
+    </swiper>
     <classify-wall @selectCategory="selectCategory"></classify-wall>
     <section-title :mainTitle="'游记'" :subTitle="'天下之美'"></section-title>
     <div class="thumb-cards">
@@ -30,6 +41,7 @@
   import SectionTitle from '@/components/views/SectionTitle/SectionTitle';
   import ThumbCard from '@/components/views/ThumbCard';
   import BrowseMore from '@/components/views/BrowseMore';
+  import {swiper, swiperSlide} from 'vue-awesome-swiper';
 
   // API
   import {getAlbumBaseInfo} from '@/api/api';
@@ -38,7 +50,24 @@
     data() {
       return {
         albums: [],
-        selectedCategory: undefined
+        selectedCategory: undefined,
+        swiperOption: {
+          spaceBetween: 30,
+          lazy: true,
+          centeredSlides: true,
+          autoplay: {
+            delay: 2500,
+            disableOnInteraction: false
+          },
+          pagination: {
+            el: '.swiper-pagination',
+            clickable: true
+          },
+          navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev'
+          }
+        }
       };
     },
     created() {
@@ -69,7 +98,9 @@
       'classify-wall': ClassifyWall,
       'section-title': SectionTitle,
       'thumb-card': ThumbCard,
-      'browse-more': BrowseMore
+      'browse-more': BrowseMore,
+      'swiper': swiper,
+      'swiperSlide': swiperSlide
     }
   };
 </script>
@@ -87,10 +118,9 @@
       width 1200px
       margin 15px auto 0
       margin-bottom 200px
-    .carousel
-      padding-bottom: 70%
+    .gallery-top
       width: 100%
-      height: 0
+      height: 300px
       overflow hidden
     .thumb-cards
       margin-top 15px

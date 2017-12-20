@@ -56,7 +56,11 @@
       };
     },
     created() {
-      getIndexBanners({}).then((response) => {
+      getIndexBanners({
+        params: {
+          top_category: 5
+        }
+      }).then((response) => {
         this.banners = response.data;
       }).catch(function (error) {
         console.log(error);
