@@ -1,27 +1,55 @@
 <template>
   <div class="archive-list-cell">
     <p>
-      <a href="">
-        <iv-tag>{{article.publish_time | formateDate}}</iv-tag>
-        <span class="title">{{article.title}}</span>
-      </a>
+      <router-link :to="{ name: routerLink.name, params: routerLink.params }" target="_blank">
+        <iv-tag>{{ post.add_time | formatDate}}</iv-tag>
+        <span class="title">{{ post.title }}</span>
+      </router-link>
     </p>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
- export default {
-   props: {
-     article: {
-       Type: Object
-     }
-   },
-   filters: {
-     formateDate: function (date) {
-       return date.slice(0, 10);
-     }
-   }
- };
+  const POST_TYPE_ARTICLE = 'article';
+  const POST_TYPE_ALBUM = 'album';
+  const POST_TYPE_MOVIE = 'movie';
+
+  export default {
+    props: {
+      post: {
+        Type: Object
+      }
+    },
+    computed: {
+      routerLink() {
+        let router = {};
+        router.name = this.post.postType + '/detail';
+        router.params = {};
+        if (this.post.postType === POST_TYPE_ALBUM) {
+          router.params[this.post.postType + 'Id'] = this.post.id;
+        } else {
+          router.params[this.post.postType + 'Id'] = this.post.detail;
+        }
+        return router;
+      },
+      typeTag() {
+        switch (this.post.postType) {
+          case POST_TYPE_ARTICLE:
+            return '';
+          case POST_TYPE_ALBUM:
+            return '';
+          case POST_TYPE_MOVIE:
+            return '';
+        }
+      }
+    },
+    filters: {
+      formatDate: function (date) {
+        var formatedDate = new Date(date);
+        return formatedDate.getFullYear() + '-' + (formatedDate.getMonth() + 1) + '-' + formatedDate.getDate();
+      }
+    }
+  };
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">

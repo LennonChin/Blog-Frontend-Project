@@ -4,20 +4,15 @@
       <iv-col :xs="24" :sm="24" :md="24" :lg="17">
         <div class="layout-left">
           <timeline-header></timeline-header>
-          <archive-list-time-title :date="'2017年'" :count="'200'"></archive-list-time-title>
-          <archive-list-time-title :date="'10月'" :count="'200'" :dateType="'month'"></archive-list-time-title>
-          <archive-list-cell v-for="article in articles" :article="article" :key="article.title"></archive-list-cell>
-          <archive-list-time-title :date="'9月'" :count="'200'" :dateType="'month'"></archive-list-time-title>
-          <archive-list-cell v-for="article in articles" :article="article" :key="article.title"></archive-list-cell>
-          <archive-list-time-title :date="'8月'" :count="'200'" :dateType="'month'"></archive-list-time-title>
-          <archive-list-cell v-for="article in articles" :article="article" :key="article.title"></archive-list-cell>
-          <archive-list-time-title :date="'2016年'" :count="'200'"></archive-list-time-title>
-          <archive-list-time-title :date="'12月'" :count="'200'" :dateType="'month'"></archive-list-time-title>
-          <archive-list-cell v-for="article in articles" :article="article" :key="article.title"></archive-list-cell>
-          <archive-list-time-title :date="'11月'" :count="'200'" :dateType="'month'"></archive-list-time-title>
-          <archive-list-cell v-for="article in articles" :article="article" :key="article.title"></archive-list-cell>
-          <archive-list-time-title :date="'10月'" :count="'200'" :dateType="'month'"></archive-list-time-title>
-          <archive-list-cell v-for="article in articles" :article="article" :key="article.title"></archive-list-cell>
+          <div v-for="year in sortedYearKeys(posts)">
+            <archive-list-time-title :date="year + '年'" :count="posts[year].count"></archive-list-time-title>
+            <div v-for="month in sortedMonthKeys(posts[year].months)">
+              <archive-list-time-title :date="month + '月'" :count="posts[year].months[month].length"
+                                       :dateType="'month'"></archive-list-time-title>
+              <archive-list-cell v-for="post in posts[year].months[month]" :post="post"
+                                 :key="post.title"></archive-list-cell>
+            </div>
+          </div>
         </div>
       </iv-col>
       <iv-col :xs="0" :sm="0" :md="0" :lg="7">
@@ -40,110 +35,139 @@
   // API
   import {getArticleBaseInfo, getAlbumBaseInfo, getMovieBaseInfo} from '@/api/api';
 
+  const POST_TYPE_ARTICLE = 'article';
+  const POST_TYPE_ALBUM = 'album';
+  const POST_TYPE_MOVIE = 'movie';
+
   export default {
     data() {
       return {
-        articles: [
-          {
-            'id': 1,
-            'title': '被迫向现实低头，再爱也只能到此为止',
-            'author': '男孩与榴莲',
-            'publish_time': '2017-10-22 17:57:08',
-            'desc': '离奇消失亚伯勒郡有一条出名的“S”形单向公路，路面狭窄，两侧耸立着高大的石墙，只能容一辆车子通行',
-            'readings': '148',
-            'comments': '2',
-            'likes': '20',
-            'type': 1
-          },
-          {
-            'id': 2,
-            'title': '我曾经喜欢过一个人',
-            'author': '不能吃糖的0240',
-            'publish_time': '2017-10-22 17:57:08',
-            'desc': '离奇消失亚伯勒郡有一条出名的“S”形单向公路，路面狭窄，两侧耸立着高大的石墙，只能容一辆车子通行',
-            'readings': '148',
-            'comments': '2',
-            'likes': '20',
-            'type': 1
-          },
-          {
-            'id': 3,
-            'title': '离开你以后我还是很喜欢很喜欢你',
-            'author': 'JUNE.',
-            'publish_time': '2017-10-22 17:57:08',
-            'desc': '离奇消失亚伯勒郡有一条出名的“S”形单向公路，路面狭窄，两侧耸立着高大的石墙，只能容一辆车子通行',
-            'readings': '148',
-            'comments': '2',
-            'likes': '20',
-            'type': 2
-          }, {
-            'id': 1,
-            'title': '被迫向现实低头，再爱也只能到此为止',
-            'author': '男孩与榴莲',
-            'publish_time': '2017-10-22 17:57:08',
-            'desc': '离奇消失亚伯勒郡有一条出名的“S”形单向公路，路面狭窄，两侧耸立着高大的石墙，只能容一辆车子通行',
-            'readings': '148',
-            'comments': '2',
-            'likes': '20',
-            'type': 1
-          },
-          {
-            'id': 4,
-            'title': '思念如马，自别离，未停蹄！相思若柳，飘满城，尽飞絮！',
-            'author': '每日小情书',
-            'publish_time': '2017-10-22 17:57:08',
-            'desc': '离奇消失亚伯勒郡有一条出名的“S”形单向公路，路面狭窄，两侧耸立着高大的石墙，只能容一辆车子通行',
-            'readings': '148',
-            'comments': '2',
-            'likes': '20',
-            'type': 3
-          },
-          {
-            'id': 1,
-            'title': '被迫向现实低头，再爱也只能到此为止',
-            'author': '男孩与榴莲',
-            'publish_time': '2017-10-22 17:57:08',
-            'desc': '离奇消失亚伯勒郡有一条出名的“S”形单向公路，路面狭窄，两侧耸立着高大的石墙，只能容一辆车子通行',
-            'readings': '148',
-            'comments': '2',
-            'likes': '20',
-            'type': 1
-          }
-        ]
+        posts: {},
+        timelines: {},
+        sorted: false,
+        articlePage: 0,
+        articleCount: 0,
+        noMoreArticle: false,
+        albumPage: 0,
+        albumCount: 0,
+        noMoreAlbum: false,
+        moviePage: 0,
+        movieCount: 0,
+        noMoreMovie: false,
+        dataReady: 0
       };
+    },
+    created() {
+      this.getDatas();
     },
     methods: {
       getDatas() {
         // 文章
-        getArticleBaseInfo({
-          params: {
-            page_size: 5
-          }
-        }).then((response) => {
-          this.articles = response.data.results;
-        }).catch(function (error) {
-          console.log(error);
-        });
+        if (!this.noMoreArticle) {
+          getArticleBaseInfo({
+            params: {
+              ordering: this.sorted ? 'add_time' : '-add_time',
+              page_size: 20
+            }
+          }).then((response) => {
+            // 记录数量
+            this.articleCount += response.data.results.length;
+            this.noMoreArticle = this.articleCount >= response.data.count;
+            this.reducePosts(response.data.results, POST_TYPE_ARTICLE);
+          }).catch(function (error) {
+            console.log(error);
+          });
+        }
 
         // 图集
-        getAlbumBaseInfo({
-          params: {}
-        }).then((response) => {
-          this.albums = response.data.results;
-        }).catch(function (error) {
-          console.log(error);
-        });
+        if (!this.noMoreAlbum) {
+          getAlbumBaseInfo({
+            params: {
+              ordering: this.sorted ? 'add_time' : '-add_time',
+              page_size: 20
+            }
+          }).then((response) => {
+            // 记录数量
+            this.albumCount += response.data.results.length;
+            this.noMoreAlbum = this.albumCount >= response.data.count;
+            this.reducePosts(response.data.results, POST_TYPE_ALBUM);
+          }).catch(function (error) {
+            console.log(error);
+          });
+        }
 
         // 电影
-        getMovieBaseInfo({
-          params: {
-            page_size: 20
+        if (!this.noMoreMovie) {
+          getMovieBaseInfo({
+            params: {
+              ordering: this.sorted ? 'add_time' : '-add_time',
+              page_size: 20
+            }
+          }).then((response) => {
+            // 记录数量
+            this.movieCount += response.data.results.length;
+            this.noMoreMovie = this.movieCount >= response.data.count;
+            this.reducePosts(response.data.results, POST_TYPE_MOVIE);
+          }).catch(function (error) {
+            console.log(error);
+          });
+        }
+      },
+      reducePosts(posts, type) {
+        var that = this;
+        posts.map((post) => {
+          // 添加一个type用于标识文章类型
+          post.postType = type;
+          // 按年月分批
+          let addYear = new Date(post.add_time).getFullYear();
+          let addMonth = new Date(post.add_time).getMonth();
+          if (!that.timelines.hasOwnProperty(addYear)) {
+            that.timelines[addYear] = {};
+            that.timelines[addYear]['months'] = {};
           }
-        }).then((response) => {
-          this.movies = response.data.results;
-        }).catch(function (error) {
-          console.log(error);
+          if (!that.timelines[addYear]['months'].hasOwnProperty(addMonth + 1)) {
+            that.timelines[addYear]['months'][addMonth + 1] = [];
+          }
+          that.timelines[addYear]['months'][addMonth + 1].push(post);
         });
+        this.dataReady++;
+      },
+      sortedYearKeys(years) {
+        let that = this;
+        return Object.keys(years).sort(function (year1, year2) {
+          return that.sorted ? year1 - year2 : year2 - year1;
+        });
+      },
+      sortedMonthKeys(months) {
+        let that = this;
+        return Object.keys(months).sort(function (month1, month2) {
+          return that.sorted ? month1 - month2 : month2 - month1;
+        });
+      }
+    },
+    watch: {
+      dataReady: function (newDataReady) {
+        if (newDataReady === 3) {
+          // 表示数据已就绪
+          for (let year in this.timelines) {
+            let yearCount = 0;
+            for (let month in this.timelines[year]['months']) {
+              // 月份排序
+              let posts = this.timelines[year]['months'][month];
+              // 年度计数
+              yearCount += posts.length;
+              let that = this;
+              posts.sort(function (post1, post2) {
+                let timestamp1 = parseInt(Date.parse(new Date(post1.add_time)) / 1000);
+                let timestamp2 = parseInt(Date.parse(new Date(post2.add_time)) / 1000);
+                return that.sorted ? timestamp1 - timestamp2 : timestamp2 - timestamp1;
+              });
+            }
+            this.timelines[year]['count'] = yearCount;
+          }
+          this.posts = this.timelines;
+          return 0;
+        }
       }
     },
     components: {
