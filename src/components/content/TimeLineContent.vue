@@ -37,6 +37,9 @@
   import Recommend from '@/components/views/Recommend';
   import TagWall from '@/components/views/TagWall';
 
+  // API
+  import {getArticleBaseInfo, getAlbumBaseInfo, getMovieBaseInfo} from '@/api/api';
+
   export default {
     data() {
       return {
@@ -108,6 +111,40 @@
           }
         ]
       };
+    },
+    methods: {
+      getDatas() {
+        // 文章
+        getArticleBaseInfo({
+          params: {
+            page_size: 5
+          }
+        }).then((response) => {
+          this.articles = response.data.results;
+        }).catch(function (error) {
+          console.log(error);
+        });
+
+        // 图集
+        getAlbumBaseInfo({
+          params: {}
+        }).then((response) => {
+          this.albums = response.data.results;
+        }).catch(function (error) {
+          console.log(error);
+        });
+
+        // 电影
+        getMovieBaseInfo({
+          params: {
+            page_size: 20
+          }
+        }).then((response) => {
+          this.movies = response.data.results;
+        }).catch(function (error) {
+          console.log(error);
+        });
+      }
     },
     components: {
       'timeline-header': TimeLineHeader,

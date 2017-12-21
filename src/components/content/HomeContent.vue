@@ -4,11 +4,23 @@
       <iv-col :xs="24" :sm="24" :md="24" :lg="17" :xl="17">
         <div class="layout-left">
           <photo-wall></photo-wall>
-          <section-title v-if="this.specialCategory(1) !== 'undefined'" :mainTitle="this.specialCategory(1).name" :subTitle="this.specialCategory(1).code">
-            <title-menu-filter slot="menu"></title-menu-filter>
+          <section-title v-if="this.specialCategory(1) !== 'undefined'"
+                         :mainTitle="this.specialCategory(1).name"
+                         :subTitle="this.specialCategory(1).code"
+                         :menus="[{title: '最新', method: 'new'}, {title: '评论最多', method: 'mostComment'}, {title: '推荐', method: 'recommend'}]"
+                         :withRefresh="true"
+                         :withTimeSelect="true"
+                         @titleControl="titleControl">
           </section-title>
           <article-list-cell v-for="article in articles" :article="article" :key="article.id"></article-list-cell>
-          <section-title v-if="this.specialCategory(5) !== 'undefined'" :mainTitle="this.specialCategory(5).name" :subTitle="this.specialCategory(5).code"></section-title>
+          <section-title v-if="this.specialCategory(1) !== 'undefined'"
+                         :mainTitle="this.specialCategory(1).name"
+                         :subTitle="this.specialCategory(1).code"
+                         :menus="[{title: '最新', method: 'new'}, {title: '评论最多', method: 'mostComment'}, {title: '推荐', method: 'recommend'}]"
+                         :withRefresh="true"
+                         :withTimeSelect="true"
+                         @titleControl="titleControl">
+          </section-title>
           <div class="topic-cards">
             <iv-row :gutter="10">
               <iv-col :xs="24" :sm="12" :md="8" :lg="8" :xl="8" v-for="album in albums" :key="album.id">
@@ -34,7 +46,6 @@
   import PhotoWall from '@/components/views/PhotoWall';
   import ArticleListCell from '@/components/views/Article/ArticleListCell';
   import SectionTitle from '@/components/views/SectionTitle/SectionTitle';
-  import TitleMenuFilter from '@/components/views/SectionTitle/TitleMenuFilter';
   import TopicCard from '@/components/views/TopicCard';
   import ArticlePageHeader from '@/components/views/Article/ArticlePageHeader';
   import ArticlePageContent from '@/components/views/Article/ArticlePageContent';
@@ -47,7 +58,7 @@
   import SideToc from '@/components/views/SideToc';
 
   // API
-  import { getArticleBaseInfo, getCategory, getAlbumBaseInfo } from '@/api/api';
+  import {getArticleBaseInfo, getCategory, getAlbumBaseInfo} from '@/api/api';
 
   export default {
     data() {
@@ -99,13 +110,15 @@
         return this.categorys.filter((category) => {
           return category.id === id;
         })[0];
+      },
+      titleControl(params) {
+        console.log(params);
       }
     },
     components: {
       'photo-wall': PhotoWall,
       'article-list-cell': ArticleListCell,
       'section-title': SectionTitle,
-      'title-menu-filter': TitleMenuFilter,
       'topic-card': TopicCard,
       'article-page-header': ArticlePageHeader,
       'article-page-content': ArticlePageContent,

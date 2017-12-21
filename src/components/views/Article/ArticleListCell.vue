@@ -17,7 +17,7 @@
             </router-link>
             </p>
             <p class="operate_info">
-              <span class="publish-time">At time / <a>{{article.add_time}}</a></span>
+              <span class="publish-time">At time / <a>{{ socialDate(article.add_time) }}</a></span>
               <span class="readings"><a><iv-icon type="eye"></iv-icon> {{article.click_num}} 阅读</a></span>
               <span class="comments"><a><iv-icon type="compose"></iv-icon> {{article.comment_num}} 评论</a></span>
               <span class="likes"><a><iv-icon type="heart"></iv-icon> {{article.like_num}} 喜欢</a></span>

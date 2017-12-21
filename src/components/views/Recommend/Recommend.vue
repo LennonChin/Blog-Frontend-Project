@@ -9,7 +9,7 @@
               <iv-tag :color="tag.color" v-for="tag in articleSlice(0, 1)[0].tags" :key="tag.id">{{ tag.name }}</iv-tag>
             </div>
             <p class="info">
-              <span class="time">{{ articleSlice(0, 1)[0].add_time }}</span>
+              <span class="time">{{ socialDate(articleSlice(0, 1)[0].add_time) }}</span>
               <span class="likes"><a href=""><iv-icon type="heart"></iv-icon> {{ articleSlice(0, 1)[0].like_num }} </a></span>
               <span class="comments"><a href=""><iv-icon type="compose"></iv-icon> {{ articleSlice(0, 1)[0].comment_num }} </a></span>
               <span class="readings"><a href=""><iv-icon type="eye"></iv-icon> {{ articleSlice(0, 1)[0].click_num }} </a></span>
@@ -25,7 +25,7 @@
             <router-link :to="{ name: 'article/detail', params:{ articleId: article.detail}}" target="_blank">
               <p class="title">{{ article.title }}</p>
               <p class="info">
-                <span class="time">{{ article.add_time }}</span>
+                <span class="time">{{ socialDate(article.add_time) }}</span>
                 <span class="likes"><a href=""><iv-icon type="heart"></iv-icon> {{ article.like_num}} </a></span>
                 <span class="comments"><a href=""><iv-icon type="compose"></iv-icon> {{ article.comment_num}} </a></span>
                 <span class="readings"><a href=""><iv-icon type="eye"></iv-icon> {{ article.click_num}} </a></span>

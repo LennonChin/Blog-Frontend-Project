@@ -58,7 +58,7 @@
     created() {
       getIndexBanners({
         params: {
-          top_category: 5
+          top_category: 1
         }
       }).then((response) => {
         this.banners = response.data;

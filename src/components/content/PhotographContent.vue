@@ -1,21 +1,9 @@
 <template>
-  <div class="photograph-content">
+  <div class="photograph-content" v-if="banners.length > 0">
     <swiper :options="swiperOption" class="gallery-top" ref="swiperTop">
-      <swiper-slide>
+      <swiper-slide v-for="banner in banners" :key="banner.id">
         <a>
-          <img width="100%" data-src="../../assets/photowall/carousel1.jpg" alt="" class="swiper-lazy">
-          <div class="swiper-lazy-preloader swiper-lazy-preloader-white"></div>
-        </a>
-      </swiper-slide>
-      <swiper-slide>
-        <a>
-          <img width="100%" data-src="../../assets/photowall/carousel2.jpg" alt="" class="swiper-lazy">
-          <div class="swiper-lazy-preloader swiper-lazy-preloader-white"></div>
-        </a>
-      </swiper-slide>
-      <swiper-slide>
-        <a>
-          <img width="100%" data-src="../../assets/photowall/carousel3.jpg" alt="" class="swiper-lazy">
+          <img width="100%" :data-src="banner.image" alt="" class="swiper-lazy">
           <div class="swiper-lazy-preloader swiper-lazy-preloader-white"></div>
         </a>
       </swiper-slide>
@@ -41,14 +29,17 @@
   import SectionTitle from '@/components/views/SectionTitle/SectionTitle';
   import ThumbCard from '@/components/views/ThumbCard';
   import BrowseMore from '@/components/views/BrowseMore';
+  // swiper
+  import 'swiper/dist/css/swiper.css';
   import {swiper, swiperSlide} from 'vue-awesome-swiper';
 
   // API
-  import {getAlbumBaseInfo} from '@/api/api';
+  import { getAlbumBaseInfo, getIndexBanners } from '@/api/api';
 
   export default {
     data() {
       return {
+        banners: [],
         albums: [],
         selectedCategory: undefined,
         swiperOption: {
@@ -81,6 +72,15 @@
           }
         }).then((response) => {
           this.albums = response.data.results;
+        }).catch(function (error) {
+          console.log(error);
+        });
+        getIndexBanners({
+          params: {
+            top_category: 5
+          }
+        }).then((response) => {
+          this.banners = response.data;
         }).catch(function (error) {
           console.log(error);
         });

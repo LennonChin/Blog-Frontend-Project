@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-let localHost = 'http://169.254.113.48:8000';
+let localHost = 'http://169.254.138.255:8000';
 
 // 获取博主信息
 export const getBloggerInfo = params => {
@@ -40,7 +40,11 @@ export const getTags = params => {
 
 // 获取轮播图
 export const getIndexBanners = params => {
-  return axios.get(`${localHost}/banners/`);
+  if ('id' in params) {
+    return axios.get(`${localHost}/banners/` + params.id + '/');
+  } else {
+    return axios.get(`${localHost}/banners/`, params);
+  }
 };
 
 // 获取文章基本信息

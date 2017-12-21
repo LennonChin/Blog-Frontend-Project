@@ -9,7 +9,7 @@
       <div class="bottom-area">
         <h4 class="title"><a href="">{{ album.title.slice(0, 13) }}</a></h4>
         <p class="info"><span class="author">By / <a href="">{{ album.author }}</a></span></p>
-        <p class="info"><span class="publish-time">At time / <a href="">{{ album.add_time}}</a></span></p>
+        <p class="info"><span class="publish-time">At time / <a href="">{{ socialDate(album.add_time) }}</a></span></p>
         <p class="operate_info">
           <span class="readings"><a href=""> {{ album.click_num }}次阅读</a></span> |
           <span class="comments"><a href=""> {{ album.comment_num }}个评论</a></span> |

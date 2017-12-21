@@ -15,7 +15,7 @@
                 <iv-col :xs="24" :sm="24" :md="17" :lg="18">
                   <div class="info">
                     <p class="title">{{ movie.title }}</p>
-                    <p class="link">{{ movie.add_time }}</p>
+                    <p class="link">{{ socialDate(movie.add_time) }}</p>
                     <p class="content">{{ movie.desc.slice(0, 60) + '...' }}</p>
                   </div>
                 </iv-col>

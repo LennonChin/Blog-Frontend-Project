@@ -7,6 +7,7 @@ import App from './App.vue';
 // 全局加载resource拦截器
 import './axios/';
 import Axios from 'axios';
+import socialDateFormat from '@/common/js/utils';
 
 // iView UI 组件引入
 import {
@@ -54,6 +55,15 @@ Vue.component('iv-option', Option);
 Vue.component('iv-date-picker', DatePicker);
 Vue.component('iv-date-picker-cell', DatePickerCell);
 Vue.component('iv-spin', Spin);
+
+// 全局混合
+Vue.mixin({
+  methods: {
+    socialDate: function (formatedDate) {
+      return socialDateFormat(formatedDate);
+    }
+  }
+});
 
 let vm = new Vue({
   router,

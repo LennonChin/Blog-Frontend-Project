@@ -119,6 +119,10 @@ let router = new Router({
             header: SimpleHeader,
             content: TimeLineContent,
             footer: CommonFooter
+          },
+          meta: {
+            title: '时光轴',
+            need_log: false
           }
         }
       ]
