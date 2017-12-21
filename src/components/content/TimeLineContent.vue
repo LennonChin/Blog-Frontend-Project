@@ -13,6 +13,7 @@
                                  :key="post.title"></archive-list-cell>
             </div>
           </div>
+          <browse-more @browseMore="browseMore" ref="browseMore"></browse-more>
         </div>
       </iv-col>
       <iv-col :xs="0" :sm="0" :md="0" :lg="7">
@@ -31,6 +32,7 @@
   import ArchiveListTimeTitle from '@/components/views/Archive/ArchiveListTimeTitle';
   import Recommend from '@/components/views/Recommend';
   import TagWall from '@/components/views/TagWall';
+  import BrowseMore from '@/components/views/BrowseMore';
 
   // API
   import {getArticleBaseInfo, getAlbumBaseInfo, getMovieBaseInfo} from '@/api/api';
@@ -44,14 +46,15 @@
       return {
         posts: {},
         timelines: {},
+        // 排序
         sorted: false,
-        articlePage: 0,
+        articlePage: 1,
         articleCount: 0,
         noMoreArticle: false,
-        albumPage: 0,
+        albumPage: 1,
         albumCount: 0,
         noMoreAlbum: false,
-        moviePage: 0,
+        moviePage: 1,
         movieCount: 0,
         noMoreMovie: false,
         dataReady: 0
@@ -61,13 +64,21 @@
       this.getDatas();
     },
     methods: {
+      browseMore() {
+        console.log('browseMore');
+        this.articlePage++;
+        this.albumPage++;
+        this.moviePage++;
+        this.getDatas();
+      },
       getDatas() {
         // 文章
         if (!this.noMoreArticle) {
           getArticleBaseInfo({
             params: {
               ordering: this.sorted ? 'add_time' : '-add_time',
-              page_size: 20
+              page_size: 5,
+              page: this.articlePage
             }
           }).then((response) => {
             // 记录数量
@@ -84,7 +95,8 @@
           getAlbumBaseInfo({
             params: {
               ordering: this.sorted ? 'add_time' : '-add_time',
-              page_size: 20
+              page_size: 5,
+              page: this.albumPage
             }
           }).then((response) => {
             // 记录数量
@@ -101,7 +113,8 @@
           getMovieBaseInfo({
             params: {
               ordering: this.sorted ? 'add_time' : '-add_time',
-              page_size: 20
+              page_size: 5,
+              page: this.moviePage
             }
           }).then((response) => {
             // 记录数量
@@ -166,7 +179,9 @@
             this.timelines[year]['count'] = yearCount;
           }
           this.posts = this.timelines;
-          return 0;
+          // 停止浏览更多动画
+          this.$refs.browseMore.stopLoading();
+          this.dataReady = 0;
         }
       }
     },
@@ -175,7 +190,8 @@
       'archive-list-time-title': ArchiveListTimeTitle,
       'archive-list-cell': ArchiveListCell,
       'recommend': Recommend,
-      'tag-wall': TagWall
+      'tag-wall': TagWall,
+      'browse-more': BrowseMore
     }
   };
 </script>

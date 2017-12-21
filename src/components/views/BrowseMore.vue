@@ -28,10 +28,10 @@
     methods: {
       browseMore() {
         this.loading = true;
-        var that = this;
-        setTimeout(function () {
-          that.loading = false;
-        }, 3000);
+        this.$emit('browseMore');
+      },
+      stopLoading() {
+        this.loading = false;
       }
     }
   };
