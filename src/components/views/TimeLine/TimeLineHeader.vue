@@ -3,7 +3,7 @@
     <classify-menu></classify-menu>
     <section-title :mainTitle="'存档时光'"
                    :subTitle="'Timeline'"
-                   :menus="[{title: '最新', method: 'new'}, {title: '评论最多', method: 'mostComment'}, {title: '推荐', method: 'recommend'}]"
+                   :menus="menus"
                    :withRefresh="true"
                    :withTimeSelect="true"
                    @titleControl="titleControl">
@@ -16,9 +16,18 @@
   import ClassifyMenu from '@/components/views/Classify/ClassifyMenu';
 
   export default {
+    data() {
+      return {
+        menus: [
+          {title: '顺序', selectedTitle: '逆序', selected: true, method: 'sorted'},
+          {title: '评论最多', selected: false, method: 'mostComment'},
+          {title: '推荐', selected: false, method: 'recommend'}
+        ]
+      };
+    },
     methods: {
       titleControl(params) {
-        console.log(params);
+        this.$emit('titleControl', params);
       }
     },
     components: {

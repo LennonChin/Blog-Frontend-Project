@@ -10,11 +10,12 @@
     <div class="menu">
       <ul class="list clearfix" v-if="menus.length > 0">
         <li v-for="menu in menus" :key="menu.title">
-          <a @click="selectMenu(menu.method)">{{ menu.title }}</a>
+          <a :class="{ active: menu.selected }" @click="selectMenu(menu)">{{ menuTitle(menu) }}</a>
         </li>
       </ul>
       <div class="date-picker" v-if="withTimeSelect">
-        <iv-date-picker type="daterange" confirm placement="bottom-end" placeholder="选择日期区间" style="width: 180px;"></iv-date-picker>
+        <iv-date-picker type="daterange" confirm placement="bottom-end" placeholder="选择日期区间"
+                        style="width: 180px;"></iv-date-picker>
       </div>
       <div class="refresh" v-if="withRefresh">
         <a @click="selectMenu('refresh')" title="刷新">
@@ -49,8 +50,12 @@
       }
     },
     methods: {
-      selectMenu(method) {
-        this.$emit('titleControl', [method]);
+      menuTitle(menu) {
+        return menu.selected ? (menu.selectedTitle !== undefined ? menu.selectedTitle : menu.title) : menu.title;
+      },
+      selectMenu(menu) {
+        menu.selected = !menu.selected;
+        this.$emit('titleControl', [menu.method, menu.selected]);
       }
     }
   };

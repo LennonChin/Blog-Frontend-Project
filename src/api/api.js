@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-let localHost = 'http://169.254.178.54:8000';
+let localHost = 'http://192.168.1.3:8000';
 
 // 获取博主信息
 export const getBloggerInfo = params => {
@@ -98,5 +98,14 @@ export const getMovieDetailInfo = params => {
     return axios.get(`${localHost}/movieDetailInfos/` + params.id + '/');
   } else {
     return axios.get(`${localHost}/movieDetailInfos/`, params);
+  }
+};
+
+// 获取时间轴信息
+export const getTimelineInfo = params => {
+  if ('id' in params) {
+    return axios.get(`${localHost}/timeline/` + params.id + '/');
+  } else {
+    return axios.get(`${localHost}/timeline/`, params);
   }
 };

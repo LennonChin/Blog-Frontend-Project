@@ -1,5 +1,5 @@
 <template>
-  <div class="about">
+  <div class="about" v-if="bloggerInfo != undefined">
     <img class="background" :src="bloggerInfo.background" alt="">
     <img class="avatar" :src="bloggerInfo.avatar" alt="">
     <p class="name">{{ bloggerInfo.name_en }}</p>
@@ -28,7 +28,7 @@
   export default {
     data() {
       return {
-        bloggerInfo: {}
+        bloggerInfo: undefined
       };
     },
     created() {

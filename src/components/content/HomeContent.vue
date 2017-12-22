@@ -77,7 +77,7 @@
         getCategory({
           params: {
             level_min: 1,
-            level_max: 1
+            level_max: 3
           }
         }).then((response) => {
           this.categorys = response.data;
