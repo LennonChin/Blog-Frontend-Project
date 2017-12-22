@@ -1,7 +1,7 @@
 <template>
   <div class="browse-more" :class="{loading: loading}">
     <a @click="browseMore">
-      <p class="text" v-show="!loading">{{tipText}}</p>
+      <p class="text" v-show="!loading">{{ tipStr }}</p>
       <div class="spinner" v-show="loading">
         <div class="line1"></div>
         <div class="line2"></div>
@@ -18,20 +18,30 @@
     props: {
       tipText: {
         default: '浏览更多'
+      },
+      noMoreDataTipText: {
+        default: '到底啦'
       }
     },
     data() {
       return {
-        loading: false
+        loading: false,
+        noMoreData: false
       };
+    },
+    computed: {
+      tipStr: function () {
+        return this.noMoreData ? this.noMoreDataTipText : this.tipText;
+      }
     },
     methods: {
       browseMore() {
         this.loading = true;
         this.$emit('browseMore');
       },
-      stopLoading() {
+      stopLoading(noMoreData) {
         this.loading = false;
+        this.noMoreData = noMoreData;
       }
     }
   };
