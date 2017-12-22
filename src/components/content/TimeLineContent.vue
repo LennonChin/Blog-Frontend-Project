@@ -49,7 +49,7 @@
         timelines: {},
         // 排序
         sorted: false,
-        page_size: 10,
+        page_size: 2,
         articlePage: 1,
         articleCount: 0,
         noMoreArticle: false,
@@ -199,7 +199,7 @@
           this.posts = Object.assign({}, this.timelines);
           console.log(this.posts);
           // 停止浏览更多动画
-          this.$refs.browseMore.stopLoading();
+          this.$refs.browseMore.stopLoading(this.noMoreArticle && this.noMoreAlbum && this.noMoreMovie);
           this.dataReady = [false, false, false];
         }
       }
