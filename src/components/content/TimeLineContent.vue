@@ -27,6 +27,7 @@
 </template>
 
 <script type="text/ecmascript-6">
+  import Vue from 'vue';
   import TimeLineHeader from '@/components/views/TimeLine/TimeLineHeader';
   import ArchiveListCell from '@/components/views/Archive/ArchiveListCell';
   import ArchiveListTimeTitle from '@/components/views/Archive/ArchiveListTimeTitle';
@@ -48,6 +49,7 @@
         timelines: {},
         // 排序
         sorted: false,
+        page_size: 10,
         articlePage: 1,
         articleCount: 0,
         noMoreArticle: false,
@@ -57,7 +59,7 @@
         moviePage: 1,
         movieCount: 0,
         noMoreMovie: false,
-        dataReady: 0
+        dataReady: [false, false, false]
       };
     },
     created() {
@@ -77,7 +79,7 @@
           getArticleBaseInfo({
             params: {
               ordering: this.sorted ? 'add_time' : '-add_time',
-              page_size: 5,
+              page_size: this.page_size,
               page: this.articlePage
             }
           }).then((response) => {
@@ -88,6 +90,8 @@
           }).catch(function (error) {
             console.log(error);
           });
+        } else {
+          Vue.set(this.dataReady, 0, true);
         }
 
         // 图集
@@ -95,7 +99,7 @@
           getAlbumBaseInfo({
             params: {
               ordering: this.sorted ? 'add_time' : '-add_time',
-              page_size: 5,
+              page_size: this.page_size,
               page: this.albumPage
             }
           }).then((response) => {
@@ -106,6 +110,8 @@
           }).catch(function (error) {
             console.log(error);
           });
+        } else {
+          Vue.set(this.dataReady, 1, true);
         }
 
         // 电影
@@ -113,7 +119,7 @@
           getMovieBaseInfo({
             params: {
               ordering: this.sorted ? 'add_time' : '-add_time',
-              page_size: 5,
+              page_size: this.page_size,
               page: this.moviePage
             }
           }).then((response) => {
@@ -124,6 +130,8 @@
           }).catch(function (error) {
             console.log(error);
           });
+        } else {
+          Vue.set(this.dataReady, 2, true);
         }
       },
       reducePosts(posts, type) {
@@ -143,7 +151,17 @@
           }
           that.timelines[addYear]['months'][addMonth + 1].push(post);
         });
-        this.dataReady++;
+        switch (type) {
+          case POST_TYPE_ARTICLE:
+            Vue.set(this.dataReady, 0, true);
+            break;
+          case POST_TYPE_ALBUM:
+            Vue.set(this.dataReady, 1, true);
+            break;
+          case POST_TYPE_MOVIE:
+            Vue.set(this.dataReady, 2, true);
+            break;
+        }
       },
       sortedYearKeys(years) {
         let that = this;
@@ -160,7 +178,7 @@
     },
     watch: {
       dataReady: function (newDataReady) {
-        if (newDataReady === 3) {
+        if (newDataReady[0] && newDataReady[1] && newDataReady[2]) {
           // 表示数据已就绪
           for (let year in this.timelines) {
             let yearCount = 0;
@@ -178,10 +196,11 @@
             }
             this.timelines[year]['count'] = yearCount;
           }
-          this.posts = this.timelines;
+          this.posts = Object.assign({}, this.timelines);
+          console.log(this.posts);
           // 停止浏览更多动画
           this.$refs.browseMore.stopLoading();
-          this.dataReady = 0;
+          this.dataReady = [false, false, false];
         }
       }
     },

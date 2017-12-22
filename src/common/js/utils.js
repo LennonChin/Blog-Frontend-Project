@@ -1,8 +1,8 @@
 var socialDateFormat = function socialDateFormat(formateDate) {
   var timestamp = Date.parse(new Date(formateDate));
-  // 获取js 时间戳
+  // 获取时间戳
   var time = new Date().getTime();
-  // 去掉 js 时间戳后三位，与php 时间戳保持一致
+  // 去掉时间戳后三位，保持一致
   time = parseInt((time - timestamp) / 1000);
 
   // 存储转换值
