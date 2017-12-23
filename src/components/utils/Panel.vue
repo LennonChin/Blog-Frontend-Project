@@ -21,10 +21,10 @@
   .panel
     position relative
     background #fff
-    border-left 1px solid $color-border
     h4
       font-size 18px
       padding 13px 20px 13px
       line-height 18px
       text-align left
+      border-left 5px solid $color-main-primary
 </style>

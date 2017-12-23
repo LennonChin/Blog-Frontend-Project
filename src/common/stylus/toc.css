@@ -42,11 +42,11 @@ a.toc-link {
   display: inline-block;
   height: inherit;
   left: 0;
-  margin: -1px 0 0 -1px;
+  margin-top: -1px;
   position: absolute;
   width: 1px;
 }
 .is-active-link::before {
-  background-color: #54bc4b;
+  background-color: #409eff;
+  width: 3px;
 }
-/*# sourceMappingURL=toc.css.map */

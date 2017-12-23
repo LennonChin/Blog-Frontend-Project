@@ -1,13 +1,13 @@
 <template>
   <div id="mavon-editor" :class="theme">
     <div class="operate">
-      <iv-row :gutter="15">
-        <iv-col :xs="8" :sm="8" :md="6" :lg="6">
+      <iv-row>
+        <iv-col :xs="8" :sm="8" :md="6" :lg="6" style="padding-left: 0; padding-right: 7.5px;">
           <iv-input v-model="name" placeholder="请输入您的昵称" size="large">
             <span slot="prepend">昵称 </span>
           </iv-input>
         </iv-col>
-        <iv-col :xs="16" :sm="16" :md="12" :lg="11">
+        <iv-col :xs="16" :sm="16" :md="12" :lg="11" style="padding-left: 0; padding-right: 0;">
           <iv-input v-model="email" placeholder="联系方式（邮箱或手机号）以评论" size="large">
             <iv-select v-model="select" slot="prepend" style="width: 80px">
               <iv-option value="email">邮箱 </iv-option>

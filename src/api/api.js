@@ -102,10 +102,10 @@ export const getMovieDetailInfo = params => {
 };
 
 // 获取时间轴信息
-export const getTimelineInfo = params => {
+export const getPostBaseInfo = params => {
   if ('id' in params) {
-    return axios.get(`${localHost}/timeline/` + params.id + '/');
+    return axios.get(`${localHost}/postBaseInfos/` + params.id + '/');
   } else {
-    return axios.get(`${localHost}/timeline/`, params);
+    return axios.get(`${localHost}/postBaseInfos/`, params);
   }
 };

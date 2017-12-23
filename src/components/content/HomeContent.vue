@@ -28,6 +28,22 @@
               </iv-col>
             </iv-row>
           </div>
+          <section-title v-if="this.specialCategory(1) !== 'undefined'"
+                         :mainTitle="this.specialCategory(1).name"
+                         :subTitle="this.specialCategory(1).code"
+                         :menus="[{title: '最新', method: 'new'}, {title: '评论最多', method: 'mostComment'}, {title: '推荐', method: 'recommend'}]"
+                         :withRefresh="true"
+                         :withTimeSelect="true"
+                         @titleControl="titleControl">
+          </section-title>
+          <div class="movies">
+            <iv-row :gutter="10">
+              <iv-col :xs="12" :sm="12" :md="8" :lg="8" v-for="movie in movies" :key="movie.id"
+                      style="margin-bottom: 10px;">
+                <movie-list-item :movie="movie"></movie-list-item>
+              </iv-col>
+            </iv-row>
+          </div>
         </div>
       </iv-col>
       <iv-col :xs="0" :sm="0" :md="0" :lg="7">
@@ -47,10 +63,7 @@
   import ArticleListCell from '@/components/views/Article/ArticleListCell';
   import SectionTitle from '@/components/views/SectionTitle/SectionTitle';
   import TopicCard from '@/components/views/TopicCard';
-  import ArticlePageHeader from '@/components/views/Article/ArticlePageHeader';
-  import ArticlePageContent from '@/components/views/Article/ArticlePageContent';
-  import ArchiveListTimeTitle from '@/components/views/Archive/ArchiveListTimeTitle';
-  import ArchiveListCell from '@/components/views/Archive/ArchiveListCell';
+  import MovieListItem from '@/components/views/Movie/MovieListItem';
   import About from '@/components/views/About';
   import Recommend from '@/components/views/Recommend';
   import Hot from '@/components/views/Hot/Hot';
@@ -58,14 +71,15 @@
   import SideToc from '@/components/views/SideToc';
 
   // API
-  import {getArticleBaseInfo, getCategory, getAlbumBaseInfo} from '@/api/api';
+  import {getCategory, getArticleBaseInfo, getAlbumBaseInfo, getMovieBaseInfo} from '@/api/api';
 
   export default {
     data() {
       return {
         categorys: [],
         articles: [],
-        albums: []
+        albums: [],
+        movies: []
       };
     },
     created() {
@@ -88,7 +102,9 @@
         // 文章
         getArticleBaseInfo({
           params: {
-            page_size: 5
+            is_recommend: false,
+            limit: 5,
+            offset: 0
           }
         }).then((response) => {
           this.articles = response.data.results;
@@ -98,9 +114,26 @@
 
         // 图集
         getAlbumBaseInfo({
-          params: {}
+          params: {
+            is_recommend: false,
+            limit: 6,
+            offset: 0
+          }
         }).then((response) => {
           this.albums = response.data.results;
+        }).catch(function (error) {
+          console.log(error);
+        });
+
+        // 电影
+        getMovieBaseInfo({
+          params: {
+            is_recommend: false,
+            limit: 6,
+            offset: 0
+          }
+        }).then((response) => {
+          this.movies = response.data.results;
         }).catch(function (error) {
           console.log(error);
         });
@@ -120,10 +153,7 @@
       'article-list-cell': ArticleListCell,
       'section-title': SectionTitle,
       'topic-card': TopicCard,
-      'article-page-header': ArticlePageHeader,
-      'article-page-content': ArticlePageContent,
-      'archive-list-time-title': ArchiveListTimeTitle,
-      'archive-list-cell': ArchiveListCell,
+      'movie-list-item': MovieListItem,
       'about': About,
       'recommend': Recommend,
       'hot': Hot,

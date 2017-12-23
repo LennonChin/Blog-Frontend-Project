@@ -53,6 +53,7 @@
     position relative
     ul.link-list
       padding 15px 0
+      border-left 1px solid $color-border
       li
         padding 2px 25px
         a

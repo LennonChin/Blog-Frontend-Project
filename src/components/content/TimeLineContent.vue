@@ -35,7 +35,7 @@
   import BrowseMore from '@/components/views/BrowseMore';
 
   // API
-  import { getTimelineInfo } from '@/api/api';
+  import { getPostBaseInfo } from '@/api/api';
 
   export default {
     data() {
@@ -61,7 +61,7 @@
       getDatas() {
         // 文章
         if (!this.noMorePost) {
-          getTimelineInfo({
+          getPostBaseInfo({
             params: {
               ordering: this.sorted ? 'add_time' : '-add_time',
               page_size: this.page_size,

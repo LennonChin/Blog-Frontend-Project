@@ -7,7 +7,7 @@
         </router-link>
       </div>
       <div class="bottom-area">
-        <h4 class="title"><a>{{ album.title.slice(0, 13) }}</a></h4>
+        <h4 class="title"><a :title="album.title">{{ album.title.slice(0, 11) + '...' }}</a></h4>
         <p class="info"><span class="author">By / <a>{{ album.author }}</a></span></p>
         <p class="info"><span class="publish-time">At time / <a href="">{{ socialDate(album.add_time) }}</a></span></p>
         <p class="operate_info">
