@@ -71,7 +71,7 @@
   import SideToc from '@/components/views/SideToc';
 
   // API
-  import {getCategory, getArticleBaseInfo, getAlbumBaseInfo, getMovieBaseInfo} from '@/api/api';
+  import {getCategory, getPostBaseInfo} from '@/api/api';
 
   export default {
     data() {
@@ -100,11 +100,12 @@
         });
 
         // 文章
-        getArticleBaseInfo({
+        getPostBaseInfo({
           params: {
             is_recommend: false,
             limit: 5,
-            offset: 0
+            offset: 0,
+            post_type: 'article'
           }
         }).then((response) => {
           this.articles = response.data.results;
@@ -113,11 +114,12 @@
         });
 
         // 图集
-        getAlbumBaseInfo({
+        getPostBaseInfo({
           params: {
             is_recommend: false,
             limit: 6,
-            offset: 0
+            offset: 0,
+            post_type: 'album'
           }
         }).then((response) => {
           this.albums = response.data.results;
@@ -126,11 +128,12 @@
         });
 
         // 电影
-        getMovieBaseInfo({
+        getPostBaseInfo({
           params: {
             is_recommend: false,
             limit: 6,
-            offset: 0
+            offset: 0,
+            post_type: 'movie'
           }
         }).then((response) => {
           this.movies = response.data.results;

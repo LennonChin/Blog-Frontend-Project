@@ -1,6 +1,6 @@
 <template>
   <div class="movie-list-cell" v-if="movie != undefined">
-    <router-link :to="{ name: 'movie/detail', params:{ movieId: movie.detail}}" target="_blank">
+    <router-link :to="{ name: 'movie/detail', params:{ movieId: movie.id}}" target="_blank">
       <img :src="movie.front_image" alt="">
       <div class="info">
         <p class="title"> {{ movie.title }}</p>

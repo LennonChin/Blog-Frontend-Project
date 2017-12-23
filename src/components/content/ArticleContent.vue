@@ -6,7 +6,7 @@
           <article-page-header :article="article"></article-page-header>
           <article-page-content>
             <article v-if="article !== undefined" id="article-main-page" class="typo container" slot="content"
-                     v-html="article.formatted_content" ref="article">
+                     v-html="article.detail.formatted_content" ref="article">
             </article>
           </article-page-content>
           <article-page-footer></article-page-footer>
