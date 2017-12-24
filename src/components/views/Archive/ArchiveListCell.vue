@@ -23,13 +23,9 @@
     computed: {
       routerLink() {
         let router = {};
-        router.name = this.post.postType + '/detail';
+        router.name = this.post.post_type + '/detail';
         router.params = {};
-        if (this.post.postType === POST_TYPE_ALBUM) {
-          router.params[this.post.postType + 'Id'] = this.post.id;
-        } else {
-          router.params[this.post.postType + 'Id'] = this.post.detail;
-        }
+        router.params[this.post.post_type + 'Id'] = this.post.id;
         return router;
       },
       typeTag() {

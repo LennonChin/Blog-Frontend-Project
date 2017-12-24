@@ -1,25 +1,27 @@
 <template>
   <div class="home-content">
     <iv-row>
-      <iv-col :xs="24" :sm="24" :md="24" :lg="17" :xl="17">
+      <iv-col :xs="24" :sm="24" :md="24" :lg="17">
         <div class="layout-left">
           <photo-wall></photo-wall>
           <section-title v-if="this.specialCategory(1) !== 'undefined'"
                          :mainTitle="this.specialCategory(1).name"
-                         :subTitle="this.specialCategory(1).code"
-                         :menus="[{title: '最新', method: 'new'}, {title: '评论最多', method: 'mostComment'}, {title: '推荐', method: 'recommend'}]"
+                         :subTitle="this.specialCategory(1).subname"
+                         :menus="articlesTitleMenus"
                          :withRefresh="true"
-                         :withTimeSelect="true"
-                         @titleControl="titleControl">
+                         :withTimeSelect="false"
+                         @refresh="refreshArticles"
+                         @menusControl="artclesMenusControl">
           </section-title>
           <article-list-cell v-for="article in articles" :article="article" :key="article.id"></article-list-cell>
-          <section-title v-if="this.specialCategory(1) !== 'undefined'"
-                         :mainTitle="this.specialCategory(1).name"
-                         :subTitle="this.specialCategory(1).code"
-                         :menus="[{title: '最新', method: 'new'}, {title: '评论最多', method: 'mostComment'}, {title: '推荐', method: 'recommend'}]"
+          <section-title v-if="this.specialCategory(6) !== 'undefined'"
+                         :mainTitle="this.specialCategory(6).name"
+                         :subTitle="this.specialCategory(6).subname"
+                         :menus="albumsTitleMenus"
                          :withRefresh="true"
-                         :withTimeSelect="true"
-                         @titleControl="titleControl">
+                         :withTimeSelect="false"
+                         @refresh="refreshAlbums"
+                         @menusControl="albumsMenusControl">
           </section-title>
           <div class="topic-cards">
             <iv-row :gutter="10">
@@ -28,11 +30,28 @@
               </iv-col>
             </iv-row>
           </div>
+          <section-title v-if="this.specialCategory(10) !== 'undefined'"
+                         :mainTitle="this.specialCategory(10).name"
+                         :subTitle="this.specialCategory(10).subname"
+                         :menus="moviesTitleMenus"
+                         :withRefresh="true"
+                         :withTimeSelect="false"
+                         @refresh="refreshMovies"
+                         @menusControl="moviesMenusControl">
+          </section-title>
+          <div class="movies">
+            <iv-row :gutter="10">
+              <iv-col :xs="12" :sm="12" :md="8" :lg="8" v-for="movie in movies" :key="movie.id"
+                      style="margin-bottom: 10px;">
+                <movie-list-item :movie="movie"></movie-list-item>
+              </iv-col>
+            </iv-row>
+          </div>
         </div>
       </iv-col>
-      <iv-col :xs="0" :sm="0" :md="0" :lg="7">
+      <iv-col :xs="24" :sm="24" :md="24" :lg="7">
         <div class="layout-right">
-          <about></about>
+          <about v-if="responsiveRender(false, false, false, true)"></about>
           <recommend style="margin-top:15px;"></recommend>
           <hot style="margin-top:15px;"></hot>
           <friend-links style="margin-top:15px;"></friend-links>
@@ -47,10 +66,7 @@
   import ArticleListCell from '@/components/views/Article/ArticleListCell';
   import SectionTitle from '@/components/views/SectionTitle/SectionTitle';
   import TopicCard from '@/components/views/TopicCard';
-  import ArticlePageHeader from '@/components/views/Article/ArticlePageHeader';
-  import ArticlePageContent from '@/components/views/Article/ArticlePageContent';
-  import ArchiveListTimeTitle from '@/components/views/Archive/ArchiveListTimeTitle';
-  import ArchiveListCell from '@/components/views/Archive/ArchiveListCell';
+  import MovieListItem from '@/components/views/Movie/MovieListItem';
   import About from '@/components/views/About';
   import Recommend from '@/components/views/Recommend';
   import Hot from '@/components/views/Hot/Hot';
@@ -58,14 +74,39 @@
   import SideToc from '@/components/views/SideToc';
 
   // API
-  import {getArticleBaseInfo, getCategory, getAlbumBaseInfo} from '@/api/api';
+  import {getCategory, getPostBaseInfo} from '@/api/api';
 
   export default {
     data() {
       return {
         categorys: [],
         articles: [],
-        albums: []
+        mostCommentArticles: false,
+        hotArticles: false,
+        recommendArticles: false,
+        articlesTitleMenus: [
+          {title: '评论最多', selected: false, method: 'mostComment'},
+          {title: '最热', selected: false, method: 'hot'},
+          {title: '推荐', selected: false, method: 'recommend'}
+        ],
+        albums: [],
+        mostCommentAlbums: false,
+        hotAlbums: false,
+        recommendAlbums: false,
+        albumsTitleMenus: [
+          {title: '评论最多', selected: false, method: 'mostComment'},
+          {title: '最热', selected: false, method: 'hot'},
+          {title: '推荐', selected: false, method: 'recommend'}
+        ],
+        movies: [],
+        mostCommentMovies: false,
+        hotMovies: false,
+        recommendMovies: false,
+        moviesTitleMenus: [
+          {title: '评论最多', selected: false, method: 'mostComment'},
+          {title: '最热', selected: false, method: 'hot'},
+          {title: '推荐', selected: false, method: 'recommend'}
+        ]
       };
     },
     created() {
@@ -85,25 +126,78 @@
           console.log(error);
         });
 
+        this.getArticles();
+        this.getAlbums();
+        this.getMovies();
+      },
+      getArticles() {
         // 文章
-        getArticleBaseInfo({
+        getPostBaseInfo({
           params: {
-            page_size: 5
+            is_recommend: this.recommendArticles,
+            is_hot: this.hotArticles,
+            ordering: this.mostCommentArticles ? '-comment_num' : 'comment_num',
+            limit: 5,
+            offset: 0,
+            post_type: 'article'
           }
         }).then((response) => {
           this.articles = response.data.results;
         }).catch(function (error) {
           console.log(error);
         });
-
+      },
+      getAlbums() {
         // 图集
-        getAlbumBaseInfo({
-          params: {}
+        getPostBaseInfo({
+          params: {
+            is_recommend: this.recommendAlbums,
+            is_hot: this.hotAlbums,
+            ordering: this.mostCommentAlbums ? '-comment_num' : 'comment_num',
+            limit: 6,
+            offset: 0,
+            post_type: 'album'
+          }
         }).then((response) => {
           this.albums = response.data.results;
         }).catch(function (error) {
           console.log(error);
         });
+      },
+      getMovies() {
+        // 电影
+        getPostBaseInfo({
+          params: {
+            is_recommend: this.recommendMovies,
+            is_hot: this.hotMovies,
+            ordering: this.mostCommentMovies ? '-comment_num' : 'comment_num',
+            limit: 6,
+            offset: 0,
+            post_type: 'movie'
+          }
+        }).then((response) => {
+          this.movies = response.data.results;
+        }).catch(function (error) {
+          console.log(error);
+        });
+      },
+      refreshArticles() {
+        this.mostCommentArticles = false;
+        this.hotArticles = false;
+        this.recommendArticles = false;
+        this.getArticles();
+      },
+      refreshAlbums() {
+        this.mostCommentAlbums = false;
+        this.hotAlbums = false;
+        this.recommendAlbums = false;
+        this.getAlbums();
+      },
+      refreshMovies() {
+        this.mostCommentMovies = false;
+        this.hotMovies = false;
+        this.recommendMovies = false;
+        this.getMovies();
       },
       specialCategory(id) {
         if (this.categorys.length === 0) return 'undefined';
@@ -111,8 +205,47 @@
           return category.id === id;
         })[0];
       },
-      titleControl(params) {
-        console.log(params);
+      artclesMenusControl(params) {
+        switch (params[0]) {
+          case 'mostComment':
+            this.mostCommentArticles = params[1];
+            break;
+          case 'hot':
+            this.hotArticles = params[1];
+            break;
+          case 'recomment':
+            this.recommendArticles = params[1];
+            break;
+        }
+        this.getArticles();
+      },
+      albumsMenusControl(params) {
+        switch (params[0]) {
+          case 'mostComment':
+            this.mostCommentAlbums = params[1];
+            break;
+          case 'hot':
+            this.hotAlbums = params[1];
+            break;
+          case 'recomment':
+            this.recommendAlbums = params[1];
+            break;
+        }
+        this.getAlbums();
+      },
+      moviesMenusControl(params) {
+        switch (params[0]) {
+          case 'mostComment':
+            this.mostCommentMovies = params[1];
+            break;
+          case 'hot':
+            this.hotMovies = params[1];
+            break;
+          case 'recomment':
+            this.recommendMovies = params[1];
+            break;
+        }
+        this.getMovies();
       }
     },
     components: {
@@ -120,10 +253,7 @@
       'article-list-cell': ArticleListCell,
       'section-title': SectionTitle,
       'topic-card': TopicCard,
-      'article-page-header': ArticlePageHeader,
-      'article-page-content': ArticlePageContent,
-      'archive-list-time-title': ArchiveListTimeTitle,
-      'archive-list-cell': ArchiveListCell,
+      'movie-list-item': MovieListItem,
       'about': About,
       'recommend': Recommend,
       'hot': Hot,

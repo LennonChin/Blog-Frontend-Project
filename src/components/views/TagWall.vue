@@ -45,5 +45,6 @@
   .tag-wall
     .content
       padding 5px 20px
+      border-left 1px solid $color-border
 
 </style>

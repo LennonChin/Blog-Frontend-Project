@@ -1,21 +1,21 @@
 <template>
   <div class="topic-card" v-if="album != undefined">
-    <a href="">
+    <router-link :to="{ name: 'album/detail', params:{ albumId: album.id}}" target="_blank">
       <div class="top-area">
-        <a href="">
+        <router-link :to="{ name: 'album/detail', params:{ albumId: album.id}}" target="_blank">
           <img :src="album.front_image" alt="">
-        </a>
+        </router-link>
       </div>
       <div class="bottom-area">
-        <h4 class="title"><a href="">{{ album.title.slice(0, 13) }}</a></h4>
-        <p class="info"><span class="author">By / <a href="">{{ album.author }}</a></span></p>
+        <h4 class="title"><a :title="album.title">{{ album.title.slice(0, 11) + '...' }}</a></h4>
+        <p class="info"><span class="author">By / <a>{{ album.author }}</a></span></p>
         <p class="info"><span class="publish-time">At time / <a href="">{{ socialDate(album.add_time) }}</a></span></p>
         <p class="operate_info">
-          <span class="readings"><a href=""> {{ album.click_num }}次阅读</a></span> |
-          <span class="comments"><a href=""> {{ album.comment_num }}个评论</a></span> |
-          <span class="likes"><a href=""> {{ album.like_num }}个喜欢</a></span></p>
+          <span class="readings"><a> {{ album.click_num }}次阅读</a></span> |
+          <span class="comments"><a> {{ album.comment_num }}个评论</a></span> |
+          <span class="likes"><a> {{ album.like_num }}个喜欢</a></span></p>
       </div>
-    </a>
+    </router-link>
   </div>
 </template>
 

@@ -17,6 +17,9 @@
         </p>
       </iv-col>
     </iv-row>
+    <p class="abstract" v-if="article.abstract">
+      摘要：{{ article.abstract }}
+    </p>
   </div>
 </template>
 
@@ -36,21 +39,21 @@
 
   .article-page-header
     text-align left
-    padding 25px 5px 10px 5px
+    margin-bottom 30px
+    border-bottom 1px solid $color-border
     @media only screen and (max-width: 768px)
-      padding-top 10px
+      padding 10px 0 10px
     @media screen and (min-width: 768px)
-      padding-top 10px
+      padding 10px 0 10px
     @media screen and (min-width: 992px)
-      padding-top 25px
+      padding 25px 0 10px
     .tags
       margin-bottom 18px
     .title
       font-size 27px
-      line-height 33px
+      line-height 35px
       font-weight 500
       color $color-typegraphy-title
-      margin-bottom 23px
     .info
       margin-top 10px
       font-size 14px
@@ -79,5 +82,18 @@
           &:hover
             color $color-main-primary
             text-decoration underline
+    .abstract
+      font-size 16px
+      line-height 28px
+      background $color-border
+      @media only screen and (max-width: 768px)
+        padding 10px
+        margin 5px 0
+      @media screen and (min-width: 768px)
+        padding 15px
+        margin 8px 0
+      @media screen and (min-width: 992px)
+        padding 20px
+        margin 10px 0
 
 </style>

@@ -36,6 +36,7 @@
     },
     methods: {
       browseMore() {
+        if (this.noMoreData) return;
         this.loading = true;
         this.$emit('browseMore');
       },

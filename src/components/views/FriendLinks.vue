@@ -1,5 +1,5 @@
 <template>
-  <div class="friend-links">
+  <div class="friend-links" v-if="friendLinks.length > 0">
     <panel :title="'友情链接'">
       <ul class="link-list" slot="content">
         <li v-for="friendLink in friendLinks">
@@ -53,6 +53,7 @@
     position relative
     ul.link-list
       padding 15px 0
+      border-left 1px solid $color-border
       li
         padding 2px 25px
         a

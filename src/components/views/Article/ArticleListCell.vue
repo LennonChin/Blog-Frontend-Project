@@ -1,18 +1,18 @@
 <template>
   <div class="article-list-cell">
-    <router-link :to="{ name: 'article/detail', params:{ articleId: article.detail}}" target="_blank">
+    <router-link :to="{ name: 'article/detail', params:{ articleId: article.id}}" target="_blank">
       <iv-row type="flex">
         <iv-col :xs="24" :sm="24" :md="textSpan" :lg="textSpan" :order="textOrderType"
                 style="padding-left: 0;padding-right: 0;">
           <div class="text-wrapper">
             <h4 class="title">
-              <router-link :to="{ name: 'article/detail', params:{ articleId: article.detail}}" target="_blank">{{article.title}}</router-link>
+              <router-link :to="{ name: 'article/detail', params:{ articleId: article.id}}" target="_blank">{{article.title}}</router-link>
             </h4>
             <div class="tags">
               <iv-tag :color="tag.color" v-for="tag in article.tags" :key="tag.id">{{ tag.name }}</iv-tag>
             </div>
             <p class="desc">{{article.desc.substr(0, 70)}}
-              <router-link :to="{ name: 'article/detail', params:{ articleId: article.detail}}" target="_blank"> View More
+              <router-link :to="{ name: 'article/detail', params:{ articleId: article.id}}" target="_blank"> View More
               <iv-icon type="arrow-right-b"></iv-icon>
             </router-link>
             </p>
@@ -25,7 +25,7 @@
           </div>
         </iv-col>
         <iv-col :xs="0" :sm="0" :md="imgSpan" :lg="imgSpan" :order="imgOrderType"
-                style="padding-left: 0px;padding-right: 0px">
+                style="padding-left: 0px;padding-right: 0px"  v-if="responsiveRender(false, false, imgSpan !== 0, imgSpan !== 0)">
           <div class="img-wrapper" :class="themeClass">
             <img :src="article.front_image" alt="">
           </div>
