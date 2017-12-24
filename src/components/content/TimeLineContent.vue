@@ -3,7 +3,7 @@
     <iv-row>
       <iv-col :xs="24" :sm="24" :md="24" :lg="17">
         <div class="layout-left">
-          <classify-menu></classify-menu>
+          <classify-menu @selectCategory="selectCategory" :defaultCategory="16"></classify-menu>
           <section-title :mainTitle="'存档时光'"
                          :subTitle="'Timeline'"
                          :menus="menus"
@@ -194,6 +194,9 @@
         return Object.keys(months).sort(function (month1, month2) {
           return that.timeSorted ? month1 - month2 : month2 - month1;
         });
+      },
+      selectCategory(categoryId) {
+        console.log(categoryId);
       },
       refresh() {
         this.timeSorted = false;

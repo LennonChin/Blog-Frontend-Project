@@ -6,10 +6,10 @@
           <router-link :to="{ name: 'article/detail', params:{ articleId: articleSlice(0, 1)[0].id}}" target="_blank">
             <p class="title">{{ articleSlice(0, 1)[0].title }}</p>
             <div class="tags">
-              <iv-tag :color="tag.color" v-for="tag in articleSlice(0, 1)[0].tags" :key="tag.id">{{ tag.name }}</iv-tag>
+              <iv-tag :color="tag.color" type="border" v-for="tag in articleSlice(0, 1)[0].tags" :key="tag.id">{{ tag.name }}</iv-tag>
             </div>
             <p class="info">
-              <span class="time">{{ socialDate(articleSlice(0, 1)[0].add_time) }}</span>
+              <span class="time">{{ articleSlice(0, 1)[0].add_time | socialDate}}</span>
               <span class="likes"><a href=""><iv-icon type="heart"></iv-icon> {{ articleSlice(0, 1)[0].like_num }} </a></span>
               <span class="comments"><a href=""><iv-icon type="compose"></iv-icon> {{ articleSlice(0, 1)[0].comment_num }} </a></span>
               <span class="readings"><a href=""><iv-icon type="eye"></iv-icon> {{ articleSlice(0, 1)[0].click_num }} </a></span>
@@ -17,7 +17,7 @@
             <div class="img" v-if="articleSlice(0, 1)[0].front_image">
               <img :src="articleSlice(0, 1)[0].front_image" :alt="articleSlice(0, 1)[0].title">
             </div>
-            <p class="desc" v-if="articleSlice(0, 1)[0].desc">{{ articleSlice(0, 1)[0].desc }}</p>
+            <p class="desc" v-if="articleSlice(0, 1)[0].desc">{{ articleSlice(0, 1)[0].desc | textLineBreak(60) }}</p>
           </router-link>
         </div>
         <ul class="others">
@@ -25,7 +25,7 @@
             <router-link :to="{ name: 'article/detail', params:{ articleId: article.id}}" target="_blank">
               <p class="title">{{ article.title }}</p>
               <p class="info">
-                <span class="time">{{ socialDate(article.add_time) }}</span>
+                <span class="time">{{ article.add_time | socialDate }}</span>
                 <span class="likes"><a href=""><iv-icon type="heart"></iv-icon> {{ article.like_num}} </a></span>
                 <span class="comments"><a href=""><iv-icon type="compose"></iv-icon> {{ article.comment_num}} </a></span>
                 <span class="readings"><a href=""><iv-icon type="eye"></iv-icon> {{ article.click_num}} </a></span>

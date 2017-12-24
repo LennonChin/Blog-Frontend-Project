@@ -10,7 +10,7 @@
         <img src="../../../assets/logo.png" alt="">
         <div class="right">
           <p class="name">{{ album.author }}</p>
-          <p class="time">{{ socialDate(album.add_time) }}</p>
+          <p class="time">{{ album.add_time | socialDate }}</p>
         </div>
       </a>
     </div>

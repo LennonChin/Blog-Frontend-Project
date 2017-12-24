@@ -15,7 +15,7 @@
           <router-link :to="{ name: 'album/detail', params:{ albumId: album.id }}" target="_blank">{{ album.title }}</router-link>
         </h4>
         <p class="info"><span class="author">By / <a>{{ album.author }}</a></span></p>
-        <p class="info"><span class="publish-time">At time / <a href="">{{ socialDate(album.add_time) }}</a></span></p>
+        <p class="info"><span class="publish-time">At time / <a href="">{{ album.add_time | socialDate}}</a></span></p>
         <p class="operate_info">
           <span class="readings"><a> {{ album.click_num}}次阅读</a></span> |
           <span class="comments"><a> {{ album.comment_num}}个评论</a></span> |

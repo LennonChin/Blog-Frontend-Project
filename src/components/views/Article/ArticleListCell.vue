@@ -9,15 +9,15 @@
               <router-link :to="{ name: 'article/detail', params:{ articleId: article.id}}" target="_blank">{{article.title}}</router-link>
             </h4>
             <div class="tags">
-              <iv-tag :color="tag.color" v-for="tag in article.tags" :key="tag.id">{{ tag.name }}</iv-tag>
+              <iv-tag :color="tag.color" type="border" v-for="tag in article.tags" :key="tag.id">{{ tag.name }}</iv-tag>
             </div>
-            <p class="desc">{{article.desc.substr(0, 70)}}
+            <p class="desc">{{article.desc | textLineBreak(70) }}
               <router-link :to="{ name: 'article/detail', params:{ articleId: article.id}}" target="_blank"> View More
               <iv-icon type="arrow-right-b"></iv-icon>
             </router-link>
             </p>
             <p class="operate_info">
-              <span class="publish-time">At time / <a>{{ socialDate(article.add_time) }}</a></span>
+              <span class="publish-time">At time / <a>{{ article.add_time | socialDate }}</a></span>
               <span class="readings"><a><iv-icon type="eye"></iv-icon> {{article.click_num}} 阅读</a></span>
               <span class="comments"><a><iv-icon type="compose"></iv-icon> {{article.comment_num}} 评论</a></span>
               <span class="likes"><a><iv-icon type="heart"></iv-icon> {{article.like_num}} 喜欢</a></span>

@@ -57,11 +57,16 @@ Vue.component('iv-date-picker-cell', DatePickerCell);
 Vue.component('iv-spin', Spin);
 
 // 全局混合
+const LineBreakMode = {
+  WrappingTruncatingTail: 1, // 显示头部文字内容，其他直接截断。
+  WrappingTruncatingHead: 2, // 显示尾部文字内容，其他直接截断。
+  EllipsisTruncatingTail: 3, // 结尾部分的内容以……方式省略，显示头的文字内容。
+  EllipsisTruncatingMiddle: 4, // 中间的内容以……方式省略，显示头尾的文字内容。
+  EllipsisTruncatingHead: 5 // 前面部分文字以……方式省略，显示尾部文字内容。
+};
+
 Vue.mixin({
   methods: {
-    socialDate: function (formatedDate) {
-      return socialDateFormat(formatedDate);
-    },
     responsiveRender: function (xsShow, smShow, mdShow, lgShow) {
       let clientWidth = document.body.clientWidth;
       if (clientWidth < 768) {
@@ -73,6 +78,33 @@ Vue.mixin({
       } else if (clientWidth >= 1200) {
         return lgShow;
       }
+    }
+  },
+  filters: {
+    socialDate: function (formatedDate) {
+      return socialDateFormat(formatedDate);
+    },
+    textLineBreak: function (text, maxLength, lineBreakMode) {
+      if (lineBreakMode === null || lineBreakMode === undefined) {
+        lineBreakMode = LineBreakMode.EllipsisTruncatingTail;
+      }
+      switch (lineBreakMode) {
+        case LineBreakMode.WrappingTruncatingTail:
+          return text.substr(0, maxLength);
+        case LineBreakMode.WrappingTruncatingHead:
+          return text.substr(-maxLength);
+        case LineBreakMode.EllipsisTruncatingTail:
+          return text.substr(0, maxLength) + (text.length > maxLength ? '...' : '');
+        case LineBreakMode.EllipsisTruncatingMiddle:
+          let resultText = text.substr(0, maxLength);
+          if (text.length > maxLength) {
+            return resultText.substr(0, parseInt(maxLength / 2)) + '...' + resultText.substr(parseInt(maxLength / 2));
+          }
+          return resultText;
+        case LineBreakMode.EllipsisTruncatingHead:
+          return (text.length > maxLength ? '...' : '') + text.substr(-maxLength);
+      }
+      return text;
     }
   }
 });

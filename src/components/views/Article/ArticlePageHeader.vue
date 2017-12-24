@@ -7,7 +7,7 @@
     <iv-row>
       <iv-col :xs="24" :sm="10" :md="10" :lg="10" style="padding-left: 0;padding-right: 0;">
         <p class="info"><span class="author">By / <a href="">{{article.author}}</a></span><span
-                class="publish-time">  At time / <a href="">{{ socialDate(article.add_time) }}</a></span></p>
+                class="publish-time">  At time / <a href="">{{ article.add_time | socialDate }}</a></span></p>
       </iv-col>
       <iv-col :xs="24" :sm="14" :md="14" :lg="14" style="padding-left: 0;padding-right: 0;">
         <p class="operate_info">

@@ -1,5 +1,5 @@
 <template>
-  <div class="movie-list-item">
+  <div class="movie-list-cell">
     <h4>历史观影<a href="">查看更多</a></h4>
     <iv-row>
       <iv-col :xs="12" :sm="12" :md="8" :lg="6" v-for="movie in movies" :key="movie.id">
@@ -29,7 +29,7 @@
 <style lang="stylus" rel="stylesheet/stylus">
   @import "../../../common/stylus/theme.styl";
 
-  .movie-list-item
+  .movie-list-cell
     border 1px solid $color-border
     padding 10px
     h4

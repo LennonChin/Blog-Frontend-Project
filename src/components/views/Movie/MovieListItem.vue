@@ -1,11 +1,11 @@
 <template>
-  <div class="movie-list-cell" v-if="movie != undefined">
+  <div class="movie-list-item" v-if="movie != undefined">
     <router-link :to="{ name: 'movie/detail', params:{ movieId: movie.id}}" target="_blank">
       <img :src="movie.front_image" alt="">
-      <div class="info">
+      <div class="movie-info">
         <p class="title"> {{ movie.title }}</p>
         <p class="desc">
-          {{ movie.desc.slice(0, 80) + '...' }}</p>
+          {{ movie.desc  | textLineBreak(50) }}</p>
       </div>
     </router-link>
   </div>
@@ -25,8 +25,8 @@
 <style lang="stylus" rel="stylesheet/stylus">
   @import "../../../common/stylus/theme.styl";
 
-  .movie-list-cell
-    a
+  .movie-list-item
+    > a
       position relative
       display block
       padding-bottom: 135%
@@ -38,12 +38,12 @@
         transition: All 0.4s ease-in-out
         transform: scale(1.0)
         zoom: 1.0
-      .info
+      .movie-info
         position absolute
         bottom 0
         left 0
         width 100%
-        height 25%
+        height 28%
         padding 10px
         background rgba($color-secondary-warning, 0.9)
         transition: All 0.4s ease-in-out
@@ -62,7 +62,7 @@
           transition: All 0.4s ease-in-out
           transform: scale(1.05)
           zoom: 1.05
-        .info
+        .movie-info
           height 30%
           background rgba($color-gradually-gray-101, 1.0)
           .title
