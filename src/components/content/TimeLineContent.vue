@@ -3,7 +3,7 @@
     <iv-row>
       <iv-col :xs="24" :sm="24" :md="24" :lg="17">
         <div class="layout-left">
-          <classify-menu @selectCategory="selectCategory" :defaultCategory="16"></classify-menu>
+          <classify-menu @selectCategory="selectCategory" :defaultCategory="top_category"></classify-menu>
           <section-title :mainTitle="'存档时光'"
                          :subTitle="'Timeline'"
                          :menus="menus"
@@ -58,6 +58,7 @@
     data() {
       return {
         posts: {},
+        top_category: undefined,
         // 排序
         timeSorted: false,
         mostComment: undefined,
@@ -145,6 +146,7 @@
           }
           getPostBaseInfo({
             params: {
+              top_category: this.top_category,
               ordering: orderings.toString(),
               is_recommend: this.recommend,
               time_min: this.selectedDateRange[0],
@@ -196,9 +198,15 @@
         });
       },
       selectCategory(categoryId) {
-        console.log(categoryId);
+        this.top_category = categoryId;
+        this.page = 0;
+        this.posts = {};
+        this.totalCount = 0;
+        this.noMoreData = false;
+        this.getDatas();
       },
       refresh() {
+        this.top_category = undefined;
         this.timeSorted = false;
         this.mostComment = undefined;
         this.recommend = undefined;

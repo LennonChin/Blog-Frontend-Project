@@ -4,7 +4,8 @@
       <span class="title">方向：</span>
       <span class="class">
         <a class="active" data-level="1" @click="choseLevel(categorys[0].parent_category, $event)">全部</a>
-        <a class="name level-0" :data-level="category_level1.category_type" @click="choseLevel(category_level1, $event)"
+        <a class="name" :id="'id' + category_level1.id" :data-level="category_level1.category_type"
+           @click="choseLevel(category_level1, $event)"
            v-for="category_level1 in this.categorys" :key="category_level1.id">{{ category_level1.name }}</a>
       </span>
     </p>
@@ -12,7 +13,8 @@
       <span class="title">分类：</span>
       <span class="class">
         <a class="active" data-level="2" @click="choseLevel(sub_category[0].parent_category, $event)">全部</a>
-        <a class="name level-1" :data-level="category_level2.category_type" @click="choseLevel(category_level2, $event)"
+        <a class="name" :id="'id' + category_level2.id" :data-level="category_level2.category_type"
+           @click="choseLevel(category_level2, $event)"
            v-for="category_level2 in this.sub_category" :key="category_level2.id">{{ category_level2.name }}</a>
       </span>
     </p>
@@ -20,7 +22,8 @@
       <span class="title">类型：</span>
       <span class="class">
         <a class="active" data-level="3" @click="choseLevel(sub_sub_category[0].parent_category, $event)">全部</a>
-        <a class="name level-2" :data-level="category_level3.category_type" @click="choseLevel(category_level3, $event)"
+        <a class="name" :id="'id' + category_level3.id" :data-level="category_level3.category_type"
+           @click="choseLevel(category_level3, $event)"
            v-for="category_level3 in this.sub_sub_category" :key="category_level3.id">{{ category_level3.name }}</a>
       </span>
     </p>
@@ -42,11 +45,26 @@
         categorys: undefined,
         sub_category: undefined,
         sub_sub_category: undefined,
-        selected_category: undefined
+        selected_category: undefined,
+        selected_recursive_categorys: []
       };
     },
     created() {
       this.getDatas();
+    },
+    updated() {
+      // 更新样式
+      this.selected_recursive_categorys.map((id) => {
+        let target = document.getElementById('id' + id);
+        let pNode = target.parentNode;
+        let activeNode = pNode.querySelector('.active');
+        if (activeNode) {
+          activeNode.classList.remove('active');
+        }
+        target.classList.add('active');
+      });
+      // 清除数据，避免与原有的点击事件造成冲突
+      this.selected_recursive_categorys = [];
     },
     methods: {
       choseLevel(category, event) {
@@ -59,12 +77,15 @@
             if (category.sub_category && category.sub_category.length > 0) {
               if (level === 1) {
                 this.sub_category = category.sub_category;
+                this.sub_sub_category = undefined;
               } else if (level === 2) {
                 this.sub_sub_category = category.sub_category;
               }
             } else {
+              // 点击了全部
               if (level === 1) {
                 this.sub_category = undefined;
+                this.sub_sub_category = undefined;
               } else if (level === 2) {
                 this.sub_sub_category = undefined;
               }
@@ -74,6 +95,7 @@
           // 选择了第一级的全部
           if (level === 1) {
             this.sub_category = undefined;
+            this.sub_sub_category = undefined;
           } else if (level === 2) {
             this.sub_sub_category = undefined;
           }
@@ -81,7 +103,10 @@
         }
         // 更新样式
         let pNode = event.target.parentNode;
-        pNode.querySelector('.active').classList.remove('active');
+        let activeNode = pNode.querySelector('.active');
+        if (activeNode) {
+          activeNode.classList.remove('active');
+        }
         event.target.classList.add('active');
       },
       setDefaultCategory(categoryId) {
@@ -105,41 +130,12 @@
             }
           }
         };
-        let defaultCategory = recursiveCategory(this.categorys, categoryId);
-        console.log(recursiveCategoryIds.reverse());
-        console.log(recursiveCategorys.reverse());
-        console.log(defaultCategory);
-//        以下为老版寻路径的算法
-//        if (!defaultCategory) return;
-//        let defaultCategoryIds = [];
-//        switch (parseInt(defaultCategory.category_type)) {
-//          case 1: {
-//            // 第一级别
-//            this.sub_category = defaultCategory.sub_category;
-//            defaultCategoryIds[0] = defaultCategory.id;
-//            break;
-//          }
-//          case 2: {
-//            // 第二级别
-//            let level1Category = recursiveCategory(this.categorys, defaultCategory.parent_category);
-//            this.sub_category = level1Category.sub_category;
-//            defaultCategoryIds[0] = level1Category.id;
-//            defaultCategoryIds[1] = defaultCategory.id;
-//            break;
-//          }
-//          case 3: {
-//            // 第三级别
-//            let level2Category = recursiveCategory(this.categorys, defaultCategory.parent_category);
-//            let level1Category = recursiveCategory(this.categorys, level2Category.parent_category);
-//            this.sub_category = level1Category.sub_category;
-//            this.sub_sub_category = recursiveCategory(this.categorys, level2Category.id).sub_category;
-//            defaultCategoryIds[0] = level1Category.id;
-//            defaultCategoryIds[1] = level2Category.id;
-//            defaultCategoryIds[2] = defaultCategory.id;
-//            break;
-//          }
-//        }
-//        console.log(defaultCategoryIds);
+        this.selected_category = recursiveCategory(this.categorys, categoryId);
+        recursiveCategorys = recursiveCategorys.reverse();
+        recursiveCategoryIds = recursiveCategoryIds.reverse();
+        if (recursiveCategorys[0]) this.sub_category = recursiveCategorys[0].sub_category;
+        if (recursiveCategorys[1]) this.sub_sub_category = recursiveCategorys[1].sub_category;
+        this.selected_recursive_categorys = recursiveCategoryIds;
       },
       selectCategory(categoryId) {
         this.$emit('selectCategory', categoryId);
