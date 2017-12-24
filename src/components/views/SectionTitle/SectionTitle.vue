@@ -5,20 +5,21 @@
       <span class="main-title">{{mainTitle}}</span>
       <span class="vertical-line"></span>
       <span class="sub-title">{{subTitle}}</span>
-      <span class="view-more"><a href="">{{tipText}} <iv-icon type="arrow-right-b"></iv-icon></a></span>
+      <span class="view-more"><a @click="browseMore">{{tipText}} <iv-icon type="arrow-right-b"></iv-icon></a></span>
     </div>
     <div class="menu">
       <ul class="list clearfix" v-if="menus.length > 0">
         <li v-for="menu in menus" :key="menu.title">
-          <a :class="{ active: menu.selected }" @click="selectMenu(menu)">{{ menuTitle(menu) }}</a>
+          <a :class="{ active: menu.selected }" @click="menusControl(menu)">{{ menuTitle(menu) }}</a>
         </li>
       </ul>
       <div class="date-picker" v-if="withTimeSelect">
-        <iv-date-picker type="daterange" confirm placement="bottom-end" placeholder="选择日期区间"
+        <iv-date-picker type="daterange" :options="datePickerOptions" confirm placement="bottom-end"
+                        placeholder="选择日期区间" @on-clear="clearDateSelect" @on-ok="comfirmDateSelect" @on-change="changeDate"
                         style="width: 180px;"></iv-date-picker>
       </div>
       <div class="refresh" v-if="withRefresh">
-        <a @click="selectMenu('refresh')" title="刷新">
+        <a @click="refresh" title="刷新">
           <iv-icon type="refresh"></iv-icon>
         </a>
       </div>
@@ -47,18 +48,43 @@
       withTimeSelect: {
         Type: Boolean,
         default: false
-      }
+      },
+      datePickerOptions: undefined
+    },
+    data() {
+      return {
+        selectedDateRange: []
+      };
     },
     methods: {
       menuTitle(menu) {
         return menu.selected ? (menu.selectedTitle !== undefined ? menu.selectedTitle : menu.title) : menu.title;
       },
-      selectMenu(menu) {
+      refresh() {
+        this.menus.map((menu) => {
+          menu.selected = false;
+        });
+        this.$emit('refresh');
+      },
+      browseMore() {
+        this.$emit('browseMore');
+      },
+      menusControl(menu) {
         menu.selected = !menu.selected;
-        this.$emit('titleControl', [menu.method, menu.selected]);
+        this.$emit('menusControl', [menu.method, menu.selected]);
+      },
+      clearDateSelect() {
+        this.$emit('clearDateSelect');
+      },
+      changeDate(dateRange) {
+        this.selectedDateRange = dateRange;
+      },
+      comfirmDateSelect() {
+        this.$emit('comfirmDateSelect', this.selectedDateRange);
       }
     }
-  };
+  }
+  ;
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">

@@ -61,6 +61,18 @@ Vue.mixin({
   methods: {
     socialDate: function (formatedDate) {
       return socialDateFormat(formatedDate);
+    },
+    responsiveRender: function (xsShow, smShow, mdShow, lgShow) {
+      let clientWidth = document.body.clientWidth;
+      if (clientWidth < 768) {
+        return xsShow;
+      } else if (clientWidth >= 768 && clientWidth < 992) {
+        return smShow;
+      } else if (clientWidth >= 992 && clientWidth < 1200) {
+        return mdShow;
+      } else if (clientWidth >= 1200) {
+        return lgShow;
+      }
     }
   }
 });
