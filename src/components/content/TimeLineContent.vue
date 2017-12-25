@@ -58,7 +58,7 @@
     data() {
       return {
         posts: {},
-        top_category: 5,
+        top_category: undefined,
         // 排序
         timeSorted: false,
         mostComment: undefined,

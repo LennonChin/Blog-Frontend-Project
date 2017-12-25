@@ -1,5 +1,5 @@
 <template>
-  <div class="sidebar" v-bind:class="{ open: showMobileSideBar }">
+  <div class="sidebar" :class="{ open: show }">
     <div class="sidebar-inner" id="sidebar-toc">
       <ul class="main-menu">
         <li>
@@ -147,8 +147,6 @@
 </template>
 
 <script type="text/ecmascript-6">
-//  import TOC from '../../../common/js/MarkdownToc';
-
   export default {
     props: {
       categorys: {
@@ -158,12 +156,12 @@
     },
     data() {
       return {
-        'showMobileSideBar': false
+        'show': false
       };
     },
     methods: {
-      openSideBar() {
-        this.showMobileSideBar = !this.showMobileSideBar;
+      toggleSideBar() {
+        this.show = !this.show;
       },
       refreshMenu() {
         /* eslint-disable */

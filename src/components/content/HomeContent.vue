@@ -14,9 +14,9 @@
                          @menusControl="artclesMenusControl">
           </section-title>
           <article-list-cell v-for="article in articles" :article="article" :key="article.id"></article-list-cell>
-          <section-title v-if="this.specialCategory(6) !== 'undefined'"
-                         :mainTitle="this.specialCategory(6).name"
-                         :subTitle="this.specialCategory(6).subname"
+          <section-title v-if="this.specialCategory(40) !== 'undefined'"
+                         :mainTitle="this.specialCategory(40).name"
+                         :subTitle="this.specialCategory(40).subname"
                          :menus="albumsTitleMenus"
                          :withRefresh="true"
                          :withTimeSelect="false"
@@ -30,9 +30,9 @@
               </iv-col>
             </iv-row>
           </div>
-          <section-title v-if="this.specialCategory(10) !== 'undefined'"
-                         :mainTitle="this.specialCategory(10).name"
-                         :subTitle="this.specialCategory(10).subname"
+          <section-title v-if="this.specialCategory(55) !== 'undefined'"
+                         :mainTitle="this.specialCategory(55).name"
+                         :subTitle="this.specialCategory(55).subname"
                          :menus="moviesTitleMenus"
                          :withRefresh="true"
                          :withTimeSelect="false"
