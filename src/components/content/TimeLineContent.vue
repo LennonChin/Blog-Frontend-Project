@@ -58,7 +58,7 @@
     data() {
       return {
         posts: {},
-        top_category: undefined,
+        top_category: 5,
         // 排序
         timeSorted: false,
         mostComment: undefined,
@@ -237,7 +237,6 @@
         this.getDatas();
       },
       dateSelect(dateRange) {
-        console.log(dateRange);
         this.selectedDateRange = dateRange;
         this.page = 0;
         this.limit_size = MAX_LIMIT_SIZE;

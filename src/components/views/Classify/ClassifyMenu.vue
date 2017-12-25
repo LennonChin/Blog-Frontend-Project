@@ -45,26 +45,14 @@
         categorys: undefined,
         sub_category: undefined,
         sub_sub_category: undefined,
-        selected_category: undefined,
-        selected_recursive_categorys: []
+        selectedCategory: undefined,
+        selectedRecursiveCategorys: []
       };
     },
     created() {
       this.getDatas();
     },
     updated() {
-      // 更新样式
-      this.selected_recursive_categorys.map((id) => {
-        let target = document.getElementById('id' + id);
-        let pNode = target.parentNode;
-        let activeNode = pNode.querySelector('.active');
-        if (activeNode) {
-          activeNode.classList.remove('active');
-        }
-        target.classList.add('active');
-      });
-      // 清除数据，避免与原有的点击事件造成冲突
-      this.selected_recursive_categorys = [];
     },
     methods: {
       choseLevel(category, event) {
@@ -112,8 +100,8 @@
       setDefaultCategory(categoryId) {
         let recursiveCategorys = [];
         let recursiveCategoryIds = [];
-        if (categoryId === null || categoryId === undefined) return;
         var recursiveCategory = function (categorys, selectCategoryId) {
+          if (categoryId === null || categoryId === undefined) return null;
           for (let index = 0; index < categorys.length; index++) {
             let category = categorys[index];
             if (category.id === selectCategoryId) {
@@ -130,12 +118,20 @@
             }
           }
         };
-        this.selected_category = recursiveCategory(this.categorys, categoryId);
+        this.selectedCategory = recursiveCategory(this.categorys, categoryId);
         recursiveCategorys = recursiveCategorys.reverse();
         recursiveCategoryIds = recursiveCategoryIds.reverse();
-        if (recursiveCategorys[0]) this.sub_category = recursiveCategorys[0].sub_category;
-        if (recursiveCategorys[1]) this.sub_sub_category = recursiveCategorys[1].sub_category;
-        this.selected_recursive_categorys = recursiveCategoryIds;
+        if (recursiveCategorys[0]) {
+          this.sub_category = recursiveCategorys[0].sub_category;
+        } else {
+          this.sub_category = undefined;
+        }
+        if (recursiveCategorys[1]) {
+          this.sub_sub_category = recursiveCategorys[1].sub_category;
+        } else {
+          this.sub_sub_category = undefined;
+        }
+        this.selectedRecursiveCategorys = recursiveCategoryIds;
       },
       selectCategory(categoryId) {
         this.$emit('selectCategory', categoryId);
@@ -158,6 +154,37 @@
         if (newCategorys) {
           this.setDefaultCategory(this.defaultCategory);
         }
+      },
+      defaultCategory: function (newDefaultCategory) {
+        this.setDefaultCategory(newDefaultCategory);
+      },
+      selectedRecursiveCategorys: function (newSelectedRecursiveCategorys) {
+        // 更新样式
+        this.$nextTick(() => {
+          if (newSelectedRecursiveCategorys.length === 0) {
+            // 表示没有默认选择
+            let targets = document.getElementsByClassName('active');
+            for (let index = 0; index < targets.length; index++) {
+              let target = targets[index];
+              target.classList.remove('active');
+              let pNode = target.parentNode;
+              let activeNode = pNode.childNodes[0];
+              if (activeNode) {
+                activeNode.classList.add('active');
+              }
+            }
+            return;
+          }
+          newSelectedRecursiveCategorys.map((id) => {
+            let target = document.getElementById('id' + id);
+            let pNode = target.parentNode;
+            let activeNode = pNode.querySelector('.active');
+            if (activeNode) {
+              activeNode.classList.remove('active');
+            }
+            target.classList.add('active');
+          });
+        });
       }
     }
   };
