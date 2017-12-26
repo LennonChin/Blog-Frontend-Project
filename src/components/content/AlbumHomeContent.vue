@@ -1,18 +1,23 @@
 <template>
   <div class="album-home-content" v-if="banners.length > 0">
-    <swiper :options="swiperOption" class="gallery-top" ref="swiperTop">
-      <swiper-slide v-for="banner in banners" :key="banner.id">
-        <a>
-          <img width="100%" :data-src="banner.image" alt="" class="swiper-lazy">
-          <div class="swiper-lazy-preloader swiper-lazy-preloader-white"></div>
-        </a>
-      </swiper-slide>
-      <div class="swiper-pagination" slot="pagination"></div>
-      <div class="swiper-button-prev" slot="button-prev"></div>
-      <div class="swiper-button-next" slot="button-next"></div>
-    </swiper>
-    <classify-wall @selectCategory="selectCategory"></classify-wall>
-    <section-title :mainTitle="'游记'" :subTitle="'天下之美'"></section-title>
+    <div class="banner">
+      <div class="bracket"></div>
+      <div class="target">
+        <swiper :options="swiperOption" class="gallery" ref="swiperTop">
+          <swiper-slide class="row" v-for="banner in banners" :key="banner.id">
+            <a>
+              <img width="100%" :data-src="banner.image" alt="" class="swiper-lazy">
+              <div class="swiper-lazy-preloader swiper-lazy-preloader-white"></div>
+            </a>
+          </swiper-slide>
+          <div class="swiper-pagination" slot="pagination"></div>
+          <div class="swiper-button-prev" slot="button-prev"></div>
+          <div class="swiper-button-next" slot="button-next"></div>
+        </swiper>
+      </div>
+    </div>
+    <classify-wall @selectCategory="selectCategory" :categorys="categorys"></classify-wall>
+    <section-title :mainTitle="selectedCategory.name" :subTitle="selectedCategory.subname"></section-title>
     <div class="thumb-cards">
       <iv-row>
         <iv-col :xs="24" :sm="12" :md="8" :lg="8" v-for="album in albums" :key="album.tag">
@@ -34,20 +39,26 @@
   import {swiper, swiperSlide} from 'vue-awesome-swiper';
 
   // API
-  import { getAlbumBaseInfo, getIndexBanners } from '@/api/api';
+  import {getCategorys, getAlbumBaseInfo, getIndexBanners} from '@/api/api';
 
   export default {
     data() {
       return {
         banners: [],
         albums: [],
-        selectedCategory: undefined,
+        categorys: [],
+        selectedCategory: {
+          id: 55,
+          name: '图集',
+          subname: '天下之美'
+        },
         swiperOption: {
           spaceBetween: 30,
           lazy: true,
           centeredSlides: true,
+          loop: true,
           autoplay: {
-            delay: 2500,
+            delay: 5000,
             disableOnInteraction: false
           },
           pagination: {
@@ -63,18 +74,14 @@
     },
     created() {
       this.getDatas();
+      this.getCategorys();
     },
     methods: {
       getDatas() {
-        getAlbumBaseInfo({
-          params: {
-            top_category: this.selectedCategory
-          }
-        }).then((response) => {
-          this.albums = response.data.results;
-        }).catch(function (error) {
-          console.log(error);
-        });
+        this.getAlbumBaseInfo();
+        this.getIndexBanners();
+      },
+      getIndexBanners() {
         getIndexBanners({
           params: {
             top_category: 5
@@ -85,8 +92,33 @@
           console.log(error);
         });
       },
-      selectCategory(categoryId) {
-        this.selectedCategory = categoryId;
+      getAlbumBaseInfo() {
+        getAlbumBaseInfo({
+          params: {
+            top_category: this.selectedCategory.id
+          }
+        }).then((response) => {
+          this.albums = response.data.results;
+        }).catch(function (error) {
+          console.log(error);
+        });
+      },
+      getCategorys() {
+        getCategorys({
+          params: {
+            level_min: 1,
+            level_max: 3,
+            top_category: 55
+          }
+        }).then((response) => {
+          this.categorys = response.data;
+          console.log(this.categorys);
+        }).catch(function (error) {
+          console.log(error);
+        });
+      },
+      selectCategory(category) {
+        this.selectedCategory = category;
       }
     },
     watch: {
@@ -118,10 +150,28 @@
       width 1200px
       margin 15px auto 0
       margin-bottom 200px
-    .gallery-top
-      width: 100%
-      height: 300px
+    .banner
+      position relative
+      width 100%
       overflow hidden
+      .bracket
+        margin-top 30%
+      .target
+        position absolute
+        top 0
+        bottom 0
+        left 0
+        right 0
+        .gallery
+          width: 100%
+          height: 100%
+          overflow hidden
+          .row
+            height 100%
+            img
+              height 100%
+              width 100%
+
     .thumb-cards
       margin-top 15px
 </style>

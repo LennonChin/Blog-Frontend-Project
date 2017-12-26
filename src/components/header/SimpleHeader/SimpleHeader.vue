@@ -40,12 +40,6 @@
                      aria-expanded="false"
                      aria-owns="algolia-autocomplete-listbox-0" dir="auto"
                      style="position: relative; vertical-align: top;"/>
-              <pre aria-hidden="true"
-                   style="position: absolute; visibility: hidden; white-space: pre; font-family: system-ui; font-size: 12px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; word-spacing: 0px; letter-spacing: normal; text-indent: 0px; text-rendering: auto; text-transform: none;"></pre>
-              <span class="aa-dropdown-menu" role="listbox" id="algolia-autocomplete-listbox-0"
-                    style="position: absolute; top: 100%; z-index: 100; display: none; left: 0px; right: auto;">
-                <div class="aa-dataset-1"></div>
-              </span>
             </span>
           </form>
         </li>

@@ -93,11 +93,12 @@
   .section-title
     display flex
     justify-content space-between
-    padding 20px 0
-    height 90px
-    line-height 50px
+    padding 10px 0
+    height 60px
+    line-height 40px
     text-align left
     box-sizing border-box
+    background white
     @media only screen and (max-width: 768px)
       padding 10px 0
       height 70px

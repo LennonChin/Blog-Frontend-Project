@@ -1,9 +1,9 @@
 <template>
-  <div class="classify"  v-if="categorys != undefined">
+  <div class="classify" v-if="categorys.length > 0">
     <p class="header-title">摄影分类</p>
     <iv-row>
-      <iv-col :xs="8" :sm="6" :md="4" :lg="4" v-for="category in categorys.sub_category" :key="category.id">
-        <a class="content" @click="selectCategory(category.id)">
+      <iv-col :xs="8" :sm="6" :md="4" :lg="4" v-for="category in categorys" :key="category.id">
+        <a class="content" @click="selectCategory(category)">
           <img :src="category.image" alt="">
           <p class="title">{{ category.name }}</p>
           <p class="desc">{{ category.desc }}</p>
@@ -14,33 +14,16 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import { getCategorys } from '@/api/api';
-
   export default {
-    data() {
-      return {
-        categorys: undefined
-      };
-    },
-    created() {
-      this.getDatas();
+    props: {
+      categorys: {
+        Type: Array,
+        default: []
+      }
     },
     methods: {
-      getDatas() {
-        getCategorys({
-          params: {
-            level_min: 1,
-            level_max: 1
-          },
-          id: 5
-        }).then((response) => {
-          this.categorys = response.data;
-        }).catch(function (error) {
-          console.log(error);
-        });
-      },
-      selectCategory(categoryId) {
-        this.$emit('selectCategory', categoryId);
+      selectCategory(category) {
+        this.$emit('selectCategory', category);
       }
     }
   };

@@ -1,20 +1,56 @@
 <template>
   <div class="article-home-content">
-    <iv-row>
+    <div class="banner" v-if="bannerArticles.length > 0">
+      <div class="bracket"></div>
+      <div class="target">
+        <iv-row class="row">
+          <iv-col :xs="24" :sm="24" :md="24" :lg="17" class="row">
+            <swiper :options="leftSwiperOption" class="gallery-left" ref="swiperLeft">
+              <swiper-slide v-for="article in bannerArticles" :key="article.id">
+                <a>
+                  <img :data-src="article.front_image" :title="article.title" class="swiper-lazy">
+                  <div class="swiper-lazy-preloader swiper-lazy-preloader-white"></div>
+                </a>
+              </swiper-slide>
+              <div class="swiper-pagination" slot="pagination"></div>
+              <div class="swiper-button-prev" slot="button-prev"></div>
+              <div class="swiper-button-next" slot="button-next"></div>
+            </swiper>
+          </iv-col>
+          <iv-col :xs="0" :sm="0" :md="0" :lg="7" class="row">
+            <swiper :options="rightSwiperOption" class="gallery-right" ref="swiperRight">
+              <swiper-slide class="swiper-no-swiping" v-for="article in bannerArticles" :key="article.id">
+                <div class="carousel-infos">
+                  <p class="title">{{ article.title | textLineBreak(35) }}</p>
+                  <p class="desc">
+                    {{ article.desc | textLineBreak(70) }}
+                  </p>
+                  <iv-button size="large" type="primary">点击查看更多</iv-button>
+                </div>
+              </swiper-slide>
+            </swiper>
+          </iv-col>
+        </iv-row>
+      </div>
+    </div>
+    <iv-row style="margin-top:20px;">
       <iv-col :xs="24" :sm="24" :md="24" :lg="17">
         <div class="layout-left">
-          <classify-menu :categorys="categorys" @selectCategory="selectCategory" :defaultCategory="top_category"></classify-menu>
-          <section-title :mainTitle="'文章列表'"
-                         :subTitle="'Articles'"
-                         :menus="menus"
-                         :withRefresh="true"
-                         :withTimeSelect="true"
-                         :datePickerOptions="datePickerOptions"
-                         @refresh="refresh"
-                         @menusControl="menusControl"
-                         @comfirmDateSelect="dateSelect"
-                         @clearDateSelect="dateSelectClear">
-          </section-title>
+          <classify-menu :categorys="categorys" @selectCategory="selectCategory"
+                         :defaultCategory="top_category"></classify-menu>
+          <iv-affix style="position: relative;z-index: 12;">
+            <section-title :mainTitle="'文章列表'"
+                           :subTitle="'Articles'"
+                           :menus="menus"
+                           :withRefresh="true"
+                           :withTimeSelect="true"
+                           :datePickerOptions="datePickerOptions"
+                           @refresh="refresh"
+                           @menusControl="menusControl"
+                           @comfirmDateSelect="dateSelect"
+                           @clearDateSelect="dateSelectClear">
+            </section-title>
+          </iv-affix>
           <article-list-cell v-for="article in articles" :article="article" :key="article.title"></article-list-cell>
           <browse-more @browseMore="browseMore" ref="browseMore"></browse-more>
         </div>
@@ -36,17 +72,21 @@
   import Recommend from '@/components/views/Recommend';
   import TagWall from '@/components/views/TagWall';
   import BrowseMore from '@/components/views/BrowseMore';
+  // swiper
+  import 'swiper/dist/css/swiper.css';
+  import {swiper, swiperSlide} from 'vue-awesome-swiper';
 
   // API
   import {getArticleBaseInfo, getCategorys} from '@/api/api';
 
-  const DEFAULT_LIMIT_SIZE = 10;
+  const DEFAULT_LIMIT_SIZE = 20;
   const MAX_LIMIT_SIZE = 100;
 
   export default {
     data() {
       return {
         articles: [],
+        bannerArticles: [],
         categorys: undefined,
         top_category: 1,
         timeSorted: false,
@@ -104,12 +144,36 @@
             }
           ]
         },
-        selectedDateRange: []
+        selectedDateRange: [],
+        leftSwiperOption: {
+          lazy: true,
+          centeredSlides: true,
+          loop: true,
+          autoplay: {
+            delay: 5000,
+            disableOnInteraction: false
+          },
+          pagination: {
+            el: '.swiper-pagination',
+            clickable: true
+          },
+          navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev'
+          }
+        },
+        rightSwiperOption: {
+          noSwiping: true,
+          loop: true,
+          direction: 'vertical'
+        }
       };
     },
     created() {
       this.getDatas();
       this.getCategorys();
+    },
+    mounted() {
     },
     methods: {
       browseMore() {
@@ -119,6 +183,8 @@
       },
       selectCategory(categoryId) {
         this.top_category = categoryId;
+        this.articles = [];
+        this.bannerArticles = [];
         this.noMoreData = false;
         this.getArticleBaseInfo();
       },
@@ -158,14 +224,14 @@
             params: {
               top_category: this.top_category,
               ordering: orderings.toString(),
-              is_recommend: false,
+//              is_recommend: false,
               time_min: this.selectedDateRange[0],
               time_max: this.selectedDateRange[1],
               limit: this.limit_size,
               offset: this.page * this.limit_size
             }
           }).then((response) => {
-            this.articles = response.data.results;
+            this.reduceArticles(response.data.results);
             this.totalCount += response.data.results.length;
             this.noMoreData = this.totalCount >= response.data.count;
             this.$refs.browseMore.stopLoading(this.noMoreData);
@@ -174,13 +240,23 @@
           });
         }
       },
+      reduceArticles(articles) {
+        articles.map((article) => {
+          if (article.is_banner) {
+            this.bannerArticles.push(article);
+          } else {
+            this.articles.push(article);
+          }
+        });
+      },
       refresh() {
         this.top_category = undefined;
         this.timeSorted = false;
         this.mostComment = undefined;
         this.recommend = undefined;
         this.page = 0;
-        this.posts = {};
+        this.articles = [];
+        this.bannerArticles = [];
         this.totalCount = 0;
         this.noMoreData = false;
         this.selectedDateRange = [];
@@ -200,7 +276,8 @@
         }
         // 清空原数据
         this.page = 0;
-        this.posts = {};
+        this.articles = [];
+        this.bannerArticles = [];
         this.totalCount = 0;
         this.noMoreData = false;
         this.getDatas();
@@ -209,7 +286,8 @@
         this.selectedDateRange = dateRange;
         this.page = 0;
         this.limit_size = MAX_LIMIT_SIZE;
-        this.posts = {};
+        this.articles = [];
+        this.bannerArticles = [];
         this.totalCount = 0;
         this.noMoreData = false;
         this.getDatas();
@@ -218,7 +296,8 @@
         this.selectedDateRange = [];
         this.page = 0;
         this.limit_size = DEFAULT_LIMIT_SIZE;
-        this.posts = {};
+        this.articles = [];
+        this.bannerArticles = [];
         this.totalCount = 0;
         this.noMoreData = false;
         this.getDatas();
@@ -227,6 +306,16 @@
     watch: {
       selectedCategory: function () {
         this.getDatas();
+      },
+      bannerArticles: function (newBannerArticles) {
+        if (newBannerArticles.length === 0) return;
+        this.$nextTick(() => {
+          const swiperLeft = this.$refs.swiperLeft;
+          const swiperRight = this.$refs.swiperRight;
+          if (swiperLeft && swiperRight) {
+            swiperLeft.swiper.controller.control = swiperRight.swiper;
+          }
+        });
       }
     },
     components: {
@@ -235,12 +324,16 @@
       'article-list-cell': ArticleListCell,
       'recommend': Recommend,
       'tag-wall': TagWall,
-      'browse-more': BrowseMore
+      'browse-more': BrowseMore,
+      'swiper': swiper,
+      'swiperSlide': swiperSlide
     }
   };
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
+  @import "../../common/stylus/theme.styl";
+
   .article-home-content
     width auto
     @media only screen and (max-width: 768px)
@@ -253,6 +346,41 @@
       width 1200px
       margin 15px auto 0
       margin-bottom 200px
+    .banner
+      position relative
+      width 100%
+      overflow hidden
+      .bracket
+        margin-top 25%
+      .target
+        position absolute
+        top 0
+        bottom 0
+        left 0
+        right 0
+        .row
+          height 100%
+        .gallery-left, .gallery-right
+          width 100%
+          height 100%
+          img
+            height 100%
+            width 100%
+        .carousel-infos
+          height 100%
+          padding 30px
+          border 1px solid $color-border
+          .title
+            font-size 23px
+            line-height 31px
+            margin-bottom 10px
+          .desc
+            font-size 15px
+            font-weight 300
+            line-height 20px
+            margin-bottom 10px
+    .thumb-cards
+      margin-top 15px
     .layout-left, .layout-right
       padding 0
       @media only screen and (max-width: 768px)

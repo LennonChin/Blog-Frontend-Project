@@ -4,25 +4,29 @@
       <iv-col :xs="24" :sm="24" :md="24" :lg="17">
         <div class="layout-left">
           <photo-wall></photo-wall>
-          <section-title v-if="this.specialCategory(1) !== 'undefined'"
-                         :mainTitle="this.specialCategory(1).name"
-                         :subTitle="this.specialCategory(1).subname"
-                         :menus="articlesTitleMenus"
-                         :withRefresh="true"
-                         :withTimeSelect="false"
-                         @refresh="refreshArticles"
-                         @menusControl="artclesMenusControl">
-          </section-title>
+          <iv-affix style="position: relative;z-index: 12;">
+            <section-title v-if="this.specialCategory(1) !== 'undefined'"
+                           :mainTitle="this.specialCategory(1).name"
+                           :subTitle="this.specialCategory(1).subname"
+                           :menus="articlesTitleMenus"
+                           :withRefresh="true"
+                           :withTimeSelect="false"
+                           @refresh="refreshArticles"
+                           @menusControl="artclesMenusControl">
+            </section-title>
+          </iv-affix>
           <article-list-cell v-for="article in articles" :article="article" :key="article.id"></article-list-cell>
-          <section-title v-if="this.specialCategory(40) !== 'undefined'"
-                         :mainTitle="this.specialCategory(40).name"
-                         :subTitle="this.specialCategory(40).subname"
-                         :menus="albumsTitleMenus"
-                         :withRefresh="true"
-                         :withTimeSelect="false"
-                         @refresh="refreshAlbums"
-                         @menusControl="albumsMenusControl">
-          </section-title>
+          <iv-affix :offset-top="0" style="position: relative;z-index: 12;">
+            <section-title v-if="this.specialCategory(40) !== 'undefined'"
+                           :mainTitle="this.specialCategory(40).name"
+                           :subTitle="this.specialCategory(40).subname"
+                           :menus="albumsTitleMenus"
+                           :withRefresh="true"
+                           :withTimeSelect="false"
+                           @refresh="refreshAlbums"
+                           @menusControl="albumsMenusControl">
+            </section-title>
+          </iv-affix>
           <div class="topic-cards">
             <iv-row :gutter="10">
               <iv-col :xs="24" :sm="12" :md="8" :lg="8" :xl="8" v-for="album in albums" :key="album.id">
@@ -30,15 +34,17 @@
               </iv-col>
             </iv-row>
           </div>
-          <section-title v-if="this.specialCategory(55) !== 'undefined'"
-                         :mainTitle="this.specialCategory(55).name"
-                         :subTitle="this.specialCategory(55).subname"
-                         :menus="moviesTitleMenus"
-                         :withRefresh="true"
-                         :withTimeSelect="false"
-                         @refresh="refreshMovies"
-                         @menusControl="moviesMenusControl">
-          </section-title>
+          <iv-affix style="position: relative;z-index: 12;">
+            <section-title v-if="this.specialCategory(55) !== 'undefined'"
+                           :mainTitle="this.specialCategory(55).name"
+                           :subTitle="this.specialCategory(55).subname"
+                           :menus="moviesTitleMenus"
+                           :withRefresh="true"
+                           :withTimeSelect="false"
+                           @refresh="refreshMovies"
+                           @menusControl="moviesMenusControl">
+            </section-title>
+          </iv-affix>
           <div class="movies">
             <iv-row :gutter="10">
               <iv-col :xs="12" :sm="12" :md="8" :lg="8" v-for="movie in movies" :key="movie.id"
