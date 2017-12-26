@@ -1,10 +1,10 @@
 <template>
-  <div class="movie-list-content">
+  <div class="album-list-content">
     <iv-row>
       <iv-col :xs="24" :sm="24" :md="24" :lg="17">
         <div class="layout-left">
           <classify-menu @selectCategory="selectCategory" :defaultCategory="top_category"></classify-menu>
-          <section-title :mainTitle="'电影列表'"
+          <section-title :mainTitle="'图集列表'"
                          :subTitle="'Articles'"
                          :menus="menus"
                          :withRefresh="true"
@@ -15,10 +15,9 @@
                          @comfirmDateSelect="dateSelect"
                          @clearDateSelect="dateSelectClear">
           </section-title>
-          <iv-row :gutter="10">
-            <iv-col :xs="12" :sm="12" :md="8" :lg="8" v-for="movie in movies" :key="movie.id"
-                    style="margin-bottom: 10px;">
-              <movie-list-item :movie="movie"></movie-list-item>
+          <iv-row>
+            <iv-col :xs="24" :sm="12" :md="12" :lg="12" v-for="album in albums" :key="album.tag">
+              <thumb-card :album="album"></thumb-card>
             </iv-col>
           </iv-row>
           <browse-more @browseMore="browseMore" ref="browseMore"></browse-more>
@@ -35,7 +34,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import MovieListItem from '@/components/views/Movie/MovieListItem';
+  import ThumbCard from '@/components/views/ThumbCard';
   import SectionTitle from '@/components/views/SectionTitle/SectionTitle';
   import ClassifyMenu from '@/components/views/Classify/ClassifyMenu';
   import Recommend from '@/components/views/Recommend';
@@ -43,7 +42,7 @@
   import BrowseMore from '@/components/views/BrowseMore';
 
   // API
-  import {getMovieBaseInfo} from '@/api/api';
+  import {getAlbumBaseInfo} from '@/api/api';
 
   const DEFAULT_LIMIT_SIZE = 6;
   const MAX_LIMIT_SIZE = 100;
@@ -51,7 +50,7 @@
   export default {
     data() {
       return {
-        movies: [],
+        albums: [],
         top_category: undefined,
         timeSorted: false,
         mostComment: undefined,
@@ -119,16 +118,16 @@
       browseMore() {
         console.log('browseMore');
         this.page++;
-        this.getMovieBaseInfo();
+        this.getAlbumBaseInfo();
       },
       selectCategory(categoryId) {
         this.top_category = categoryId;
-        this.getMovieBaseInfo();
+        this.getAlbumBaseInfo();
       },
       getDatas() {
-        this.getMovieBaseInfo();
+        this.getAlbumBaseInfo();
       },
-      getMovieBaseInfo() {
+      getAlbumBaseInfo() {
         if (!this.noMoreData) {
           // 排序条件
           let orderings = [];
@@ -144,7 +143,7 @@
               orderings.push('-comment_num');
             }
           }
-          getMovieBaseInfo({
+          getAlbumBaseInfo({
             params: {
               top_category: this.top_category,
               ordering: orderings.toString(),
@@ -155,7 +154,7 @@
               offset: this.page * this.limit_size
             }
           }).then((response) => {
-            this.movies = response.data.results;
+            this.albums = response.data.results;
             this.totalCount += response.data.results.length;
             this.noMoreData = this.totalCount >= response.data.count;
             this.$refs.browseMore.stopLoading(this.noMoreData);
@@ -170,11 +169,11 @@
         this.mostComment = undefined;
         this.recommend = undefined;
         this.page = 0;
-        this.movies = [];
+        this.albums = [];
         this.totalCount = 0;
         this.noMoreData = false;
         this.selectedDateRange = [];
-        this.getMovieBaseInfo();
+        this.getAlbumBaseInfo();
       },
       menusControl(params) {
         switch (params[0]) {
@@ -190,28 +189,28 @@
         }
         // 清空原数据
         this.page = 0;
-        this.movies = [];
+        this.albums = [];
         this.totalCount = 0;
         this.noMoreData = false;
-        this.getMovieBaseInfo();
+        this.getAlbumBaseInfo();
       },
       dateSelect(dateRange) {
         this.selectedDateRange = dateRange;
         this.page = 0;
         this.limit_size = MAX_LIMIT_SIZE;
-        this.movies = [];
+        this.albums = [];
         this.totalCount = 0;
         this.noMoreData = false;
-        this.getMovieBaseInfo();
+        this.getAlbumBaseInfo();
       },
       dateSelectClear() {
         this.selectedDateRange = [];
         this.page = 0;
         this.limit_size = DEFAULT_LIMIT_SIZE;
-        this.movies = [];
+        this.albums = [];
         this.totalCount = 0;
         this.noMoreData = false;
-        this.getMovieBaseInfo();
+        this.getAlbumBaseInfo();
       }
     },
     watch: {
@@ -222,7 +221,7 @@
     components: {
       'section-title': SectionTitle,
       'classify-menu': ClassifyMenu,
-      'movie-list-item': MovieListItem,
+      'thumb-card': ThumbCard,
       'recommend': Recommend,
       'tag-wall': TagWall,
       'browse-more': BrowseMore
@@ -231,7 +230,7 @@
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
-  .movie-list-content
+  .album-list-content
     width auto
     @media only screen and (max-width: 768px)
       margin 5px 5px 0 5px

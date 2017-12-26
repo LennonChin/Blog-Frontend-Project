@@ -1,5 +1,5 @@
 <template>
-  <div class="photograph-content" v-if="banners.length > 0">
+  <div class="album-list-content" v-if="banners.length > 0">
     <swiper :options="swiperOption" class="gallery-top" ref="swiperTop">
       <swiper-slide v-for="banner in banners" :key="banner.id">
         <a>
@@ -106,7 +106,7 @@
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
-  .photograph-content
+  .album-list-content
     width auto
     @media only screen and (max-width: 768px)
       margin 5px 5px 0 5px

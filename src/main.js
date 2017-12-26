@@ -8,6 +8,7 @@ import App from './App.vue';
 import './axios/';
 import Axios from 'axios';
 import socialDateFormat from '@/common/js/utils';
+import {LineBreakMode, ResponsivePoint} from '@/common/js/const';
 
 // iView UI 组件引入
 import {
@@ -57,25 +58,17 @@ Vue.component('iv-date-picker-cell', DatePickerCell);
 Vue.component('iv-spin', Spin);
 
 // 全局混合
-const LineBreakMode = {
-  WrappingTruncatingTail: 1, // 显示头部文字内容，其他直接截断。
-  WrappingTruncatingHead: 2, // 显示尾部文字内容，其他直接截断。
-  EllipsisTruncatingTail: 3, // 结尾部分的内容以……方式省略，显示头的文字内容。
-  EllipsisTruncatingMiddle: 4, // 中间的内容以……方式省略，显示头尾的文字内容。
-  EllipsisTruncatingHead: 5 // 前面部分文字以……方式省略，显示尾部文字内容。
-};
-
 Vue.mixin({
   methods: {
     responsiveRender: function (xsShow, smShow, mdShow, lgShow) {
       let clientWidth = document.body.clientWidth;
-      if (clientWidth < 768) {
+      if (clientWidth < ResponsivePoint.Sm) {
         return xsShow;
-      } else if (clientWidth >= 768 && clientWidth < 992) {
+      } else if (clientWidth >= ResponsivePoint.Sm && clientWidth < ResponsivePoint.Md) {
         return smShow;
-      } else if (clientWidth >= 992 && clientWidth < 1200) {
+      } else if (clientWidth >= ResponsivePoint.Md && clientWidth < ResponsivePoint.Lg) {
         return mdShow;
-      } else if (clientWidth >= 1200) {
+      } else if (clientWidth >= ResponsivePoint.Lg) {
         return lgShow;
       }
     }

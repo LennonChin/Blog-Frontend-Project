@@ -12,8 +12,10 @@ import CommonFooter from '@/components/footer/CommonFooter';
 import HomeContent from '@/components/content/HomeContent';
 import ArticleContent from '@/components/content/ArticleContent';
 import ArticleListContent from '@/components/content/ArticleListContent';
-import PhotographContent from '@/components/content/PhotographContent';
+import AlbumHomeContent from '@/components/content/AlbumHomeContent';
+import AlbumListContent from '@/components/content/AlbumListContent';
 import MovieContent from '@/components/content/MovieContent';
+import MovieHomeContent from '@/components/content/MovieHomeContent';
 import MovieListContent from '@/components/content/MovieListContent';
 import AlbumPreviewContent from '@/components/content/AlbumPreviewContent';
 import TimeLineContent from '@/components/content/TimeLineContent';
@@ -48,7 +50,7 @@ let router = new Router({
             footer: CommonFooter
           },
           meta: {
-            title: '文章列表'
+            title: '文章'
           }
         },
         {
@@ -69,7 +71,7 @@ let router = new Router({
           name: 'albums',
           components: {
             header: SimpleHeader,
-            content: PhotographContent,
+            content: AlbumHomeContent,
             footer: CommonFooter
           },
           meta: {
@@ -93,8 +95,12 @@ let router = new Router({
           name: 'movies',
           components: {
             header: SimpleHeader,
-            content: MovieListContent,
+            content: MovieHomeContent,
             footer: CommonFooter
+          },
+          meta: {
+            title: '电影',
+            need_log: false
           }
         },
         {
@@ -120,6 +126,45 @@ let router = new Router({
           },
           meta: {
             title: '时光轴',
+            need_log: false
+          }
+        },
+        {
+          path: 'articles/category/:categoryId',
+          name: 'articles/category',
+          components: {
+            header: SimpleHeader,
+            content: ArticleListContent,
+            footer: CommonFooter
+          },
+          meta: {
+            title: '文章列表',
+            need_log: false
+          }
+        },
+        {
+          path: 'albums/category/:categoryId',
+          name: 'albums/category',
+          components: {
+            header: SimpleHeader,
+            content: AlbumListContent,
+            footer: CommonFooter
+          },
+          meta: {
+            title: '图集列表',
+            need_log: false
+          }
+        },
+        {
+          path: 'movies/category/:categoryId',
+          name: 'movies/category',
+          components: {
+            header: SimpleHeader,
+            content: MovieListContent,
+            footer: CommonFooter
+          },
+          meta: {
+            title: '电影列表',
             need_log: false
           }
         }

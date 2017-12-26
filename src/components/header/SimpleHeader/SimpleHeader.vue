@@ -11,16 +11,20 @@
       </router-link>
       <ul id="nav">
         <li class="nav-dropdown-container" v-for="category_level1 in this.categorys">
-          <a class="nav-link"> {{ category_level1.name }} <span class="arrow"></span></a>
+          <router-link class="nav-link" :to="rootRouterLink(category_level1)" target="_parent">
+            {{ category_level1.name }} <span class="arrow"></span>
+          </router-link>
           <ul class="nav-dropdown" v-if="category_level1.sub_category.length > 0">
-            <li>
-              <ul>
-                <li v-for="category_level2 in category_level1.sub_category">
-                  <a href="" class="nav-link">{{category_level2.name}} </a>
-                  <ul class="nav-dropdown">
-                    <li v-for="category_level3 in category_level2.sub_category"><a href="" class="nav-link">{{category_level3.name}} </a>
-                    </li>
-                  </ul>
+            <li v-for="category_level2 in category_level1.sub_category">
+              <router-link class="nav-link" :to="routerLink(category_level1, category_level2.id)" target="_blank">
+                {{category_level2.name}}
+              </router-link>
+              <ul class="nav-dropdown">
+                <li v-for="category_level3 in category_level2.sub_category">
+                  <router-link class="nav-link" :to="routerLink(category_level1, category_level3.id)"
+                               target="_blank">
+                    {{category_level3.name}}
+                  </router-link>
                 </li>
               </ul>
             </li>
@@ -64,12 +68,22 @@
     components: {
       'sidebar': SideBar
     },
-    mounted: function () {
-      this.$nextTick(function () {
-        this.initHeaderMenu();
-      });
+    created: function () {
+      this.initHeaderMenu();
     },
     methods: {
+      rootRouterLink(category) {
+        let router = {};
+        router.name = category.code;
+        return router;
+      },
+      routerLink(category, categoryId) {
+        let router = {};
+        router.name = category.code + '/category';
+        router.params = {};
+        router.params['categoryId'] = categoryId;
+        return router;
+      },
       initHeaderMenu() {
         getCategorys({
           params: {

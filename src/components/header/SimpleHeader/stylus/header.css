@@ -42,118 +42,61 @@ body #nav {
   line-height: 60px;
   list-style-type: none;
 }
-body #nav .nav-dropdown-container {
-  padding: 0 20px;
-  text-align: center;
-  min-width: 100px;
-}
-body #nav .nav-dropdown-container:hover > .nav-dropdown {
-  display: block;
-}
 body #nav > li {
   position: relative;
   display: inline-block;
 }
-body #nav > li .nav-link {
-  font-size: 16px;
-}
-body #nav > li .nav-dropdown {
-  top: 60px;
-  right: 0;
-}
-body #nav > li .nav-dropdown li {
-  position: relative;
-  display: inline-block;
-  height: 60px;
-  line-height: 60px;
-  min-width: 100px;
-}
-body #nav > li .nav-dropdown li .nav-link {
-  font-size: 15px;
-}
-body #nav > li .nav-dropdown li .nav-link.current {
-  border-bottom: none;
-  color: #409eff;
-}
-body #nav > li .nav-dropdown li .nav-link.current::after {
-  content: "";
-  width: 0;
-  height: 0;
-  border-left: 5px solid #409eff;
-  border-top: 3px solid transparent;
-  border-bottom: 2px solid transparent;
-  position: absolute;
-  top: 50%;
-  margin-top: -4px;
-  left: 8px;
-}
-body #nav > li .nav-dropdown li:hover > .nav-dropdown {
+body #nav .nav-dropdown-container:hover > .nav-dropdown {
   display: block;
 }
-body #nav > li .nav-dropdown li > .nav-dropdown {
+body #nav .nav-dropdown-container > .nav-dropdown {
   top: 60px;
-  left: -1px;
-  right: -1px;
+  left: 0;
+}
+body #nav .nav-dropdown-container > .nav-dropdown li {
+  position: relative;
+  display: block;
+  height: 40px;
+  line-height: 40px;
+  background-color: #fff;
+  overflow: visible;
+}
+body #nav .nav-dropdown-container > .nav-dropdown li:hover > .nav-dropdown {
+  display: block;
+}
+body #nav .nav-dropdown-container > .nav-dropdown li > .nav-dropdown {
+  top: -1px;
+  left: 100%;
   max-height: calc(100vh - 60px);
   overflow-y: auto;
 }
-body #nav > li .nav-dropdown li > .nav-dropdown > li {
+body #nav .nav-dropdown-container > .nav-dropdown li > .nav-dropdown > li {
   display: block;
   position: relative;
   height: 40px;
   line-height: 40px;
-  text-align: center;
-}
-body #nav > li .nav-dropdown li > .nav-dropdown > li .nav-link {
-  font-size: 15px;
-}
-body #nav > li .nav-dropdown li > .nav-dropdown > li .nav-link.current {
-  border-bottom: none;
-  color: #409eff;
-}
-body #nav > li .nav-dropdown li > .nav-dropdown > li .nav-link.current::after {
-  content: "";
-  width: 0;
-  height: 0;
-  border-left: 5px solid #409eff;
-  border-top: 3px solid transparent;
-  border-bottom: 2px solid transparent;
-  position: absolute;
-  top: 50%;
-  margin-top: -4px;
-  left: 8px;
 }
 body #nav .nav-dropdown {
   position: absolute;
   display: none;
   box-sizing: border-box;
-  background-color: #fff;
+  text-align: left;
   border-left: 1px solid #eee;
   border-right: 1px solid #eee;
   border-bottom: 1px solid #eee;
-  text-align: center;
+  border-top: 1px solid #eee;
   white-space: nowrap;
-  max-width: 60vw;
 }
-body #nav a {
-  text-decoration: none;
-  color: #696969;
-  font-weight: 500;
-  font-size: 0.9em;
+body #nav a.nav-link {
   display: block;
-}
-body #nav a:hover {
-  text-decoration: underline;
-  color: #409eff;
-}
-body #nav a:hover:not(.current) {
-  border-bottom: none;
-}
-body #nav .nav-link {
+  color: #4f4f4f;
+  font-size: 16px;
+  font-weight: 300;
+  padding: 0 20px;
+  text-decoration: none;
   cursor: pointer;
-  margin: 0 15px;
 }
-body #nav .nav-link .arrow {
+body #nav a.nav-link .arrow {
   display: inline-block;
   vertical-align: middle;
   margin-top: -1px;
@@ -164,6 +107,29 @@ body #nav .nav-link .arrow {
   border-left: 4px solid transparent;
   border-right: 4px solid transparent;
   border-top: 5px solid #ccc;
+}
+body #nav a.nav-link:hover {
+  text-decoration: underline;
+  color: #409eff;
+}
+body #nav a.nav-link:hover:not(.current) {
+  border-bottom: none;
+}
+body #nav a.nav-link.active {
+  border-bottom: none;
+  color: #409eff;
+}
+body #nav a.nav-link.active::after {
+  content: "";
+  width: 0;
+  height: 0;
+  border-left: 5px solid #409eff;
+  border-top: 3px solid transparent;
+  border-bottom: 2px solid transparent;
+  position: absolute;
+  top: 50%;
+  margin-top: -4px;
+  left: 8px;
 }
 .search-query {
   height: 30px;

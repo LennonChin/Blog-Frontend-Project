@@ -147,6 +147,7 @@
           float left
           margin 0 6px
           a
+            color $color-secondary-info
             padding 6px 0
             &:hover, &.active
               color $color-main-primary
