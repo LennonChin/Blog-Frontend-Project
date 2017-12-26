@@ -11,6 +11,7 @@ import CommonFooter from '@/components/footer/CommonFooter';
 // 首页
 import HomeContent from '@/components/content/HomeContent';
 import ArticleContent from '@/components/content/ArticleContent';
+import ArticleHomeContent from '@/components/content/ArticleHomeContent';
 import ArticleListContent from '@/components/content/ArticleListContent';
 import AlbumHomeContent from '@/components/content/AlbumHomeContent';
 import AlbumListContent from '@/components/content/AlbumListContent';
@@ -46,7 +47,7 @@ let router = new Router({
           name: 'articles',
           components: {
             header: SimpleHeader,
-            content: ArticleListContent,
+            content: ArticleHomeContent,
             footer: CommonFooter
           },
           meta: {

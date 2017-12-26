@@ -3,7 +3,7 @@
     <iv-row>
       <iv-col :xs="24" :sm="24" :md="24" :lg="17">
         <div class="layout-left">
-          <classify-menu @selectCategory="selectCategory" :defaultCategory="top_category"></classify-menu>
+          <classify-menu :categorys="categorys" @selectCategory="selectCategory" :defaultCategory="top_category"></classify-menu>
           <section-title :mainTitle="'电影列表'"
                          :subTitle="'Articles'"
                          :menus="menus"
@@ -43,7 +43,7 @@
   import BrowseMore from '@/components/views/BrowseMore';
 
   // API
-  import {getMovieBaseInfo} from '@/api/api';
+  import {getMovieBaseInfo, getCategorys} from '@/api/api';
 
   const DEFAULT_LIMIT_SIZE = 6;
   const MAX_LIMIT_SIZE = 100;
@@ -52,6 +52,7 @@
     data() {
       return {
         movies: [],
+        categorys: undefined,
         top_category: undefined,
         timeSorted: false,
         mostComment: undefined,
@@ -114,6 +115,7 @@
     created() {
       this.top_category = parseInt(this.$route.params.categoryId);
       this.getDatas();
+      this.getCategorys();
     },
     methods: {
       browseMore() {
@@ -123,10 +125,24 @@
       },
       selectCategory(categoryId) {
         this.top_category = categoryId;
+        this.noMoreData = false;
         this.getMovieBaseInfo();
       },
       getDatas() {
         this.getMovieBaseInfo();
+      },
+      getCategorys() {
+        getCategorys({
+          params: {
+            'level_min': 1,
+            'level_max': 1,
+            'id': 40
+          }
+        }).then((response) => {
+          this.categorys = response.data;
+        }).catch(function (error) {
+          console.log(error);
+        });
       },
       getMovieBaseInfo() {
         if (!this.noMoreData) {

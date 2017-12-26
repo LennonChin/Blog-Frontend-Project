@@ -1,5 +1,5 @@
 <template>
-  <div class="movie-list-content">
+  <div class="movie-home-content">
     <movie-recomend-list-cell :movies="recommendMovies"></movie-recomend-list-cell>
     <movie-recent-list-cell :movies="hotMovies" style="margin-top: 20px;"></movie-recent-list-cell>
     <movie-list-cell v-if="otherMovies.length > 0" :movies="otherMovies" style="margin-top: 20px;"></movie-list-cell>
@@ -64,7 +64,7 @@
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
-  .movie-list-content
+  .movie-home-content
     width auto
     @media only screen and (max-width: 768px)
       margin 5px 5px 0 5px

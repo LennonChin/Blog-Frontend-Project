@@ -31,28 +31,26 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import {getCategorys} from '@/api/api';
+//  import {getCategorys} from '@/api/api';
 
   export default {
     props: {
       defaultCategory: {
         Type: Number,
         default: null
+      },
+      categorys: {
+        Type: Object,
+        default: undefined
       }
     },
     data() {
       return {
-        categorys: undefined,
         sub_category: undefined,
         sub_sub_category: undefined,
         selectedCategory: undefined,
         selectedRecursiveCategorys: []
       };
-    },
-    created() {
-      this.getDatas();
-    },
-    updated() {
     },
     methods: {
       choseLevel(category, event) {
@@ -135,18 +133,6 @@
       },
       selectCategory(categoryId) {
         this.$emit('selectCategory', categoryId);
-      },
-      getDatas() {
-        getCategorys({
-          params: {
-            'level_min': 1,
-            'level_max': 1
-          }
-        }).then((response) => {
-          this.categorys = response.data;
-        }).catch(function (error) {
-          console.log(error);
-        });
       }
     },
     watch: {

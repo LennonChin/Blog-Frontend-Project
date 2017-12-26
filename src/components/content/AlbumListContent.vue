@@ -3,7 +3,7 @@
     <iv-row>
       <iv-col :xs="24" :sm="24" :md="24" :lg="17">
         <div class="layout-left">
-          <classify-menu @selectCategory="selectCategory" :defaultCategory="top_category"></classify-menu>
+          <classify-menu :categorys="categorys" @selectCategory="selectCategory" :defaultCategory="top_category"></classify-menu>
           <section-title :mainTitle="'图集列表'"
                          :subTitle="'Articles'"
                          :menus="menus"
@@ -42,7 +42,7 @@
   import BrowseMore from '@/components/views/BrowseMore';
 
   // API
-  import {getAlbumBaseInfo} from '@/api/api';
+  import {getAlbumBaseInfo, getCategorys} from '@/api/api';
 
   const DEFAULT_LIMIT_SIZE = 6;
   const MAX_LIMIT_SIZE = 100;
@@ -51,6 +51,7 @@
     data() {
       return {
         albums: [],
+        categorys: undefined,
         top_category: undefined,
         timeSorted: false,
         mostComment: undefined,
@@ -113,6 +114,7 @@
     created() {
       this.top_category = parseInt(this.$route.params.categoryId);
       this.getDatas();
+      this.getCategorys();
     },
     methods: {
       browseMore() {
@@ -122,10 +124,24 @@
       },
       selectCategory(categoryId) {
         this.top_category = categoryId;
+        this.noMoreData = false;
         this.getAlbumBaseInfo();
       },
       getDatas() {
         this.getAlbumBaseInfo();
+      },
+      getCategorys() {
+        getCategorys({
+          params: {
+            'level_min': 1,
+            'level_max': 1,
+            'id': 55
+          }
+        }).then((response) => {
+          this.categorys = response.data;
+        }).catch(function (error) {
+          console.log(error);
+        });
       },
       getAlbumBaseInfo() {
         if (!this.noMoreData) {

@@ -1,11 +1,11 @@
 <template>
-  <div class="timeline-content">
+  <div class="article-home-content">
     <iv-row>
       <iv-col :xs="24" :sm="24" :md="24" :lg="17">
         <div class="layout-left">
           <classify-menu :categorys="categorys" @selectCategory="selectCategory" :defaultCategory="top_category"></classify-menu>
-          <section-title :mainTitle="'存档时光'"
-                         :subTitle="'Timeline'"
+          <section-title :mainTitle="'文章列表'"
+                         :subTitle="'Articles'"
                          :menus="menus"
                          :withRefresh="true"
                          :withTimeSelect="true"
@@ -15,22 +15,13 @@
                          @comfirmDateSelect="dateSelect"
                          @clearDateSelect="dateSelectClear">
           </section-title>
-          <div v-for="year in sortedYearKeys(posts)">
-            <archive-list-time-title :date="year + '年'" :count="posts[year].count"></archive-list-time-title>
-            <div v-for="month in sortedMonthKeys(posts[year].months)">
-              <archive-list-time-title :date="month + '月'" :count="posts[year].months[month].length"
-                                       :dateType="'month'"></archive-list-time-title>
-              <archive-list-cell v-for="post in posts[year].months[month]" :post="post"
-                                 :key="post.title"></archive-list-cell>
-            </div>
-          </div>
+          <article-list-cell v-for="article in articles" :article="article" :key="article.title"></article-list-cell>
           <browse-more @browseMore="browseMore" ref="browseMore"></browse-more>
         </div>
       </iv-col>
       <iv-col :xs="0" :sm="0" :md="0" :lg="7">
         <div class="layout-right">
           <recommend></recommend>
-          <hot style="margin-top: 15px;"></hot>
           <tag-wall style="margin-top: 15px;"></tag-wall>
         </div>
       </iv-col>
@@ -39,17 +30,15 @@
 </template>
 
 <script type="text/ecmascript-6">
+  import ArticleListCell from '@/components/views/Article/ArticleListCell';
   import SectionTitle from '@/components/views/SectionTitle/SectionTitle';
   import ClassifyMenu from '@/components/views/Classify/ClassifyMenu';
-  import ArchiveListCell from '@/components/views/Archive/ArchiveListCell';
-  import ArchiveListTimeTitle from '@/components/views/Archive/ArchiveListTimeTitle';
   import Recommend from '@/components/views/Recommend';
-  import Hot from '@/components/views/Hot/Hot';
   import TagWall from '@/components/views/TagWall';
   import BrowseMore from '@/components/views/BrowseMore';
 
   // API
-  import {getPostBaseInfo, getCategorys} from '@/api/api';
+  import {getArticleBaseInfo, getCategorys} from '@/api/api';
 
   const DEFAULT_LIMIT_SIZE = 10;
   const MAX_LIMIT_SIZE = 100;
@@ -57,10 +46,9 @@
   export default {
     data() {
       return {
-        posts: {},
+        articles: [],
         categorys: undefined,
-        top_category: undefined,
-        // 排序
+        top_category: 1,
         timeSorted: false,
         mostComment: undefined,
         recommend: undefined,
@@ -127,17 +115,22 @@
       browseMore() {
         console.log('browseMore');
         this.page++;
-        this.getDatas();
-        this.getCategorys();
+        this.getArticleBaseInfo();
+      },
+      selectCategory(categoryId) {
+        this.top_category = categoryId;
+        this.noMoreData = false;
+        this.getArticleBaseInfo();
       },
       getDatas() {
-        this.getPostBaseInfo();
+        this.getArticleBaseInfo();
       },
       getCategorys() {
         getCategorys({
           params: {
             'level_min': 1,
-            'level_max': 1
+            'level_max': 1,
+            'id': 1
           }
         }).then((response) => {
           this.categorys = response.data;
@@ -145,9 +138,8 @@
           console.log(error);
         });
       },
-      getPostBaseInfo() {
-        // 文章
-        if (!this.noMorePost) {
+      getArticleBaseInfo() {
+        if (!this.noMoreData) {
           // 排序条件
           let orderings = [];
           if (this.timeSorted) {
@@ -162,66 +154,25 @@
               orderings.push('-comment_num');
             }
           }
-          getPostBaseInfo({
+          getArticleBaseInfo({
             params: {
               top_category: this.top_category,
               ordering: orderings.toString(),
-              is_recommend: this.recommend,
+              is_recommend: false,
               time_min: this.selectedDateRange[0],
               time_max: this.selectedDateRange[1],
               limit: this.limit_size,
               offset: this.page * this.limit_size
             }
           }).then((response) => {
-            // 记录数量
+            this.articles = response.data.results;
             this.totalCount += response.data.results.length;
             this.noMoreData = this.totalCount >= response.data.count;
-            this.reducePosts(response.data.results);
+            this.$refs.browseMore.stopLoading(this.noMoreData);
           }).catch(function (error) {
             console.log(error);
           });
         }
-      },
-      reducePosts(posts) {
-        var that = this;
-        posts.map((post) => {
-          // 按年月分批
-          let addYear = new Date(post.add_time).getFullYear();
-          let addMonth = new Date(post.add_time).getMonth();
-          if (!that.posts.hasOwnProperty(addYear)) {
-            that.posts[addYear] = {};
-            that.posts[addYear]['months'] = {};
-            that.posts[addYear]['count'] = 0;
-          }
-          if (!that.posts[addYear]['months'].hasOwnProperty(addMonth + 1)) {
-            that.posts[addYear]['months'][addMonth + 1] = [];
-          }
-          that.posts[addYear]['months'][addMonth + 1].push(post);
-          that.posts[addYear]['count'] += 1;
-        });
-        this.posts = Object.assign({}, this.posts);
-        // 停止浏览更多动画
-        this.$refs.browseMore.stopLoading(this.noMoreData);
-      },
-      sortedYearKeys(years) {
-        let that = this;
-        return Object.keys(years).sort(function (year1, year2) {
-          return that.timeSorted ? year1 - year2 : year2 - year1;
-        });
-      },
-      sortedMonthKeys(months) {
-        let that = this;
-        return Object.keys(months).sort(function (month1, month2) {
-          return that.timeSorted ? month1 - month2 : month2 - month1;
-        });
-      },
-      selectCategory(categoryId) {
-        this.top_category = categoryId;
-        this.page = 0;
-        this.posts = {};
-        this.totalCount = 0;
-        this.noMoreData = false;
-        this.getDatas();
       },
       refresh() {
         this.top_category = undefined;
@@ -273,13 +224,16 @@
         this.getDatas();
       }
     },
+    watch: {
+      selectedCategory: function () {
+        this.getDatas();
+      }
+    },
     components: {
       'section-title': SectionTitle,
       'classify-menu': ClassifyMenu,
-      'archive-list-time-title': ArchiveListTimeTitle,
-      'archive-list-cell': ArchiveListCell,
+      'article-list-cell': ArticleListCell,
       'recommend': Recommend,
-      'hot': Hot,
       'tag-wall': TagWall,
       'browse-more': BrowseMore
     }
@@ -287,7 +241,7 @@
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
-  .timeline-content
+  .article-home-content
     width auto
     @media only screen and (max-width: 768px)
       margin 5px 5px 0 5px
