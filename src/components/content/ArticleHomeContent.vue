@@ -352,6 +352,8 @@
       overflow hidden
       .bracket
         margin-top 25%
+        @media only screen and (max-width: $responsive-sm)
+          margin-top 38%
       .target
         position absolute
         top 0

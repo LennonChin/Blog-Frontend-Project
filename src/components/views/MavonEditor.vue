@@ -29,7 +29,7 @@
         </iv-col>
       </iv-row>
     </div>
-    <mavon-editor class="editor-area" style="height: 100%; min-height: 50px; min-width: 200px; z-index: 9;" :toolbarsFlag="toolbarsFlag"
+    <mavon-editor class="editor-area" style="height: 100%; min-height: 50px; min-width: 200px; z-index: 20;" :toolbarsFlag="toolbarsFlag"
                   :subfield="subfield" :placeholder="placeholder" :toolbars="toolbars" @change="change"></mavon-editor>
     <div class="bottom-area">
       <div class="comment-tip">

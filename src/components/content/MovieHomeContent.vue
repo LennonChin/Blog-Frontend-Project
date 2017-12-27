@@ -30,7 +30,7 @@
       getDatas() {
         getMovieBaseInfo({
           params: {
-            page_size: 20
+            limit: 20
           }
         }).then((response) => {
           this.movies = response.data.results;

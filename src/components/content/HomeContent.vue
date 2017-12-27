@@ -127,7 +127,7 @@
             level_max: 1
           }
         }).then((response) => {
-          this.categorys = response.data;
+          this.categorys = response.data.results;
         }).catch(function (error) {
           console.log(error);
         });

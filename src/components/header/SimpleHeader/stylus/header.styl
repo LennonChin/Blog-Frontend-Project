@@ -132,13 +132,14 @@ body
   &:focus
     border-color $color-main-primary
 
-// 小屏模式下的侧边导航
+// 小屏模式下的导航栏
 #mobile-bar
   position fixed
   top 0
   left 0
   width 100%
   height $mobile-header-height
+  line-height $mobile-header-height
   background-color #fff
   z-index 11
   display none
@@ -146,21 +147,21 @@ body
   .menu-button
     position absolute
     cursor pointer
-    width 24px
-    height 24px
-    top 8px
+    width $mobile-header-inner-height
+    height $mobile-header-inner-height
+    top "calc((%s - %s) / 2)" % ($mobile-header-height $mobile-header-inner-height)
     left 12px
     background url(./../../../assets/menu.png) center center no-repeat
     background-size 24px
   .logo
     position absolute
-    width 30px
-    height 30px
+    width $mobile-header-inner-height
+    height $mobile-header-inner-height
     background url(./../../../assets/logo.png) center center no-repeat
-    top 5px
+    top "calc((%s - %s) / 2)" % ($mobile-header-height $mobile-header-inner-height)
     left 50%
     margin-left -15px
-    background-size 30px
+    background-size $mobile-header-inner-height
 
 @media screen and (max-width $responsive-lg)
   body

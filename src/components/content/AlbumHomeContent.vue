@@ -108,11 +108,11 @@
           params: {
             level_min: 1,
             level_max: 3,
-            top_category: 55
+            top_category: 55,
+            page_size: 12
           }
         }).then((response) => {
-          this.categorys = response.data;
-          console.log(this.categorys);
+          this.categorys = response.data.results;
         }).catch(function (error) {
           console.log(error);
         });

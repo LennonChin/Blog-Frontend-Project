@@ -88,6 +88,7 @@
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
+  @import "../../../common/stylus/theme.styl"
   @import "../../../common/stylus/index.styl"
 
   .section-title
@@ -99,9 +100,9 @@
     text-align left
     box-sizing border-box
     background white
-    @media only screen and (max-width: 768px)
-      padding 10px 0
-      height 70px
+    @media only screen and (max-width: $responsive-sm)
+      padding 5px 0
+      height 50px
     .title
       .square
         display inline-block

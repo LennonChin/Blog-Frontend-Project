@@ -1,5 +1,5 @@
 <template>
-  <div class="movie-recommend-list-cell">
+  <div class="movie-recommend-list-cell" v-if="movies.length > 0">
     <h4>推荐影评<a href="">查看更多</a></h4>
     <iv-row>
       <iv-col :xs="24" :sm="24" :md="6" :lg="8">
@@ -11,16 +11,21 @@
         <iv-row>
           <iv-col :xs="24" :sm="24" :md="12" :lg="12" v-for="movie in movies.slice(1, 5)" :key="movie.id">
             <div class="right">
-              <router-link :to="{ name: 'movie/detail', params:{ movieId: movie.detail}}" target="_blank">
+              <router-link :to="{ name: 'movie/detail', params:{ movieId: movie.id}}" target="_blank">
                 <div class="img">
-                  <img :src="movie.front_image" alt="">
+                  <div class="container">
+                    <div class="bracket"></div>
+                    <div class="target">
+                      <img :src="movie.front_image" alt="">
+                    </div>
+                  </div>
                 </div>
                 <div class="info">
                   <p class="title">{{ movie.title }}</p>
                   <p class="desc"><span>导演：</span>{{ movie.director }}</p>
-                  <p class="desc"><span>主演：</span>{{ movie.actors.slice(0, 20) }}</p>
+                  <p class="desc"><span>主演：</span>{{ movie.actors | textLineBreak(20) }}</p>
                   <p class="desc"><span>类型：</span>{{ movie.category.name }}</p>
-                  <p class="desc"><span>剧情介绍：</span>{{ movie.desc.slice(0, 30) + '...' }}</p>
+                  <p class="desc"><span>剧情介绍：</span>{{ movie.desc  | textLineBreak(30) }}</p>
                 </div>
               </router-link>
             </div>
@@ -63,7 +68,8 @@
   export default {
     props: {
       movies: {
-        Type: Array
+        Type: Array,
+        default: []
       }
     },
     components: {
@@ -91,14 +97,28 @@
       a
         display flex
         .img
+          position relative
           flex 0 0 130px
           width 130px
           overflow hidden
-          img
+          .container
             width 100%
-            transition: All 0.4s ease-in-out
-            transform: scale(1.0)
-            zoom: 1.0
+            position relative
+            overflow hidden
+            .bracket
+              margin-top 135%
+            .target
+              position absolute
+              top 0
+              bottom 0
+              left 0
+              right 0
+              > img
+                width 100%
+                height 100%
+                transition: All 0.4s ease-in-out
+                transform: scale(1.0)
+                zoom: 1.0
         .info
           padding-left 15px
           .title

@@ -5,7 +5,7 @@
       <iv-col :xs="24" :sm="24" :md="16" :lg="16" v-if="movies.length > 0">
         <ul class="recent">
           <li v-for="movie in movies.slice(0, 3)">
-            <router-link :to="{ name: 'movie/detail', params:{ movieId: movie.detail}}" target="_blank">
+            <router-link :to="{ name: 'movie/detail', params:{ movieId: movie.id}}" target="_blank">
               <iv-row>
                 <iv-col :xs="24" :sm="24" :md="7" :lg="6">
                   <div class="img">
@@ -16,7 +16,7 @@
                   <div class="info">
                     <p class="title">{{ movie.title }}</p>
                     <p class="link">{{ movie.add_time | socialDate }}</p>
-                    <p class="content">{{ movie.desc.slice(0, 60) + '...' }}</p>
+                    <p class="content">{{ movie.desc | textLineBreak(60) }}</p>
                   </div>
                 </iv-col>
               </iv-row>
@@ -27,13 +27,13 @@
       <iv-col :xs="24" :sm="24" :md="8" :lg="8" v-if="movies[3] != undefined">
         <div class="recommend">
           <h4>推荐观影</h4>
-          <router-link :to="{ name: 'movie/detail', params:{ movieId: movies[3].detail}}" target="_blank">
+          <router-link :to="{ name: 'movie/detail', params:{ movieId: movies[3].id}}" target="_blank">
             <p class="title">{{ movies[3].title }}</p>
             <div class="tags">
               <iv-tag :color="tag.color" v-for="tag in movies[3].tags" :key="tag.id">{{ tag.name }}</iv-tag>
             </div>
             <p class="info">
-              <span class="time">2017-11-17 09:19</span>
+              <span class="time">{{ movies[3].add_time | socialDate }}</span>
               <span class="likes"><a href=""><iv-icon type="heart"></iv-icon> {{ movies[3].like_num }} </a></span>
               <span class="comments"><a href=""><iv-icon type="compose"></iv-icon> {{ movies[3].comment_click }} </a></span>
               <span class="readings"><a href=""><iv-icon type="eye"></iv-icon> {{ movies[3].click_num }} </a></span>
@@ -41,7 +41,7 @@
             <div class="img">
               <img :src="movies[3].front_image" alt="">
             </div>
-            <p class="desc">{{ movies[3].desc }}</p>
+            <p class="desc">{{ movies[3].desc | textLineBreak(100) }}</p>
           </router-link>
         </div>
       </iv-col>

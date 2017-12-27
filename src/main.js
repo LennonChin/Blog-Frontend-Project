@@ -31,7 +31,8 @@ import {
   Option,
   DatePicker,
   DatePickerCell,
-  Spin
+  Spin,
+  Switch
 } from 'iview';
 
 Vue.prototype.$http = Axios;
@@ -56,6 +57,7 @@ Vue.component('iv-option', Option);
 Vue.component('iv-date-picker', DatePicker);
 Vue.component('iv-date-picker-cell', DatePickerCell);
 Vue.component('iv-spin', Spin);
+Vue.component('iv-switch', Switch);
 
 // 全局混合
 Vue.mixin({

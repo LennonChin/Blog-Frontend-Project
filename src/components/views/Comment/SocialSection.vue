@@ -1,6 +1,6 @@
 <template>
   <div class="social-section">
-    <iv-menu :active-name="'1'" :class="theme" mode="horizontal">
+    <iv-menu :active-name="'1'" :class="theme" mode="horizontal" style="z-index: 19;">
       <iv-menu-item name="1" style="padding-left: 0;">
         <iv-icon type="heart"></iv-icon>
         {{recommends}} 人觉得很赞

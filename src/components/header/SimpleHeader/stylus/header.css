@@ -152,7 +152,8 @@ body {
   top: 0;
   left: 0;
   width: 100%;
-  height: 40px;
+  height: 50px;
+  line-height: 50px;
   background-color: #fff;
   z-index: 11;
   display: none;
@@ -161,9 +162,9 @@ body {
 #mobile-bar .menu-button {
   position: absolute;
   cursor: pointer;
-  width: 24px;
-  height: 24px;
-  top: 8px;
+  width: 30px;
+  height: 30px;
+  top: calc((50px - 30px) / 2);
   left: 12px;
   background: url("./../../../assets/menu.png") center center no-repeat;
   background-size: 24px;
@@ -173,7 +174,7 @@ body {
   width: 30px;
   height: 30px;
   background: url("./../../../assets/logo.png") center center no-repeat;
-  top: 5px;
+  top: calc((50px - 30px) / 2);
   left: 50%;
   margin-left: -15px;
   background-size: 30px;
@@ -190,3 +191,4 @@ body {
     display: block;
   }
 }
+/*# sourceMappingURL=header.css.map */

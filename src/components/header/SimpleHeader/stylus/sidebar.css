@@ -1,11 +1,10 @@
 .side-bar {
   position: fixed;
-  top: 40px;
+  top: 50px;
   left: 0;
   bottom: 0;
   padding: 20px 10px 20px 20px;
   background-color: #f9f9f9;
-  box-shadow: 0 0 10px rgba(0,0,0,0.2);
   transition: all 0.4s cubic-bezier(0.4, 0, 0, 1);
   transform: translate(-280px, 0);
   overscroll-behavior: contain;
@@ -13,7 +12,7 @@
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
   -ms-overflow-style: none;
-  z-index: 10;
+  z-index: 13;
 }
 .side-bar.open {
   transform: translate(0, 0);
@@ -25,14 +24,27 @@
 .side-bar .sidebar-inner {
   box-sizing: border-box;
 }
+.side-bar .sidebar-inner .search-query {
+  width: 200px;
+  margin-bottom: 10px;
+}
+.side-bar .sidebar-inner .site-nav {
+  display: inline-block;
+  font-size: 16px;
+  height: 52px;
+  line-height: 32px;
+  padding: 10px 0;
+}
 .side-bar .sidebar-inner .nav-menu {
   display: block;
   margin-bottom: 20px;
-  padding-left: 0;
+  padding-left: 10px;
+  transition: height 0.7s;
+  height: auto;
+  overflow: hidden;
 }
-.side-bar .sidebar-inner .nav-menu .search-query {
-  width: 200px;
-  margin-bottom: 10px;
+.side-bar .sidebar-inner .nav-menu.hide {
+  max-height: 0;
 }
 .side-bar ul {
   list-style-type: none;
@@ -66,3 +78,4 @@
 .side-bar .menu-root {
   margin-top: 30px;
 }
+/*# sourceMappingURL=sidebar.css.map */
