@@ -1,5 +1,5 @@
 <template>
-  <div class="article-home-content">
+  <div class="article-home-content layout-content">
     <div class="banner" v-if="bannerArticles.length > 0">
       <div class="bracket"></div>
       <div class="target">
@@ -199,7 +199,7 @@
             'id': 1
           }
         }).then((response) => {
-          this.categorys = response.data;
+          this.categorys = response.data.results;
         }).catch(function (error) {
           console.log(error);
         });
@@ -335,17 +335,6 @@
   @import "../../common/stylus/theme.styl";
 
   .article-home-content
-    width auto
-    @media only screen and (max-width: 768px)
-      margin 5px 5px 0 5px
-    @media screen and (min-width: 768px)
-      margin 10px 10px 0 10px
-    @media screen and (min-width: 992px)
-      margin 15px 35px 0 35px
-    @media screen and (min-width: 1200px)
-      width 1200px
-      margin 15px auto 0
-      margin-bottom 200px
     .banner
       position relative
       width 100%
@@ -383,14 +372,4 @@
             margin-bottom 10px
     .thumb-cards
       margin-top 15px
-    .layout-left, .layout-right
-      padding 0
-      @media only screen and (max-width: 768px)
-        padding 0
-      @media screen and (min-width: 768px)
-        padding 0
-      @media screen and (min-width: 992px)
-        padding 0 10px
-      @media screen and (min-width: 1200px)
-        padding 0 10px
 </style>

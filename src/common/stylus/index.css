@@ -1,10 +1,3 @@
-body,
-html,
-pre {
-  line-height: 1;
-  font-weight: 200;
-  font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
-}
 .clearfix {
   display: inline-block;
 }
@@ -26,6 +19,65 @@ pre {
   .border-1px::after {
     -webkit-transform: scaleY(0.5);
     transform: scaleY(0.5);
+  }
+}
+body,
+html {
+  line-height: 1;
+  font-weight: 300;
+  font-family: Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial;
+}
+.layout-content {
+  width: auto;
+}
+@media only screen and (max-width: 768px) {
+  .layout-content {
+    margin: 5px 5px 0 5px;
+  }
+}
+@media screen and (min-width: 768px) {
+  .layout-content {
+    margin: 10px 10px 0 10px;
+  }
+}
+@media screen and (min-width: 992px) {
+  .layout-content {
+    margin: 15px 35px 0 35px;
+  }
+}
+@media screen and (min-width: 1200px) {
+  .layout-content {
+    width: 1200px;
+    margin: 15px auto 0;
+    margin-bottom: 100px;
+  }
+  .layout-content .layout-left,
+  .layout-content .layout-right {
+    padding: 0;
+  }
+}
+@media only screen and (min-width: 1200px) and (max-width: 768px) {
+  .layout-content .layout-left,
+  .layout-content .layout-right {
+    padding: 0;
+  }
+}
+@media screen and (min-width: 1200px) and (min-width: 768px) {
+  .layout-content .layout-left,
+  .layout-content .layout-right {
+    padding: 0;
+  }
+}
+@media screen and (min-width: 1200px) and (min-width: 992px) {
+  .layout-content .layout-left,
+  .layout-content .layout-right {
+    padding: 0 7.5px;
+  }
+}
+@media screen and (min-width: 1200px) and (min-width: 1200px) {
+  .layout-content .layout-left,
+  .layout-content .layout-right {
+    padding: 0 7.5px;
   }
 }
 /*# sourceMappingURL=index.css.map */

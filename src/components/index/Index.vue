@@ -10,6 +10,8 @@
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
+  @import "../../common/stylus/base.styl";
+
   .main-wrapper
     background-color #fff
     width 100%
