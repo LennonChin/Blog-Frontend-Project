@@ -17,7 +17,9 @@
         </iv-col>
         <iv-col :xs="24" :sm="24" :md="6" :lg="7" class-name="iv-dropdown-link">
           <iv-dropdown>
-            <iv-icon type="log-in"></iv-icon> 或登录以评论 <iv-icon type="arrow-down-b"></iv-icon>
+            <iv-icon type="log-in"></iv-icon>
+            或登录以评论
+            <iv-icon type="arrow-down-b"></iv-icon>
             <iv-dropdown-menu slot="list">
               <iv-dropdown-item>菜单</iv-dropdown-item>
               <iv-dropdown-item>菜单</iv-dropdown-item>
@@ -29,12 +31,15 @@
         </iv-col>
       </iv-row>
     </div>
-    <mavon-editor class="editor-area" style="height: 100%; min-height: 50px; min-width: 200px; z-index: 20;" :toolbarsFlag="toolbarsFlag"
+    <mavon-editor class="editor-area" style="height: 100%; min-height: 50px; min-width: 200px; z-index: 9;"
+                  :toolbarsFlag="toolbarsFlag"
                   :subfield="subfield" :placeholder="placeholder" :toolbars="toolbars" @change="change"></mavon-editor>
     <div class="bottom-area">
       <div class="comment-tip">
-        <a href="https://guides.github.com/features/mastering-markdown/" target="_blank"><iv-icon
-          type="information-circled"></iv-icon> 支持MarkDown</a>
+        <a href="https://guides.github.com/features/mastering-markdown/" target="_blank">
+          <iv-icon
+            type="information-circled"></iv-icon>
+          支持MarkDown</a>
       </div>
       <div class="buttons">
         <iv-button size="default" @click="publish" :type="buttonType">发布</iv-button>
@@ -46,6 +51,7 @@
 <script type="text/ecmascript-6">
   import MavonEditor from 'mavon-editor';
   import 'mavon-editor/dist/css/index.css';
+
   export default {
     props: {
       theme: {
@@ -151,7 +157,44 @@
         }
       },
       publish() {
-        console.log('publish');
+        this.$Modal.confirm({
+          render: (h) => {
+            let children = [];
+            children.push(h('h2', {
+              domProps: {
+                innerHTML: '提示'
+              },
+              'class': {
+                'modal-title': true
+              }
+            }));
+            children.push(h('p', {
+              domProps: {
+                innerHTML: '已经向您的邮箱发送了验证码，请输入验证码验证邮箱有效性后再进行评论'
+              },
+              'class': {
+                'modal-message': true
+              }
+            }));
+            children.push(h('iv-input', {
+              props: {
+                value: this.value,
+                autofocus: true,
+                placeholder: '请输入验证码'
+              },
+              'class': {
+                'modal-input': true
+              },
+              on: {
+                input: (val) => {
+                  console.log(val);
+                  this.value = val;
+                }
+              }
+            }));
+            return h('div', {}, children);
+          }
+        });
       }
     },
     mounted() {
@@ -211,5 +254,16 @@
             &:hover
               color $color-secondary-warning
 
-
+.modal-title
+  font-size 22px
+  font-weight 700
+  text-align center
+  padding-bottom 10px
+.modal-message
+  font-size 16px
+  line-height 28px
+  text-align center
+  padding-bottom 15px
+.modal-input
+  padding 0 20px
 </style>

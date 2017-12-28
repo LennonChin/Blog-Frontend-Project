@@ -17,6 +17,10 @@
         <iv-menu-item name="3-1">菜单</iv-menu-item>
         <iv-menu-item name="3-2">菜单</iv-menu-item>
         <iv-menu-item name="3-3">菜单</iv-menu-item>
+        <iv-menu-item name="3-2">菜单</iv-menu-item>
+        <iv-menu-item name="3-3">菜单</iv-menu-item>
+        <iv-menu-item name="3-2">菜单</iv-menu-item>
+        <iv-menu-item name="3-3">菜单</iv-menu-item>
       </iv-submenu>
     </iv-menu>
     <div class="content">

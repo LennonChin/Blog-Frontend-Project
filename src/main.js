@@ -32,10 +32,12 @@ import {
   DatePicker,
   DatePickerCell,
   Spin,
-  Switch
+  Switch,
+  Modal
 } from 'iview';
 
 Vue.prototype.$http = Axios;
+Vue.prototype.$Modal = Modal;
 
 Vue.component('iv-row', Row);
 Vue.component('iv-col', Col);
