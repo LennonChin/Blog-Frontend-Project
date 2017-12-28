@@ -8,8 +8,8 @@
       </div>
       <div class="bottom-area">
         <h4 class="title"><a :title="album.title">{{ album.title | textLineBreak(11) }}</a></h4>
-        <p class="info"><span class="author">By / <a>{{ album.author }}</a></span></p>
-        <p class="info"><span class="publish-time">At time / <a href="">{{ album.add_time | socialDate }}</a></span></p>
+        <p class="info"><span class="author"><a>By / {{ album.author }}</a></span></p>
+        <p class="info"><span class="publish-time"><a>At time / {{ album.add_time | socialDate }}</a></span></p>
         <p class="operate_info">
           <span class="readings"><a> {{ album.click_num }}次阅读</a></span> |
           <span class="comments"><a> {{ album.comment_num }}个评论</a></span> |
@@ -68,18 +68,16 @@
           a
             color $color-typegraphy-title
             &:hover
-              text-decoration underline
               color $color-typegraphy-title-hover
         .info
           margin-bottom 10px
           font-size 14px
           font-weight 200
           a
-            color: #777
+            color $color-typegraphy-subtitle
             cursor pointer
             &:hover
               color $color-main-primary
-              text-decoration underline
         .operate_info
           font-size 14px
           margin-top 15px
@@ -88,8 +86,8 @@
             + span
               margin-left 5px
             a
+              color $color-typegraphy-subtitle
               cursor pointer
               &:hover
                 color $color-main-primary
-                text-decoration underline
 </style>

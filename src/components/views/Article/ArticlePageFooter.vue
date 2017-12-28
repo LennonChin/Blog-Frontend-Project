@@ -1,7 +1,7 @@
 <template>
-  <div class="article-page-footer">
-    <license-tag></license-tag>
-    <social-section></social-section>
+  <div class="article-page-footer" v-if="article != undefined">
+    <license-tag :license="article.license"></license-tag>
+    <social-section :article="article"></social-section>
   </div>
 </template>
 
@@ -10,6 +10,12 @@
   import SocialSection from '@/components/views/Comment/SocialSection';
 
   export default {
+    props: {
+      article: {
+        Type: Object,
+        default: undefined
+      }
+    },
     methods: {
       onSubmit() {
         console.log('submit!');

@@ -17,7 +17,7 @@
             </router-link>
             </p>
             <p class="operate_info">
-              <span class="publish-time">At time / <a>{{ article.add_time | socialDate }}</a></span>
+              <span class="publish-time"><a>At time / {{ article.add_time | socialDate }}</a></span>
               <span class="readings"><a><iv-icon type="eye"></iv-icon> {{article.click_num}} 阅读</a></span>
               <span class="comments"><a><iv-icon type="compose"></iv-icon> {{article.comment_num}} 评论</a></span>
               <span class="likes"><a><iv-icon type="heart"></iv-icon> {{article.like_num}} 喜欢</a></span>
@@ -137,7 +137,7 @@
         .tags
           margin: 8px 0
         .desc
-          color #666
+          color $color-typegraphy-subtitle
           font-size 14px
           line-height 20px
           font-weight 200
@@ -155,10 +155,10 @@
             + span
               margin-left 8px
             a
+              color $color-typegraphy-subtitle
               cursor pointer
               &:hover
                 color $color-main-primary
-                text-decoration underline
       .img-wrapper
         padding-bottom: 85%
         width: 100%

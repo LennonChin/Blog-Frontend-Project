@@ -1,77 +1,116 @@
-article#article-main-page {
+article.article-main-content {
   text-align: left;
 }
-article#article-main-page h1,
-article#article-main-page h2,
-article#article-main-page h3,
-article#article-main-page h4,
-article#article-main-page h5,
-article#article-main-page h6,
-article#article-main-page h7 {
-  padding: 25px 0 15px;
-  padding-top: 100px;
-  margin-top: -100px;
+article.article-main-content h1,
+article.article-main-content h2,
+article.article-main-content h3,
+article.article-main-content h4,
+article.article-main-content h5,
+article.article-main-content h6,
+article.article-main-content h7 {
+  padding-bottom: 15px;
+  padding-top: 90px;
+  margin-top: -70px;
   font-weight: 700;
 }
-article#article-main-page h1:focus,
-article#article-main-page h2:focus,
-article#article-main-page h3:focus,
-article#article-main-page h4:focus,
-article#article-main-page h5:focus,
-article#article-main-page h6:focus,
-article#article-main-page h7:focus {
+article.article-main-content h1:focus,
+article.article-main-content h2:focus,
+article.article-main-content h3:focus,
+article.article-main-content h4:focus,
+article.article-main-content h5:focus,
+article.article-main-content h6:focus,
+article.article-main-content h7:focus {
   outline: none;
 }
-article#article-main-page h1::before,
-article#article-main-page h2::before,
-article#article-main-page h3::before,
-article#article-main-page h4::before,
-article#article-main-page h5::before,
-article#article-main-page h6::before,
-article#article-main-page h7::before {
-  display: block;
-  content: " ";
-  height: 0;
-  visibility: hidden;
-}
-article#article-main-page h1 {
+article.article-main-content h1 {
   font-size: 27px;
 }
-article#article-main-page h2 {
+article.article-main-content h2 {
   font-size: 25px;
 }
-article#article-main-page h3 {
+article.article-main-content h3 {
   font-size: 22px;
 }
-article#article-main-page h4,
-article#article-main-page h5,
-article#article-main-page h6,
-article#article-main-page h7 {
+article.article-main-content h4,
+article.article-main-content h5,
+article.article-main-content h6,
+article.article-main-content h7 {
   font-size: 20px;
 }
-article#article-main-page ul,
-article#article-main-page ol {
+article.article-main-content ul,
+article.article-main-content ol {
   list-style-type: square;
   line-height: 1.5em;
   padding-left: 2.5em;
 }
-article#article-main-page li {
+article.article-main-content li {
   list-style-type: square;
   margin: 0.5em 0;
   color: #333;
   font-weight: 200;
 }
-article#article-main-page p {
+article.article-main-content p {
   font-size: 17px;
   line-height: 25px;
   color: #333;
   font-weight: 200;
   margin: 15px 0;
 }
-article#article-main-page img {
+article.article-main-content img {
   width: 100%;
 }
-article#article-main-page code.hljs {
+.comment-main-content h1,
+.comment-main-content h2,
+.comment-main-content h3,
+.comment-main-content h4,
+.comment-main-content h5,
+.comment-main-content h6,
+.comment-main-content h7 {
+  padding: 0;
+  margin: 0;
+  font-weight: 500;
+}
+.comment-main-content h1 {
+  font-size: 20px;
+}
+.comment-main-content h2 {
+  font-size: 17px;
+}
+.comment-main-content h3 {
+  font-size: 15px;
+}
+.comment-main-content h4,
+.comment-main-content h5,
+.comment-main-content h6,
+.comment-main-content h7 {
+  font-size: 14px;
+}
+.comment-main-content ul,
+.comment-main-content ol {
+  list-style-type: square;
+  line-height: 1.5em;
+  padding-left: 2.5em;
+}
+.comment-main-content li {
+  list-style-type: square;
+  margin: 0.5em 0;
+  color: #333;
+  font-weight: 200;
+}
+.comment-main-content p {
+  font-size: 16px;
+  line-height: 22px;
+  color: #333;
+  font-weight: 200;
+  margin: 8px 0;
+}
+.comment-main-content img {
+  width: 100%;
+}
+pre {
+  margin-bottom: 18px;
+}
+code.hljs {
   display: block;
   padding: 0;
   border: 0;
@@ -83,13 +122,13 @@ article#article-main-page code.hljs {
   color: #333;
   white-space: pre-wrap;
 }
-article#article-main-page code.hljs > ul {
+code.hljs > ul {
   list-style: decimal;
   margin: 30px 0 0 45px !important;
   padding: 0;
   background-color: #fff;
 }
-article#article-main-page code.hljs > ul > li {
+code.hljs > ul > li {
   list-style: decimal-leading-zero;
   padding: 5px;
   margin: 0;
@@ -99,7 +138,7 @@ article#article-main-page code.hljs > ul > li {
   word-break: break-all;
   word-wrap: break-word;
 }
-article#article-main-page code.hljs > ul > li:nth-of-type(even) {
+code.hljs > ul > li:nth-of-type(even) {
   background-color: #fafafa;
   color: inherit;
 }

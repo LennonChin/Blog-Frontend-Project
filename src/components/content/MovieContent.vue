@@ -9,7 +9,7 @@
         <iv-col :xs="24" :sm="24" :md="24" :lg="17">
           <div class="layout-left">
             <movie-page-content>
-              <article v-if="movie != undefined" id="article-main-page" class="typo container" slot="content" v-html="movie.detail.formatted_content" ref="article"></article>
+              <article v-if="movie != undefined" id="article-main-page" class="typo container article-main-content" slot="content" v-html="movie.detail.formatted_content" ref="article"></article>
             </movie-page-content>
           </div>
         </iv-col>
@@ -96,20 +96,19 @@
         // 添加行号
         let blocks = this.$refs.article.querySelectorAll('pre code');
         blocks.forEach((block) => {
-          console.log(block);
           HLJS.highlightBlock(block);
           // 去前后空格并添加行号
           block.innerHTML = '<ul><li>' + block.innerHTML.replace(/(^\s*)|(\s*$)/g, '').replace(/\n/g, '\n</li><li>') + '\n</li></ul>';
         });
-      },
-      watch: {
-        movie: function (newMovie) {
-          this.$nextTick(() => {
-            this.addCodeLineNumber();
-            this.addTocScrollSpy();
-            window.scrollTo(0, 0);
-          });
-        }
+      }
+    },
+    watch: {
+      movie: function (newMovie) {
+        this.$nextTick(() => {
+          this.addCodeLineNumber();
+          this.addTocScrollSpy();
+          window.scrollTo(0, 0);
+        });
       }
     }
   };

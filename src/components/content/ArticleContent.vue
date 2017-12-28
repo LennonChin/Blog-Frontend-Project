@@ -5,11 +5,11 @@
         <div class="layout-left">
           <article-page-header :article="article"></article-page-header>
           <article-page-content>
-            <article v-if="article !== undefined" id="article-main-page" class="typo container" slot="content"
+            <article v-if="article !== undefined" id="article-main-page" class="typo container article-main-content" slot="content"
                      v-html="article.detail.formatted_content" ref="article">
             </article>
           </article-page-content>
-          <article-page-footer></article-page-footer>
+          <article-page-footer :article="article"></article-page-footer>
         </div>
       </iv-col>
       <iv-col :xs="0" :sm="0" :md="0" :lg="7">

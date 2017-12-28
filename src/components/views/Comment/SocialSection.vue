@@ -1,9 +1,9 @@
 <template>
-  <div class="social-section">
+  <div class="social-section" v-if="article != undefined">
     <iv-menu :active-name="'1'" :class="theme" mode="horizontal" style="z-index: 19;">
       <iv-menu-item name="1" style="padding-left: 0;">
         <iv-icon type="heart"></iv-icon>
-        {{recommends}} 人觉得很赞
+        {{ article.like_num }} 人觉得很赞
       </iv-menu-item>
       <iv-menu-item name="2" style="padding-left: 0;">
         <iv-icon type="heart"></iv-icon>
@@ -36,17 +36,17 @@
     </div>
 
     <div class="comment-list">
-      <comment-cell-list :theme="theme" :commentLevel="0"></comment-cell-list>
-      <comment-cell-list :theme="theme" :commentLevel="1"></comment-cell-list>
-      <comment-cell-list :theme="theme" :commentLevel="1"></comment-cell-list>
-      <comment-cell-list :theme="theme" :commentLevel="0"></comment-cell-list>
-      <comment-cell-list :theme="theme" :commentLevel="0"></comment-cell-list>
-      <comment-cell-list :theme="theme" :commentLevel="1"></comment-cell-list>
-      <comment-cell-list :theme="theme" :commentLevel="1"></comment-cell-list>
-      <comment-cell-list :theme="theme" :commentLevel="1"></comment-cell-list>
-      <comment-cell-list :theme="theme" :commentLevel="2"></comment-cell-list>
-      <comment-cell-list :theme="theme" :commentLevel="3"></comment-cell-list>
-      <comment-cell-list :theme="theme" :commentLevel="1"></comment-cell-list>
+      <comment-cell-list :theme="theme" :commentLevel="comment.comment_level" :comment="comment" v-for="comment in comments" :key="comment.id"></comment-cell-list>
+      <!--<comment-cell-list :theme="theme" :commentLevel="1"></comment-cell-list>-->
+      <!--<comment-cell-list :theme="theme" :commentLevel="1"></comment-cell-list>-->
+      <!--<comment-cell-list :theme="theme" :commentLevel="0"></comment-cell-list>-->
+      <!--<comment-cell-list :theme="theme" :commentLevel="0"></comment-cell-list>-->
+      <!--<comment-cell-list :theme="theme" :commentLevel="1"></comment-cell-list>-->
+      <!--<comment-cell-list :theme="theme" :commentLevel="1"></comment-cell-list>-->
+      <!--<comment-cell-list :theme="theme" :commentLevel="1"></comment-cell-list>-->
+      <!--<comment-cell-list :theme="theme" :commentLevel="2"></comment-cell-list>-->
+      <!--<comment-cell-list :theme="theme" :commentLevel="3"></comment-cell-list>-->
+      <!--<comment-cell-list :theme="theme" :commentLevel="1"></comment-cell-list>-->
     </div>
     <browse-more></browse-more>
   </div>
@@ -56,11 +56,14 @@
   import MavonEditor from '@/components/views/MavonEditor';
   import CommentListCell from '@/components/views/Comment/CommentListCell';
   import BrowseMore from '@/components/views/BrowseMore';
+  // API
+  import {getCommentInfo} from '@/api/api';
 
   export default {
     props: {
-      recommends: {
-        default: 1
+      article: {
+        Type: Object,
+        default: undefined
       },
       theme: {
         Type: String,
@@ -69,6 +72,7 @@
     },
     data() {
       return {
+        comments: [],
         spreadEditor: false,
         name: '',
         select: 'email',
@@ -76,16 +80,30 @@
         mobile: ''
       };
     },
-    components: {
-      'mavon-editor': MavonEditor,
-      'comment-cell-list': CommentListCell,
-      'browse-more': BrowseMore
+    created() {
+      this.getCommentInfo();
     },
     methods: {
+      getCommentInfo() {
+        getCommentInfo({
+          params: {
+            post_id: this.article.id
+          }
+        }).then((response) => {
+          this.comments = response.data.results;
+        }).catch(function (error) {
+          console.log(error);
+        });
+      },
       valueChanged(flag) {
         console.log(flag);
         this.spreadEditor = flag;
       }
+    },
+    components: {
+      'mavon-editor': MavonEditor,
+      'comment-cell-list': CommentListCell,
+      'browse-more': BrowseMore
     }
   };
 </script>

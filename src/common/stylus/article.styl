@@ -1,19 +1,14 @@
 @import "theme.styl"
 
-article#article-main-page
+article.article-main-content
   text-align left
   h1, h2, h3, h4, h5, h6, h7
-    padding 25px 0 15px
-    padding-top:100px;
-    margin-top:-100px;
+    padding-bottom 15px
+    padding-top 90px;
+    margin-top -70px;
     font-weight 700
     &:focus
       outline none
-    &::before
-      display: block
-      content: " "
-      height 0
-      visibility: hidden
   h1
     font-size 27px
   h2
@@ -39,35 +34,68 @@ article#article-main-page
     margin 15px 0
   img
     width 100%
-  code.hljs
-    display block
+
+.comment-main-content
+  h1, h2, h3, h4, h5, h6, h7
     padding 0
-    border 0
     margin 0
-    width 100%
+    font-weight 500
+  h1
+    font-size 20px
+  h2
+    font-size 17px
+  h3
+    font-size 15px
+  h4, h5, h6, h7
     font-size 14px
-    font-weight 100
-    background #eee !important
-    color #333
-    white-space pre-wrap
-    > ul
-      list-style decimal
-      margin 30px 0 0 45px !important
-      padding 0
-      background-color #fff
-      > li
-        list-style decimal-leading-zero
-        padding 5px
-        margin 0
-        line-height 16px
-        background #fcfcfc
-        border-left 1px solid #ddd
-        word-break break-all
-        word-wrap break-word
-        &:nth-of-type(even)
-          background-color #fafafa
-          color inherit
+  ul, ol
+    list-style-type square
+    line-height 1.5em
+    padding-left 2.5em
+  li
+    list-style-type square
+    margin .5em 0
+    color $color-typegraphy-title
+    font-weight 200
+  p
+    font-size 16px
+    line-height 22px
+    color $color-typegraphy-title
+    font-weight 200
+    margin 8px 0
+  img
+    width 100%
 
-
+// 代码相关
+pre
+  margin-bottom 18px
+code.hljs
+  display block
+  padding 0
+  border 0
+  margin 0
+  width 100%
+  font-size 14px
+  font-weight 100
+  background #eee !important
+  color #333
+  white-space pre-wrap
+  > ul
+    list-style decimal
+    margin 30px 0 0 45px !important
+    padding 0
+    background-color #fff
+    > li
+      list-style decimal-leading-zero
+      padding 5px
+      margin 0
+      line-height 16px
+      background #fcfcfc
+      border-left 1px solid #ddd
+      word-break break-all
+      word-wrap break-word
+      &:nth-of-type(even)
+        background-color #fafafa
+        color inherit
 
 

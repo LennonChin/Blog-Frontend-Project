@@ -14,14 +14,13 @@
                     :lg="cellRightSpan('lg')" :xl="cellRightSpan('xl')">
               <div class="content">
                 <p class="title">
-                  <span class="name" :class="theme"><a href="">Tom</a></span>
+                  <span class="name" :class="theme"><a>{{ comment.author }}</a></span>
                   <span class="name-tag">Mod</span>
                   <span class="reply-icon" :class="theme"><iv-icon type="forward"></iv-icon></span>
-                  <span class="reply-name" :class="theme"><a href="">Jerry</a></span>
-                  <span class="time">2 days age</span>
+                  <span class="reply-name" :class="theme"><a>{{ comment.reply_to_author }}</a></span>
+                  <span class="time">{{ comment.add_time | socialDate }}</span>
                 </p>
-                <p class="comment-content" :class="theme">
-                  针对于这种情况只能尽可能的保证可用吧。各个MQ都有方法处理重复消费，或者是本身的消费支持幂等也能解决，而且数据库也可能挂了哦。</p>
+                <p class="comment-main-content" :class="theme" v-html="comment.detail.formatted_content" ref="content"></p>
                 <div class="operate-area" :class="theme">
                   <span class="like"><iv-icon type="thumbsup"></iv-icon></span>
                   <span class="unlike"><iv-icon type="thumbsdown"></iv-icon></span>
@@ -56,6 +55,12 @@
 
 <script type="text/ecmascript-6">
   import MavonEditor from '@/components/views/MavonEditor';
+  // highlight.js引入
+  import hljs from 'highlight.js';
+  // 样式文件
+  import 'highlight.js/styles/zenburn.css';
+
+  var HLJS = hljs;
 
   const CELL_LEFT_SPAN = {
     'xs': 3,
@@ -72,13 +77,9 @@
 
   export default {
     props: {
-      commentLevel: {
-        default: 0
-      },
-      date: '',
-      count: '',
-      tipText: {
-        default: 'View All'
+      comment: {
+        Type: Object,
+        default: undefined
       },
       theme: {
         Type: String,
@@ -92,9 +93,18 @@
       };
     },
     methods: {
+      addCodeLineNumber() {
+        // 添加行号
+        let blocks = this.$refs.content.querySelectorAll('pre code');
+        blocks.forEach((block) => {
+          HLJS.highlightBlock(block);
+          // 去前后空格并添加行号
+          block.innerHTML = '<ul><li>' + block.innerHTML.replace(/(^\s*)|(\s*$)/g, '').replace(/\n/g, '\n</li><li>') + '\n</li></ul>';
+        });
+      },
       cellSpan(size) {
         var span = {};
-        span['offset'] = CELL_LEFT_SPAN[size] * this.commentLevel;
+        span['offset'] = CELL_LEFT_SPAN[size] * this.comment.comment_level;
         span['span'] = 24 - span['offset'];
         return span;
       },
@@ -111,6 +121,11 @@
       valueChanged(flag) {
         this.spreadEditor = flag;
       }
+    },
+    mounted() {
+      this.$nextTick(() => {
+        this.addCodeLineNumber();
+      });
     },
     components: {
       'mavon-editor': MavonEditor
@@ -129,7 +144,7 @@
         border-radius $border-radius
         width 100%
     .content
-      margin 5px 0 8px
+      margin 5px 0 20px
       .title
         font-size 0
         margin-bottom 5px
@@ -173,9 +188,10 @@
           font-size 13px
           color $light
           margin-left 8px
-      .comment-content
+      .comment-main-content
         font-size 16px
         line-height 24px
+        margin 10px 0 15px
         &.dark-theme
           color $color-gradually-gray-71
     .operate-area

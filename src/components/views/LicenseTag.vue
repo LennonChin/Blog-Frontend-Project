@@ -1,8 +1,8 @@
 <template>
-  <div class="license-tag">
-    <a :href="link" target="_blank">
-      <span class="name">License</span>
-      <span class="type">{{type}}</span>
+  <div class="license-tag" v-if="license != undefined">
+    <a :href="license.link" target="_blank">
+      <span class="name" :style="{background: license.color, border: '1px solid ' + license.color}">License</span>
+      <span class="type" :style="{color: license.color, border: '1px solid ' + license.color}">{{ license.name }}</span>
     </a>
   </div>
 </template>
@@ -10,11 +10,9 @@
 <script type="text/ecmascript-6">
   export default {
     props: {
-      link: {
-        default: 'https://creativecommons.org/licenses/by-sa/4.0/'
-      },
-      type: {
-        default: 'CC BY-SA 4.0'
+      license: {
+        Type: Object,
+        default: undefined
       }
     }
   };

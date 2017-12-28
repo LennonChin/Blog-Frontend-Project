@@ -14,8 +14,8 @@
         <h4 class="title">
           <router-link :to="{ name: 'album/detail', params:{ albumId: album.id }}" target="_blank">{{ album.title }}</router-link>
         </h4>
-        <p class="info"><span class="author">By / <a>{{ album.author }}</a></span></p>
-        <p class="info"><span class="publish-time">At time / <a href="">{{ album.add_time | socialDate}}</a></span></p>
+        <p class="info"><span class="author"><a>By / {{ album.author }}</a></span></p>
+        <p class="info"><span class="publish-time"><a>At time / {{ album.add_time | socialDate}}</a></span></p>
         <p class="operate_info">
           <span class="readings"><a> {{ album.click_num}}次阅读</a></span> |
           <span class="comments"><a> {{ album.comment_num}}个评论</a></span> |
@@ -125,11 +125,10 @@
           font-size 14px
           font-weight 200
           a
-            color: #777
+            color $color-typegraphy-subtitle
             cursor pointer
             &:hover
               color $color-main-primary
-              text-decoration underline
         .operate_info
           font-size 14px
           margin-top 15px
@@ -138,8 +137,8 @@
             + span
               margin-left 5px
             a
+              color $color-typegraphy-subtitle
               cursor pointer
               &:hover
                 color $color-main-primary
-                text-decoration underline
 </style>
