@@ -31,9 +31,13 @@
         </iv-col>
       </iv-row>
     </div>
-    <mavon-editor class="editor-area" style="height: 100%; min-height: 50px; min-width: 200px; z-index: 9;"
+    <mavon-editor v-model="origin_content"
+                  class="editor-area" style="height: 100%; min-height: 50px; min-width: 200px; z-index: 9;"
                   :toolbarsFlag="toolbarsFlag"
-                  :subfield="subfield" :placeholder="placeholder" :toolbars="toolbars" @change="change"></mavon-editor>
+                  :subfield="subfield"
+                  :placeholder="placeholder"
+                  :toolbars="toolbars"
+                  @change="change"></mavon-editor>
     <div class="bottom-area">
       <div class="comment-tip">
         <a href="https://guides.github.com/features/mastering-markdown/" target="_blank">
@@ -70,9 +74,6 @@
       },
       placeholder: {
         default: '输入评论内容...'
-      },
-      toolbarsFlag: {
-        default: false
       }
     },
     data() {
@@ -85,6 +86,7 @@
         origin_content: '',
         select: 'email',
         valueChanged: false,
+        toolbarsFlag: false,
         toolbars: {
           bold: true, // 粗体
           italic: true, // 斜体
@@ -127,14 +129,17 @@
         return this.theme === 'dark-theme' ? 'warning' : 'primary';
       }
     },
-    name: 'editor',
-    components: {
-      'mavon-editor': MavonEditor.mavonEditor
-    },
     methods: {
+      getLocalCommentUser() {
+        if (loadFromLocal('comment_auth', 'email', undefined) !== undefined &&
+                loadFromLocal('comment_auth', 'verified', false) &&
+                loadFromLocal('comment_auth', 'author_id', undefined) !== undefined &&
+                loadFromLocal('comment_auth', 'nick_name', undefined) !== undefined) {
+          this.nickName = loadFromLocal('comment_auth', 'nick_name', '');
+          this.email = loadFromLocal('comment_auth', 'email', '');
+        }
+      },
       change(value) {
-        this.origin_content = value;
-        console.log(this.origin_content);
         if (value.length > 0) {
           if (!this.valueChanged) {
             this.$emit('valueChanged', true);
@@ -190,7 +195,10 @@
           });
           return;
         }
-        if (loadFromLocal('comment', this.email, '') !== 'verified') {
+        if (!(loadFromLocal('comment_auth', 'email', '') === this.email &&
+                loadFromLocal('comment_auth', 'verified', false) &&
+                loadFromLocal('comment_auth', 'author_id', undefined) !== undefined &&
+                loadFromLocal('comment_auth', 'nick_name', undefined) !== undefined)) {
           // 该邮箱在本地没有评论记录,需要验证邮箱
           var that = this;
           getEmailCode({
@@ -242,9 +250,12 @@
                     code: this.email_code
                   }
                 }).then((response) => {
-                  saveToLocal('comment', this.email, 'verified');
                   this.guest = response.data.guest;
                   console.log(this.guest);
+                  saveToLocal('comment_auth', 'email', this.email);
+                  saveToLocal('comment_auth', 'verified', true);
+                  saveToLocal('comment_auth', 'author_id', this.guest);
+                  saveToLocal('comment_auth', 'nick_name', this.nickName);
                   this.publish();
                 }).catch(function (error) {
                   that.$Notice.error({
@@ -262,6 +273,7 @@
           });
         } else {
           // 该邮箱在本地有评论记录,直接评论
+          this.guest = loadFromLocal('comment_auth', 'author_id', undefined);
           this.publish();
         }
       },
@@ -269,20 +281,24 @@
         console.log('publish');
         var that = this;
         addCommentInfo({
-          params: {
-            detail: {
-              origin_content: this.origin_content
-            },
-            author: this.guest,
-            reply_to_author: undefined,
-            comment_level: 0,
-            is_active: true,
-            post: this.post.id,
-            parent_comment: null,
-            reply_to_comment: null
-          }
+          detail: {
+            origin_content: this.origin_content
+          },
+          author: this.guest,
+          reply_to_author: undefined,
+          comment_level: 0,
+          is_active: true,
+          post: this.post.id,
+          parent_comment: null,
+          reply_to_comment: null
         }).then((response) => {
           console.log(response);
+          // 清空评论框内容
+          this.origin_content = '';
+          that.$Notice.success({
+            title: '提示',
+            desc: '发送评论成功'
+          });
         }).catch(function (error) {
           that.$Notice.error({
             title: '发送评论失败',
@@ -292,10 +308,16 @@
       }
     },
     mounted() {
+      // 获取本地有效用户的信息
+      this.getLocalCommentUser();
+      // 监听屏幕大小
       var that = this;
       window.onresize = function temp() {
         that.listenWindowWidth();
       };
+    },
+    components: {
+      'mavon-editor': MavonEditor.mavonEditor
     }
   };
 </script>

@@ -41,19 +41,12 @@
 
     <div class="comment-list">
       <div v-for="comment_level1 in comments" :key="comment_level1.id">
-        <comment-cell-list :theme="theme" :commentLevel="comment_level1.comment_level" :comment="comment_level1"></comment-cell-list>
-        <comment-cell-list :theme="theme" :commentLevel="comment_level2.comment_level" :comment="comment_level2" v-for="comment_level2 in comment_level1.sub_comment" :key="comment_level2.id"></comment-cell-list>
+        <comment-cell-list :theme="theme" :commentLevel="comment_level1.comment_level"
+                           :comment="comment_level1"></comment-cell-list>
+        <comment-cell-list :theme="theme" :commentLevel="comment_level2.comment_level" :comment="comment_level2"
+                           v-for="comment_level2 in comment_level1.sub_comment"
+                           :key="comment_level2.id"></comment-cell-list>
       </div>
-      <!--<comment-cell-list :theme="theme" :commentLevel="1"></comment-cell-list>-->
-      <!--<comment-cell-list :theme="theme" :commentLevel="1"></comment-cell-list>-->
-      <!--<comment-cell-list :theme="theme" :commentLevel="0"></comment-cell-list>-->
-      <!--<comment-cell-list :theme="theme" :commentLevel="0"></comment-cell-list>-->
-      <!--<comment-cell-list :theme="theme" :commentLevel="1"></comment-cell-list>-->
-      <!--<comment-cell-list :theme="theme" :commentLevel="1"></comment-cell-list>-->
-      <!--<comment-cell-list :theme="theme" :commentLevel="1"></comment-cell-list>-->
-      <!--<comment-cell-list :theme="theme" :commentLevel="2"></comment-cell-list>-->
-      <!--<comment-cell-list :theme="theme" :commentLevel="3"></comment-cell-list>-->
-      <!--<comment-cell-list :theme="theme" :commentLevel="1"></comment-cell-list>-->
     </div>
     <browse-more></browse-more>
   </div>
