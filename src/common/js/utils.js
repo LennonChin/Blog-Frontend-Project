@@ -1,4 +1,5 @@
-var socialDateFormat = function socialDateFormat(formateDate) {
+// 按社交方式格式化时间
+export function socialDateFormat(formateDate) {
   var timestamp = Date.parse(new Date(formateDate));
   // 获取时间戳
   var time = new Date().getTime();
@@ -29,4 +30,32 @@ var socialDateFormat = function socialDateFormat(formateDate) {
   }
 };
 
-export default socialDateFormat;
+// 存储到LocalStorage
+export function saveToLocal(id, key, value) {
+  let blog = window.localStorage.__blog__;
+  if (!blog) {
+    blog = {};
+    blog[id] = {};
+  } else {
+    blog = JSON.parse(blog);
+    if (!blog[id]) {
+      blog[id] = {};
+    }
+  }
+  blog[id][key] = value;
+  window.localStorage.__blog__ = JSON.stringify(blog);
+};
+
+// 从LocalStorage中取
+export function loadFromLocal(id, key, def) {
+  let blog = window.localStorage.__blog__;
+  if (!blog) {
+    return def;
+  }
+  blog = JSON.parse(blog)[id];
+  if (!blog) {
+    return def;
+  }
+  let ret = blog[key];
+  return ret || def;
+};

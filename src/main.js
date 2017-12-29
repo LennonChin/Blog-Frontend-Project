@@ -7,7 +7,7 @@ import App from './App.vue';
 // 全局加载resource拦截器
 import './axios/';
 import Axios from 'axios';
-import socialDateFormat from '@/common/js/utils';
+import {socialDateFormat} from '@/common/js/utils';
 import {LineBreakMode, ResponsivePoint} from '@/common/js/const';
 
 // iView UI 组件引入
@@ -33,11 +33,15 @@ import {
   DatePickerCell,
   Spin,
   Switch,
-  Modal
+  Modal,
+  Message,
+  Notice
 } from 'iview';
 
 Vue.prototype.$http = Axios;
 Vue.prototype.$Modal = Modal;
+Vue.prototype.$Message = Message;
+Vue.prototype.$Notice = Notice;
 
 Vue.component('iv-row', Row);
 Vue.component('iv-col', Col);

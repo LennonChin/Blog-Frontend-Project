@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-let localHost = 'http://192.168.1.3:8000';
+let localHost = 'http://169.254.61.235:8000';
 
 // 获取博主信息
 export const getBloggerInfo = params => {
@@ -116,5 +116,24 @@ export const getCommentInfo = params => {
     return axios.get(`${localHost}/comments/` + params.id + '/');
   } else {
     return axios.get(`${localHost}/comments/`, params);
+  }
+};
+
+// 创建评论
+export const addCommentInfo = params => {
+  return axios.post(`${localHost}/comments/`, params);
+};
+
+// 获取邮箱验证码
+export const getEmailCode = params => {
+  return axios.post(`${localHost}/emailCode/`, params);
+};
+
+// 验证邮箱验证码
+export const verifyEmailCode = params => {
+  if ('id' in params) {
+    return axios.get(`${localHost}/emailCode/` + params.id + '/');
+  } else {
+    return axios.get(`${localHost}/emailCode/`, params);
   }
 };

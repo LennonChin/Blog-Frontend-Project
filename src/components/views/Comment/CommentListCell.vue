@@ -16,8 +16,8 @@
                 <p class="title">
                   <span class="name" :class="theme"><a>{{ comment.author.nick_name }}</a></span>
                   <span class="name-tag">Mod</span>
-                  <span class="reply-icon" :class="theme"><iv-icon type="forward"></iv-icon></span>
-                  <span class="reply-name" :class="theme"><a>{{ comment.reply_to_author.nick_name }}</a></span>
+                  <span class="reply-icon" :class="theme" v-if="comment.reply_to_author != undefined"><iv-icon type="forward"></iv-icon></span>
+                  <span class="reply-name" :class="theme" v-if="comment.reply_to_author != undefined"><a>{{ comment.reply_to_author.nick_name }}</a></span>
                   <span class="time">{{ comment.add_time | socialDate }}</span>
                 </p>
                 <p class="comment-main-content" :class="theme" v-html="comment.detail.formatted_content" ref="content"></p>

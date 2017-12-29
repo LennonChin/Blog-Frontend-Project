@@ -3,15 +3,15 @@
     <div class="operate">
       <iv-row>
         <iv-col :xs="8" :sm="8" :md="6" :lg="6" style="padding-left: 0; padding-right: 7.5px;">
-          <iv-input v-model="name" placeholder="请输入您的昵称" size="large">
+          <iv-input v-model="nickName" placeholder="请输入您的昵称" size="large">
             <span slot="prepend">昵称 </span>
           </iv-input>
         </iv-col>
         <iv-col :xs="16" :sm="16" :md="12" :lg="11" style="padding-left: 0; padding-right: 0;">
           <iv-input v-model="email" placeholder="联系方式（邮箱或手机号）以评论" size="large">
             <iv-select v-model="select" slot="prepend" style="width: 80px">
-              <iv-option value="email">邮箱 </iv-option>
-              <iv-option value="mobile">手机号 </iv-option>
+              <iv-option value="email">邮箱</iv-option>
+              <!--<iv-option value="mobile">手机号 </iv-option>-->
             </iv-select>
           </iv-input>
         </iv-col>
@@ -38,11 +38,11 @@
       <div class="comment-tip">
         <a href="https://guides.github.com/features/mastering-markdown/" target="_blank">
           <iv-icon
-            type="information-circled"></iv-icon>
+                  type="information-circled"></iv-icon>
           支持MarkDown</a>
       </div>
       <div class="buttons">
-        <iv-button size="default" @click="publish" :type="buttonType">发布</iv-button>
+        <iv-button size="default" @click="send" :type="buttonType">发布</iv-button>
       </div>
     </div>
   </div>
@@ -51,9 +51,16 @@
 <script type="text/ecmascript-6">
   import MavonEditor from 'mavon-editor';
   import 'mavon-editor/dist/css/index.css';
+  import {loadFromLocal, saveToLocal} from '@/common/js/utils';
+  // API
+  import {getEmailCode, verifyEmailCode, addCommentInfo} from '@/api/api';
 
   export default {
     props: {
+      post: {
+        Type: Object,
+        default: undefined
+      },
       theme: {
         Type: String,
         default: ''
@@ -70,10 +77,13 @@
     },
     data() {
       return {
-        name: '',
-        select: 'email',
+        guest: undefined,
+        reply_to: undefined,
+        nickName: '',
         email: '',
         mobile: '',
+        origin_content: '',
+        select: 'email',
         valueChanged: false,
         toolbars: {
           bold: true, // 粗体
@@ -123,6 +133,8 @@
     },
     methods: {
       change(value) {
+        this.origin_content = value;
+        console.log(this.origin_content);
         if (value.length > 0) {
           if (!this.valueChanged) {
             this.$emit('valueChanged', true);
@@ -156,44 +168,126 @@
           this.$set(this.toolbars, 'subfield', true);
         }
       },
+      send() {
+        if (this.nickName.length === 0) {
+          this.$Notice.warning({
+            title: '提示',
+            desc: '您需要填写昵称'
+          });
+          return;
+        }
+        if (this.email.length === 0) {
+          this.$Notice.warning({
+            title: '提示',
+            desc: '您需要填写您的邮箱'
+          });
+          return;
+        }
+        if (this.origin_content.length === 0) {
+          this.$Notice.warning({
+            title: '提示',
+            desc: '您需要填写评论内容'
+          });
+          return;
+        }
+        if (loadFromLocal('comment', this.email, '') !== 'verified') {
+          // 该邮箱在本地没有评论记录,需要验证邮箱
+          var that = this;
+          getEmailCode({
+            nick_name: this.nickName,
+            email: this.email
+          }).then((response) => {
+            var that = this;
+            this.$Modal.confirm({
+              render: (h) => {
+                let children = [];
+                children.push(h('h2', {
+                  domProps: {
+                    innerHTML: '提示'
+                  },
+                  'class': {
+                    'modal-title': true
+                  }
+                }));
+                children.push(h('p', {
+                  domProps: {
+                    innerHTML: '已经向您的邮箱发送了验证码，请输入验证码验证邮箱有效性后再进行评论'
+                  },
+                  'class': {
+                    'modal-message': true
+                  }
+                }));
+                children.push(h('iv-input', {
+                  props: {
+                    value: this.value,
+                    autofocus: true,
+                    placeholder: '请输入验证码'
+                  },
+                  'class': {
+                    'modal-input': true
+                  },
+                  on: {
+                    input: (value) => {
+                      this.email_code = value;
+                    }
+                  }
+                }));
+                return h('div', {}, children);
+              },
+              onOk: () => {
+                verifyEmailCode({
+                  params: {
+                    email: that.email,
+                    nick_name: that.nickName,
+                    code: this.email_code
+                  }
+                }).then((response) => {
+                  saveToLocal('comment', this.email, 'verified');
+                  this.guest = response.data.guest;
+                  console.log(this.guest);
+                  this.publish();
+                }).catch(function (error) {
+                  that.$Notice.error({
+                    title: '验证码验证失败',
+                    desc: error.error
+                  });
+                });
+              }
+            });
+          }).catch(function (error) {
+            that.$Notice.error({
+              title: '验证码发送失败',
+              desc: error.email
+            });
+          });
+        } else {
+          // 该邮箱在本地有评论记录,直接评论
+          this.publish();
+        }
+      },
       publish() {
-        this.$Modal.confirm({
-          render: (h) => {
-            let children = [];
-            children.push(h('h2', {
-              domProps: {
-                innerHTML: '提示'
-              },
-              'class': {
-                'modal-title': true
-              }
-            }));
-            children.push(h('p', {
-              domProps: {
-                innerHTML: '已经向您的邮箱发送了验证码，请输入验证码验证邮箱有效性后再进行评论'
-              },
-              'class': {
-                'modal-message': true
-              }
-            }));
-            children.push(h('iv-input', {
-              props: {
-                value: this.value,
-                autofocus: true,
-                placeholder: '请输入验证码'
-              },
-              'class': {
-                'modal-input': true
-              },
-              on: {
-                input: (val) => {
-                  console.log(val);
-                  this.value = val;
-                }
-              }
-            }));
-            return h('div', {}, children);
+        console.log('publish');
+        var that = this;
+        addCommentInfo({
+          params: {
+            detail: {
+              origin_content: this.origin_content
+            },
+            author: this.guest,
+            reply_to_author: undefined,
+            comment_level: 0,
+            is_active: true,
+            post: this.post.id,
+            parent_comment: null,
+            reply_to_comment: null
           }
+        }).then((response) => {
+          console.log(response);
+        }).catch(function (error) {
+          that.$Notice.error({
+            title: '发送评论失败',
+            desc: error.error
+          });
         });
       }
     },
@@ -254,16 +348,18 @@
             &:hover
               color $color-secondary-warning
 
-.modal-title
-  font-size 22px
-  font-weight 700
-  text-align center
-  padding-bottom 10px
-.modal-message
-  font-size 16px
-  line-height 28px
-  text-align center
-  padding-bottom 15px
-.modal-input
-  padding 0 20px
+  .modal-title
+    font-size 22px
+    font-weight 700
+    text-align center
+    padding-bottom 10px
+
+  .modal-message
+    font-size 16px
+    line-height 28px
+    text-align center
+    padding-bottom 15px
+
+  .modal-input
+    padding 0 20px
 </style>

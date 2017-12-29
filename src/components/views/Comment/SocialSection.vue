@@ -35,12 +35,15 @@
 
     <div class="comment-area">
       <div class="editor" :class="{spread: spreadEditor}">
-        <mavon-editor :theme="theme" @valueChanged="valueChanged"></mavon-editor>
+        <mavon-editor :post="article" :theme="theme" @valueChanged="valueChanged"></mavon-editor>
       </div>
     </div>
 
     <div class="comment-list">
-      <comment-cell-list :theme="theme" :commentLevel="comment.comment_level" :comment="comment" v-for="comment in comments" :key="comment.id"></comment-cell-list>
+      <div v-for="comment_level1 in comments" :key="comment_level1.id">
+        <comment-cell-list :theme="theme" :commentLevel="comment_level1.comment_level" :comment="comment_level1"></comment-cell-list>
+        <comment-cell-list :theme="theme" :commentLevel="comment_level2.comment_level" :comment="comment_level2" v-for="comment_level2 in comment_level1.sub_comment" :key="comment_level2.id"></comment-cell-list>
+      </div>
       <!--<comment-cell-list :theme="theme" :commentLevel="1"></comment-cell-list>-->
       <!--<comment-cell-list :theme="theme" :commentLevel="1"></comment-cell-list>-->
       <!--<comment-cell-list :theme="theme" :commentLevel="0"></comment-cell-list>-->
@@ -91,7 +94,8 @@
       getCommentInfo() {
         getCommentInfo({
           params: {
-            post_id: this.article.id
+            post_id: this.article.id,
+            comment_level: 0
           }
         }).then((response) => {
           this.comments = response.data.results;
