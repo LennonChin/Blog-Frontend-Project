@@ -3,6 +3,7 @@
     <a :href="license.link" target="_blank">
       <span class="name" :style="{background: license.color, border: '1px solid ' + license.color}">License</span>
       <span class="type" :style="{color: license.color, border: '1px solid ' + license.color}">{{ license.name }}</span>
+      <span class="desc">{{ license.desc }}</span>
     </a>
   </div>
 </template>
@@ -30,7 +31,7 @@
       &:hover
         cursor pointer
         text-decoration none
-      .name, .type
+      .name, .type, .desc
         display inline-block
         padding 5px 8px
         font-size 15px
@@ -44,5 +45,8 @@
         background-color $white
         color $color-main-primary
         border 1px solid $color-main-primary
+      .desc
+        font-size 14px
+        color $color-gradually-gray-51
 
 </style>

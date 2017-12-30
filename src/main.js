@@ -35,7 +35,8 @@ import {
   Switch,
   Modal,
   Message,
-  Notice
+  Notice,
+  Avatar
 } from 'iview';
 
 Vue.prototype.$http = Axios;
@@ -64,6 +65,7 @@ Vue.component('iv-date-picker', DatePicker);
 Vue.component('iv-date-picker-cell', DatePickerCell);
 Vue.component('iv-spin', Spin);
 Vue.component('iv-switch', Switch);
+Vue.component('iv-avatar', Avatar);
 
 // 全局混合
 Vue.mixin({
