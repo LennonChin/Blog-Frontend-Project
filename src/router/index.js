@@ -1,25 +1,24 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import {LoadingBar} from 'iview';
-import Index from '@/components/index/Index';
+const Index = resolve => require(['@/components/index/Index'], resolve);
 
 // 公共区域
-// import CommonHeader from '@/components/header/CommonHeader';
-import SimpleHeader from '@/components/header/SimpleHeader/SimpleHeader';
-import CommonFooter from '@/components/footer/CommonFooter';
+const SimpleHeader = resolve => require(['@/components/header/SimpleHeader/SimpleHeader'], resolve);
+const CommonFooter = resolve => require(['@/components/footer/CommonFooter'], resolve);
 
 // 首页
-import HomeContent from '@/components/content/HomeContent';
-import ArticleContent from '@/components/content/ArticleContent';
-import ArticleHomeContent from '@/components/content/ArticleHomeContent';
-import ArticleListContent from '@/components/content/ArticleListContent';
-import AlbumHomeContent from '@/components/content/AlbumHomeContent';
-import AlbumListContent from '@/components/content/AlbumListContent';
-import MovieContent from '@/components/content/MovieContent';
-import MovieHomeContent from '@/components/content/MovieHomeContent';
-import MovieListContent from '@/components/content/MovieListContent';
-import AlbumPreviewContent from '@/components/content/AlbumPreviewContent';
-import TimeLineContent from '@/components/content/TimeLineContent';
+const HomeContent = resolve => require(['@/components/content/HomeContent'], resolve);
+const ArticleContent = resolve => require(['@/components/content/ArticleContent'], resolve);
+const ArticleHomeContent = resolve => require(['@/components/content/ArticleHomeContent'], resolve);
+const ArticleListContent = resolve => require(['@/components/content/ArticleListContent'], resolve);
+const AlbumHomeContent = resolve => require(['@/components/content/AlbumHomeContent'], resolve);
+const AlbumListContent = resolve => require(['@/components/content/AlbumListContent'], resolve);
+const MovieContent = resolve => require(['@/components/content/MovieContent'], resolve);
+const MovieHomeContent = resolve => require(['@/components/content/MovieHomeContent'], resolve);
+const MovieListContent = resolve => require(['@/components/content/MovieListContent'], resolve);
+const AlbumPreviewContent = resolve => require(['@/components/content/AlbumPreviewContent'], resolve);
+const TimeLineContent = resolve => require(['@/components/content/TimeLineContent'], resolve);
 
 Vue.use(Router);
 

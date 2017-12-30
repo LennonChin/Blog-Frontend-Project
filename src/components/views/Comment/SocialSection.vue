@@ -41,11 +41,16 @@
 
     <div class="comment-list">
       <div v-for="comment_level1 in comments" :key="comment_level1.id">
-        <comment-cell-list :theme="theme" :commentLevel="comment_level1.comment_level"
+        <comment-cell-list :theme="theme"
+                           :post="article"
+                           :commentLevel="comment_level1.comment_level"
                            :comment="comment_level1"></comment-cell-list>
-        <comment-cell-list :theme="theme" :commentLevel="comment_level2.comment_level" :comment="comment_level2"
-                           v-for="comment_level2 in comment_level1.sub_comment"
-                           :key="comment_level2.id"></comment-cell-list>
+        <comment-cell-list :theme="theme"
+                           :post="article"
+                           :commentLevel="comment_level2.comment_level"
+                           :comment="comment_level2"
+                           :key="comment_level2.id"
+                           v-for="comment_level2 in comment_level1.sub_comment"></comment-cell-list>
       </div>
     </div>
     <browse-more></browse-more>

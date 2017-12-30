@@ -42,7 +42,7 @@
       <div class="comment-tip">
         <a href="https://guides.github.com/features/mastering-markdown/" target="_blank">
           <iv-icon
-                  type="information-circled"></iv-icon>
+            type="information-circled"></iv-icon>
           支持MarkDown</a>
       </div>
       <div class="buttons">
@@ -62,6 +62,10 @@
   export default {
     props: {
       post: {
+        Type: Object,
+        default: undefined
+      },
+      replyToComment: {
         Type: Object,
         default: undefined
       },
@@ -132,12 +136,37 @@
     methods: {
       getLocalCommentUser() {
         if (loadFromLocal('comment_auth', 'email', undefined) !== undefined &&
-                loadFromLocal('comment_auth', 'verified', false) &&
-                loadFromLocal('comment_auth', 'author_id', undefined) !== undefined &&
-                loadFromLocal('comment_auth', 'nick_name', undefined) !== undefined) {
+          loadFromLocal('comment_auth', 'verified', false) &&
+          loadFromLocal('comment_auth', 'author_id', undefined) !== undefined &&
+          loadFromLocal('comment_auth', 'nick_name', undefined) !== undefined) {
           this.nickName = loadFromLocal('comment_auth', 'nick_name', '');
           this.email = loadFromLocal('comment_auth', 'email', '');
         }
+      },
+      comment_level: function () {
+        console.log('comment_level');
+        console.log('comment_level', this.replyToComment);
+        if (this.replyToComment === undefined) return 0;
+        return 1;
+      },
+      reply_to_author: function () {
+        console.log('reply_to_author');
+        console.log('reply_to_author', this.replyToComment.author.id);
+        if (this.replyToComment === undefined) return null;
+        return this.replyToComment.author.id;
+      },
+      parent_comment: function () {
+        console.log('parent_comment');
+        console.log('parent_comment', this.replyToComment.parent_comment);
+        if (this.replyToComment === undefined) return null;
+        if (this.replyToComment.parent_comment === null) return this.replyToComment.id;
+        return this.replyToComment.parent_comment;
+      },
+      reply_to_comment: function () {
+        console.log('replyToComment.id');
+        console.log('replyToComment.id', this.replyToComment.id);
+        if (this.replyToComment === undefined) return null;
+        return this.replyToComment.id;
       },
       change(value) {
         if (value.length > 0) {
@@ -195,10 +224,11 @@
           });
           return;
         }
+        console.log('replyToComment', this.replyToComment);
         if (!(loadFromLocal('comment_auth', 'email', '') === this.email &&
-                loadFromLocal('comment_auth', 'verified', false) &&
-                loadFromLocal('comment_auth', 'author_id', undefined) !== undefined &&
-                loadFromLocal('comment_auth', 'nick_name', undefined) !== undefined)) {
+            loadFromLocal('comment_auth', 'verified', false) &&
+            loadFromLocal('comment_auth', 'author_id', undefined) !== undefined &&
+            loadFromLocal('comment_auth', 'nick_name', undefined) !== undefined)) {
           // 该邮箱在本地没有评论记录,需要验证邮箱
           var that = this;
           getEmailCode({
@@ -278,19 +308,18 @@
         }
       },
       publish() {
-        console.log('publish');
         var that = this;
         addCommentInfo({
           detail: {
             origin_content: this.origin_content
           },
           author: this.guest,
-          reply_to_author: undefined,
-          comment_level: 0,
+          reply_to_author: this.reply_to_author(),
+          comment_level: this.comment_level(),
           is_active: true,
           post: this.post.id,
-          parent_comment: null,
-          reply_to_comment: null
+          parent_comment: this.parent_comment(),
+          reply_to_comment: this.reply_to_comment()
         }).then((response) => {
           console.log(response);
           // 清空评论框内容

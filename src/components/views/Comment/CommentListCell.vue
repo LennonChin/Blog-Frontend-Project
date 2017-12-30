@@ -17,8 +17,9 @@
                   <span class="name" :class="theme" v-if="comment.author !== null"><a>{{ comment.author.nick_name }}</a></span>
                   <span class="name-tag">Mod</span>
                   <span class="reply-icon" :class="theme" v-if="comment.reply_to_author !== null"><iv-icon
-                          type="forward"></iv-icon></span>
-                  <span class="reply-name" :class="theme" v-if="comment.reply_to_author !== null"><a>{{ comment.reply_to_author.nick_name }}</a></span>
+                    type="forward"></iv-icon></span>
+                  <span class="reply-name" :class="theme"
+                        v-if="comment.reply_to_author !== null"><a>{{ comment.reply_to_author.nick_name }}</a></span>
                   <span class="time">{{ comment.add_time | socialDate }}</span>
                 </p>
                 <p class="comment-main-content" :class="theme" v-html="comment.detail.formatted_content"
@@ -27,7 +28,7 @@
                   <span class="like"><iv-icon type="thumbsup"></iv-icon></span>
                   <span class="unlike"><iv-icon type="thumbsdown"></iv-icon></span>
                   <span class="reply"><a @click="showEditor = !showEditor"><iv-icon
-                          type="forward"></iv-icon> 回复</a></span>
+                    type="forward"></iv-icon> 回复</a></span>
                   <iv-dropdown>
                     <span class="iv-dropdown-link">
                       <iv-icon type="android-share-alt"></iv-icon> 分享 <iv-icon type="arrow-down-b"></iv-icon>
@@ -44,7 +45,7 @@
                 </div>
                 <div class="comment-area" v-show="showEditor">
                   <div class="reply-editor" :class="{spread: spreadEditor}">
-                    <mavon-editor :theme="theme" @valueChanged="valueChanged"></mavon-editor>
+                    <mavon-editor :post="post" :replyToComment="comment" :theme="theme" @valueChanged="valueChanged"></mavon-editor>
                   </div>
                 </div>
               </div>
@@ -80,6 +81,10 @@
 
   export default {
     props: {
+      post: {
+        Type: Object,
+        default: undefined
+      },
       comment: {
         Type: Object,
         default: undefined

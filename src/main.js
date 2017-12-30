@@ -68,6 +68,7 @@ Vue.component('iv-switch', Switch);
 // 全局混合
 Vue.mixin({
   methods: {
+    // 屏幕宽度响应式判断
     responsiveRender: function (xsShow, smShow, mdShow, lgShow) {
       let clientWidth = document.body.clientWidth;
       if (clientWidth < ResponsivePoint.Sm) {
@@ -82,9 +83,11 @@ Vue.mixin({
     }
   },
   filters: {
+    // 用于格式化时间的过滤器
     socialDate: function (formatedDate) {
       return socialDateFormat(formatedDate);
     },
+    // 用于处理行尾省略号的过滤器
     textLineBreak: function (text, maxLength, lineBreakMode) {
       if (lineBreakMode === null || lineBreakMode === undefined) {
         lineBreakMode = LineBreakMode.EllipsisTruncatingTail;
