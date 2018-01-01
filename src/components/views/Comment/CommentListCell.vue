@@ -45,7 +45,11 @@
                 </div>
                 <div class="comment-area" v-show="showEditor">
                   <div class="reply-editor" :class="{spread: spreadEditor}">
-                    <mavon-editor :post="post" :replyToComment="comment" :theme="theme" @valueChanged="valueChanged"></mavon-editor>
+                    <mavon-editor :post="post"
+                                  :replyToComment="comment"
+                                  :theme="theme"
+                                  @valueChanged="valueChanged"
+                                  @publishedComment="publishedComment"></mavon-editor>
                   </div>
                 </div>
               </div>
@@ -128,6 +132,9 @@
       },
       valueChanged(flag) {
         this.spreadEditor = flag;
+      },
+      publishedComment(comment) {
+        console.log(comment);
       }
     },
     mounted() {

@@ -144,27 +144,19 @@
         }
       },
       comment_level: function () {
-        console.log('comment_level');
-        console.log('comment_level', this.replyToComment);
         if (this.replyToComment === undefined) return 0;
         return 1;
       },
       reply_to_author: function () {
-        console.log('reply_to_author');
-        console.log('reply_to_author', this.replyToComment.author.id);
         if (this.replyToComment === undefined) return null;
         return this.replyToComment.author.id;
       },
       parent_comment: function () {
-        console.log('parent_comment');
-        console.log('parent_comment', this.replyToComment.parent_comment);
         if (this.replyToComment === undefined) return null;
         if (this.replyToComment.parent_comment === null) return this.replyToComment.id;
         return this.replyToComment.parent_comment;
       },
       reply_to_comment: function () {
-        console.log('replyToComment.id');
-        console.log('replyToComment.id', this.replyToComment.id);
         if (this.replyToComment === undefined) return null;
         return this.replyToComment.id;
       },
@@ -281,7 +273,6 @@
                   }
                 }).then((response) => {
                   this.guest = response.data.guest;
-                  console.log(this.guest);
                   saveToLocal('comment_auth', 'email', this.email);
                   saveToLocal('comment_auth', 'verified', true);
                   saveToLocal('comment_auth', 'author_id', this.guest);
@@ -321,14 +312,21 @@
           parent_comment: this.parent_comment(),
           reply_to_comment: this.reply_to_comment()
         }).then((response) => {
-          console.log(response);
           // 清空评论框内容
           this.origin_content = '';
-          that.$Notice.success({
+          this.$Notice.success({
             title: '提示',
             desc: '发送评论成功'
           });
+          let comment = response.data;
+          comment.author = {
+            id: this.guest,
+            nick_name: this.nickName
+          };
+          comment.reply_to_author = this.replyToComment ? this.replyToComment.author : null;
+          this.$emit('publishedComment', comment);
         }).catch(function (error) {
+          console.log(error);
           that.$Notice.error({
             title: '发送评论失败',
             desc: error.error

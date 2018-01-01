@@ -35,7 +35,10 @@
 
     <div class="comment-area">
       <div class="editor" :class="{spread: spreadEditor}">
-        <mavon-editor :post="article" :theme="theme" @valueChanged="valueChanged"></mavon-editor>
+        <mavon-editor :post="article"
+                      :theme="theme"
+                      @valueChanged="valueChanged"
+                      @publishedComment="publishedComment"></mavon-editor>
       </div>
     </div>
 
@@ -104,6 +107,10 @@
       valueChanged(flag) {
         console.log(flag);
         this.spreadEditor = flag;
+      },
+      publishedComment(comment) {
+        console.log(comment);
+        this.comments.unshift(comment);
       }
     },
     components: {
