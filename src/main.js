@@ -1,11 +1,9 @@
 import Vue from 'vue';
 import router from '@/router';
 import 'iview/dist/styles/iview.css';
-import '@/common/stylus/index.styl';
 import App from './App.vue';
 
 // 全局加载resource拦截器
-import './axios/';
 import Axios from 'axios';
 import {socialDateFormat} from '@/common/js/utils';
 import {LineBreakMode, ResponsivePoint} from '@/common/js/const';
@@ -31,7 +29,6 @@ import {
   Option,
   DatePicker,
   DatePickerCell,
-  Spin,
   Switch,
   Modal,
   Message,
@@ -63,7 +60,6 @@ Vue.component('iv-select', Select);
 Vue.component('iv-option', Option);
 Vue.component('iv-date-picker', DatePicker);
 Vue.component('iv-date-picker-cell', DatePickerCell);
-Vue.component('iv-spin', Spin);
 Vue.component('iv-switch', Switch);
 Vue.component('iv-avatar', Avatar);
 

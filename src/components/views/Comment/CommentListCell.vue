@@ -7,6 +7,7 @@
             <iv-col :xs="cellLeftSpan('xs')" :sm="cellLeftSpan('sm')" :md="cellLeftSpan('md')"
                     :lg="cellLeftSpan('lg')" :xl="cellLeftSpan('xl')">
               <div class="avatar">
+                <!--<iv-avatar size="large" shape="square" v-if="comment.author !== null">{{ comment.author.nick_name }}</iv-avatar>-->
                 <img src="../../../assets/avatar.png" alt="">
               </div>
             </iv-col>
@@ -29,19 +30,19 @@
                   <span class="unlike"><iv-icon type="thumbsdown"></iv-icon></span>
                   <span class="reply"><a @click="showEditor = !showEditor"><iv-icon
                     type="forward"></iv-icon> 回复</a></span>
-                  <iv-dropdown>
-                    <span class="iv-dropdown-link">
-                      <iv-icon type="android-share-alt"></iv-icon> 分享 <iv-icon type="arrow-down-b"></iv-icon>
-                    </span>
-                    <iv-dropdown-menu slot="list">
-                      <iv-dropdown-item>菜单</iv-dropdown-item>
-                      <iv-dropdown-item>菜单</iv-dropdown-item>
-                      <iv-dropdown-item>菜单</iv-dropdown-item>
-                      <iv-dropdown-item disabled>菜单</iv-dropdown-item>
-                      <iv-dropdown-item divided>菜单</iv-dropdown-item>
-                    </iv-dropdown-menu>
-                  </iv-dropdown>
-                  <span class="reply"><a>查看评论列表</a></span>
+                  <!--<iv-dropdown>-->
+                    <!--<span class="iv-dropdown-link">-->
+                      <!--<iv-icon type="android-share-alt"></iv-icon> 分享 <iv-icon type="arrow-down-b"></iv-icon>-->
+                    <!--</span>-->
+                    <!--<iv-dropdown-menu slot="list">-->
+                      <!--<iv-dropdown-item>菜单</iv-dropdown-item>-->
+                      <!--<iv-dropdown-item>菜单</iv-dropdown-item>-->
+                      <!--<iv-dropdown-item>菜单</iv-dropdown-item>-->
+                      <!--<iv-dropdown-item disabled>菜单</iv-dropdown-item>-->
+                      <!--<iv-dropdown-item divided>菜单</iv-dropdown-item>-->
+                    <!--</iv-dropdown-menu>-->
+                  <!--</iv-dropdown>-->
+                  <!--<span class="reply"><a>查看评论列表</a></span>-->
                 </div>
                 <div class="comment-area" v-show="showEditor">
                   <div class="reply-editor" :class="{spread: spreadEditor}">
@@ -156,6 +157,7 @@
     position relative
     text-align left
     .avatar
+      text-align center
       img
         border-radius $border-radius
         width 100%

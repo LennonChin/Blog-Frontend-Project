@@ -1,24 +1,24 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import {LoadingBar} from 'iview';
-const Index = resolve => require(['@/components/index/Index'], resolve);
 
+const Index = () => System.import('@/components/index/Index');
 // 公共区域
-const SimpleHeader = resolve => require(['@/components/header/SimpleHeader/SimpleHeader'], resolve);
-const CommonFooter = resolve => require(['@/components/footer/CommonFooter'], resolve);
+const SimpleHeader = () => System.import('@/components/header/SimpleHeader/SimpleHeader');
+const CommonFooter = () => System.import('@/components/footer/CommonFooter');
 
 // 首页
-const HomeContent = resolve => require(['@/components/content/HomeContent'], resolve);
-const ArticleContent = resolve => require(['@/components/content/ArticleContent'], resolve);
-const ArticleHomeContent = resolve => require(['@/components/content/ArticleHomeContent'], resolve);
-const ArticleListContent = resolve => require(['@/components/content/ArticleListContent'], resolve);
-const AlbumHomeContent = resolve => require(['@/components/content/AlbumHomeContent'], resolve);
-const AlbumListContent = resolve => require(['@/components/content/AlbumListContent'], resolve);
-const MovieContent = resolve => require(['@/components/content/MovieContent'], resolve);
-const MovieHomeContent = resolve => require(['@/components/content/MovieHomeContent'], resolve);
-const MovieListContent = resolve => require(['@/components/content/MovieListContent'], resolve);
-const AlbumPreviewContent = resolve => require(['@/components/content/AlbumPreviewContent'], resolve);
-const TimeLineContent = resolve => require(['@/components/content/TimeLineContent'], resolve);
+const HomeContent = () => System.import('@/components/content/HomeContent');
+const ArticleContent = () => System.import('@/components/content/ArticleContent');
+const ArticleHomeContent = () => System.import('@/components/content/ArticleHomeContent');
+const ArticleListContent = () => System.import('@/components/content/ArticleListContent');
+const AlbumHomeContent = () => System.import('@/components/content/AlbumHomeContent');
+const AlbumListContent = () => System.import('@/components/content/AlbumListContent');
+const MovieContent = () => System.import('@/components/content/MovieContent');
+const MovieHomeContent = () => System.import('@/components/content/MovieHomeContent');
+const MovieListContent = () => System.import('@/components/content/MovieListContent');
+const AlbumPreviewContent = () => System.import('@/components/content/AlbumPreviewContent');
+const TimeLineContent = () => System.import('@/components/content/TimeLineContent');
 
 Vue.use(Router);
 

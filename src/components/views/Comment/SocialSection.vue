@@ -19,15 +19,15 @@
         <iv-menu-item name="3-3">菜单</iv-menu-item>
       </iv-submenu>
     </iv-menu>
-    <div class="content">
-      <div class="likes">
-        <a href=""><img src="../../../assets/avatar.png" alt=""></a>
-        <a href=""><img src="../../../assets/avatar.png" alt=""></a>
-        <a href=""><img src="../../../assets/avatar.png" alt=""></a>
-        <a href=""><img src="../../../assets/avatar.png" alt=""></a>
-        <a href=""><img src="../../../assets/avatar.png" alt=""></a>
-      </div>
-    </div>
+    <!--<div class="content">-->
+      <!--<div class="likes">-->
+        <!--<a href=""><img src="../../../assets/avatar.png" alt=""></a>-->
+        <!--<a href=""><img src="../../../assets/avatar.png" alt=""></a>-->
+        <!--<a href=""><img src="../../../assets/avatar.png" alt=""></a>-->
+        <!--<a href=""><img src="../../../assets/avatar.png" alt=""></a>-->
+        <!--<a href=""><img src="../../../assets/avatar.png" alt=""></a>-->
+      <!--</div>-->
+    <!--</div>-->
 
     <div class="comment-area">
       <div class="editor" :class="{spread: spreadEditor}">
