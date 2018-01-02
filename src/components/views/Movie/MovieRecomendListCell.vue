@@ -1,6 +1,6 @@
 <template>
   <div class="movie-recommend-list-cell" v-if="movies.length > 0">
-    <h4>推荐影评<a href="">查看更多</a></h4>
+    <h4>推荐影评</h4>
     <iv-row>
       <iv-col :xs="24" :sm="24" :md="6" :lg="8">
         <div class="left">

@@ -139,7 +139,7 @@
             'id': 40
           }
         }).then((response) => {
-          this.categorys = response.data;
+          this.categorys = response.data.results;
         }).catch(function (error) {
           console.log(error);
         });
@@ -164,14 +164,13 @@
             params: {
               top_category: this.top_category,
               ordering: orderings.toString(),
-              is_recommend: false,
               time_min: this.selectedDateRange[0],
               time_max: this.selectedDateRange[1],
               limit: this.limit_size,
               offset: this.page * this.limit_size
             }
           }).then((response) => {
-            this.movies = response.data.results;
+            this.movies = this.movies.concat(response.data.results);
             this.totalCount += response.data.results.length;
             this.noMoreData = this.totalCount >= response.data.count;
             this.$refs.browseMore.stopLoading(this.noMoreData);

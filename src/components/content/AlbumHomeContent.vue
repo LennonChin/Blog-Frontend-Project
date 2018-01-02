@@ -25,7 +25,7 @@
         </iv-col>
       </iv-row>
     </div>
-    <browse-more></browse-more>
+    <browse-more @browseMore="browseMore" ref="browseMore"></browse-more>
   </div>
 </template>
 
@@ -41,6 +41,8 @@
   // API
   import {getCategorys, getAlbumBaseInfo, getIndexBanners} from '@/api/api';
 
+  const DEFAULT_LIMIT_SIZE = 6;
+
   export default {
     data() {
       return {
@@ -52,6 +54,10 @@
           name: '图集',
           subname: '天下之美'
         },
+        limit_size: DEFAULT_LIMIT_SIZE,
+        page: 0,
+        totalCount: 0,
+        noMoreData: false,
         swiperOption: {
           spaceBetween: 30,
           lazy: true,
@@ -95,10 +101,17 @@
       getAlbumBaseInfo() {
         getAlbumBaseInfo({
           params: {
-            top_category: this.selectedCategory.id
+            top_category: this.selectedCategory.id,
+            limit: this.limit_size,
+            offset: this.page * this.limit_size
           }
         }).then((response) => {
-          this.albums = response.data.results;
+          this.albums = this.albums.concat(response.data.results);
+          this.totalCount += response.data.results.length;
+          this.noMoreData = this.totalCount >= response.data.count;
+          this.$nextTick(() => {
+            this.$refs.browseMore.stopLoading(this.noMoreData);
+          });
         }).catch(function (error) {
           console.log(error);
         });
@@ -119,6 +132,10 @@
       },
       selectCategory(category) {
         this.selectedCategory = category;
+      },
+      browseMore() {
+        this.page++;
+        this.getAlbumBaseInfo();
       }
     },
     watch: {

@@ -1,6 +1,6 @@
 <template>
   <div class="movie-recent-list-cell">
-    <h4>最近观影<a href="">查看更多</a></h4>
+    <h4>最近观影</h4>
     <iv-row>
       <iv-col :xs="24" :sm="24" :md="16" :lg="16" v-if="movies.length > 0">
         <ul class="recent">
