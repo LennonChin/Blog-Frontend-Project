@@ -11,9 +11,9 @@
       </iv-col>
       <iv-col :xs="24" :sm="14" :md="14" :lg="14" style="padding-left: 0;padding-right: 0;">
         <p class="operate_info">
-          <span class="readings"><a href=""><iv-icon type="eye"></iv-icon> {{article.click_num}} 阅读</a></span> |
-          <span class="comments"><a href=""><iv-icon type="compose"></iv-icon> {{article.comment_num}} 评论</a></span> |
-          <span class="likes"><a href=""><iv-icon type="heart"></iv-icon> {{article.like_num}} 喜欢</a></span>
+          <span class="readings"><a><iv-icon type="eye"></iv-icon> {{article.click_num}} 阅读</a></span> |
+          <span class="comments"><a><iv-icon type="compose"></iv-icon> {{article.comment_num}} 评论</a></span> |
+          <span class="likes"><a @click="likePost(article)"><iv-icon type="heart"></iv-icon> {{article.like_num}} 觉得赞</a></span>
         </p>
       </iv-col>
     </iv-row>
@@ -24,11 +24,25 @@
 </template>
 
 <script type="text/ecmascript-6">
+  import {addPostLike} from '@/api/api';
+
   export default {
     props: {
       article: {
         Type: Object,
         default: undefined
+      }
+    },
+    methods: {
+      likePost(post) {
+        addPostLike({
+          post_id: post.id
+        }).then((response) => {
+          post.like_num += 1;
+          this.$Message.success('点赞成功');
+        }).catch(function (error) {
+          console.log(error);
+        });
       }
     }
   };

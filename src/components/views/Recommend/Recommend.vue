@@ -3,34 +3,44 @@
     <panel :title="'推荐阅读'">
       <div slot="content" class="content">
         <div class="top">
-          <router-link :to="{ name: 'article/detail', params:{ articleId: articleSlice(0, 1)[0].id}}" target="_blank">
-            <p class="title">{{ articleSlice(0, 1)[0].title }}</p>
+          <a>
+            <p class="title">
+              <router-link :to="{ name: 'article/detail', params:{ articleId: articleSlice(0, 1)[0].id}}"
+                           target="_blank">
+                {{ articleSlice(0, 1)[0].title }}
+              </router-link>
+            </p>
             <div class="tags">
-              <iv-tag :color="tag.color" type="border" v-for="tag in articleSlice(0, 1)[0].tags" :key="tag.id">{{ tag.name }}</iv-tag>
+              <iv-tag :color="tag.color" type="border" v-for="tag in articleSlice(0, 1)[0].tags" :key="tag.id">{{
+                tag.name }}
+              </iv-tag>
             </div>
             <p class="info">
               <span class="time">{{ articleSlice(0, 1)[0].add_time | socialDate }}</span>
-              <span class="likes"><a href=""><iv-icon type="heart"></iv-icon> {{ articleSlice(0, 1)[0].like_num }} </a></span>
-              <span class="comments"><a href=""><iv-icon type="compose"></iv-icon> {{ articleSlice(0, 1)[0].comment_num }} </a></span>
-              <span class="readings"><a href=""><iv-icon type="eye"></iv-icon> {{ articleSlice(0, 1)[0].click_num }} </a></span>
+              <span class="likes"><a @click="likePost(articleSlice(0, 1)[0])"><iv-icon type="heart"></iv-icon> {{ articleSlice(0, 1)[0].like_num }} </a></span>
+              <span class="comments"><a><iv-icon type="compose"></iv-icon> {{ articleSlice(0, 1)[0].comment_num }} </a></span>
+              <span class="readings"><a><iv-icon type="eye"></iv-icon> {{ articleSlice(0, 1)[0].click_num }} </a></span>
             </p>
             <div class="img" v-if="articleSlice(0, 1)[0].front_image">
               <img :src="articleSlice(0, 1)[0].front_image" :alt="articleSlice(0, 1)[0].title">
             </div>
             <p class="desc" v-if="articleSlice(0, 1)[0].desc">{{ articleSlice(0, 1)[0].desc | textLineBreak(60) }}</p>
-          </router-link>
+          </a>
         </div>
         <ul class="others">
           <li v-for="article in articleSlice(1)">
-            <router-link :to="{ name: 'article/detail', params:{ articleId: article.id}}" target="_blank">
-              <p class="title">{{ article.title }}</p>
+            <a>
+              <p class="title">
+                <router-link :to="{ name: 'article/detail', params:{ articleId: article.id}}" target="_blank">{{ article.title }}
+                </router-link>
+              </p>
               <p class="info">
                 <span class="time">{{ article.add_time | socialDate }}</span>
-                <span class="likes"><a href=""><iv-icon type="heart"></iv-icon> {{ article.like_num}} </a></span>
-                <span class="comments"><a href=""><iv-icon type="compose"></iv-icon> {{ article.comment_num}} </a></span>
-                <span class="readings"><a href=""><iv-icon type="eye"></iv-icon> {{ article.click_num}} </a></span>
+                <span class="likes"><a @click="likePost(article)"><iv-icon type="heart"></iv-icon> {{ article.like_num}} </a></span>
+                <span class="comments"><a><iv-icon type="compose"></iv-icon> {{ article.comment_num}} </a></span>
+                <span class="readings"><a><iv-icon type="eye"></iv-icon> {{ article.click_num}} </a></span>
               </p>
-            </router-link>
+            </a>
           </li>
         </ul>
       </div>
@@ -40,7 +50,7 @@
 
 <script type="text/ecmascript-6">
   import Panel from '@/components/utils/Panel';
-  import { getPostBaseInfo } from '@/api/api';
+  import {getPostBaseInfo, addPostLike} from '@/api/api';
 
   export default {
     data() {
@@ -62,6 +72,16 @@
         }).then((response) => {
           this.articles = response.data.results;
         }).catch(function (error) {
+          console.log(error);
+        });
+      },
+      likePost(post) {
+        addPostLike({
+          post_id: post.id
+        }).then((response) => {
+          post.like_num += 1;
+        this.$Message.success('点赞成功');
+      }).catch(function (error) {
           console.log(error);
         });
       },
@@ -90,10 +110,14 @@
           margin-bottom 10px
         .title
           text-align justify
-          color $color-gradually-gray-41
           font-size 16px
           line-height 23px
           margin-bottom 5px
+          a
+            color $color-gradually-gray-41
+            &:hover
+              text-decoration underline
+              color $color-main-primary
         .info
           margin 5px 0 0px
           span
@@ -110,7 +134,6 @@
             cursor pointer
             &:hover
               color $color-main-primary
-              text-decoration underline
         .img
           padding-bottom: 40%
           width: 100%

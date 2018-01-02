@@ -135,6 +135,7 @@
       },
       publishedComment(comment) {
         console.log(comment);
+        this.$emit('publishedComment', comment);
       }
     },
     mounted() {

@@ -1,6 +1,6 @@
 <template>
   <div class="article-list-cell">
-    <router-link :to="{ name: 'article/detail', params:{ articleId: article.id}}" target="_blank">
+    <a>
       <iv-row type="flex">
         <iv-col :xs="24" :sm="24" :md="textSpan" :lg="textSpan" :order="textOrderType"
                 style="padding-left: 0;padding-right: 0;">
@@ -17,10 +17,10 @@
             </router-link>
             </p>
             <p class="operate_info">
-              <span class="publish-time"><a>At time / {{ article.add_time | socialDate }}</a></span>
+              <span class="publish-time"><a>{{ article.add_time | socialDate }}</a></span>
               <span class="readings"><a><iv-icon type="eye"></iv-icon> {{article.click_num}} 阅读</a></span>
               <span class="comments"><a><iv-icon type="compose"></iv-icon> {{article.comment_num}} 评论</a></span>
-              <span class="likes"><a><iv-icon type="heart"></iv-icon> {{article.like_num}} 喜欢</a></span>
+              <span class="likes"><a @click="likePost(article)"><iv-icon type="heart"></iv-icon> {{article.like_num}} 觉得赞</a></span>
             </p>
           </div>
         </iv-col>
@@ -31,11 +31,13 @@
           </div>
         </iv-col>
       </iv-row>
-    </router-link>
+    </a>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
+  import {addPostLike} from '@/api/api';
+
   const ARTICLE_TYPE_NO_IMAGE = 0;
   const ARTICLE_TYPE_NORMAL_IMAGE = 1;
   const ARTICLE_TYPE_BIG_IMAGE = 2;
@@ -83,6 +85,18 @@
         } else {
           return '';
         }
+      }
+    },
+    methods: {
+      likePost(post) {
+        addPostLike({
+          post_id: post.id
+        }).then((response) => {
+          post.like_num += 1;
+          this.$Message.success('点赞成功');
+        }).catch(function (error) {
+          console.log(error);
+        });
       }
     }
   };

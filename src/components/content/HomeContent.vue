@@ -17,9 +17,9 @@
           </iv-affix>
           <article-list-cell v-for="article in articles" :article="article" :key="article.id"></article-list-cell>
           <iv-affix :offset-top="0" style="position: relative;z-index: 12;">
-            <section-title v-if="this.specialCategory(40) !== 'undefined'"
-                           :mainTitle="this.specialCategory(40).name"
-                           :subTitle="this.specialCategory(40).subname"
+            <section-title v-if="this.specialCategory(55) !== 'undefined'"
+                           :mainTitle="this.specialCategory(55).name"
+                           :subTitle="this.specialCategory(55).subname"
                            :menus="albumsTitleMenus"
                            :withRefresh="true"
                            :withTimeSelect="false"
@@ -35,9 +35,9 @@
             </iv-row>
           </div>
           <iv-affix style="position: relative;z-index: 12;">
-            <section-title v-if="this.specialCategory(55) !== 'undefined'"
-                           :mainTitle="this.specialCategory(55).name"
-                           :subTitle="this.specialCategory(55).subname"
+            <section-title v-if="this.specialCategory(40) !== 'undefined'"
+                           :mainTitle="this.specialCategory(40).name"
+                           :subTitle="this.specialCategory(40).subname"
                            :menus="moviesTitleMenus"
                            :withRefresh="true"
                            :withTimeSelect="false"

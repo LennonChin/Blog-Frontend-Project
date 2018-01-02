@@ -34,9 +34,9 @@
             </div>
             <p class="info">
               <span class="time">{{ movies[3].add_time | socialDate }}</span>
-              <span class="likes"><a href=""><iv-icon type="heart"></iv-icon> {{ movies[3].like_num }} </a></span>
-              <span class="comments"><a href=""><iv-icon type="compose"></iv-icon> {{ movies[3].comment_click }} </a></span>
-              <span class="readings"><a href=""><iv-icon type="eye"></iv-icon> {{ movies[3].click_num }} </a></span>
+              <span class="likes"><a @click="likePost(movies[3])"><iv-icon type="heart"></iv-icon> {{ movies[3].like_num }} </a></span>
+              <span class="comments"><a><iv-icon type="compose"></iv-icon> {{ movies[3].comment_click }} </a></span>
+              <span class="readings"><a><iv-icon type="eye"></iv-icon> {{ movies[3].click_num }} </a></span>
             </p>
             <div class="img">
               <img :src="movies[3].front_image" alt="">
@@ -50,10 +50,24 @@
 </template>
 
 <script type="text/ecmascript-6">
+  import {addPostLike} from '@/api/api';
+
   export default {
     props: {
       movies: {
         Type: Array
+      }
+    },
+    methods: {
+      likePost(post) {
+        addPostLike({
+          post_id: post.id
+        }).then((response) => {
+          post.like_num += 1;
+          this.$Message.success('点赞成功');
+        }).catch(function (error) {
+          console.log(error);
+        });
       }
     }
   };

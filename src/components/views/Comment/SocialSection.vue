@@ -1,13 +1,9 @@
 <template>
   <div class="social-section" v-if="article != undefined">
     <iv-menu :active-name="'1'" :class="theme" mode="horizontal" style="z-index: 19;">
-      <iv-menu-item name="1" style="padding-left: 0;">
+      <iv-menu-item name="1" style="padding-left: 0;" @click.native="likePost(article)">
         <iv-icon type="heart"></iv-icon>
         {{ article.like_num }} 人觉得很赞
-      </iv-menu-item>
-      <iv-menu-item name="2" style="padding-left: 0;">
-        <iv-icon type="heart"></iv-icon>
-        赞这篇文章
       </iv-menu-item>
       <iv-submenu name="3" style="padding-left: 0;">
         <template slot="title">
@@ -42,21 +38,23 @@
       </div>
     </div>
 
-    <div class="comment-list">
+    <div class="comment-list" v-if="comments.length > 0">
       <div v-for="comment_level1 in comments" :key="comment_level1.id">
         <comment-cell-list :theme="theme"
                            :post="article"
                            :commentLevel="comment_level1.comment_level"
-                           :comment="comment_level1"></comment-cell-list>
-        <comment-cell-list :theme="theme"
+                           :comment="comment_level1"
+                           @publishedComment="publishedComment"></comment-cell-list>
+        <comment-cell-list v-for="comment_level2 in comment_level1.sub_comment"
+                           :key="comment_level2.id"
+                           :theme="theme"
                            :post="article"
                            :commentLevel="comment_level2.comment_level"
                            :comment="comment_level2"
-                           :key="comment_level2.id"
-                           v-for="comment_level2 in comment_level1.sub_comment"></comment-cell-list>
+                           @publishedComment="publishedComment"></comment-cell-list>
       </div>
+      <browse-more></browse-more>
     </div>
-    <browse-more></browse-more>
   </div>
 </template>
 
@@ -65,7 +63,7 @@
   import CommentListCell from '@/components/views/Comment/CommentListCell';
   import BrowseMore from '@/components/views/BrowseMore';
   // API
-  import {getCommentInfo} from '@/api/api';
+  import {getCommentInfo, addPostLike} from '@/api/api';
 
   export default {
     props: {
@@ -96,10 +94,22 @@
         getCommentInfo({
           params: {
             post_id: this.article.id,
-            comment_level: 0
+            comment_level: 0,
+            limit: 10,
+            offset: 0
           }
         }).then((response) => {
           this.comments = response.data.results;
+        }).catch(function (error) {
+          console.log(error);
+        });
+      },
+      likePost(post) {
+        addPostLike({
+          post_id: post.id
+        }).then((response) => {
+          post.like_num += 1;
+          this.$Message.success('点赞成功');
         }).catch(function (error) {
           console.log(error);
         });
@@ -110,7 +120,45 @@
       },
       publishedComment(comment) {
         console.log(comment);
-        this.comments.unshift(comment);
+        if (comment.parent_comment === null) {
+          // 根评论为空,表示是一级评论
+          this.comments.unshift(comment);
+        } else {
+          // 否则是子级评论
+          let parentComment = this.getParentComment(comment.parent_comment);
+          if (parentComment !== null) {
+            if (parentComment.sub_comment === null || parentComment.sub_comment === undefined) {
+              parentComment.sub_comment = [];
+            }
+            parentComment.sub_comment.push(comment);
+          }
+        }
+      },
+      getParentComment(parentCommentId) {
+        let recursiveComments = [];
+        let recursiveCommentyIds = [];
+        var recursiveComment = function (comments, parentCommentId) {
+          if (parentCommentId === null || parentCommentId === undefined) return null;
+          for (let index = 0; index < comments.length; index++) {
+            let comment = comments[index];
+            if (comment.id === parentCommentId) {
+              recursiveComments.push(comment);
+              recursiveCommentyIds.push(comment.id);
+              return comment;
+            } else if (comment.sub_comment && comment.sub_comment.length > 0) {
+              let result = recursiveComment(comment.sub_comment, parentCommentId);
+              if (result) {
+                recursiveComments.push(comment);
+                recursiveCommentyIds.push(comment.id);
+                return result;
+              }
+            }
+          }
+        };
+        let parentComment = recursiveComment(this.comments, parentCommentId);
+        recursiveComments = recursiveComments.reverse();
+        recursiveCommentyIds = recursiveCommentyIds.reverse();
+        return parentComment;
       }
     },
     components: {

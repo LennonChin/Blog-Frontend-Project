@@ -13,17 +13,31 @@
         <p class="operate_info">
           <span class="readings"><a> {{ album.click_num }}次阅读</a></span> |
           <span class="comments"><a> {{ album.comment_num }}个评论</a></span> |
-          <span class="likes"><a> {{ album.like_num }}个喜欢</a></span></p>
+          <span class="likes"><a @click="likePost(album)"> {{ album.like_num }}个喜欢</a></span></p>
       </div>
     </router-link>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
+  import {addPostLike} from '@/api/api';
+
   export default {
     props: {
       album: {
         Type: Object
+      }
+    },
+    methods: {
+      likePost(post) {
+        addPostLike({
+          post_id: post.id
+        }).then((response) => {
+          post.like_num += 1;
+          this.$Message.success('点赞成功');
+        }).catch(function (error) {
+          console.log(error);
+        });
       }
     }
   };

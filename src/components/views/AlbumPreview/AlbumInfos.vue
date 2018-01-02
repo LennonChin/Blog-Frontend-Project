@@ -1,9 +1,9 @@
 <template>
   <div class="album-infos">
     <p class="operate_info">
-      <span class="readings"><a href=""><iv-icon type="eye"></iv-icon> {{ album.click_num }} 阅读</a></span>
-      <span class="comments"><a href=""><iv-icon type="compose"></iv-icon> {{ album.comment_num }} 评论</a></span>
-      <span class="likes"><a href=""><iv-icon type="heart"></iv-icon> {{ album.like_num }} 喜欢</a></span>
+      <span class="readings"><a><iv-icon type="eye"></iv-icon> {{ album.click_num }} 阅读</a></span>
+      <span class="comments"><a><iv-icon type="compose"></iv-icon> {{ album.comment_num }} 评论</a></span>
+      <span class="likes"><a @click="likePost(album)"><iv-icon type="heart"></iv-icon> {{ album.like_num }} 喜欢</a></span>
     </p>
     <div class="author">
       <a href="">
@@ -29,7 +29,7 @@
       <p class="environment">{{ currentPicture.camera.environment }}</p>
     </div>
     <div class="social">
-      <social-section :theme="'dark-theme'"></social-section>
+      <social-section :theme="'dark-theme'" :article="album"></social-section>
     </div>
   </div>
 </template>
@@ -37,6 +37,7 @@
 <script type="text/ecmascript-6">
   import LicenseTag from '@/components/views/LicenseTag';
   import SocialSection from '@/components/views/Comment/SocialSection';
+  import {addPostLike} from '@/api/api';
 
   export default {
     props: {
@@ -58,6 +59,16 @@
         if (index < this.album.pictures.length) {
           this.currentPicture = this.album.pictures[index];
         }
+      },
+      likePost(post) {
+        addPostLike({
+          post_id: post.id
+        }).then((response) => {
+          post.like_num += 1;
+          this.$Message.success('点赞成功');
+        }).catch(function (error) {
+          console.log(error);
+        });
       }
     },
     components: {

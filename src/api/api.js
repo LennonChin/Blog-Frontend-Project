@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-let localHost = 'http://192.168.1.3:8000';
+let localHost = 'http://169.254.198.15:8000';
 
 // 获取博主信息
 export const getBloggerInfo = params => {
@@ -122,6 +122,11 @@ export const getCommentInfo = params => {
 // 创建评论
 export const addCommentInfo = params => {
   return axios.post(`${localHost}/comments/`, params);
+};
+
+// 点赞文章
+export const addPostLike = params => {
+  return axios.post(`${localHost}/likePost/`, params);
 };
 
 // 获取邮箱验证码
