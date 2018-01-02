@@ -1,5 +1,5 @@
 {
-  "name": "my-blog-front",
+  "name": "Blog-Front-Project",
   "version": "1.0.0",
   "description": "Web front for my blog",
   "author": "Lennon <i@coderap.com>",
@@ -8,7 +8,8 @@
     "dev": "node build/dev-server.js",
     "start": "npm run dev",
     "build": "node build/build.js",
-    "lint": "eslint --ext .js,.vue src"
+    "lint": "eslint --ext .js,.vue src",
+    "analyz": "NODE_ENV=production npm_config_report=true npm run build"
   },
   "dependencies": {
     "axios": "^0.17.1",
