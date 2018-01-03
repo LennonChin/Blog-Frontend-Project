@@ -1,23 +1,23 @@
 <template>
   <div class="social-section" v-if="article != undefined">
-    <iv-menu :active-name="'1'" :class="theme" mode="horizontal" style="z-index: 19;">
+    <iv-menu :active-name="'1'" :class="theme" mode="horizontal">
       <iv-menu-item name="1" style="padding-left: 0;" @click.native="likePost(article)">
         <iv-icon type="heart"></iv-icon>
         {{ article.like_num }} 人觉得很赞
       </iv-menu-item>
-      <iv-submenu name="3" style="padding-left: 0;">
-        <template slot="title">
-          <iv-icon type="android-share-alt"></iv-icon>
-          分享
-        </template>
-        <iv-menu-item name="3-1">菜单</iv-menu-item>
-        <iv-menu-item name="3-2">菜单</iv-menu-item>
-        <iv-menu-item name="3-3">菜单</iv-menu-item>
-        <iv-menu-item name="3-2">菜单</iv-menu-item>
-        <iv-menu-item name="3-3">菜单</iv-menu-item>
-        <iv-menu-item name="3-2">菜单</iv-menu-item>
-        <iv-menu-item name="3-3">菜单</iv-menu-item>
-      </iv-submenu>
+      <!--<iv-submenu name="3" style="padding-left: 0;">-->
+        <!--<template slot="title">-->
+          <!--<iv-icon type="android-share-alt"></iv-icon>-->
+          <!--分享-->
+        <!--</template>-->
+        <!--<iv-menu-item name="3-1">菜单</iv-menu-item>-->
+        <!--<iv-menu-item name="3-2">菜单</iv-menu-item>-->
+        <!--<iv-menu-item name="3-3">菜单</iv-menu-item>-->
+        <!--<iv-menu-item name="3-2">菜单</iv-menu-item>-->
+        <!--<iv-menu-item name="3-3">菜单</iv-menu-item>-->
+        <!--<iv-menu-item name="3-2">菜单</iv-menu-item>-->
+        <!--<iv-menu-item name="3-3">菜单</iv-menu-item>-->
+      <!--</iv-submenu>-->
     </iv-menu>
     <!--<div class="content">-->
       <!--<div class="likes">-->

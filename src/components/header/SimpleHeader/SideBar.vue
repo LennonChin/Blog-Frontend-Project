@@ -34,6 +34,7 @@
           </ul>
         </li>
       </ul>
+      <div class="list" ref="list" id="side-toc"></div>
     </div>
   </div>
 </template>

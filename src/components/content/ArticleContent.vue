@@ -15,7 +15,7 @@
       <iv-col :xs="0" :sm="0" :md="0" :lg="7">
         <div class="layout-right">
           <!--<recommend></recommend>-->
-          <iv-affix :offset-top="60">
+          <iv-affix :offset-top="60" v-if="responsiveRender(false, false, false, true)">
             <side-toc style="margin-top: 15px;" ref="sideToc"></side-toc>
           </iv-affix>
         </div>

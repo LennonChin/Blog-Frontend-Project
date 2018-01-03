@@ -3,7 +3,7 @@
     <a :href="license.link" target="_blank">
       <span class="name" :style="{background: license.color, border: '1px solid ' + license.color}">License</span>
       <span class="type" :style="{color: license.color, border: '1px solid ' + license.color}">{{ license.name }}</span>
-      <span class="desc">{{ license.desc }}</span>
+      <span class="desc" v-if="license.desc.length > 0" v-html="license.desc"></span>
     </a>
   </div>
 </template>
@@ -24,7 +24,6 @@
 
   .license-tag
     margin 10px 0
-    height 30px
     font-size 0
     a
       display inline-block
@@ -34,6 +33,7 @@
       .name, .type, .desc
         display inline-block
         padding 5px 8px
+        margin 5px 0
         font-size 15px
         text-align center
       .name
