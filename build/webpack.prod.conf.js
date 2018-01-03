@@ -74,7 +74,6 @@ const webpackConfig = merge(baseWebpackConfig, {
         resource.includes('node_modules') &&
         (
           /mavon-editor/.test(resource) ||
-          /highlight/.test(resource) ||
           /tocbot/.test(resource) ||
           /vue-awesome-swiper/.test(resource))
       ),

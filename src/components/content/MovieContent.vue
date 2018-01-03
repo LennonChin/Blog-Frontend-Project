@@ -9,7 +9,8 @@
         <iv-col :xs="24" :sm="24" :md="24" :lg="17">
           <div class="layout-left">
             <movie-page-content>
-              <article v-if="movie != undefined" id="article-main-page" class="typo container article-main-content" slot="content" v-html="movie.detail.formatted_content" ref="article"></article>
+              <article v-if="movie != undefined" id="article-main-page" class="typo container article-main-content"
+                       slot="content" v-html="movie.detail.formatted_content" ref="article"></article>
             </movie-page-content>
           </div>
         </iv-col>
@@ -32,13 +33,13 @@
   import SideToc from '@/components/views/SideToc';
   import Recommend from '@/components/views/Recommend';
   // highlight.js引入
-  import hljs from 'highlight.js';
+  import hljs from '@/common/js/highlight.pack';
   // 样式文件
-  import 'highlight.js/styles/zenburn.css';
+  import 'highlight.js/styles/atom-one-light.css';
   // TOC
   import tocbot from 'tocbot';
   // API
-  import { getMovieDetailInfo } from '@/api/api';
+  import {getMovieDetailInfo} from '@/api/api';
 
   var HLJS = hljs;
 
@@ -126,6 +127,6 @@
         width 100%
         height 100%
         filter blur(5px)
-        transform  scale(1.5)
+        transform scale(1.5)
         zoom 1.5
 </style>

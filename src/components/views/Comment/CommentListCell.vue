@@ -65,9 +65,7 @@
 <script type="text/ecmascript-6">
   import MavonEditor from '@/components/views/MavonEditor';
   // highlight.js引入
-  import hljs from 'highlight.js';
-  // 样式文件
-  import 'highlight.js/styles/zenburn.css';
+  import hljs from '@/common/js/highlight.pack';
 
   var HLJS = hljs;
 

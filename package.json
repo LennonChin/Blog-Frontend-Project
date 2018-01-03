@@ -9,7 +9,7 @@
     "start": "npm run dev",
     "build": "node build/build.js",
     "lint": "eslint --ext .js,.vue src",
-    "analyz": "set NODE_ENV=production && set npm_config_report=true && npm run build"
+    "analyz": "NODE_ENV=production npm_config_report=true npm run build"
   },
   "dependencies": {
     "axios": "^0.17.1",

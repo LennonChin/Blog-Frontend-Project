@@ -112,10 +112,10 @@
           htmlcode: false, // 展示html源码
           help: false, // 帮助
           /* 1.3.5 */
-          undo: false, // 上一步
-          redo: false, // 下一步
+          undo: true, // 上一步
+          redo: true, // 下一步
           trash: true, // 清空
-          save: false, // 保存（触发events中的save事件）
+          save: true, // 保存（触发events中的save事件）
           /* 1.4.2 */
           navigation: false, // 导航目录
           /* 2.1.8 */
@@ -183,11 +183,47 @@
         // 此方法用于监听窗口宽度变化,改变编辑器菜单
         var clientWidth = document.documentElement.clientWidth;
         if (clientWidth < 900) {
+          this.$set(this.toolbars, 'bold', false);
+          this.$set(this.toolbars, 'italic', false);
+          this.$set(this.toolbars, 'header', false);
+          this.$set(this.toolbars, 'underline', false);
+          this.$set(this.toolbars, 'strikethrough', false);
+          this.$set(this.toolbars, 'mark', false);
+          this.$set(this.toolbars, 'superscript', false);
+          this.$set(this.toolbars, 'subscript', false);
+          this.$set(this.toolbars, 'quote', false);
+          this.$set(this.toolbars, 'ol', false);
+          this.$set(this.toolbars, 'ul', false);
+          this.$set(this.toolbars, 'link', false);
+          this.$set(this.toolbars, 'imagelink', false);
+          this.$set(this.toolbars, 'code', false);
+          this.$set(this.toolbars, 'table', false);
+          this.$set(this.toolbars, 'alignleft', false);
+          this.$set(this.toolbars, 'aligncenter', false);
+          this.$set(this.toolbars, 'alignright', false);
           this.$set(this.toolbars, 'readmodel', false);
           this.$set(this.toolbars, 'htmlcode', false);
           this.$set(this.toolbars, 'navigation', false);
           this.$set(this.toolbars, 'subfield', false);
         } else {
+          this.$set(this.toolbars, 'bold', true);
+          this.$set(this.toolbars, 'italic', true);
+          this.$set(this.toolbars, 'header', true);
+          this.$set(this.toolbars, 'underline', true);
+          this.$set(this.toolbars, 'strikethrough', true);
+          this.$set(this.toolbars, 'mark', true);
+          this.$set(this.toolbars, 'superscript', true);
+          this.$set(this.toolbars, 'subscript', true);
+          this.$set(this.toolbars, 'quote', true);
+          this.$set(this.toolbars, 'ol', true);
+          this.$set(this.toolbars, 'ul', true);
+          this.$set(this.toolbars, 'link', true);
+          this.$set(this.toolbars, 'imagelink', true);
+          this.$set(this.toolbars, 'code', true);
+          this.$set(this.toolbars, 'table', true);
+          this.$set(this.toolbars, 'alignleft', true);
+          this.$set(this.toolbars, 'aligncenter', true);
+          this.$set(this.toolbars, 'alignright', true);
           this.$set(this.toolbars, 'readmodel', true);
           this.$set(this.toolbars, 'htmlcode', true);
           this.$set(this.toolbars, 'navigation', true);

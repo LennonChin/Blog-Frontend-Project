@@ -1,16 +1,17 @@
-.toc {
-  overflow-y: auto;
+#side-toc {
+  overflow-y: hidden;
 }
-.toc > ul {
+#side-toc > ul {
   overflow: hidden;
   position: relative;
 }
-.toc > ul li {
+#side-toc > ul li {
   list-style: none;
 }
 .toc-list {
   margin: 0;
-  padding-left: 10px;
+  padding-left: 25px;
+  overflow-y: hidden;
 }
 .toc-list-item > a.toc-link {
   height: 30px;

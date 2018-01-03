@@ -33,9 +33,9 @@ npm
   import SideToc from '@/components/views/SideToc';
   import Recommend from '@/components/views/Recommend';
   // highlight.js引入
-  import hljs from 'highlight.js';
+  import hljs from '@/common/js/highlight.pack';
   // 样式文件
-  import 'highlight.js/styles/zenburn.css';
+  import 'highlight.js/styles/atom-one-light.css';
   // TOC
   import tocbot from 'tocbot';
   // API

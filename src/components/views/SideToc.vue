@@ -30,6 +30,8 @@
   .side-toc
     position relative
     background #fff
+    max-height 90vh
+    overflow scroll
     h4
       font-size 18px
       padding 13px 13px 0
@@ -37,6 +39,5 @@
       text-align left
     .list
       position relative
-      padding 0 25px 15px
 
 </style>
