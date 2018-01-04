@@ -6,15 +6,15 @@
                 style="padding-left: 0;padding-right: 0;">
           <div class="text-wrapper">
             <h4 class="title">
-              <router-link :to="{ name: 'article/detail', params:{ articleId: article.id}}" target="_blank">{{article.title}}</router-link>
+              <router-link :to="{ name: 'article/detail', params:{ articleId: article.id}}" target="_blank"> {{article.title}}</router-link>
             </h4>
             <div class="tags">
               <iv-tag :color="tag.color" type="border" v-for="tag in article.tags" :key="tag.id">{{ tag.name }}</iv-tag>
             </div>
             <p class="desc">{{article.desc | textLineBreak(70) }}
               <router-link :to="{ name: 'article/detail', params:{ articleId: article.id}}" target="_blank"> View More
-              <iv-icon type="arrow-right-b"></iv-icon>
-            </router-link>
+                <iv-icon type="arrow-right-b"></iv-icon>
+              </router-link>
             </p>
             <p class="operate_info">
               <span class="publish-time"><a>{{ article.add_time | socialDate }}</a></span>
@@ -25,7 +25,8 @@
           </div>
         </iv-col>
         <iv-col :xs="0" :sm="0" :md="imgSpan" :lg="imgSpan" :order="imgOrderType"
-                style="padding-left: 0px;padding-right: 0px"  v-if="responsiveRender(false, false, imgSpan !== 0, imgSpan !== 0)">
+                style="padding-left: 0px;padding-right: 0px"
+                v-if="responsiveRender(false, false, imgSpan !== 0, imgSpan !== 0)">
           <div class="img-wrapper" :class="themeClass">
             <img :src="article.front_image" alt="">
           </div>
@@ -103,6 +104,7 @@
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>
+  @import "../../../common/stylus/base.styl";
   @import "../../../common/stylus/index.styl";
 
   .article-list-cell

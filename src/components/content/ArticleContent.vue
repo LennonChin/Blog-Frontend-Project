@@ -1,5 +1,5 @@
 <template>
-  <div class="article-content layout-content">
+  <div class="article-content layout-content" v-if="checked">
     <iv-row>
       <iv-col :xs="24" :sm="24" :md="24" :lg="17">
         <div class="layout-left">
@@ -14,7 +14,7 @@
       </iv-col>
       <iv-col :xs="0" :sm="0" :md="0" :lg="7">
         <div class="layout-right">
-          <!--<recommend></recommend>-->
+          <recommend></recommend>
           <iv-affix :offset-top="60" v-if="responsiveRender(false, false, false, true)">
             <side-toc style="margin-top: 15px;" ref="sideToc"></side-toc>
           </iv-affix>
@@ -23,7 +23,7 @@
     </iv-row>
   </div>
 </template>
-npm
+
 <script type="text/ecmascript-6">
   import ArticlePageHeader from '@/components/views/Article/ArticlePageHeader';
   import ArticlePageContent from '@/components/views/Article/ArticlePageContent';
@@ -38,6 +38,7 @@ npm
   import 'highlight.js/styles/atom-one-light.css';
   // TOC
   import tocbot from 'tocbot';
+  import {hexMd5} from '@/common/js/md5';
   // API
   import {getArticleDetailInfo} from '@/api/api';
 
@@ -47,17 +48,9 @@ npm
     data() {
       return {
         articleId: 0,
-        article: undefined
+        article: undefined,
+        checked: false
       };
-    },
-    components: {
-      'article-page-header': ArticlePageHeader,
-      'article-page-content': ArticlePageContent,
-      'article-page-footer': ArticlePageFooter,
-      'about': About,
-      'friend-links': FriendLinks,
-      'side-toc': SideToc,
-      'recommend': Recommend
     },
     created() {
       this.articleId = this.$route.params.articleId;
@@ -68,9 +61,65 @@ npm
         getArticleDetailInfo({
           id: this.articleId
         }).then((response) => {
-          this.article = response.data;
+          this.$nextTick(() => {
+            this.article = response.data;
+            if (this.article.browse_password_encrypt !== null && this.article.browse_password_encrypt.length > 0) {
+              this.checkPassword(this.article.browse_password_encrypt);
+            } else {
+              this.checked = true;
+            }
+          });
         }).catch(function (error) {
           console.log(error);
+        });
+      },
+      checkPassword(password) {
+        this.$Modal.confirm({
+          autoClosable: false,
+          render: (h) => {
+            let children = [];
+            children.push(h('h2', {
+              domProps: {
+                innerHTML: '提示'
+              },
+              'class': {
+                'modal-title': true
+              }
+            }));
+            children.push(h('p', {
+              domProps: {
+                innerHTML: '该文章为加密文章，您需要输入阅读密码'
+              },
+              'class': {
+                'modal-message': true
+              }
+            }));
+            children.push(h('iv-input', {
+              props: {
+                autofocus: true,
+                placeholder: '请输入阅读密码'
+              },
+              'class': {
+                'modal-input': true
+              },
+              on: {
+                input: (value) => {
+                  this.browse_password_encrypt = value;
+                }
+              }
+            }));
+            return h('div', {}, children);
+          },
+          onOk: () => {
+            if (hexMd5(this.browse_password_encrypt) === password) {
+              this.checked = true;
+              this.$Modal.remove();
+            } else {
+              this.$Notice.error({
+                title: '密码错误'
+              });
+            }
+          }
         });
       },
       addTocScrollSpy() {
@@ -106,13 +155,24 @@ npm
         });
       }
     },
+    components: {
+      'article-page-header': ArticlePageHeader,
+      'article-page-content': ArticlePageContent,
+      'article-page-footer': ArticlePageFooter,
+      'about': About,
+      'friend-links': FriendLinks,
+      'side-toc': SideToc,
+      'recommend': Recommend
+    },
     watch: {
-      article: function (newArticle) {
-        this.$nextTick(() => {
-          this.addCodeLineNumber();
-          this.addTocScrollSpy();
-          window.scrollTo(0, 0);
-        });
+      checked: function (newChecked) {
+        if (newChecked) {
+          this.$nextTick(() => {
+            this.addCodeLineNumber();
+            this.addTocScrollSpy();
+            window.scrollTo(0, 0);
+          });
+        }
       }
     },
   };

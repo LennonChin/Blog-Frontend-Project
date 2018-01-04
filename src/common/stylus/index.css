@@ -80,4 +80,19 @@ html {
     padding: 0 7.5px;
   }
 }
+.modal-title {
+  font-size: 22px;
+  font-weight: 700;
+  text-align: center;
+  padding-bottom: 10px;
+}
+.modal-message {
+  font-size: 16px;
+  line-height: 28px;
+  text-align: center;
+  padding-bottom: 15px;
+}
+.modal-input {
+  padding: 0 20px;
+}
 /*# sourceMappingURL=index.css.map */

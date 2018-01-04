@@ -40,7 +40,7 @@ module.exports = {
       {
         test: /\.vue$/,
         loader: 'vue-loader',
-        options: vueLoaderConfig
+        options: vueLoaderConfig // vue-loader中已经处理了CSS相关的loader
       },
       {
         test: /\.js$/,

@@ -389,6 +389,7 @@
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
+  @import "../../common/stylus/base.styl";
   @import "../../common/stylus/theme.styl";
 
   #mavon-editor
@@ -435,19 +436,4 @@
             color $color-gradually-gray-61
             &:hover
               color $color-secondary-warning
-
-  .modal-title
-    font-size 22px
-    font-weight 700
-    text-align center
-    padding-bottom 10px
-
-  .modal-message
-    font-size 16px
-    line-height 28px
-    text-align center
-    padding-bottom 15px
-
-  .modal-input
-    padding 0 20px
 </style>
