@@ -113,7 +113,6 @@
           onOk: () => {
             if (hexMd5(this.browse_password_encrypt) === password) {
               this.checked = true;
-              this.$Modal.remove();
             } else {
               this.$Notice.error({
                 title: '密码错误'

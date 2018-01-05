@@ -11,18 +11,17 @@
       </router-link>
       <ul id="nav">
         <li class="nav-dropdown-container" v-for="category_level1 in this.categorys">
-          <router-link class="nav-link" :to="rootRouterLink(category_level1)" target="_parent">
+          <router-link class="nav-link" :to="rootRouterLink(category_level1)">
             {{ category_level1.name }} <span class="arrow"></span>
           </router-link>
           <ul class="nav-dropdown" v-if="category_level1.sub_category.length > 0">
             <li v-for="category_level2 in category_level1.sub_category">
-              <router-link class="nav-link" :to="routerLink(category_level1, category_level2.id)" target="_blank">
+              <router-link class="nav-link" :to="routerLink(category_level1, category_level2.id)">
                 {{category_level2.name}}
               </router-link>
               <ul class="nav-dropdown">
                 <li v-for="category_level3 in category_level2.sub_category">
-                  <router-link class="nav-link" :to="routerLink(category_level1, category_level3.id)"
-                               target="_blank">
+                  <router-link class="nav-link" :to="routerLink(category_level1, category_level3.id)">
                     {{category_level3.name}}
                   </router-link>
                 </li>

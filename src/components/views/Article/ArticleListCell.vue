@@ -6,13 +6,13 @@
                 style="padding-left: 0;padding-right: 0;">
           <div class="text-wrapper">
             <h4 class="title">
-              <router-link :to="{ name: 'article/detail', params:{ articleId: article.id}}" target="_blank"> {{article.title}}</router-link>
+              <router-link :to="{ name: 'article/detail', params:{ articleId: article.id}}"> {{article.title}}</router-link>
             </h4>
             <div class="tags">
               <iv-tag :color="tag.color" type="border" v-for="tag in article.tags" :key="tag.id">{{ tag.name }}</iv-tag>
             </div>
             <p class="desc">{{article.desc | textLineBreak(70) }}
-              <router-link :to="{ name: 'article/detail', params:{ articleId: article.id}}" target="_blank"> View More
+              <router-link :to="{ name: 'article/detail', params:{ articleId: article.id}}"> View More
                 <iv-icon type="arrow-right-b"></iv-icon>
               </router-link>
             </p>

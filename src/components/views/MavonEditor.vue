@@ -411,8 +411,6 @@
     .editor-area
       flex 1
     .bottom-area
-      flex 0 0 40px
-      height 40px
       display flex
       padding-top 15px
       justify-content: space-between

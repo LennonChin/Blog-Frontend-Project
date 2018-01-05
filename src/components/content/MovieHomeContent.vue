@@ -1,7 +1,7 @@
 <template>
   <div class="movie-home-content layout-content">
-    <movie-recomend-list-cell :movies="recommendMovies"></movie-recomend-list-cell>
-    <movie-recent-list-cell :movies="hotMovies" style="margin-top: 20px;"></movie-recent-list-cell>
+    <movie-recomend-list-cell v-if="recommendMovies.length > 0" :movies="recommendMovies"></movie-recomend-list-cell>
+    <movie-recent-list-cell v-if="hotMovies.length > 0" :movies="hotMovies" style="margin-top: 20px;"></movie-recent-list-cell>
     <movie-list-cell v-if="otherMovies.length > 0" :movies="otherMovies" style="margin-top: 20px;"></movie-list-cell>
   </div>
 </template>

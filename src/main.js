@@ -33,13 +33,16 @@ import {
   Modal,
   Message,
   Notice,
-  Avatar
+  Avatar,
+  Spin,
+  BackTop
 } from 'iview';
 
 Vue.prototype.$http = Axios;
 Vue.prototype.$Modal = Modal;
 Vue.prototype.$Message = Message;
 Vue.prototype.$Notice = Notice;
+Vue.prototype.$Spin = Spin;
 
 Vue.component('iv-row', Row);
 Vue.component('iv-col', Col);
@@ -62,6 +65,8 @@ Vue.component('iv-date-picker', DatePicker);
 Vue.component('iv-date-picker-cell', DatePickerCell);
 Vue.component('iv-switch', Switch);
 Vue.component('iv-avatar', Avatar);
+Vue.component('iv-backtop', BackTop);
+Vue.component('iv-spin', Spin);
 
 // 全局混合
 Vue.mixin({

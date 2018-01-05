@@ -33,7 +33,6 @@
 
   .article-page-footer
     text-align left
-    height 200px
     .operate_menu
       margin-top 30px
     .comment-menu

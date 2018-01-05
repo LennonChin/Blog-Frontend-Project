@@ -48,8 +48,7 @@ html {
 @media screen and (min-width: 1200px) {
   .layout-content {
     width: 1200px;
-    margin: 15px auto 0;
-    margin-bottom: 100px;
+    margin: 15px auto;
   }
   .layout-content .layout-left,
   .layout-content .layout-right {

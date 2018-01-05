@@ -1,5 +1,6 @@
 <template>
   <div class="social-section" v-if="article != undefined">
+    <iv-spin size="large" v-if="showSpin" fix style="z-index: 99;"></iv-spin>
     <iv-menu :active-name="'1'" :class="theme" mode="horizontal">
       <iv-menu-item name="1" style="padding-left: 0;" @click.native="likePost(article)">
         <iv-icon type="heart"></iv-icon>
@@ -83,7 +84,8 @@
         name: '',
         select: 'email',
         email: '',
-        mobile: ''
+        mobile: '',
+        showSpin: true
       };
     },
     created() {
@@ -100,6 +102,7 @@
           }
         }).then((response) => {
           this.comments = response.data.results;
+          this.showSpin = false;
         }).catch(function (error) {
           console.log(error);
         });
@@ -173,6 +176,7 @@
   @import "../.././../common/stylus/theme.styl";
   // #mavon-editor .operate .iv-dropdown-link
   .social-section
+    position relative
     .dark-theme
       background #000
       &::after
