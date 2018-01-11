@@ -6,15 +6,15 @@
                 style="padding-left: 0;padding-right: 0;">
           <div class="text-wrapper">
             <h4 class="title">
-              <router-link :to="{ name: 'article/detail', params:{ articleId: article.id}}"> {{article.title}}</router-link>
+              <a @click="gotoPostDetail(article)">{{article.title}}</a>
             </h4>
             <div class="tags">
               <iv-tag :color="tag.color" type="border" v-for="tag in article.tags" :key="tag.id">{{ tag.name }}</iv-tag>
             </div>
             <p class="desc">{{article.desc | textLineBreak(70) }}
-              <router-link :to="{ name: 'article/detail', params:{ articleId: article.id}}"> View More
+              <a @click="gotoPostDetail(article)"> View More
                 <iv-icon type="arrow-right-b"></iv-icon>
-              </router-link>
+              </a>
             </p>
             <p class="operate_info">
               <span class="publish-time"><a>{{ article.add_time | socialDate }}</a></span>
@@ -38,6 +38,7 @@
 
 <script type="text/ecmascript-6">
   import {addPostLike} from '@/api/api';
+  import {hexMd5} from '@/common/js/md5';
 
   const ARTICLE_TYPE_NO_IMAGE = 0;
   const ARTICLE_TYPE_NORMAL_IMAGE = 1;
@@ -89,6 +90,62 @@
       }
     },
     methods: {
+      gotoPostDetail(post) {
+        if (post.browse_password_encrypt) {
+          this.$Modal.confirm({
+            autoClosable: false,
+            render: (h) => {
+              let children = [];
+              children.push(h('h2', {
+                domProps: {
+                  innerHTML: '提示'
+                },
+                'class': {
+                  'modal-title': true
+                }
+              }));
+              children.push(h('p', {
+                domProps: {
+                  innerHTML: '该文章为加密文章，您需要输入阅读密码'
+                },
+                'class': {
+                  'modal-message': true
+                }
+              }));
+              children.push(h('iv-input', {
+                props: {
+                  autofocus: true,
+                  placeholder: '请输入阅读密码'
+                },
+                'class': {
+                  'modal-input': true
+                },
+                on: {
+                  input: (value) => {
+                    this.browse_auth = value;
+                  }
+                }
+              }));
+              return h('div', {}, children);
+            },
+            onOk: () => {
+              if (hexMd5(this.browse_auth) === post.browse_password_encrypt) {
+                this.$router.push({
+                  name: 'article/detail',
+                  params: {articleId: post.id},
+                  query: {browse_auth: hexMd5(this.browse_auth)}
+                });
+              } else {
+                this.$Notice.error({
+                  title: '密码错误'
+                });
+              }
+            }
+          });
+        } else {
+          this.$router.push({name: 'article/detail', params: {articleId: post.id}});
+        }
+      },
       likePost(post) {
         addPostLike({
           post_id: post.id

@@ -1,6 +1,6 @@
-import axios from 'axios';
+import axios from '@/axios';
 
-let localHost = 'http://169.254.170.68:8000/api';
+let localHost = 'http://169.254.113.0:8000/api';
 
 // 获取博主信息
 export const getBloggerInfo = params => {
@@ -59,7 +59,7 @@ export const getArticleBaseInfo = params => {
 // 获取文章详细信息
 export const getArticleDetailInfo = params => {
   if ('id' in params) {
-    return axios.get(`${localHost}/articleDetailInfos/` + params.id + '/');
+    return axios.get(`${localHost}/articleDetailInfos/` + params.id + '/', params);
   } else {
     return axios.get(`${localHost}/articleDetailInfos/`, params);
   }

@@ -1,11 +1,12 @@
 <template>
-  <div class="article-content layout-content" v-if="checked">
+  <div class="article-content layout-content" v-if="article != undefined">
     <iv-row>
       <iv-col :xs="24" :sm="24" :md="24" :lg="17">
         <div class="layout-left">
           <article-page-header :article="article"></article-page-header>
           <article-page-content>
-            <article v-if="article !== undefined" id="article-main-page" class="typo container article-main-content" slot="content"
+            <article v-if="article !== undefined" id="article-main-page" class="typo container article-main-content"
+                     slot="content"
                      v-html="article.detail.formatted_content" ref="article">
             </article>
           </article-page-content>
@@ -38,6 +39,7 @@
   import 'highlight.js/styles/atom-one-light.css';
   // TOC
   import tocbot from 'tocbot';
+  // 加密
   import {hexMd5} from '@/common/js/md5';
   // API
   import {getArticleDetailInfo} from '@/api/api';
@@ -48,32 +50,35 @@
     data() {
       return {
         articleId: 0,
-        article: undefined,
-        checked: false
+        browse_auth: null,
+        article: undefined
       };
     },
     created() {
       this.articleId = this.$route.params.articleId;
+      this.browse_auth = this.$route.query.browse_auth;
       this.getDatas();
     },
     methods: {
       getDatas() {
+        var that = this;
         getArticleDetailInfo({
+          params: {
+            browse_auth: this.browse_auth
+          },
           id: this.articleId
         }).then((response) => {
           this.$nextTick(() => {
             this.article = response.data;
-            if (this.article.browse_password_encrypt !== null && this.article.browse_password_encrypt.length > 0) {
-              this.checkPassword(this.article.browse_password_encrypt);
-            } else {
-              this.checked = true;
-            }
           });
         }).catch(function (error) {
           console.log(error);
+          if (error.status === 401) {
+            that.checkPassword(that.browse_auth ? '该文章为加密文章，您输入的阅读密码错误，请重新验证' : '该文章为加密文章，请输入阅读密码');
+          }
         });
       },
-      checkPassword(password) {
+      checkPassword(message) {
         this.$Modal.confirm({
           autoClosable: false,
           render: (h) => {
@@ -88,7 +93,7 @@
             }));
             children.push(h('p', {
               domProps: {
-                innerHTML: '该文章为加密文章，您需要输入阅读密码'
+                innerHTML: message
               },
               'class': {
                 'modal-message': true
@@ -104,20 +109,20 @@
               },
               on: {
                 input: (value) => {
-                  this.browse_password_encrypt = value;
+                  this.browse_auth_input = value;
                 }
               }
             }));
             return h('div', {}, children);
           },
           onOk: () => {
-            if (hexMd5(this.browse_password_encrypt) === password) {
-              this.checked = true;
-            } else {
-              this.$Notice.error({
-                title: '密码错误'
-              });
-            }
+            this.browse_auth = hexMd5(this.browse_auth_input);
+            this.$router.push({
+              name: 'article/detail',
+              params: {articleId: this.articleId},
+              query: {browse_auth: this.browse_auth}
+            });
+            this.getDatas();
           }
         });
       },
@@ -164,8 +169,8 @@
       'recommend': Recommend
     },
     watch: {
-      checked: function (newChecked) {
-        if (newChecked) {
+      article: function (newArticle) {
+        if (newArticle) {
           this.$nextTick(() => {
             this.addCodeLineNumber();
             this.addTocScrollSpy();

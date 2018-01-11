@@ -1,18 +1,19 @@
 <template>
   <div class="thumb-card" v-if="album != undefined">
-    <router-link :to="{ name: 'album/detail', params:{ albumId: album.id}}" target="_blank">
+    <a @click="gotoPostDetail(album)">
       <div class="top-area">
-        <router-link :to="{ name: 'album/detail', params:{ albumId: album.id}}" target="_blank">
+        <a @click="gotoPostDetail(album)">
           <p class="desc">{{ album.desc }}</p>
           <div class="background"></div>
           <img :src="album.front_image" alt="">
           <img :src="album.front_image" alt="">
           <img :src="album.front_image" alt="">
-        </router-link>
+        </a>
       </div>
       <div class="bottom-area">
         <h4 class="title">
-          <router-link :to="{ name: 'album/detail', params:{ albumId: album.id }}" target="_blank">{{ album.title }}</router-link>
+          <router-link :to="{ name: 'album/detail', params:{ albumId: album.id }}" target="_blank">{{ album.title }}
+          </router-link>
         </h4>
         <p class="info"><span class="author"><a>By / {{ album.author }}</a></span></p>
         <p class="info"><span class="publish-time"><a>At time / {{ album.add_time | socialDate}}</a></span></p>
@@ -21,12 +22,13 @@
           <span class="comments"><a> {{ album.comment_num}}个评论</a></span> |
           <span class="likes"><a @click="likePost(album)"> {{ album.like_num }}个喜欢</a></span></p>
       </div>
-    </router-link>
+    </a>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
   import {addPostLike} from '@/api/api';
+  import {hexMd5} from '@/common/js/md5';
 
   export default {
     props: {
@@ -35,6 +37,62 @@
       }
     },
     methods: {
+      gotoPostDetail(post) {
+        if (post.browse_password_encrypt) {
+          this.$Modal.confirm({
+            autoClosable: false,
+            render: (h) => {
+              let children = [];
+              children.push(h('h2', {
+                domProps: {
+                  innerHTML: '提示'
+                },
+                'class': {
+                  'modal-title': true
+                }
+              }));
+              children.push(h('p', {
+                domProps: {
+                  innerHTML: '该图集为加密图集，您需要输入阅读密码'
+                },
+                'class': {
+                  'modal-message': true
+                }
+              }));
+              children.push(h('iv-input', {
+                props: {
+                  autofocus: true,
+                  placeholder: '请输入阅读密码'
+                },
+                'class': {
+                  'modal-input': true
+                },
+                on: {
+                  input: (value) => {
+                    this.browse_auth = value;
+                  }
+                }
+              }));
+              return h('div', {}, children);
+            },
+            onOk: () => {
+              if (hexMd5(this.browse_auth) === post.browse_password_encrypt) {
+                this.$router.push({
+                  name: 'album/detail',
+                  params: {albumId: post.id},
+                  query: {browse_auth: hexMd5(this.browse_auth)}
+                });
+              } else {
+                this.$Notice.error({
+                  title: '密码错误'
+                });
+              }
+            }
+          });
+        } else {
+          this.$router.push({name: 'album/detail', params: {albumId: post.id}});
+        }
+      },
       likePost(post) {
         addPostLike({
           post_id: post.id
