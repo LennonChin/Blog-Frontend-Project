@@ -1,5 +1,5 @@
 <template>
-  <div class="movie-content">
+  <div class="movie-content" v-if="movie != undefined">
     <div class="header-wrapper">
       <img src="../../assets/background.jpg" alt="">
       <movie-page-header :movie="movie"></movie-page-header>
@@ -38,6 +38,8 @@
   import 'highlight.js/styles/atom-one-light.css';
   // TOC
   import tocbot from 'tocbot';
+  // 加密
+  import {hexMd5} from '@/common/js/md5';
   // API
   import {getMovieDetailInfo} from '@/api/api';
 
@@ -47,6 +49,7 @@
     data() {
       return {
         movieId: 0,
+        browse_auth: null,
         movie: undefined
       };
     },
@@ -58,16 +61,86 @@
     },
     created() {
       this.movieId = this.$route.params.movieId;
+      this.browse_auth = this.$route.query.browse_auth;
       this.getDatas();
     },
     methods: {
       getDatas() {
+        var that = this;
         getMovieDetailInfo({
+          params: {
+            browse_auth: this.browse_auth
+          },
           id: this.movieId
         }).then((response) => {
-          this.movie = response.data;
+          this.$nextTick(() => {
+            this.movie = response.data;
+          });
         }).catch(function (error) {
           console.log(error);
+          if (error.status === 401) {
+            if (that.browse_auth) {
+              that.$Notice.error({
+                title: '您输入的阅读密码错误',
+                duration: 3,
+                closable: true,
+                onClose: () => {
+                  that.checkPassword('该文章为加密文章，<br />您输入的阅读密码错误，请重新验证');
+                }
+              });
+            } else {
+              that.checkPassword('该文章为加密文章，请输入阅读密码');
+            }
+          }
+        });
+      },
+      checkPassword(message) {
+        this.$Modal.confirm({
+          autoClosable: false,
+          render: (h) => {
+            let children = [];
+            children.push(h('h2', {
+              domProps: {
+                innerHTML: '提示'
+              },
+              'class': {
+                'modal-title': true
+              }
+            }));
+            children.push(h('p', {
+              domProps: {
+                innerHTML: message
+              },
+              'class': {
+                'modal-message': true
+              }
+            }));
+            children.push(h('iv-input', {
+              props: {
+                type: 'password',
+                autofocus: true,
+                placeholder: '请输入阅读密码'
+              },
+              'class': {
+                'modal-input': true
+              },
+              on: {
+                input: (value) => {
+                  this.browse_auth_input = value;
+                }
+              }
+            }));
+            return h('div', {}, children);
+          },
+          onOk: () => {
+            this.browse_auth = hexMd5(this.browse_auth_input);
+            this.$router.push({
+              name: 'movie/detail',
+              params: {movieId: this.movieId},
+              query: {browse_auth: this.browse_auth}
+            });
+            this.getDatas();
+          }
         });
       },
       addTocScrollSpy() {

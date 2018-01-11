@@ -5,16 +5,19 @@
         <div class="top">
           <a>
             <p class="title">
-              <router-link :to="{ name: 'article/detail', params:{ articleId: articleSlice(0, 1)[0].id}}" target="_blank">
+              <a @click="gotoPostDetail(articleSlice(0, 1)[0])">
                 {{ articleSlice(0, 1)[0].title }}
-              </router-link>
+              </a>
             </p>
             <div class="tags">
-              <iv-tag :color="tag.color" type="border" v-for="tag in articleSlice(0, 1)[0].tags" :key="tag.id">{{ tag.name }}</iv-tag>
+              <iv-tag :color="tag.color" type="border" v-for="tag in articleSlice(0, 1)[0].tags" :key="tag.id">
+                {{ tag.name }}
+              </iv-tag>
             </div>
             <p class="info">
               <span class="time">{{ articleSlice(0, 1)[0].add_time | socialDate}}</span>
-              <span class="likes"><a @click="likePost(articleSlice(0, 1)[0])"><iv-icon type="heart"></iv-icon> {{ articleSlice(0, 1)[0].like_num }} </a></span>
+              <span class="likes"><a @click="likePost(articleSlice(0, 1)[0])"><iv-icon
+                type="heart"></iv-icon> {{ articleSlice(0, 1)[0].like_num }} </a></span>
               <span class="comments"><a><iv-icon type="compose"></iv-icon> {{ articleSlice(0, 1)[0].comment_num }} </a></span>
               <span class="readings"><a><iv-icon type="eye"></iv-icon> {{ articleSlice(0, 1)[0].click_num }} </a></span>
             </p>
@@ -28,9 +31,7 @@
           <li v-for="article in articleSlice(1)">
             <a>
               <p class="title">
-                <router-link :to="{ name: 'article/detail', params:{ articleId: article.id}}" target="_blank">
-                  {{ article.title }}
-                </router-link>
+                <a @click="gotoPostDetail(article)">{{ article.title }}</a>
               </p>
               <p class="info">
                 <span class="time">{{ article.add_time | socialDate }}</span>
@@ -48,7 +49,8 @@
 
 <script type="text/ecmascript-6">
   import Panel from '@/components/utils/Panel';
-  import { getPostBaseInfo, addPostLike } from '@/api/api';
+  import {getPostBaseInfo, addPostLike} from '@/api/api';
+  import {checkPostAuth} from '@/common/js/utils';
 
   export default {
     data() {
@@ -73,6 +75,22 @@
           console.log(error);
         });
       },
+      gotoPostDetail(post) {
+        let routerInfos = this.routerInfos(post);
+        checkPostAuth.call(this, post, '提示', routerInfos.message, () => {
+          this.$router.push({name: routerInfos.name, params: routerInfos.params});
+        }, (encryptedBrowseAuth) => {
+          this.$router.push({
+            name: routerInfos.name,
+            params: routerInfos.params,
+            query: {browse_auth: encryptedBrowseAuth}
+          });
+        }, () => {
+          this.$Notice.error({
+            title: '密码错误'
+          });
+        });
+      },
       likePost(post) {
         addPostLike({
           post_id: post.id
@@ -82,6 +100,26 @@
         }).catch(function (error) {
           console.log(error);
         });
+      },
+      routerInfos(post) {
+        let router = {};
+        router.name = post.post_type + '/detail';
+        switch (post.post_type) {
+          case 'article':
+            router.message = '该文章为加密文章，您需要输入阅读密码';
+            break;
+          case 'album':
+            router.message = '该图集为加密文章，您需要输入阅读密码';
+            break;
+          case 'movie':
+            router.message = '该文章为加密文章，您需要输入阅读密码';
+            break;
+          default:
+            router.message = '该文章为加密文章，您需要输入阅读密码';
+        }
+        router.params = {};
+        router.params[post.post_type + 'Id'] = post.id;
+        return router;
       },
       articleSlice(start, end) {
         return this.articles.slice(start, end);

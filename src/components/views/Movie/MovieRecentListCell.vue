@@ -5,7 +5,7 @@
       <iv-col :xs="24" :sm="24" :md="16" :lg="16" v-if="movies.length > 0">
         <ul class="recent">
           <li v-for="movie in movies.slice(0, 3)">
-            <router-link :to="{ name: 'movie/detail', params:{ movieId: movie.id}}" target="_blank">
+            <a @click="gotoPostDetail(movie)">
               <iv-row>
                 <iv-col :xs="24" :sm="24" :md="7" :lg="6">
                   <div class="img">
@@ -20,14 +20,14 @@
                   </div>
                 </iv-col>
               </iv-row>
-            </router-link>
+            </a>
           </li>
         </ul>
       </iv-col>
       <iv-col :xs="24" :sm="24" :md="8" :lg="8" v-if="movies[3] != undefined">
         <div class="recommend">
           <h4>推荐观影</h4>
-          <router-link :to="{ name: 'movie/detail', params:{ movieId: movies[3].id}}" target="_blank">
+          <a @click="gotoPostDetail(movies[3])">
             <p class="title">{{ movies[3].title }}</p>
             <div class="tags">
               <iv-tag :color="tag.color" v-for="tag in movies[3].tags" :key="tag.id">{{ tag.name }}</iv-tag>
@@ -42,7 +42,7 @@
               <img :src="movies[3].front_image" alt="">
             </div>
             <p class="desc">{{ movies[3].desc | textLineBreak(100) }}</p>
-          </router-link>
+          </a>
         </div>
       </iv-col>
     </iv-row>
@@ -51,6 +51,7 @@
 
 <script type="text/ecmascript-6">
   import {addPostLike} from '@/api/api';
+  import {checkPostAuth} from '@/common/js/utils';
 
   export default {
     props: {
@@ -59,6 +60,21 @@
       }
     },
     methods: {
+      gotoPostDetail(post) {
+        checkPostAuth.call(this, post, '提示', '该文章为加密文章，您需要输入阅读密码', () => {
+          this.$router.push({name: 'movie/detail', params: {movieId: post.id}});
+        }, (encryptedBrowseAuth) => {
+          this.$router.push({
+            name: 'movie/detail',
+            params: {movieId: post.id},
+            query: {browse_auth: encryptedBrowseAuth}
+          });
+        }, () => {
+          this.$Notice.error({
+            title: '密码错误'
+          });
+        });
+      },
       likePost(post) {
         addPostLike({
           post_id: post.id

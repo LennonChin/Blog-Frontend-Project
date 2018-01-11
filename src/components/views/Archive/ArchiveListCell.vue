@@ -1,15 +1,16 @@
 <template>
   <div class="archive-list-cell">
     <p>
-      <router-link :to="{ name: routerLink.name, params: routerLink.params }" target="_blank">
+      <a @click="gotoPostDetail(post)">
         <iv-tag>{{ post.add_time | formatDate}}</iv-tag>
         <span class="title">{{ post.title }}</span>
-      </router-link>
+      </a>
     </p>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
+  import {checkPostAuth} from '@/common/js/utils';
   const POST_TYPE_ARTICLE = 'article';
   const POST_TYPE_ALBUM = 'album';
   const POST_TYPE_MOVIE = 'movie';
@@ -20,14 +21,45 @@
         Type: Object
       }
     },
-    computed: {
-      routerLink() {
-        let router = {};
-        router.name = this.post.post_type + '/detail';
-        router.params = {};
-        router.params[this.post.post_type + 'Id'] = this.post.id;
-        return router;
+    methods: {
+      gotoPostDetail(post) {
+        let routerInfos = this.routerInfos(post);
+        checkPostAuth.call(this, post, '提示', routerInfos.message, () => {
+          this.$router.push({name: routerInfos.name, params: routerInfos.params});
+        }, (encryptedBrowseAuth) => {
+          this.$router.push({
+            name: routerInfos.name,
+            params: routerInfos.params,
+            query: {browse_auth: encryptedBrowseAuth}
+          });
+        }, () => {
+          this.$Notice.error({
+            title: '密码错误'
+          });
+        });
       },
+      routerInfos(post) {
+        let router = {};
+        router.name = post.post_type + '/detail';
+        switch (post.post_type) {
+          case 'article':
+            router.message = '该文章为加密文章，您需要输入阅读密码';
+            break;
+          case 'album':
+            router.message = '该图集为加密文章，您需要输入阅读密码';
+            break;
+          case 'movie':
+            router.message = '该文章为加密文章，您需要输入阅读密码';
+            break;
+          default:
+            router.message = '该文章为加密文章，您需要输入阅读密码';
+        }
+        router.params = {};
+        router.params[post.post_type + 'Id'] = post.id;
+        return router;
+      }
+    },
+    computed: {
       typeTag() {
         switch (this.post.postType) {
           case POST_TYPE_ARTICLE:

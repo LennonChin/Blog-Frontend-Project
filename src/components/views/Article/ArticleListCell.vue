@@ -38,7 +38,7 @@
 
 <script type="text/ecmascript-6">
   import {addPostLike} from '@/api/api';
-  import {hexMd5} from '@/common/js/md5';
+  import {checkPostAuth} from '@/common/js/utils';
 
   const ARTICLE_TYPE_NO_IMAGE = 0;
   const ARTICLE_TYPE_NORMAL_IMAGE = 1;
@@ -91,60 +91,19 @@
     },
     methods: {
       gotoPostDetail(post) {
-        if (post.browse_password_encrypt) {
-          this.$Modal.confirm({
-            autoClosable: false,
-            render: (h) => {
-              let children = [];
-              children.push(h('h2', {
-                domProps: {
-                  innerHTML: '提示'
-                },
-                'class': {
-                  'modal-title': true
-                }
-              }));
-              children.push(h('p', {
-                domProps: {
-                  innerHTML: '该文章为加密文章，您需要输入阅读密码'
-                },
-                'class': {
-                  'modal-message': true
-                }
-              }));
-              children.push(h('iv-input', {
-                props: {
-                  autofocus: true,
-                  placeholder: '请输入阅读密码'
-                },
-                'class': {
-                  'modal-input': true
-                },
-                on: {
-                  input: (value) => {
-                    this.browse_auth = value;
-                  }
-                }
-              }));
-              return h('div', {}, children);
-            },
-            onOk: () => {
-              if (hexMd5(this.browse_auth) === post.browse_password_encrypt) {
-                this.$router.push({
-                  name: 'article/detail',
-                  params: {articleId: post.id},
-                  query: {browse_auth: hexMd5(this.browse_auth)}
-                });
-              } else {
-                this.$Notice.error({
-                  title: '密码错误'
-                });
-              }
-            }
-          });
-        } else {
+        checkPostAuth.call(this, post, '提示', '该文章为加密文章，您需要输入阅读密码', () => {
           this.$router.push({name: 'article/detail', params: {articleId: post.id}});
-        }
+        }, (encryptedBrowseAuth) => {
+          this.$router.push({
+            name: 'article/detail',
+            params: {articleId: post.id},
+            query: {browse_auth: encryptedBrowseAuth}
+          });
+        }, () => {
+          this.$Notice.error({
+            title: '密码错误'
+          });
+        });
       },
       likePost(post) {
         addPostLike({

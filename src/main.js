@@ -44,6 +44,11 @@ Vue.prototype.$Message = Message;
 Vue.prototype.$Notice = Notice;
 Vue.prototype.$Spin = Spin;
 
+Vue.prototype.$Notice.config({
+  top: 70,
+  duration: 3
+});
+
 Vue.component('iv-row', Row);
 Vue.component('iv-col', Col);
 Vue.component('iv-button', Button);

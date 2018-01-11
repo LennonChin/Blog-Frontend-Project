@@ -1,3 +1,4 @@
+import {hexMd5} from '@/common/js/md5';
 // 按社交方式格式化时间
 export function socialDateFormat(formateDate) {
   var timestamp = Date.parse(new Date(formateDate));
@@ -58,4 +59,59 @@ export function loadFromLocal(id, key, def) {
   }
   let ret = blog[key];
   return ret || def;
+};
+
+// 检查文章加密
+export function checkPostAuth(post, title, message, noAuthCallback, successCallback, failCallback) {
+  let browseAuth = '';
+  if (post.browse_password_encrypt) {
+    this.$Modal.confirm({
+      autoClosable: false,
+      render: (h) => {
+        let children = [];
+        children.push(h('h2', {
+          domProps: {
+            innerHTML: title
+          },
+          'class': {
+            'modal-title': true
+          }
+        }));
+        children.push(h('p', {
+          domProps: {
+            innerHTML: message
+          },
+          'class': {
+            'modal-message': true
+          }
+        }));
+        children.push(h('iv-input', {
+          props: {
+            type: 'password',
+            autofocus: true,
+            placeholder: '请输入阅读密码'
+          },
+          'class': {
+            'modal-input': true
+          },
+          on: {
+            input: (value) => {
+              browseAuth = value;
+            }
+          }
+        }));
+        return h('div', {}, children);
+      },
+      onOk: () => {
+        let encryptedBrowseAuth = hexMd5(browseAuth);
+        if (encryptedBrowseAuth === post.browse_password_encrypt) {
+          successCallback(encryptedBrowseAuth);
+        } else {
+          failCallback();
+        }
+      }
+    });
+  } else {
+    noAuthCallback();
+  }
 };

@@ -11,7 +11,7 @@
         <iv-row>
           <iv-col :xs="24" :sm="24" :md="12" :lg="12" v-for="movie in movies.slice(1, 5)" :key="movie.id">
             <div class="right">
-              <router-link :to="{ name: 'movie/detail', params:{ movieId: movie.id}}" target="_blank">
+              <a @click="gotoPostDetail(movie)">
                 <div class="img">
                   <div class="container">
                     <div class="bracket"></div>
@@ -27,7 +27,7 @@
                   <p class="desc"><span>类型：</span>{{ movie.category.name }}</p>
                   <p class="desc"><span>剧情介绍：</span>{{ movie.desc  | textLineBreak(30) }}</p>
                 </div>
-              </router-link>
+              </a>
             </div>
           </iv-col>
         </iv-row>
@@ -64,12 +64,30 @@
 
 <script type="text/ecmascript-6">
   import MovieListItem from '@/components/views/Movie/MovieListItem';
+  import {checkPostAuth} from '@/common/js/utils';
 
   export default {
     props: {
       movies: {
         Type: Array,
         default: []
+      }
+    },
+    methods: {
+      gotoPostDetail(post) {
+        checkPostAuth.call(this, post, '提示', '该文章为加密文章，您需要输入阅读密码', () => {
+          this.$router.push({name: 'movie/detail', params: {movieId: post.id}});
+        }, (encryptedBrowseAuth) => {
+          this.$router.push({
+            name: 'movie/detail',
+            params: {movieId: post.id},
+            query: {browse_auth: encryptedBrowseAuth}
+          });
+        }, () => {
+          this.$Notice.error({
+            title: '密码错误'
+          });
+        });
       }
     },
     components: {

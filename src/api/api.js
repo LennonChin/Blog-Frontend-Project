@@ -1,6 +1,6 @@
 import axios from '@/axios';
 
-let localHost = 'http://169.254.113.0:8000/api';
+let localHost = 'http://192.168.1.3:8000/api';
 
 // 获取博主信息
 export const getBloggerInfo = params => {
@@ -77,7 +77,7 @@ export const getAlbumBaseInfo = params => {
 // 获取图集详细信息
 export const getAlbumDetailInfo = params => {
   if ('id' in params) {
-    return axios.get(`${localHost}/albumDetailInfos/` + params.id + '/');
+    return axios.get(`${localHost}/albumDetailInfos/` + params.id + '/', params);
   } else {
     return axios.get(`${localHost}/albumDetailInfos/`, params);
   }
@@ -95,7 +95,7 @@ export const getMovieBaseInfo = params => {
 // 获取电影详细信息
 export const getMovieDetailInfo = params => {
   if ('id' in params) {
-    return axios.get(`${localHost}/movieDetailInfos/` + params.id + '/');
+    return axios.get(`${localHost}/movieDetailInfos/` + params.id + '/', params);
   } else {
     return axios.get(`${localHost}/movieDetailInfos/`, params);
   }

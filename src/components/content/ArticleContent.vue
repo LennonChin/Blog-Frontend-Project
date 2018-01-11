@@ -74,7 +74,18 @@
         }).catch(function (error) {
           console.log(error);
           if (error.status === 401) {
-            that.checkPassword(that.browse_auth ? '该文章为加密文章，您输入的阅读密码错误，请重新验证' : '该文章为加密文章，请输入阅读密码');
+            if (that.browse_auth) {
+              that.$Notice.error({
+                title: '您输入的阅读密码错误',
+                duration: 3,
+                closable: true,
+                onClose: () => {
+                  that.checkPassword('该文章为加密文章，<br />您输入的阅读密码错误，请重新验证');
+                }
+              });
+            } else {
+              that.checkPassword('该文章为加密文章，请输入阅读密码');
+            }
           }
         });
       },
@@ -101,6 +112,7 @@
             }));
             children.push(h('iv-input', {
               props: {
+                type: 'password',
                 autofocus: true,
                 placeholder: '请输入阅读密码'
               },

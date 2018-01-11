@@ -1,22 +1,41 @@
 <template>
   <div class="movie-list-item" v-if="movie != undefined">
-    <router-link :to="{ name: 'movie/detail', params:{ movieId: movie.id}}" target="_blank">
+    <a @click="gotoPostDetail(movie)">
       <img :src="movie.front_image" alt="">
       <div class="movie-info">
         <p class="title"> {{ movie.title }}</p>
         <p class="desc">
-          {{ movie.desc  | textLineBreak(50) }}</p>
+          {{ movie.desc | textLineBreak(50) }}</p>
       </div>
-    </router-link>
+    </a>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
+  import {checkPostAuth} from '@/common/js/utils';
+
   export default {
     props: {
       movie: {
         Type: Object,
         default: undefined
+      }
+    },
+    methods: {
+      gotoPostDetail(post) {
+        checkPostAuth.call(this, post, '提示', '该文章为加密文章，您需要输入阅读密码', () => {
+          this.$router.push({name: 'movie/detail', params: {movieId: post.id}});
+        }, (encryptedBrowseAuth) => {
+          this.$router.push({
+            name: 'movie/detail',
+            params: {movieId: post.id},
+            query: {browse_auth: encryptedBrowseAuth}
+          });
+        }, () => {
+          this.$Notice.error({
+            title: '密码错误'
+          });
+        });
       }
     }
   };
