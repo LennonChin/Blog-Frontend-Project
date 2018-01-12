@@ -6,7 +6,7 @@
                 style="padding-left: 0;padding-right: 0;">
           <div class="text-wrapper">
             <h4 class="title">
-              <iv-tool-tip placement="top" content="该文章为加密文章" v-if="article.browse_password_encrypt">
+              <iv-tool-tip placement="right" content="该文章已图集，您需要输入阅读密码" v-if="article.browse_password_encrypt">
                 <iv-icon type="android-lock" color="#FA5555" v-if="article.browse_password_encrypt"></iv-icon>
               </iv-tool-tip>
               <a @click="gotoPostDetail(article)"> {{article.title}}</a>
@@ -94,7 +94,7 @@
     },
     methods: {
       gotoPostDetail(post) {
-        checkPostAuth.call(this, post, '提示', '该文章为加密文章，您需要输入阅读密码', () => {
+        checkPostAuth.call(this, post, '提示', '该文章已加密，您需要输入阅读密码', () => {
           this.$router.push({name: 'article/detail', params: {articleId: post.id}});
         }, (encryptedBrowseAuth) => {
           this.$router.push({

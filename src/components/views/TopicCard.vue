@@ -1,6 +1,6 @@
 <template>
   <div class="topic-card" v-if="album != undefined">
-    <a @click="gotoPostDetail(album)">
+    <a>
       <div class="top-area">
         <a>
           <img :src="album.front_image" alt="">
@@ -8,10 +8,10 @@
       </div>
       <div class="bottom-area">
         <h4 class="title">
-          <iv-tool-tip placement="top" content="该图集为加密图集" v-if="album.browse_password_encrypt">
+          <iv-tool-tip placement="right" content="该图集已图集，您需要输入阅读密码" v-if="album.browse_password_encrypt">
             <iv-icon type="android-lock" color="#FA5555" v-if="album.browse_password_encrypt"></iv-icon>
           </iv-tool-tip>
-          <a :title="album.title">{{ album.title | textLineBreak(11) }}</a>
+          <a :title="album.title" @click="gotoPostDetail(album)">{{ album.title | textLineBreak(11) }}</a>
         </h4>
         <p class="info"><span class="author"><a>By / {{ album.author }}</a></span></p>
         <p class="info"><span class="publish-time"><a>At time / {{ album.add_time | socialDate }}</a></span></p>
@@ -36,7 +36,7 @@
     },
     methods: {
       gotoPostDetail(post) {
-        checkPostAuth.call(this, post, '提示', '该图集为加密图集，您需要输入阅读密码', () => {
+        checkPostAuth.call(this, post, '提示', '该图集已加密，您需要输入阅读密码', () => {
           this.$router.push({name: 'album/detail', params: {albumId: post.id}});
         }, (encryptedBrowseAuth) => {
           this.$router.push({
@@ -70,8 +70,8 @@
   .topic-card
     margin-bottom 10px
     > a
-      display block
       cursor default
+      display block
       border 1px solid $color-border
       &:hover
         border 1px solid $color-border-hover
@@ -82,6 +82,7 @@
         height: 0
         overflow hidden
         a
+          cursor default
           display: block
           width: 100%
           img

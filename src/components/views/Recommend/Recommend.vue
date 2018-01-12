@@ -5,6 +5,9 @@
         <div class="top">
           <a>
             <p class="title">
+              <iv-tool-tip placement="right" :content="routerInfos(articleSlice(0, 1)[0]).message" v-if="articleSlice(0, 1)[0].browse_password_encrypt">
+                <iv-icon type="android-lock" color="#FA5555" v-if="articleSlice(0, 1)[0].browse_password_encrypt"></iv-icon>
+              </iv-tool-tip>
               <a @click="gotoPostDetail(articleSlice(0, 1)[0])">
                 {{ articleSlice(0, 1)[0].title }}
               </a>
@@ -31,6 +34,9 @@
           <li v-for="article in articleSlice(1)">
             <a>
               <p class="title">
+                <iv-tool-tip placement="right" :content="routerInfos(article).message" v-if="article.browse_password_encrypt">
+                  <iv-icon type="android-lock" color="#FA5555" v-if="article.browse_password_encrypt"></iv-icon>
+                </iv-tool-tip>
                 <a @click="gotoPostDetail(article)">{{ article.title }}</a>
               </p>
               <p class="info">
@@ -149,7 +155,8 @@
           font-size 16px
           line-height 23px
           margin-bottom 5px
-          a
+          > a
+            display inline
             color $color-gradually-gray-41
             &:hover
               text-decoration underline

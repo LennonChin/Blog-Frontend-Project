@@ -24,6 +24,7 @@
 
 <script type="text/ecmascript-6">
   import {getBloggerInfo} from '@/api/api';
+  import {saveToLocal, loadFromLocal} from '@/common/js/utils';
 
   export default {
     data() {
@@ -32,14 +33,34 @@
       };
     },
     created() {
-      this.getDatas();
+      // 博主信息
+      let categoryInfo = loadFromLocal('site', 'blogger_info', null);
+      if (categoryInfo) {
+        let expireTime = categoryInfo['expire_time'];
+        let nowTimestamp = Date.parse(new Date());
+        if (expireTime !== null && nowTimestamp - expireTime > 24 * 3600 * 1000) {
+          console.log('重新请求blogger_info');
+          this.getBloggerInfo();
+        } else {
+          this.bloggerInfo = categoryInfo['blogger_info'];
+        }
+      } else {
+        console.log('重新请求blogger_info');
+        this.getBloggerInfo();
+      }
     },
     methods: {
-      getDatas() {
+      getBloggerInfo() {
         getBloggerInfo({
           params: {}
         }).then((response) => {
           this.bloggerInfo = response.data[0];
+          // 将分类信息保存到本地，避免多次请求
+          let bloggerInfo = {
+            'expire_time': Date.parse(new Date()),
+            'blogger_info': this.bloggerInfo
+          };
+          saveToLocal('site', 'blogger_info', bloggerInfo);
         }).catch(function (error) {
           console.log(error);
         });

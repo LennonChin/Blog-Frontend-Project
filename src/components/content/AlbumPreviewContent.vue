@@ -3,8 +3,10 @@
     <iv-row>
       <iv-col :xs="24" :sm="24" :md="16" :lg="18">
         <div class="album-preview">
-          <album-carousel v-if="album != undefined && album.pictures.length > 0" :pictures="album.pictures"
-                          @slideToIndex="slideToIndex"></album-carousel>
+          <album-carousel v-if="album != undefined && album.pictures.length > 0"
+                          :pictures="album.pictures"
+                          @slideToIndex="slideToIndex"
+                          @close="back"></album-carousel>
         </div>
       </iv-col>
       <iv-col :xs="24" :sm="24" :md="8" :lg="6">
@@ -114,6 +116,9 @@
       },
       slideToIndex(index) {
         this.$refs.albumInfos.selectPicture(index);
+      },
+      back() {
+        this.$router.go(-1);
       }
     },
     components: {

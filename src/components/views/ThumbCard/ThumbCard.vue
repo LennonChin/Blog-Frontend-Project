@@ -1,6 +1,6 @@
 <template>
   <div class="thumb-card" v-if="album != undefined">
-    <a @click="gotoPostDetail(album)">
+    <a>
       <div class="top-area">
         <a>
           <p class="desc">{{ album.desc }}</p>
@@ -12,7 +12,7 @@
       </div>
       <div class="bottom-area">
         <h4 class="title">
-          <iv-tool-tip placement="top" content="该图集为加密图集" v-if="album.browse_password_encrypt">
+          <iv-tool-tip placement="right" content="该图集已图集，您需要输入阅读密码" v-if="album.browse_password_encrypt">
             <iv-icon type="android-lock" color="#FA5555" v-if="album.browse_password_encrypt"></iv-icon>
           </iv-tool-tip>
           <a @click="gotoPostDetail(album)">
@@ -42,7 +42,7 @@
     },
     methods: {
       gotoPostDetail(post) {
-        checkPostAuth.call(this, post, '提示', '该图集为加密图集，您需要输入阅读密码', () => {
+        checkPostAuth.call(this, post, '提示', '该图集已加密，您需要输入阅读密码', () => {
           this.$router.push({name: 'album/detail', params: {albumId: post.id}});
         }, (encryptedBrowseAuth) => {
           this.$router.push({
@@ -88,6 +88,7 @@
           display: block
           width: 100%
           padding-bottom: 110%
+          cursor default
           .desc, .background
             position absolute
             opacity 0.0

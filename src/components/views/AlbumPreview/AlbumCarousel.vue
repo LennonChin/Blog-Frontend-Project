@@ -85,6 +85,7 @@
         this.$emit('slideToIndex', index);
       },
       close() {
+        this.$emit('close');
       },
       expand() {
       },

@@ -22,7 +22,7 @@
                 </div>
                 <div class="info">
                   <p class="title">
-                    <iv-tool-tip placement="top" content="该文章为加密文章" v-if="movie.browse_password_encrypt">
+                    <iv-tool-tip placement="top" content="该文章已加密，您需要输入阅读密码" v-if="movie.browse_password_encrypt">
                       <iv-icon type="android-lock" color="#FA5555" v-if="movie.browse_password_encrypt"></iv-icon>
                     </iv-tool-tip>
                     {{ movie.title }}

@@ -75,11 +75,13 @@
       // 分类信息
       let categoryInfo = loadFromLocal('site', 'category_info', null);
       if (categoryInfo) {
-        if (categoryInfo['expire_time'] === null) {
+        let expireTime = categoryInfo['expire_time'];
+        let nowTimestamp = Date.parse(new Date());
+        if (expireTime !== null && nowTimestamp - expireTime > 24 * 3600 * 1000) {
           console.log('重新请求category_info');
           this.getCategorys();
         } else {
-          this.categorys = categoryInfo;
+          this.categorys = categoryInfo['category_info'];
         }
       } else {
         console.log('重新请求category_info');
@@ -89,11 +91,13 @@
       // 网站信息
       let siteInfo = loadFromLocal('site', 'site_info', null);
       if (siteInfo) {
-        if (siteInfo['expire_time'] === null) {
+        let expireTime = categoryInfo['expire_time'];
+        let nowTimestamp = Date.parse(new Date());
+        if (expireTime !== null && nowTimestamp - expireTime > 24 * 3600 * 1000) {
           console.log('重新请求site_info');
           this.getSiteInfo();
         } else {
-          this.siteInfo = siteInfo;
+          this.siteInfo = siteInfo['site_info'];
         }
       } else {
         console.log('重新请求site_info');
@@ -110,8 +114,11 @@
         }).then((response) => {
           this.categorys = response.data.results;
           // 将分类信息保存到本地，避免多次请求
-          saveToLocal('site', 'expire_time', new Date());
-          saveToLocal('site', 'category_info', this.categorys);
+          let categoryInfo = {
+            'expire_time': Date.parse(new Date()),
+            'category_info': this.categorys
+          };
+          saveToLocal('site', 'category_info', categoryInfo);
         }).catch(function (error) {
           console.log(error);
         });
@@ -122,8 +129,11 @@
         }).then((response) => {
           this.siteInfo = response.data;
           // 将站点信息保存到本地，避免多次请求
-          saveToLocal('site', 'expire_time', new Date());
-          saveToLocal('site', 'site_info', this.siteInfo);
+          let siteInfo = {
+            'expire_time': Date.parse(new Date()),
+            'site_info': this.siteInfo
+          };
+          saveToLocal('site', 'site_info', siteInfo);
         }).catch(function (error) {
           console.log(error);
         });
