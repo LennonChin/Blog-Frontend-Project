@@ -3,7 +3,12 @@
     <a @click="gotoPostDetail(movie)">
       <img :src="movie.front_image" alt="">
       <div class="movie-info">
-        <p class="title"> {{ movie.title }}</p>
+        <p class="title">
+          <iv-tool-tip placement="top" content="该文章为加密文章" v-if="movie.browse_password_encrypt">
+            <iv-icon type="android-lock" color="#FA5555" v-if="movie.browse_password_encrypt"></iv-icon>
+          </iv-tool-tip>
+          {{ movie.title }}
+        </p>
         <p class="desc">
           {{ movie.desc | textLineBreak(50) }}</p>
       </div>

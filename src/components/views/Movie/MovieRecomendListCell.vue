@@ -21,7 +21,12 @@
                   </div>
                 </div>
                 <div class="info">
-                  <p class="title">{{ movie.title }}</p>
+                  <p class="title">
+                    <iv-tool-tip placement="top" content="该文章为加密文章" v-if="movie.browse_password_encrypt">
+                      <iv-icon type="android-lock" color="#FA5555" v-if="movie.browse_password_encrypt"></iv-icon>
+                    </iv-tool-tip>
+                    {{ movie.title }}
+                  </p>
                   <p class="desc"><span>导演：</span>{{ movie.director }}</p>
                   <p class="desc"><span>主演：</span>{{ movie.actors | textLineBreak(20) }}</p>
                   <p class="desc"><span>类型：</span>{{ movie.category.name }}</p>

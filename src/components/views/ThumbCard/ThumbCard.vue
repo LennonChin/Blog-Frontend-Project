@@ -12,8 +12,12 @@
       </div>
       <div class="bottom-area">
         <h4 class="title">
-          <router-link :to="{ name: 'album/detail', params:{ albumId: album.id }}" target="_blank">{{ album.title }}
-          </router-link>
+          <iv-tool-tip placement="top" content="该图集为加密图集" v-if="album.browse_password_encrypt">
+            <iv-icon type="android-lock" color="#FA5555" v-if="album.browse_password_encrypt"></iv-icon>
+          </iv-tool-tip>
+          <a @click="gotoPostDetail(album)">
+            {{ album.title }}
+          </a>
         </h4>
         <p class="info"><span class="author"><a>By / {{ album.author }}</a></span></p>
         <p class="info"><span class="publish-time"><a>At time / {{ album.add_time | socialDate}}</a></span></p>

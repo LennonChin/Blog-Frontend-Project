@@ -1,6 +1,6 @@
 <template>
   <div class="common-footer">
-    <iv-backtop :height="500" :bottom="120"></iv-backtop>
+    <iv-backtop :height="500" :bottom="backTopBottom" :right="20"></iv-backtop>
     <p class="copyright">
       <a href="http://www.miibeian.gov.cn/">鄂 ICP 备 0000000 号</a><span>|</span>
       版权所有 ©  2008 - 2018<span>|</span>以商业目的使用本网站内容需获许可，非商业目的使用授权遵循
@@ -12,7 +12,13 @@
 </template>
 
 <script type="text/ecmascript-6">
-
+export default {
+  computed: {
+    backTopBottom() {
+      return this.responsiveRender(true, true, false, false) ? 20 : 120;
+    }
+  }
+};
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
@@ -25,6 +31,8 @@
     margin-top 50px
     text-align center
     z-index 99
+    .side-menu
+      right 20px
     p
       margin 0 auto
       font-size 15px

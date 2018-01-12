@@ -7,7 +7,12 @@
         </a>
       </div>
       <div class="bottom-area">
-        <h4 class="title"><a :title="album.title">{{ album.title | textLineBreak(11) }}</a></h4>
+        <h4 class="title">
+          <iv-tool-tip placement="top" content="该图集为加密图集" v-if="album.browse_password_encrypt">
+            <iv-icon type="android-lock" color="#FA5555" v-if="album.browse_password_encrypt"></iv-icon>
+          </iv-tool-tip>
+          <a :title="album.title">{{ album.title | textLineBreak(11) }}</a>
+        </h4>
         <p class="info"><span class="author"><a>By / {{ album.author }}</a></span></p>
         <p class="info"><span class="publish-time"><a>At time / {{ album.add_time | socialDate }}</a></span></p>
         <p class="operate_info">

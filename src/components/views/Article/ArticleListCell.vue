@@ -6,7 +6,10 @@
                 style="padding-left: 0;padding-right: 0;">
           <div class="text-wrapper">
             <h4 class="title">
-              <a @click="gotoPostDetail(article)">{{article.title}}</a>
+              <iv-tool-tip placement="top" content="该文章为加密文章" v-if="article.browse_password_encrypt">
+                <iv-icon type="android-lock" color="#FA5555" v-if="article.browse_password_encrypt"></iv-icon>
+              </iv-tool-tip>
+              <a @click="gotoPostDetail(article)"> {{article.title}}</a>
             </h4>
             <div class="tags">
               <iv-tag :color="tag.color" type="border" v-for="tag in article.tags" :key="tag.id">{{ tag.name }}</iv-tag>

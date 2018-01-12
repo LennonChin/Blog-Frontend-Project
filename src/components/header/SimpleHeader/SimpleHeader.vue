@@ -6,10 +6,11 @@
     </div>
     <div id="header" v-if="responsiveRender(false, false, false, true)">
       <router-link id="logo" to="/">
-        <img src="../../../assets/logo.png">
-        <span>Diomedes</span>
+        <img :src="this.siteInfo.icon">
+        <span>{{ this.siteInfo.name }}</span>
       </router-link>
       <ul id="nav">
+        <!-- 类别导航 -->
         <li class="nav-dropdown-container" v-for="category_level1 in this.categorys">
           <router-link class="nav-link" :to="rootRouterLink(category_level1)">
             {{ category_level1.name }} <span class="arrow"></span>
@@ -29,6 +30,13 @@
             </li>
           </ul>
         </li>
+        <!-- 自定义的导航 -->
+        <li class="nav-dropdown-container" v-for="navigation in this.siteInfo.navigations">
+          <a class="nav-link" :href="navigation.url">
+            {{ navigation.name }}
+          </a>
+        </li>
+        <!-- 搜索框 -->
         <li>
           <form id="search-form">
             <span class="algolia-autocomplete" style="position: relative; display: inline-block; direction: ltr;">
@@ -50,21 +58,76 @@
 
 <script type="text/ecmascript-6">
   import SideBar from '@/components/header/SimpleHeader/SideBar';
-  import {getCategorys} from '@/api/api';
+  import {getSiteInfo, getCategorys} from '@/api/api';
+  import {saveToLocal, loadFromLocal} from '@/common/js/utils';
 
   export default {
     data() {
       return {
-        categorys: []
+        categorys: [],
+        siteInfo: []
       };
     },
     components: {
       'sidebar': SideBar
     },
     created: function () {
-      this.initHeaderMenu();
+      // 分类信息
+      let categoryInfo = loadFromLocal('site', 'category_info', null);
+      if (categoryInfo) {
+        if (categoryInfo['expire_time'] === null) {
+          console.log('重新请求category_info');
+          this.getCategorys();
+        } else {
+          this.categorys = categoryInfo;
+        }
+      } else {
+        console.log('重新请求category_info');
+        this.getCategorys();
+      }
+
+      // 网站信息
+      let siteInfo = loadFromLocal('site', 'site_info', null);
+      if (siteInfo) {
+        if (siteInfo['expire_time'] === null) {
+          console.log('重新请求site_info');
+          this.getSiteInfo();
+        } else {
+          this.siteInfo = siteInfo;
+        }
+      } else {
+        console.log('重新请求site_info');
+        this.getSiteInfo();
+      }
     },
     methods: {
+      getCategorys() {
+        getCategorys({
+          params: {
+            'level_min': 1,
+            'level_max': 1
+          }
+        }).then((response) => {
+          this.categorys = response.data.results;
+          // 将分类信息保存到本地，避免多次请求
+          saveToLocal('site', 'expire_time', new Date());
+          saveToLocal('site', 'category_info', this.categorys);
+        }).catch(function (error) {
+          console.log(error);
+        });
+      },
+      getSiteInfo() {
+        getSiteInfo({
+          id: 1
+        }).then((response) => {
+          this.siteInfo = response.data;
+          // 将站点信息保存到本地，避免多次请求
+          saveToLocal('site', 'expire_time', new Date());
+          saveToLocal('site', 'site_info', this.siteInfo);
+        }).catch(function (error) {
+          console.log(error);
+        });
+      },
       rootRouterLink(category) {
         let router = {};
         router.name = category.code;
@@ -76,18 +139,6 @@
         router.params = {};
         router.params['categoryId'] = categoryId;
         return router;
-      },
-      initHeaderMenu() {
-        getCategorys({
-          params: {
-            'level_min': 1,
-            'level_max': 1
-          }
-        }).then((response) => {
-          this.categorys = response.data.results;
-        }).catch(function (error) {
-          console.log(error);
-        });
       },
       showMobileMenu() {
         // 显示手机端的菜单

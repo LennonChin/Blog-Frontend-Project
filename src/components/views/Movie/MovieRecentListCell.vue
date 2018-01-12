@@ -14,7 +14,12 @@
                 </iv-col>
                 <iv-col :xs="24" :sm="24" :md="17" :lg="18">
                   <div class="info">
-                    <p class="title">{{ movie.title }}</p>
+                    <p class="title">
+                      <iv-tool-tip placement="top" content="该文章为加密文章" v-if="movie.browse_password_encrypt">
+                        <iv-icon type="android-lock" color="#FA5555" v-if="movie.browse_password_encrypt"></iv-icon>
+                      </iv-tool-tip>
+                      {{ movie.title }}
+                    </p>
                     <p class="link">{{ movie.add_time | socialDate }}</p>
                     <p class="content">{{ movie.desc | textLineBreak(60) }}</p>
                   </div>
@@ -28,7 +33,12 @@
         <div class="recommend">
           <h4>推荐观影</h4>
           <a @click="gotoPostDetail(movies[3])">
-            <p class="title">{{ movies[3].title }}</p>
+            <p class="title">
+              <iv-tool-tip placement="top" content="该文章为加密文章" v-if="movies[3].browse_password_encrypt">
+                <iv-icon type="android-lock" color="#FA5555" v-if="movies[3].browse_password_encrypt"></iv-icon>
+              </iv-tool-tip>
+              {{ movies[3].title }}
+            </p>
             <div class="tags">
               <iv-tag :color="tag.color" v-for="tag in movies[3].tags" :key="tag.id">{{ tag.name }}</iv-tag>
             </div>

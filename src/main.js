@@ -35,6 +35,7 @@ import {
   Notice,
   Avatar,
   Spin,
+  Tooltip,
   BackTop
 } from 'iview';
 
@@ -72,6 +73,7 @@ Vue.component('iv-switch', Switch);
 Vue.component('iv-avatar', Avatar);
 Vue.component('iv-backtop', BackTop);
 Vue.component('iv-spin', Spin);
+Vue.component('iv-tool-tip', Tooltip);
 
 // 全局混合
 Vue.mixin({

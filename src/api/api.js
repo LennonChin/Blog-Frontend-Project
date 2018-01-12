@@ -1,6 +1,15 @@
 import axios from '@/axios';
 
-let localHost = 'http://192.168.1.3:8000/api';
+let localHost = 'http://169.254.74.130:8000/api';
+
+// 获取站点信息
+export const getSiteInfo = params => {
+    if ('id' in params) {
+    return axios.get(`${localHost}/siteInfo/` + params.id + '/', params);
+  } else {
+    return axios.get(`${localHost}/siteInfo/`, params);
+  }
+};
 
 // 获取博主信息
 export const getBloggerInfo = params => {
