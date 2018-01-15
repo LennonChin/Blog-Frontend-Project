@@ -1,6 +1,6 @@
 import axios from '@/axios';
 
-let localHost = 'http://192.168.1.3:8000/api';
+let localHost = 'http://169.254.72.152:8000/api';
 
 // 获取站点信息
 export const getSiteInfo = params => {

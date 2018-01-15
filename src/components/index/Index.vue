@@ -9,7 +9,7 @@
 <script>
 </script>
 
-<style lang="stylus" rel="stylesheet/stylus">
+<style lang="stylus" type="text/stylus" rel="stylesheet/stylus">
   @import "../../common/stylus/base.styl";
 
   .main-wrapper

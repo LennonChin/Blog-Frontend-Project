@@ -122,7 +122,7 @@
   };
 </script>
 
-<style lang="stylus" rel="stylesheet/stylus" scoped>
+<style lang="stylus" type="text/stylus" rel="stylesheet/stylus" scoped>
   @import "../../../common/stylus/base.styl";
   @import "../../../common/stylus/index.styl";
 
