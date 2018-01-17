@@ -27,6 +27,8 @@ export function hex_hmac_md5(key, data) { return binl2hex(core_hmac_md5(key, dat
 export function b64_hmac_md5(key, data) { return binl2b64(core_hmac_md5(key, data)); }
 export function str_hmac_md5(key, data) { return binl2str(core_hmac_md5(key, data)); }
 
+export function b64(s) { return binl2b64(str2binl(s));}
+
 /*
  * Perform a simple self-test to see if the VM is working
  */

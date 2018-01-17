@@ -12,25 +12,25 @@
             <span slot="prepend">邮箱 </span>
           </iv-input>
           <!--<iv-input v-model="email" placeholder="联系方式（邮箱或手机号）以评论" size="large">-->
-            <!--<iv-select v-model="select" slot="prepend" style="width: 80px">-->
-              <!--<iv-option value="email">邮箱</iv-option>-->
-              <!--<iv-option value="mobile">手机号 </iv-option>-->
-            <!--</iv-select>-->
+          <!--<iv-select v-model="select" slot="prepend" style="width: 80px">-->
+          <!--<iv-option value="email">邮箱</iv-option>-->
+          <!--<iv-option value="mobile">手机号 </iv-option>-->
+          <!--</iv-select>-->
           <!--</iv-input>-->
         </iv-col>
         <!--<iv-col :xs="24" :sm="24" :md="6" :lg="7" class-name="iv-dropdown-link">-->
-          <!--<iv-dropdown>-->
-            <!--<iv-icon type="log-in"></iv-icon>-->
-            <!--或登录以评论-->
-            <!--<iv-icon type="arrow-down-b"></iv-icon>-->
-            <!--<iv-dropdown-menu slot="list">-->
-              <!--<iv-dropdown-item>菜单</iv-dropdown-item>-->
-              <!--<iv-dropdown-item>菜单</iv-dropdown-item>-->
-              <!--<iv-dropdown-item>菜单</iv-dropdown-item>-->
-              <!--<iv-dropdown-item disabled>菜单</iv-dropdown-item>-->
-              <!--<iv-dropdown-item divided>菜单</iv-dropdown-item>-->
-            <!--</iv-dropdown-menu>-->
-          <!--</iv-dropdown>-->
+        <!--<iv-dropdown>-->
+        <!--<iv-icon type="log-in"></iv-icon>-->
+        <!--或登录以评论-->
+        <!--<iv-icon type="arrow-down-b"></iv-icon>-->
+        <!--<iv-dropdown-menu slot="list">-->
+        <!--<iv-dropdown-item>菜单</iv-dropdown-item>-->
+        <!--<iv-dropdown-item>菜单</iv-dropdown-item>-->
+        <!--<iv-dropdown-item>菜单</iv-dropdown-item>-->
+        <!--<iv-dropdown-item disabled>菜单</iv-dropdown-item>-->
+        <!--<iv-dropdown-item divided>菜单</iv-dropdown-item>-->
+        <!--</iv-dropdown-menu>-->
+        <!--</iv-dropdown>-->
         <!--</iv-col>-->
       </iv-row>
     </div>
@@ -40,7 +40,9 @@
                   :subfield="subfield"
                   :placeholder="placeholder"
                   :toolbars="toolbars"
-                  @change="change"></mavon-editor>
+                  :image_filter="imageFilter"
+                  @change="change"
+                  @imgAdd="addImage"></mavon-editor>
     <div class="bottom-area">
       <div class="comment-tip">
         <a href="https://guides.github.com/features/mastering-markdown/" target="_blank">
@@ -48,7 +50,9 @@
             type="information-circled"></iv-icon>
           支持MarkDown</a>
       </div>
-      <div class="buttons">
+      <div class="publish-area">
+        <!--<img src="../../assets/captcha.png" style="height: 32px; padding-right: 5px">-->
+        <!--<iv-input style="padding-right: 5px" placeholder="请输入验证码"></iv-input>-->
         <iv-button size="default" @click="send" :type="buttonType">发布</iv-button>
       </div>
     </div>
@@ -58,7 +62,7 @@
 <script type="text/ecmascript-6">
   import MavonEditor from 'mavon-editor';
   import 'mavon-editor/dist/css/index.css';
-  import {loadFromLocal, saveToLocal} from '@/common/js/utils';
+  import {loadFromLocal, saveToLocal, uploadFile} from '@/common/js/utils';
   // API
   import {getEmailCode, verifyEmailCode, addCommentInfo} from '@/api/api';
 
@@ -182,6 +186,19 @@
           }
         }
       },
+      imageFilter(file) {
+        console.log('======== filter');
+        return true;
+      },
+      addImage(pos, $file) {
+        console.log('=====');
+        console.log($file);
+        uploadFile($file, 'comment', (response) => {
+          console.log('success');
+        }, (error) => {
+          console.log(error);
+        });
+      },
       listenWindowWidth() {
         // 此方法用于监听窗口宽度变化,改变编辑器菜单
         var clientWidth = document.documentElement.clientWidth;
@@ -280,7 +297,7 @@
                 }));
                 children.push(h('p', {
                   domProps: {
-                    innerHTML: '已经向您的邮箱发送了验证码，请输入验证码验证邮箱有效性后再进行评论'
+                    innerHTML: '第一次评论需要验证您的邮箱有效性，已经向您的邮箱发送了验证码，请输入验证码验证后再进行评论'
                   },
                   'class': {
                     'modal-message': true
@@ -410,10 +427,13 @@
           cursor pointer
     .editor-area
       flex 1
+      padding 0 2px
     .bottom-area
       display flex
       padding-top 15px
       justify-content: space-between
+      .publish-area
+        display flex
     &.dark-theme
       .operate
         margin-bottom 15px

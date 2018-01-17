@@ -1,4 +1,6 @@
 import {hexMd5} from '@/common/js/md5';
+import {getUploadToken} from '@/api/api';
+
 // 按社交方式格式化时间
 export function socialDateFormat(formateDate) {
   var timestamp = Date.parse(new Date(formateDate));
@@ -115,3 +117,17 @@ export function checkPostAuth(post, title, message, noAuthCallback, successCallb
     noAuthCallback();
   }
 };
+
+// 上传文件
+export function uploadFile(file, useType, successCallback, failCallback) {
+  let suffix = /.[^.]+$/.exec(file.name)[0];
+  console.log(suffix);
+  getUploadToken({
+    suffix: suffix
+  }).then((response) => {
+    console.log('返回值', response);
+  }).catch(function (error) {
+    console.log(error);
+    failCallback(error);
+  });
+}

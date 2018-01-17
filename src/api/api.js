@@ -1,10 +1,10 @@
 import axios from '@/axios';
 
-let localHost = 'http://169.254.180.242:8000/api';
+let localHost = 'http://169.254.5.183:8000/api';
 
 // 获取站点信息
 export const getSiteInfo = params => {
-    if ('id' in params) {
+  if ('id' in params) {
     return axios.get(`${localHost}/siteInfo/` + params.id + '/', params);
   } else {
     return axios.get(`${localHost}/siteInfo/`, params);
@@ -131,6 +131,16 @@ export const getCommentInfo = params => {
 // 创建评论
 export const addCommentInfo = params => {
   return axios.post(`${localHost}/comments/`, params);
+};
+
+// 获取上传Token
+export const getUploadToken = params => {
+  return axios.post(`${localHost}/qiniuToken/`, params);
+};
+
+// 上传评论图片
+export const uploadCommentImage = params => {
+  return axios.post(`${localHost}/messages/`, params, {headers: {'Content-Type': 'multipart/form-data'}});
 };
 
 // 点赞文章
