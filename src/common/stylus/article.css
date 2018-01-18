@@ -57,7 +57,10 @@ article.article-main-content p {
   margin: 15px 0;
 }
 article.article-main-content img {
-  width: 100%;
+  display: block;
+  width: 80%;
+  margin: 0 auto;
+  cursor: pointer;
 }
 .comment-main-content h1,
 .comment-main-content h2,
@@ -105,7 +108,8 @@ article.article-main-content img {
   margin: 8px 0;
 }
 .comment-main-content img {
-  width: 100%;
+  display: block;
+  max-width: 100%;
 }
 pre {
   margin-bottom: 18px;
@@ -142,3 +146,4 @@ code.hljs > ul > li:nth-of-type(even) {
   background-color: #fafafa;
   color: inherit;
 }
+/*# sourceMappingURL=article.css.map */

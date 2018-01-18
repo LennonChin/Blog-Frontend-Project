@@ -1,5 +1,5 @@
 import {hexMd5} from '@/common/js/md5';
-import {getUploadToken} from '@/api/api';
+import {getUploadToken, uploadImage} from '@/api/api';
 
 // 按社交方式格式化时间
 export function socialDateFormat(formateDate) {
@@ -68,7 +68,7 @@ export function checkPostAuth(post, title, message, noAuthCallback, successCallb
   let browseAuth = '';
   if (post.browse_password_encrypt) {
     this.$Modal.confirm({
-      autoClosable: false,
+      maskClosable: true,
       render: (h) => {
         let children = [];
         children.push(h('h2', {
@@ -118,14 +118,72 @@ export function checkPostAuth(post, title, message, noAuthCallback, successCallb
   }
 };
 
+// 显示图片查看器
+export function showImageBrowserModal(imageNode) {
+  this.$Modal.info({
+    width: 70,
+    closable: true,
+    render: (h) => {
+      let children = [];
+      children.push(h('h2', {
+        domProps: {
+          innerHTML: '查看图片详情'
+        },
+        'class': {
+          'modal-title': true
+        }
+      }));
+      children.push(h('img', {
+        domProps: {
+          src: imageNode.src
+        },
+        'class': {
+          'modal-image': true
+        }
+      }));
+      children.push(h('p', {
+        domProps: {
+          innerHTML: imageNode.alt
+        },
+        'class': {
+          'modal-desc': true
+        }
+      }));
+      children.push(h('div', {
+        slot: 'footer'
+      }));
+      return h('div', {}, children);
+    }
+  });
+};
+
 // 上传文件
 export function uploadFile(file, useType, successCallback, failCallback) {
   let suffix = /.[^.]+$/.exec(file.name)[0];
   console.log(suffix);
+
+  // 上传文件
+  let upload = function (data) {
+    var formdata = new FormData();
+    formdata.append('file', file);
+    formdata.append('filename', file.name);
+    formdata.append('key', data['key']);
+    formdata.append('token', data['token']);
+
+    uploadImage(formdata).then((response) => {
+      let fileURL = data.base_url + response.data.key;
+      successCallback(response.data.hash, fileURL);
+    }).catch(function (error) {
+      console.log(error);
+      failCallback(error);
+    });
+  };
+
+  // 获取上传Token
   getUploadToken({
     suffix: suffix
   }).then((response) => {
-    console.log('返回值', response);
+    upload(response.data);
   }).catch(function (error) {
     console.log(error);
     failCallback(error);

@@ -41,6 +41,8 @@
   import tocbot from 'tocbot';
   // 加密
   import {hexMd5} from '@/common/js/md5';
+  // utils
+  import {showImageBrowserModal} from '@/common/js/utils';
   // API
   import {getArticleDetailInfo} from '@/api/api';
 
@@ -169,6 +171,17 @@
           // 去前后空格并添加行号
           block.innerHTML = '<ul><li>' + block.innerHTML.replace(/(^\s*)|(\s*$)/g, '').replace(/\n/g, '\n</li><li>') + '\n</li></ul>';
         });
+      },
+      addImageBrowser() {
+        let images = this.$refs.article.querySelectorAll('img');
+        var that = this;
+        images.forEach((image) => {
+          console.log(image);
+          image.addEventListener('click', function () {
+            console.log('click');
+            showImageBrowserModal.call(that, image);
+          });
+        });
       }
     },
     components: {
@@ -186,6 +199,7 @@
           this.$nextTick(() => {
             this.addCodeLineNumber();
             this.addTocScrollSpy();
+            this.addImageBrowser();
             window.scrollTo(0, 0);
           });
         }

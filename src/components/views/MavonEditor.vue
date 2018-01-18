@@ -40,9 +40,9 @@
                   :subfield="subfield"
                   :placeholder="placeholder"
                   :toolbars="toolbars"
-                  :image_filter="imageFilter"
                   @change="change"
-                  @imgAdd="addImage"></mavon-editor>
+                  @imgAdd="addImage"
+                  ref="mavonEditor"></mavon-editor>
     <div class="bottom-area">
       <div class="comment-tip">
         <a href="https://guides.github.com/features/mastering-markdown/" target="_blank">
@@ -186,15 +186,9 @@
           }
         }
       },
-      imageFilter(file) {
-        console.log('======== filter');
-        return true;
-      },
       addImage(pos, $file) {
-        console.log('=====');
-        console.log($file);
-        uploadFile($file, 'comment', (response) => {
-          console.log('success');
+        uploadFile($file, 'comment', (hash, fileURL) => {
+          this.$refs.mavonEditor.$img2Url(pos, fileURL);
         }, (error) => {
           console.log(error);
         });

@@ -1,6 +1,6 @@
 import axios from '@/axios';
 
-let localHost = 'http://169.254.5.183:8000/api';
+let localHost = 'http://169.254.243.219:8000/api';
 
 // 获取站点信息
 export const getSiteInfo = params => {
@@ -139,8 +139,8 @@ export const getUploadToken = params => {
 };
 
 // 上传评论图片
-export const uploadCommentImage = params => {
-  return axios.post(`${localHost}/messages/`, params, {headers: {'Content-Type': 'multipart/form-data'}});
+export const uploadImage = params => {
+  return axios.post(`http://upload.qiniup.com`, params, {headers: {'Content-Type': 'multipart/form-data'}});
 };
 
 // 点赞文章
