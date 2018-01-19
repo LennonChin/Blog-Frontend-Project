@@ -24,7 +24,7 @@
                   <span class="time">{{ comment.add_time | socialDate }}</span>
                 </p>
                 <p class="comment-main-content" :class="theme" v-html="comment.detail.formatted_content"
-                   ref="content"></p>
+                   ref="content" v-viewer="{movable: false}"></p>
                 <div class="operate-area" :class="theme">
                   <span class="like"><iv-icon type="thumbsup"></iv-icon></span>
                   <span class="unlike"><iv-icon type="thumbsdown"></iv-icon></span>

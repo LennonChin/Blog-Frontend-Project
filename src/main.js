@@ -2,6 +2,7 @@ import Vue from 'vue';
 import router from '@/router';
 import 'iview/dist/styles/iview.css';
 import App from './App.vue';
+import Viewer from 'v-viewer';
 
 // 全局加载resource拦截器
 import Axios from 'axios';
@@ -129,6 +130,7 @@ let vm = new Vue({
   render: h => h(App)
 });
 
+Vue.use(Viewer);
 Vue.use({
   vm
 });

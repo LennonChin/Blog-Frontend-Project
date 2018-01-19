@@ -122,7 +122,6 @@ export function checkPostAuth(post, title, message, noAuthCallback, successCallb
 export function showImageBrowserModal(imageNode) {
   this.$Modal.info({
     width: 70,
-    closable: true,
     render: (h) => {
       let children = [];
       children.push(h('h2', {
@@ -148,9 +147,6 @@ export function showImageBrowserModal(imageNode) {
         'class': {
           'modal-desc': true
         }
-      }));
-      children.push(h('div', {
-        slot: 'footer'
       }));
       return h('div', {}, children);
     }
