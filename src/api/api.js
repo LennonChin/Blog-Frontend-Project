@@ -1,6 +1,6 @@
 import axios from '@/axios';
 
-let localHost = 'http://169.254.51.196:8000/api';
+let localHost = 'http://169.254.236.55:8000/api';
 
 // 获取站点信息
 export const getSiteInfo = params => {
@@ -146,6 +146,11 @@ export const uploadImage = params => {
 // 点赞文章
 export const addPostLike = params => {
   return axios.post(`${localHost}/likePost/`, params);
+};
+
+// 点赞文章
+export const likeOrUnlikeComment = params => {
+  return axios.post(`${localHost}/likeOrUnlikeComment/`, params);
 };
 
 // 获取邮箱验证码

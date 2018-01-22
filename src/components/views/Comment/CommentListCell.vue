@@ -7,8 +7,7 @@
             <iv-col :xs="cellLeftSpan('xs')" :sm="cellLeftSpan('sm')" :md="cellLeftSpan('md')"
                     :lg="cellLeftSpan('lg')" :xl="cellLeftSpan('xl')">
               <div class="avatar">
-                <!--<iv-avatar size="large" shape="square" v-if="comment.author !== null">{{ comment.author.nick_name }}</iv-avatar>-->
-                <img src="../../../assets/avatar.png" alt="">
+                <img :src="'http://p2qght9m1.bkt.clouddn.com/comment/avatar/' + avatarImage(comment.author)" alt="">
               </div>
             </iv-col>
             <iv-col :xs="cellRightSpan('xs')" :sm="cellRightSpan('sm')" :md="cellRightSpan('md')"
@@ -26,21 +25,21 @@
                 <p class="comment-main-content" :class="theme" v-html="comment.detail.formatted_content"
                    ref="content" v-viewer="{movable: false}"></p>
                 <div class="operate-area" :class="theme">
-                  <span class="like"><iv-icon type="thumbsup"></iv-icon></span>
-                  <span class="unlike"><iv-icon type="thumbsdown"></iv-icon></span>
+                  <span class="like" @click="likeComment(comment)"><iv-icon type="thumbsup"></iv-icon> {{ comment.like_num }}</span>
+                  <span class="unlike" @click="unlikeComment(comment)"><iv-icon type="thumbsdown"></iv-icon> {{ comment.unlike_num }}</span>
                   <span class="reply"><a @click="showEditor = !showEditor"><iv-icon
                     type="forward"></iv-icon> 回复</a></span>
                   <!--<iv-dropdown>-->
-                    <!--<span class="iv-dropdown-link">-->
-                      <!--<iv-icon type="android-share-alt"></iv-icon> 分享 <iv-icon type="arrow-down-b"></iv-icon>-->
-                    <!--</span>-->
-                    <!--<iv-dropdown-menu slot="list">-->
-                      <!--<iv-dropdown-item>菜单</iv-dropdown-item>-->
-                      <!--<iv-dropdown-item>菜单</iv-dropdown-item>-->
-                      <!--<iv-dropdown-item>菜单</iv-dropdown-item>-->
-                      <!--<iv-dropdown-item disabled>菜单</iv-dropdown-item>-->
-                      <!--<iv-dropdown-item divided>菜单</iv-dropdown-item>-->
-                    <!--</iv-dropdown-menu>-->
+                  <!--<span class="iv-dropdown-link">-->
+                  <!--<iv-icon type="android-share-alt"></iv-icon> 分享 <iv-icon type="arrow-down-b"></iv-icon>-->
+                  <!--</span>-->
+                  <!--<iv-dropdown-menu slot="list">-->
+                  <!--<iv-dropdown-item>菜单</iv-dropdown-item>-->
+                  <!--<iv-dropdown-item>菜单</iv-dropdown-item>-->
+                  <!--<iv-dropdown-item>菜单</iv-dropdown-item>-->
+                  <!--<iv-dropdown-item disabled>菜单</iv-dropdown-item>-->
+                  <!--<iv-dropdown-item divided>菜单</iv-dropdown-item>-->
+                  <!--</iv-dropdown-menu>-->
                   <!--</iv-dropdown>-->
                   <!--<span class="reply"><a>查看评论列表</a></span>-->
                 </div>
@@ -66,6 +65,10 @@
   import MavonEditor from '@/components/views/MavonEditor';
   // highlight.js引入
   import hljs from '@/common/js/highlight.pack';
+  // Api
+  import {likeOrUnlikeComment} from '@/api/api';
+  // utils
+  import {hexMd5} from '@/common/js/md5';
 
   var HLJS = hljs;
 
@@ -104,6 +107,12 @@
       };
     },
     methods: {
+      avatarImage(author) {
+        // 随机固定的头像图片名
+        let idStr = author.id + '';
+        let start = author.nick_name.length + idStr.length > 31 ? 31 : author.nick_name.length + idStr.length;
+        return hexMd5(author.nick_name + idStr).slice(start, start + 1) + '.ico';
+      },
       addCodeLineNumber() {
         // 添加行号
         let blocks = this.$refs.content.querySelectorAll('pre code');
@@ -135,6 +144,28 @@
       publishedComment(comment) {
         console.log(comment);
         this.$emit('publishedComment', comment);
+      },
+      likeComment(comment) {
+        likeOrUnlikeComment({
+          comment_id: comment.id,
+          operation: true
+        }).then((response) => {
+          comment.like_num += 1;
+          this.$Message.success('点赞成功');
+        }).catch(function (error) {
+          console.log(error);
+        });
+      },
+      unlikeComment(comment) {
+        likeOrUnlikeComment({
+          comment_id: comment.id,
+          operation: false
+        }).then((response) => {
+          comment.unlike_num += 1;
+          this.$Message.success('吐槽成功');
+        }).catch(function (error) {
+          console.log(error);
+        });
       }
     },
     mounted() {
@@ -193,7 +224,6 @@
             &:hover
               color $color-main-primary
               text-decoration underline
-
           &.dark-theme
             a
               color $color-gradually-gray-71
@@ -219,7 +249,8 @@
         cursor pointer
       .like, .unlike
         color $light
-        font-weight 700
+        font-weight 300
+        cursor pointer
       .reply
         cursor pointer
       &.dark-theme

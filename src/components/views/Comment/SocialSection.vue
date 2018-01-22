@@ -53,8 +53,9 @@
                            :commentLevel="comment_level2.comment_level"
                            :comment="comment_level2"
                            @publishedComment="publishedComment"></comment-cell-list>
+        <browse-more @browseMore="showMoreSubComments(comment_level1)" v-if="comment_level1.comment_num > comment_level1.sub_comment.length"></browse-more>
       </div>
-      <browse-more></browse-more>
+      <browse-more @browseMore="getCommentInfo" ref="browseMore"></browse-more>
     </div>
   </div>
 </template>
@@ -65,6 +66,8 @@
   import BrowseMore from '@/components/views/BrowseMore';
   // API
   import {getCommentInfo, addPostLike} from '@/api/api';
+
+  const COMMENT_DEFAULT_LIMIT = 10;
 
   export default {
     props: {
@@ -80,6 +83,8 @@
     data() {
       return {
         comments: [],
+        totalCount: 0,
+        noMoreData: false,
         spreadEditor: false,
         name: '',
         select: 'email',
@@ -97,11 +102,16 @@
           params: {
             post_id: this.article.id,
             comment_level: 0,
-            limit: 10,
-            offset: 0
+            limit: COMMENT_DEFAULT_LIMIT,
+            offset: this.comments.length
           }
         }).then((response) => {
-          this.comments = response.data.results;
+          this.totalCount += response.data.results.length;
+          this.noMoreData = this.totalCount >= response.data.count;
+          this.comments = this.comments.concat(response.data.results);
+          this.$nextTick(() => {
+            this.$refs.browseMore.stopLoading(this.noMoreData);
+          });
           this.showSpin = false;
         }).catch(function (error) {
           console.log(error);
@@ -162,6 +172,21 @@
         recursiveComments = recursiveComments.reverse();
         recursiveCommentyIds = recursiveCommentyIds.reverse();
         return parentComment;
+      },
+      showMoreSubComments(parentComment) {
+        getCommentInfo({
+          params: {
+            post_id: this.article.id,
+            parent_comment: parentComment.id,
+            limit: COMMENT_DEFAULT_LIMIT,
+            offset: parentComment.sub_comment.length,
+            ordering: 'add_time'
+          }
+        }).then((response) => {
+          parentComment.sub_comment = parentComment.sub_comment.concat(response.data.results);
+        }).catch(function (error) {
+          console.log(error);
+        });
       }
     },
     components: {
@@ -172,7 +197,7 @@
   };
 </script>
 
-<style lang="stylus" rel="stylesheet/stylus" scoped>
+<style lang="stylus" type="text/stylus" rel="stylesheet/stylus" scoped>
   @import "../.././../common/stylus/theme.styl";
   // #mavon-editor .operate .iv-dropdown-link
   .social-section

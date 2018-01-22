@@ -68,9 +68,6 @@
         siteInfo: []
       };
     },
-    components: {
-      'sidebar': SideBar
-    },
     created: function () {
       // 分类信息
       let categoryInfo = loadFromLocal('site', 'category_info', null);
@@ -108,8 +105,9 @@
       getCategorys() {
         getCategorys({
           params: {
-            'level_min': 1,
-            'level_max': 1
+            level_min: 1,
+            level_max: 1,
+            is_tab: true
           }
         }).then((response) => {
           this.categorys = response.data.results;
@@ -125,9 +123,11 @@
       },
       getSiteInfo() {
         getSiteInfo({
-          id: 1
+          params: {
+            'is_active': true
+          }
         }).then((response) => {
-          this.siteInfo = response.data;
+          this.siteInfo = response.data[0];
           // 将站点信息保存到本地，避免多次请求
           let siteInfo = {
             'expire_time': Date.parse(new Date()),
@@ -155,9 +155,11 @@
         var sidebar = this.$refs.sidebar;
         sidebar.toggleSideBar();
       }
+    },
+    components: {
+      'sidebar': SideBar
     }
-  }
-  ;
+  };
 </script>
 
 <style lang="stylus" type="text/stylus" rel="stylesheet/stylus">
