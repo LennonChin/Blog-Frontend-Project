@@ -7,7 +7,7 @@
           <article-page-content>
             <article v-if="article !== undefined" id="article-main-page" class="typo container article-main-content"
                      slot="content"
-                     v-html="article.detail.formatted_content" v-viewer="{movable: false}" ref="article">
+                     v-html="article.detail.formatted_content" v-viewer ref="article">
             </article>
           </article-page-content>
           <article-page-footer :article="article"></article-page-footer>
@@ -41,8 +41,6 @@
   import tocbot from 'tocbot';
   // 加密
   import {hexMd5} from '@/common/js/md5';
-  // utils
-  import {showImageBrowserModal} from '@/common/js/utils';
   // API
   import {getArticleDetailInfo} from '@/api/api';
 
@@ -55,6 +53,13 @@
         browse_auth: null,
         article: undefined
       };
+    },
+    beforeRouteUpdate(to, from, next) {
+      next();
+      this.article = undefined;
+      this.articleId = this.$route.params.articleId;
+      this.browse_auth = this.$route.query.browse_auth;
+      this.getDatas();
     },
     created() {
       this.articleId = this.$route.params.articleId;
@@ -171,17 +176,6 @@
           // 去前后空格并添加行号
           block.innerHTML = '<ul><li>' + block.innerHTML.replace(/(^\s*)|(\s*$)/g, '').replace(/\n/g, '\n</li><li>') + '\n</li></ul>';
         });
-      },
-      addImageBrowser() {
-        let images = this.$refs.article.querySelectorAll('img');
-        var that = this;
-        images.forEach((image) => {
-          console.log(image);
-          image.addEventListener('click', function () {
-            console.log('click');
-            showImageBrowserModal.call(that, image);
-          });
-        });
       }
     },
     components: {
@@ -199,7 +193,6 @@
           this.$nextTick(() => {
             this.addCodeLineNumber();
             this.addTocScrollSpy();
-            // this.addImageBrowser();
             window.scrollTo(0, 0);
           });
         }

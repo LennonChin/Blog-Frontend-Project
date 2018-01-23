@@ -118,41 +118,6 @@ export function checkPostAuth(post, title, message, noAuthCallback, successCallb
   }
 };
 
-// 显示图片查看器
-export function showImageBrowserModal(imageNode) {
-  this.$Modal.info({
-    width: 70,
-    render: (h) => {
-      let children = [];
-      children.push(h('h2', {
-        domProps: {
-          innerHTML: '查看图片详情'
-        },
-        'class': {
-          'modal-title': true
-        }
-      }));
-      children.push(h('img', {
-        domProps: {
-          src: imageNode.src
-        },
-        'class': {
-          'modal-image': true
-        }
-      }));
-      children.push(h('p', {
-        domProps: {
-          innerHTML: imageNode.alt
-        },
-        'class': {
-          'modal-desc': true
-        }
-      }));
-      return h('div', {}, children);
-    }
-  });
-};
-
 // 上传文件
 export function uploadFile(file, useType, successCallback, failCallback) {
   let suffix = /.[^.]+$/.exec(file.name)[0];

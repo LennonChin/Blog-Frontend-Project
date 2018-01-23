@@ -25,6 +25,15 @@ const webpackConfig = merge(baseWebpackConfig, {
     filename: utils.assetsPath('js/[name].[chunkhash].js'),
     chunkFilename: utils.assetsPath('js/[id].[chunkhash].js')
   },
+  externals: [
+    {
+      vue: 'Vue',
+      Router: 'vue-router',
+      iview: 'iview',
+      MavonEditor: 'mavon-editor',
+      swiper: 'swiper'
+    }
+  ],
   plugins: [
     // http://vuejs.github.io/vue-loader/en/workflow/production.html
     new webpack.DefinePlugin({

@@ -21,7 +21,7 @@
               <archive-list-time-title :date="month + '月'" :count="posts[year].months[month].length"
                                        :dateType="'month'"></archive-list-time-title>
               <archive-list-cell v-for="post in posts[year].months[month]" :post="post"
-                                 :key="post.title"></archive-list-cell>
+                                 :key="post.id"></archive-list-cell>
             </div>
           </div>
           <browse-more @browseMore="browseMore" ref="browseMore"></browse-more>

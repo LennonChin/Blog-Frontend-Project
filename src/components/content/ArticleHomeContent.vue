@@ -51,7 +51,7 @@
                            @clearDateSelect="dateSelectClear">
             </section-title>
           </iv-affix>
-          <article-list-cell v-for="article in articles" :article="article" :key="article.title"></article-list-cell>
+          <article-list-cell v-for="article in articles" :article="article" :key="article.id"></article-list-cell>
           <browse-more @browseMore="browseMore" ref="browseMore"></browse-more>
         </div>
       </iv-col>
