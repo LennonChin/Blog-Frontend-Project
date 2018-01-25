@@ -62,55 +62,6 @@ article.article-main-content img {
   margin: 0 auto;
   cursor: pointer;
 }
-.comment-main-content h1,
-.comment-main-content h2,
-.comment-main-content h3,
-.comment-main-content h4,
-.comment-main-content h5,
-.comment-main-content h6,
-.comment-main-content h7 {
-  padding: 0;
-  margin: 0;
-  font-weight: 500;
-}
-.comment-main-content h1 {
-  font-size: 20px;
-}
-.comment-main-content h2 {
-  font-size: 17px;
-}
-.comment-main-content h3 {
-  font-size: 15px;
-}
-.comment-main-content h4,
-.comment-main-content h5,
-.comment-main-content h6,
-.comment-main-content h7 {
-  font-size: 14px;
-}
-.comment-main-content ul,
-.comment-main-content ol {
-  list-style-type: square;
-  line-height: 1.5em;
-  padding-left: 2.5em;
-}
-.comment-main-content li {
-  list-style-type: square;
-  margin: 0.5em 0;
-  color: #333;
-  font-weight: 200;
-}
-.comment-main-content p {
-  font-size: 16px;
-  line-height: 22px;
-  color: #333;
-  font-weight: 200;
-  margin: 8px 0;
-}
-.comment-main-content img {
-  display: block;
-  max-width: 100%;
-}
 pre {
   margin-bottom: 18px;
 }
@@ -146,4 +97,3 @@ code.hljs > ul > li:nth-of-type(even) {
   background-color: #fafafa;
   color: inherit;
 }
-/*# sourceMappingURL=article.css.map */

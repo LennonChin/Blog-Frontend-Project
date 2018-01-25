@@ -1,7 +1,7 @@
 import axios from '@/axios';
 
 // 自由API
-let localHost = 'http://169.254.120.94:8000/api';
+let localHost = 'http://192.168.1.6:8000/api';
 
 // 豆瓣Api
 // let doubanHost = 'https://api.douban.com/v2';

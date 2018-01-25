@@ -181,6 +181,7 @@
 
 <style lang="stylus" type="text/stylus" rel="stylesheet/stylus">
   @import "../../../common/stylus/theme.styl";
+  @import "../.././../common/stylus/comment.styl";
 
   .comment-list-cell
     position relative

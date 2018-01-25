@@ -110,7 +110,9 @@
           this.noMoreData = this.totalCount >= response.data.count;
           this.comments = this.comments.concat(response.data.results);
           this.$nextTick(() => {
-            this.$refs.browseMore.stopLoading(this.noMoreData);
+            if (this.$refs.browseMore) {
+              this.$refs.browseMore.stopLoading(this.noMoreData);
+            }
           });
           this.showSpin = false;
         }).catch(function (error) {
@@ -199,7 +201,7 @@
 
 <style lang="stylus" type="text/stylus" rel="stylesheet/stylus" scoped>
   @import "../.././../common/stylus/theme.styl";
-  // #mavon-editor .operate .iv-dropdown-link
+
   .social-section
     position relative
     .dark-theme
