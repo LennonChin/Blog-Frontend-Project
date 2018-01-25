@@ -21,6 +21,7 @@
     "v-viewer": "^0.3.1",
     "vue": "^2.5.13",
     "vue-awesome-swiper": "^3.1.2",
+    "vue-nav-tabs": "^0.5.6",
     "vue-router": "^3.0.1"
   },
   "devDependencies": {

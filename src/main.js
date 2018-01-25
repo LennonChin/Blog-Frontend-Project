@@ -37,7 +37,8 @@ import {
   Avatar,
   Spin,
   Tooltip,
-  BackTop
+  BackTop,
+  Rate
 } from 'iview';
 
 Vue.prototype.$http = Axios;
@@ -75,6 +76,7 @@ Vue.component('iv-avatar', Avatar);
 Vue.component('iv-backtop', BackTop);
 Vue.component('iv-spin', Spin);
 Vue.component('iv-tool-tip', Tooltip);
+Vue.component('iv-rate', Rate);
 
 // 全局混合
 Vue.mixin({

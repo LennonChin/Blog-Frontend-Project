@@ -19,6 +19,7 @@ const MovieHomeContent = () => System.import('@/components/content/MovieHomeCont
 const MovieListContent = () => System.import('@/components/content/MovieListContent');
 const AlbumPreviewContent = () => System.import('@/components/content/AlbumPreviewContent');
 const TimeLineContent = () => System.import('@/components/content/TimeLineContent');
+const BookOverviewContent = () => System.import('@/components/content/BookOverviewContent');
 
 Vue.use(Router);
 
@@ -113,6 +114,32 @@ let router = new Router({
           },
           meta: {
             title: '电影详情',
+            need_log: false
+          }
+        },
+        {
+          path: 'books',
+          name: 'books',
+          components: {
+            header: SimpleHeader,
+            content: MovieHomeContent,
+            footer: CommonFooter
+          },
+          meta: {
+            title: '读书',
+            need_log: false
+          }
+        },
+        {
+          path: 'book/overview',
+          name: 'book/overview',
+          components: {
+            header: SimpleHeader,
+            content: BookOverviewContent,
+            footer: CommonFooter
+          },
+          meta: {
+            title: '读书详情',
             need_log: false
           }
         },

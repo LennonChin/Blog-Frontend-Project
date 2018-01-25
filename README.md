@@ -68,7 +68,7 @@ The backend of this project uses Django + Xadmin + Django Rest Framework. The co
 // host: your back-end server address
 // port: your back-end server port
 // path: custom path
-let localHost = 'http: // host: port / path';
+let localHost = 'http://host:port/path';
 ```
 
 5. After the above configuration is completed, run the following command to enter the development environment:

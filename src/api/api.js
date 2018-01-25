@@ -1,6 +1,10 @@
 import axios from '@/axios';
 
-let localHost = 'http://169.254.236.55:8000/api';
+// 自由API
+let localHost = 'http://169.254.120.94:8000/api';
+
+// 豆瓣Api
+// let doubanHost = 'https://api.douban.com/v2';
 
 // 获取站点信息
 export const getSiteInfo = params => {
@@ -164,5 +168,12 @@ export const verifyEmailCode = params => {
     return axios.get(`${localHost}/emailCode/` + params.id + '/');
   } else {
     return axios.get(`${localHost}/emailCode/`, params);
+  }
+};
+
+// 豆瓣API
+export const getDoubanBookInfo = params => {
+  if ('type' in params && 'id' in params) {
+    return axios.get(`/api/` + params.type + '/' + params.id);
   }
 };
