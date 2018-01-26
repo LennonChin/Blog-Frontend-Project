@@ -34,7 +34,6 @@
     overflow scroll
     h4
       font-size 18px
-      padding 13px 13px 0
       line-height 18px
       text-align left
     .list

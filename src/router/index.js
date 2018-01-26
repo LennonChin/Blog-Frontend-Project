@@ -20,6 +20,7 @@ const MovieListContent = () => System.import('@/components/content/MovieListCont
 const AlbumPreviewContent = () => System.import('@/components/content/AlbumPreviewContent');
 const TimeLineContent = () => System.import('@/components/content/TimeLineContent');
 const BookOverviewContent = () => System.import('@/components/content/BookOverviewContent');
+const BookNoteContent = () => System.import('@/components/content/BookNoteContent');
 
 Vue.use(Router);
 
@@ -139,7 +140,20 @@ let router = new Router({
             footer: CommonFooter
           },
           meta: {
-            title: '读书详情',
+            title: '书籍概览',
+            need_log: false
+          }
+        },
+        {
+          path: 'book/detail/:bookId',
+          name: 'book/detail',
+          components: {
+            header: SimpleHeader,
+            content: BookNoteContent,
+            footer: CommonFooter
+          },
+          meta: {
+            title: '笔记详情',
             need_log: false
           }
         },

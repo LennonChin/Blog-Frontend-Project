@@ -1,6 +1,6 @@
 <template>
   <div class="panel">
-    <h4>{{title}}</h4>
+    <h4 :class="titleAlign">{{title}}</h4>
     <slot name="content"></slot>
   </div>
 </template>
@@ -10,6 +10,9 @@
     props: {
       title: {
         default: ''
+      },
+      titleAlign: {
+        default: 'left'
       }
     }
   };
@@ -27,4 +30,16 @@
       line-height 18px
       text-align left
       border-left 5px solid $color-main-primary
+      &.center
+        text-align center
+        border-left none
+        border-right none
+      &.left
+        text-align left
+        border-left 5px solid $color-main-primary
+        border-right none
+      &.right
+        text-align right
+        border-right 5px solid $color-main-primary
+        border-left none
 </style>

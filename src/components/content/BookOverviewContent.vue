@@ -26,16 +26,21 @@
               </div>
               <div class="rating"></div>
             </a>
-            <vue-tabs class="infos">
-              <v-tab title="目录">
+            <vue-tabs class="infos"  @tab-change="handleTabChange">
+              <v-tab title="读书目录">
                 <book-catalog :book="book"></book-catalog>
               </v-tab>
+              <v-tab title="原书目录">
+                <p class="catalog" v-html="bookDoubanInfo.catalog"></p>
+              </v-tab>
               <v-tab title="整书读后感">
-                <p class="summary" v-html="book.detail.formatted_content"></p>
+                <article v-if="book !== undefined" id="article-main-page" class="typo container article-main-content" v-html="book.detail.formatted_content" v-viewer ref="book">
+                </article>
+                <!--<p class="summary" v-html="book.detail.formatted_content"></p>-->
               </v-tab>
               <v-tab title="简介">
-                <p class="author" v-html="formatContent(bookDoubanInfo.author_intro)"></p>
-                <p class="summary" v-html="formatContent(bookDoubanInfo.summary)"></p>
+                <p class="author" v-html="bookDoubanInfo.author_intro"></p>
+                <p class="summary" v-html="bookDoubanInfo.summary"></p>
               </v-tab>
             </vue-tabs>
           </div>
@@ -45,6 +50,9 @@
       <iv-col :xs="0" :sm="0" :md="0" :lg="7">
         <div class="layout-right">
           <recommend></recommend>
+          <iv-affix :offset-top="60" v-if="responsiveRender(false, false, false, true)" v-show="showToc">
+            <side-toc style="margin-top: 15px;" ref="sideToc"></side-toc>
+          </iv-affix>
         </div>
       </iv-col>
     </iv-row>
@@ -56,23 +64,46 @@
   import 'vue-nav-tabs/themes/paper.css';
   import BookCatalog from '@/components/views/Book/BookCatalog';
   import Recommend from '@/components/views/Recommend';
+  import SideToc from '@/components/views/SideToc';
   import SocialSection from '@/components/views/Comment/SocialSection';
   import {getBookDetailInfo, getDoubanInfo} from '@/api/api';
+  // highlight.js引入
+  import hljs from '@/common/js/highlight.pack';
+  // 样式文件
+  import 'highlight.js/styles/atom-one-light.css';
+  // TOC
+  import tocbot from 'tocbot';
+  // 加密
+  import {hexMd5} from '@/common/js/md5';
+
+  var HLJS = hljs;
 
   export default {
     data() {
       return {
         bookId: undefined,
         book: undefined,
-        bookDoubanInfo: undefined
+        bookDoubanInfo: undefined,
+        browse_auth: null,
+        showToc: false
       };
+    },
+    beforeRouteUpdate(to, from, next) {
+      next();
+      this.book = undefined;
+      this.bookDoubanInfo = undefined;
+      this.bookId = this.$route.params.bookId;
+      this.browse_auth = this.$route.query.browse_auth;
+      this.getBookDetailInfo();
     },
     created() {
       this.bookId = this.$route.params.bookId;
+      this.browse_auth = this.$route.query.browse_auth;
       this.getBookDetailInfo();
     },
     methods: {
       getBookDetailInfo() {
+        var that = this;
         getBookDetailInfo({
           params: {
             browse_auth: this.browse_auth
@@ -83,6 +114,20 @@
           this.getDoubanInfo(this.book.douban_type, this.book.douban_id);
         }).catch(function (error) {
           console.log(error);
+          if (error.status === 401) {
+            if (that.browse_auth) {
+              that.$Notice.error({
+                title: '您输入的阅读密码错误',
+                duration: 3,
+                closable: true,
+                onClose: () => {
+                  that.checkPassword('该文章为加密文章，<br />您输入的阅读密码错误，请重新验证');
+                }
+              });
+            } else {
+              that.checkPassword('该文章为加密文章，请输入阅读密码');
+            }
+          }
         });
       },
       getDoubanInfo(doubanType, doubanId) {
@@ -95,22 +140,110 @@
           console.log(error);
         });
       },
+      checkPassword(message) {
+        this.$Modal.confirm({
+          autoClosable: false,
+          render: (h) => {
+            let children = [];
+            children.push(h('h2', {
+              domProps: {
+                innerHTML: '提示'
+              },
+              'class': {
+                'modal-title': true
+              }
+            }));
+            children.push(h('p', {
+              domProps: {
+                innerHTML: message
+              },
+              'class': {
+                'modal-message': true
+              }
+            }));
+            children.push(h('iv-input', {
+              props: {
+                type: 'password',
+                autofocus: true,
+                placeholder: '请输入阅读密码'
+              },
+              'class': {
+                'modal-input': true
+              },
+              on: {
+                input: (value) => {
+                  this.browse_auth_input = value;
+                }
+              }
+            }));
+            return h('div', {}, children);
+          },
+          onOk: () => {
+            this.browse_auth = hexMd5(this.browse_auth_input);
+            this.$router.push({
+              name: 'article/detail',
+              params: {articleId: this.articleId},
+              query: {browse_auth: this.browse_auth}
+            });
+            this.getDatas();
+          }
+        });
+      },
       formatBookInfo(book) {
         let bookInfo = {};
         bookInfo.title = book.title;
         bookInfo.images = book.images;
         bookInfo.author = book.author;
-        bookInfo.author_intro = book.author_intro;
+        bookInfo.author_intro = this.formatContent(book.author_intro);
         bookInfo.publisher = book.publisher;
         bookInfo.publish_date = book.pubdate;
         bookInfo.pages = book.pages;
-        bookInfo.summary = book.summary;
+        bookInfo.summary = this.formatContent(book.summary);
+        bookInfo.catalog = this.formatContent(book.catalog);
         bookInfo.tags = book.tags;
         bookInfo.rating = book.rating;
         return bookInfo;
       },
       formatContent(content) {
         return content.replace(/\n/g, '<br />');
+      },
+      handleTabChange(tabIndex, newTab, oldTab) {
+        console.log(tabIndex);
+        this.showToc = tabIndex === 2;
+      },
+      addTocScrollSpy() {
+        /* eslint-disable */
+        if (!this.$refs.book) return;
+        tocbot.init({
+          tocSelector: '#side-toc',
+          contentSelector: '#article-main-page',
+          headingSelector: 'h1, h2, h3, h4, h5',
+          linkClass: 'toc-link',
+          activeLinkClass: 'is-active-link',
+          listClass: 'toc-list',
+          isCollapsedClass: 'is-collapsed',
+          collapsibleClass: 'is-collapsible',
+          listItemClass: 'toc-list-item',
+          collapseDepth: 0,
+          scrollSmooth: true,
+          scrollSmoothDuration: 420,
+          headingsOffset: 1,
+          throttleTimeout: 50,
+          positionFixedClass: 'is-position-fixed',
+          fixedSidebarOffset: 'auto',
+          includeHtml: false,
+          onClick: false
+        });
+      },
+      addCodeLineNumber() {
+        // 添加行号
+        if (!this.$refs.book) return;
+        let blocks = this.$refs.book.querySelectorAll('pre code');
+        blocks.forEach((block) => {
+          HLJS.highlightBlock(block);
+          // 去前后空格并添加行号
+          block.innerHTML = '<ul><li>' + block.innerHTML.replace(/(^\s*)|(\s*$)/g, '').replace(/\n/g, '\n</li><li>') + '\n</li></ul>';
+        });
       }
     },
     components: {
@@ -118,7 +251,18 @@
       'v-tab': VTab,
       'book-catalog': BookCatalog,
       'social-section': SocialSection,
-      'recommend': Recommend
+      'recommend': Recommend,
+      'side-toc': SideToc
+    },
+    watch: {
+      showToc: function (newShowToc) {
+        if (newShowToc) {
+          this.$nextTick(() => {
+            this.addCodeLineNumber();
+            this.addTocScrollSpy();
+          });
+        }
+      }
     }
   };
 </script>
@@ -183,7 +327,7 @@
             .desc
               color $color-gradually-gray-11
       .infos
-        p.summary, p.author
+        p.summary, p.author, p.catalog
           font-size 14px
           font-weight 200
           line-height 23px

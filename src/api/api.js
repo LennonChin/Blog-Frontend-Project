@@ -132,6 +132,15 @@ export const getBookDetailInfo = params => {
   }
 };
 
+// 获取图书笔记详细信息
+export const getBookNoteDetailInfo = params => {
+  if ('id' in params) {
+    return axios.get(`${localHost}/bookNoteDetailInfos/` + params.id + '/', params);
+  } else {
+    return axios.get(`${localHost}/bookNoteDetailInfos/`, params);
+  }
+};
+
 // 获取时间轴信息
 export const getPostBaseInfo = params => {
   if ('id' in params) {
