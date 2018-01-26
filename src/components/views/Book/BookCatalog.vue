@@ -1,24 +1,24 @@
 <template>
   <div class="book-catalog" :class="{'open': showMoreToc}" v-if="book != undefined">
     <ul class="book-toc-list">
-      <li class="book-toc-list-item" v-for="chapter in book.book_chapter">
-        <a class="book-toc-link">
-          <iv-tool-tip placement="right" :content="'已读'">
-            <span><iv-icon type="android-checkbox-outline"></iv-icon></span>
+      <li class="book-toc-list-item" v-for="note1 in book.book_note">
+        <a class="book-toc-link" :class="{'is-active-link' : note1.is_reading}" @click="gotoBookNoteDetail(note1)">
+          <iv-tool-tip placement="right" :content="note1.is_completed ? '已读' : (note1.is_reading ? '正在读' : '未读')">
+            <span><iv-icon :type="note1.is_completed ? 'android-checkbox-outline' : (note1.is_reading ? 'play' : 'android-checkbox-outline-blank')"></iv-icon></span>
           </iv-tool-tip>
-          {{ chapter.title }}
-          <iv-tool-tip placement="right" :content="'笔记已完成'">
+          {{ note1.title }}
+          <iv-tool-tip placement="right" :content="'笔记已完成'" v-if="note1.is_noted">
             <iv-icon type="ios-compose"></iv-icon>
           </iv-tool-tip>
         </a>
-        <ul class="book-toc-list is-collapsible" v-if="chapter.book_section.length > 0">
-          <li class="book-toc-list-item" v-for="section in chapter.book_section">
-            <a class="book-toc-link">
-              <iv-tool-tip placement="right" :content="'已读'">
-                <iv-icon type="android-checkbox-outline"></iv-icon>
+        <ul class="book-toc-list is-collapsible" v-if="note1.sub_note.length > 0">
+          <li class="book-toc-list-item" v-for="note2 in note1.sub_note">
+            <a class="book-toc-link" :class="{'is-active-link' : note2.is_reading}" @click="gotoBookNoteDetail(note2)">
+              <iv-tool-tip placement="right" :content="note2.is_completed ? '已读' : (note2.is_reading ? '正在读' : '未读')">
+                <span><iv-icon :type="note2.is_completed ? 'android-checkbox-outline' : (note2.is_reading ? 'play' : 'android-checkbox-outline-blank')"></iv-icon></span>
               </iv-tool-tip>
-              {{ section.title }}
-              <iv-tool-tip placement="right" :content="'笔记已完成'">
+              {{ note2.title }}
+              <iv-tool-tip placement="right" :content="'笔记已完成'" v-if="note2.is_noted">
                 <iv-icon type="ios-compose"></iv-icon>
               </iv-tool-tip>
             </a>
@@ -37,6 +37,8 @@
 </template>
 
 <script type="text/ecmascript-6">
+  import {checkPostAuth} from '@/common/js/utils';
+
   export default {
     props: {
       book: {
@@ -64,6 +66,27 @@
     methods: {
       openToc() {
         this.showMoreToc = !this.showMoreToc;
+      },
+      gotoBookNoteDetail(note) {
+        if (!note.is_noted) {
+          this.$Notice.info({
+            title: '无文章信息'
+          });
+          return;
+        }
+        checkPostAuth.call(this, note, '提示', '该文章已加密，您需要输入阅读密码', () => {
+          this.$router.push({name: 'book/detail', params: {bookId: note.id}});
+        }, (encryptedBrowseAuth) => {
+          this.$router.push({
+            name: 'book/detail',
+            params: {bookId: note.id},
+            query: {browse_auth: encryptedBrowseAuth}
+          });
+        }, () => {
+          this.$Notice.error({
+            title: '密码错误'
+          });
+        });
       }
     }
   };
