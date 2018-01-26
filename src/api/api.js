@@ -1,7 +1,7 @@
 import axios from '@/axios';
 
 // 自由API
-let localHost = 'http://192.168.1.6:8000/api';
+let localHost = 'http://169.254.162.54:8000/api';
 
 // 豆瓣Api
 // let doubanHost = 'https://api.douban.com/v2';
@@ -114,6 +114,24 @@ export const getMovieDetailInfo = params => {
   }
 };
 
+// 获取图书基本信息
+export const getBookBaseInfo = params => {
+  if ('id' in params) {
+    return axios.get(`${localHost}/bookBaseInfos/${params.id}/`);
+  } else {
+    return axios.get(`${localHost}/bookBaseInfos/`, params);
+  }
+};
+
+// 获取图书详细信息
+export const getBookDetailInfo = params => {
+  if ('id' in params) {
+    return axios.get(`${localHost}/bookDetailInfos/` + params.id + '/', params);
+  } else {
+    return axios.get(`${localHost}/bookDetailInfos/`, params);
+  }
+};
+
 // 获取时间轴信息
 export const getPostBaseInfo = params => {
   if ('id' in params) {
@@ -172,7 +190,7 @@ export const verifyEmailCode = params => {
 };
 
 // 豆瓣API
-export const getDoubanBookInfo = params => {
+export const getDoubanInfo = params => {
   if ('type' in params && 'id' in params) {
     return axios.get(`/api/` + params.type + '/' + params.id);
   }

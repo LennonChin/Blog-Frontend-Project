@@ -131,7 +131,7 @@ let router = new Router({
           }
         },
         {
-          path: 'book/overview',
+          path: 'book/overview/:bookId',
           name: 'book/overview',
           components: {
             header: SimpleHeader,
