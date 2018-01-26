@@ -1,6 +1,6 @@
 <template>
   <div class="book-info" v-if="bookDoubanInfo !== undefined">
-    <panel :title="'推荐阅读'">
+    <panel :title="'图书信息'" :titleAlign="'center'">
       <div slot="content" class="content">
         <div class="img">
           <div class="container">
@@ -89,8 +89,10 @@
 
   .book-info
     .content
-      padding 5px 20px
+      padding 15px 20px
       border-left 1px solid $color-border
+      border-right 1px solid $color-border
+      border-bottom 1px solid $color-border
     .img
       position relative
       margin 0 auto

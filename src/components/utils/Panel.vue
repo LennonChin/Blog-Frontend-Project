@@ -32,8 +32,7 @@
       border-left 5px solid $color-main-primary
       &.center
         text-align center
-        border-left none
-        border-right none
+        border 1px solid $color-border
       &.left
         text-align left
         border-left 5px solid $color-main-primary
