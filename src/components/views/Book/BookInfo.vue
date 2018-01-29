@@ -11,7 +11,7 @@
           </div>
         </div>
         <div class="info">
-          <p class="title">{{ bookDoubanInfo.title }}</p>
+          <p class="title"><router-link :to="this.bookDoubanInfo.alt" target="_blank">{{ bookDoubanInfo.title }}</router-link></p>
           <p class="desc"><span>作者：</span>{{ bookDoubanInfo.author.join(' ') }}</p>
           <p class="desc"><span>出版社：</span>{{ bookDoubanInfo.publisher }}</p>
           <p class="desc"><span>出版日期：</span>{{ bookDoubanInfo.publish_date }}</p>

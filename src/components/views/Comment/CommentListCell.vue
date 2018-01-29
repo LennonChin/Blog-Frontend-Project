@@ -119,6 +119,8 @@
         blocks.forEach((block) => {
           HLJS.highlightBlock(block);
           // 去前后空格并添加行号
+          let reg = /<ul(.*?)><li(.*?)>[\s\S]*?<\/li><\/ul>/gm;
+          if (reg.test(block.innerHTML)) return;
           block.innerHTML = '<ul><li>' + block.innerHTML.replace(/(^\s*)|(\s*$)/g, '').replace(/\n/g, '\n</li><li>') + '\n</li></ul>';
         });
       },

@@ -111,7 +111,11 @@
           id: this.bookId
         }).then((response) => {
           this.book = response.data;
-          this.getDoubanInfo(this.book.douban_type, this.book.douban_id);
+          if (this.book.detail.douban_infos) {
+            this.bookDoubanInfo = this.formatBookInfo(JSON.parse(this.book.detail.douban_infos));
+          } else {
+            this.getDoubanInfo(this.book.douban_type, this.book.douban_id);
+          }
         }).catch(function (error) {
           console.log(error);
           if (error.status === 401) {
@@ -242,6 +246,8 @@
         blocks.forEach((block) => {
           HLJS.highlightBlock(block);
           // 去前后空格并添加行号
+          let reg = /<ul(.*?)><li(.*?)>[\s\S]*?<\/li><\/ul>/gm;
+          if (reg.test(block.innerHTML)) return;
           block.innerHTML = '<ul><li>' + block.innerHTML.replace(/(^\s*)|(\s*$)/g, '').replace(/\n/g, '\n</li><li>') + '\n</li></ul>';
         });
       }

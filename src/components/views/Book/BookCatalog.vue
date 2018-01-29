@@ -56,7 +56,6 @@
       this.$nextTick(() => {
         let toc = document.querySelector('.book-catalog ul');
         if (toc && toc.clientHeight >= 360) {
-          console.log(toc.clientHeight);
           this.showToggleMoreMenu = true;
         } else {
           this.showToggleMoreMenu = false;
