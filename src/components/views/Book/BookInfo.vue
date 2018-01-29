@@ -6,12 +6,12 @@
           <div class="container">
             <div class="bracket"></div>
             <div class="target">
-              <img :src="bookDoubanInfo.images.large" alt="">
+              <img :src="bookDoubanInfo.image" alt="">
             </div>
           </div>
         </div>
         <div class="info">
-          <p class="title"><router-link :to="this.bookDoubanInfo.alt" target="_blank">{{ bookDoubanInfo.title }}</router-link></p>
+          <p class="title"><a :href="bookDoubanInfo.alt" target="_blank">{{ bookDoubanInfo.title }}</a></p>
           <p class="desc"><span>作者：</span>{{ bookDoubanInfo.author.join(' ') }}</p>
           <p class="desc"><span>出版社：</span>{{ bookDoubanInfo.publisher }}</p>
           <p class="desc"><span>出版日期：</span>{{ bookDoubanInfo.publish_date }}</p>
@@ -46,23 +46,40 @@
       };
     },
     created() {
-      this.getDoubanInfo(this.book.douban_type, this.book.douban_id);
+      this.getDoubanInfo(this.book);
     },
     methods: {
-      getDoubanInfo(doubanType, doubanId) {
-        getDoubanInfo({
-          id: doubanId,
-          type: doubanType
-        }).then((response) => {
-          this.bookDoubanInfo = this.formatBookInfo(response.data);
-        }).catch(function (error) {
-          console.log(error);
-        });
+      getDoubanInfo(book) {
+        if (book) {
+          this.bookDoubanInfo = this.formatLocalBookInfo(book);
+        } else {
+          getDoubanInfo({
+            id: book.douban_id,
+            type: book.douban_type
+          }).then((response) => {
+            this.bookDoubanInfo = this.formatBookInfo(response.data);
+          }).catch(function (error) {
+            console.log(error);
+          });
+        }
+      },
+      formatLocalBookInfo(book) {
+        let bookInfo = {};
+        bookInfo.title = book.book_name;
+        bookInfo.image = book.book_image;
+        bookInfo.author = book.book_author;
+        bookInfo.publisher = book.book_publisher;
+        bookInfo.publish_date = book.publish_date;
+        bookInfo.pages = book.book_pages;
+        bookInfo.tags = book.book_tags.split(',');
+        bookInfo.rating.average = book.book_rating;
+        bookInfo.alt = book.book_url;
+        return bookInfo;
       },
       formatBookInfo(book) {
         let bookInfo = {};
         bookInfo.title = book.title;
-        bookInfo.images = book.images;
+        bookInfo.image = book.images.medium;
         bookInfo.author = book.author;
         bookInfo.author_intro = this.formatContent(book.author_intro);
         bookInfo.publisher = book.publisher;
@@ -72,6 +89,7 @@
         bookInfo.catalog = this.formatContent(book.catalog);
         bookInfo.tags = book.tags;
         bookInfo.rating = book.rating;
+        bookInfo.alt = book.alt;
         return bookInfo;
       },
       formatContent(content) {
@@ -119,12 +137,10 @@
     .info
       padding 15px
       .title
-        font-size 20px
-        line-height 28px
-        font-weight 500
-        color $color-typegraphy-title
         margin-bottom 5px
         text-align center
+        a
+          color $color-typegraphy-title
       .desc
         font-size 14px
         font-weight 100
