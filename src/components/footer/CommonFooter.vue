@@ -2,7 +2,7 @@
   <div class="common-footer">
     <iv-backtop :height="500" :bottom="backTopBottom" :right="20"></iv-backtop>
     <p class="copyright">
-      <a href="http://www.miibeian.gov.cn/">鄂 ICP 备 0000000 号</a><span>|</span>
+      <a href="http://www.miibeian.gov.cn/">鄂ICP备14018621号-2</a><span>|</span>
       版权所有 ©  2008 - 2018<span>|</span>以商业目的使用本网站内容需获许可，非商业目的使用授权遵循
       <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a>。
     </p>
