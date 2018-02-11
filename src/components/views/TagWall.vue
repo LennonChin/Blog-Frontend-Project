@@ -10,7 +10,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import Panel from '@/components/utils/Panel';
+  import Panel from '@/components/views/Panel';
   import { getTags } from '@/api/api';
 
   export default {

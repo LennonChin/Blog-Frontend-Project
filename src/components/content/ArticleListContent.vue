@@ -34,7 +34,7 @@
   import ArticlePageContent from '@/components/views/Article/ArticlePageContent';
   import ArticlePageFooter from '@/components/views/Article/ArticlePageFooter';
   import ArticleListCell from '@/components/views/Article/ArticleListCell';
-  import SectionTitle from '@/components/views/SectionTitle/SectionTitle';
+  import SectionTitle from '@/components/views/SectionTitle';
   import ClassifyMenu from '@/components/views/Classify/ClassifyMenu';
   import Recommend from '@/components/views/Recommend';
   import TagWall from '@/components/views/TagWall';

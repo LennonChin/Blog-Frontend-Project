@@ -35,7 +35,7 @@
 
 <script type="text/ecmascript-6">
   import ThumbCard from '@/components/views/ThumbCard';
-  import SectionTitle from '@/components/views/SectionTitle/SectionTitle';
+  import SectionTitle from '@/components/views/SectionTitle';
   import ClassifyMenu from '@/components/views/Classify/ClassifyMenu';
   import Recommend from '@/components/views/Recommend';
   import TagWall from '@/components/views/TagWall';

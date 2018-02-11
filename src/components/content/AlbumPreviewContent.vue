@@ -17,8 +17,8 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import AlbumInfos from '@/components/views/AlbumPreview/AlbumInfos';
-  import AlbumCarousel from '@/components/views/AlbumPreview/AlbumCarousel';
+  import AlbumInfos from '@/components/views/Album/AlbumInfos';
+  import AlbumCarousel from '@/components/views/Album/AlbumCarousel';
   // 加密
   import {hexMd5} from '@/common/js/md5';
   // API

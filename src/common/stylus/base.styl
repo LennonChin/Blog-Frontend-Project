@@ -1,7 +1,6 @@
 @import "theme.styl";
 
 body, html
-  line-height 1
   font-weight 300
   font-family Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial;
 
@@ -9,14 +8,18 @@ body, html
 .layout-content
   width auto
   @media only screen and (max-width: $responsive-sm)
-    margin 5px 5px 0 5px
+    margin 0 5px 0 5px
+    padding-top 5px
   @media screen and (min-width: $responsive-sm)
-    margin 10px 10px 0 10px
+    margin 0 10px 0 10px
+    padding-top 10px
   @media screen and (min-width: $responsive-md)
-    margin 15px 35px 0 35px
+    margin 0 35px 0 35px
+    padding-top 15px
   @media screen and (min-width: $responsive-lg)
     width 1200px
-    margin 15px auto
+    margin 0 auto 15px
+    padding-top 15px
     .layout-left, .layout-right
       padding 0
       @media only screen and (max-width: $responsive-sm)

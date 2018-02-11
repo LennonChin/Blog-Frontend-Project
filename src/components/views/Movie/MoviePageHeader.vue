@@ -31,7 +31,7 @@
 </script>
 
 <style lang="stylus" type="text/stylus" rel="stylesheet/stylus">
-  @import "../../../../common/stylus/theme.styl";
+  @import "../../../common/stylus/theme.styl";
 
   .movie-page-header
     position relative

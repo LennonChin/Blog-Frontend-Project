@@ -1,6 +1,6 @@
 <template>
-  <div class="hot" v-if="articles.length > 0">
-    <panel :title="'热门阅读'">
+  <div class="recommend" v-if="articles.length > 0">
+    <panel :title="'推荐阅读'">
       <div slot="content" class="content">
         <div class="top">
           <a>
@@ -13,12 +13,12 @@
               </a>
             </p>
             <div class="tags">
-              <iv-tag :color="tag.color" type="border" v-for="tag in articleSlice(0, 1)[0].tags" :key="tag.id">
-                {{ tag.name }}
+              <iv-tag :color="tag.color" type="border" v-for="tag in articleSlice(0, 1)[0].tags" :key="tag.id">{{
+                tag.name }}
               </iv-tag>
             </div>
             <p class="info">
-              <span class="time">{{ articleSlice(0, 1)[0].add_time | socialDate}}</span>
+              <span class="time">{{ articleSlice(0, 1)[0].add_time | socialDate }}</span>
               <span class="likes"><a @click="likePost(articleSlice(0, 1)[0])"><iv-icon
                 type="heart"></iv-icon> {{ articleSlice(0, 1)[0].like_num }} </a></span>
               <span class="comments"><a><iv-icon type="compose"></iv-icon> {{ articleSlice(0, 1)[0].comment_num }} </a></span>
@@ -54,7 +54,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import Panel from '@/components/utils/Panel';
+  import Panel from '@/components/views/Panel';
   import {getPostBaseInfo, addPostLike} from '@/api/api';
   import {checkPostAuth} from '@/common/js/utils';
 
@@ -71,7 +71,7 @@
       getDatas() {
         getPostBaseInfo({
           params: {
-            is_hot: true,
+            is_recommend: true,
             limit: 5,
             offset: 0
           }
@@ -138,9 +138,9 @@
 </script>
 
 <style lang="stylus" type="text/stylus" rel="stylesheet/stylus">
-  @import "../../../common/stylus/index.styl";
+  @import "../../common/stylus/index.styl";
 
-  .hot
+  .recommend
     .content
       padding 5px 20px
       border-left 1px solid $color-border
@@ -177,7 +177,6 @@
             cursor pointer
             &:hover
               color $color-main-primary
-              text-decoration underline
         .img
           padding-bottom: 40%
           width: 100%

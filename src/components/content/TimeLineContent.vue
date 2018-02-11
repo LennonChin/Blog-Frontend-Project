@@ -39,12 +39,12 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import SectionTitle from '@/components/views/SectionTitle/SectionTitle';
+  import SectionTitle from '@/components/views/SectionTitle';
   import ClassifyMenu from '@/components/views/Classify/ClassifyMenu';
   import ArchiveListCell from '@/components/views/Archive/ArchiveListCell';
   import ArchiveListTimeTitle from '@/components/views/Archive/ArchiveListTimeTitle';
   import Recommend from '@/components/views/Recommend';
-  import Hot from '@/components/views/Hot/Hot';
+  import Hot from '@/components/views/Hot';
   import TagWall from '@/components/views/TagWall';
   import BrowseMore from '@/components/views/BrowseMore';
 

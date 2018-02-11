@@ -69,13 +69,14 @@
 
   .topic-card
     margin-bottom 10px
+    background-color white
     > a
       cursor default
       display block
       border 1px solid $color-border
       &:hover
         border 1px solid $color-border-hover
-        box-shadow 2px 2px 3px $color-border
+        box-shadow 1px 1px 1px $color-border
       .top-area
         padding-bottom: 100%
         width: 100%

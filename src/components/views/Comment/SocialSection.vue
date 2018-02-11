@@ -1,5 +1,5 @@
 <template>
-  <div class="social-section" v-if="article != undefined">
+  <div class="social-section" v-if="article != undefined" ref="socialSection">
     <iv-spin size="large" v-if="showSpin" fix style="z-index: 99;"></iv-spin>
     <iv-menu :active-name="'1'" :class="theme" mode="horizontal">
       <iv-menu-item name="1" style="padding-left: 0;" @click.native="likePost(article)">
@@ -7,27 +7,27 @@
         {{ article.like_num }} 人觉得很赞
       </iv-menu-item>
       <!--<iv-submenu name="3" style="padding-left: 0;">-->
-        <!--<template slot="title">-->
-          <!--<iv-icon type="android-share-alt"></iv-icon>-->
-          <!--分享-->
-        <!--</template>-->
-        <!--<iv-menu-item name="3-1">菜单</iv-menu-item>-->
-        <!--<iv-menu-item name="3-2">菜单</iv-menu-item>-->
-        <!--<iv-menu-item name="3-3">菜单</iv-menu-item>-->
-        <!--<iv-menu-item name="3-2">菜单</iv-menu-item>-->
-        <!--<iv-menu-item name="3-3">菜单</iv-menu-item>-->
-        <!--<iv-menu-item name="3-2">菜单</iv-menu-item>-->
-        <!--<iv-menu-item name="3-3">菜单</iv-menu-item>-->
+      <!--<template slot="title">-->
+      <!--<iv-icon type="android-share-alt"></iv-icon>-->
+      <!--分享-->
+      <!--</template>-->
+      <!--<iv-menu-item name="3-1">菜单</iv-menu-item>-->
+      <!--<iv-menu-item name="3-2">菜单</iv-menu-item>-->
+      <!--<iv-menu-item name="3-3">菜单</iv-menu-item>-->
+      <!--<iv-menu-item name="3-2">菜单</iv-menu-item>-->
+      <!--<iv-menu-item name="3-3">菜单</iv-menu-item>-->
+      <!--<iv-menu-item name="3-2">菜单</iv-menu-item>-->
+      <!--<iv-menu-item name="3-3">菜单</iv-menu-item>-->
       <!--</iv-submenu>-->
     </iv-menu>
     <!--<div class="content">-->
-      <!--<div class="likes">-->
-        <!--<a href=""><img src="../../../assets/avatar.png" alt=""></a>-->
-        <!--<a href=""><img src="../../../assets/avatar.png" alt=""></a>-->
-        <!--<a href=""><img src="../../../assets/avatar.png" alt=""></a>-->
-        <!--<a href=""><img src="../../../assets/avatar.png" alt=""></a>-->
-        <!--<a href=""><img src="../../../assets/avatar.png" alt=""></a>-->
-      <!--</div>-->
+    <!--<div class="likes">-->
+    <!--<a href=""><img src="../../../assets/avatar.png" alt=""></a>-->
+    <!--<a href=""><img src="../../../assets/avatar.png" alt=""></a>-->
+    <!--<a href=""><img src="../../../assets/avatar.png" alt=""></a>-->
+    <!--<a href=""><img src="../../../assets/avatar.png" alt=""></a>-->
+    <!--<a href=""><img src="../../../assets/avatar.png" alt=""></a>-->
+    <!--</div>-->
     <!--</div>-->
 
     <div class="comment-area">
@@ -53,7 +53,8 @@
                            :commentLevel="comment_level2.comment_level"
                            :comment="comment_level2"
                            @publishedComment="publishedComment"></comment-cell-list>
-        <browse-more @browseMore="showMoreSubComments(comment_level1)" v-if="comment_level1.comment_num > comment_level1.sub_comment.length"></browse-more>
+        <browse-more @browseMore="showMoreSubComments(comment_level1)"
+                     v-if="comment_level1.comment_num > comment_level1.sub_comment.length"></browse-more>
       </div>
       <browse-more @browseMore="getCommentInfo" ref="browseMore"></browse-more>
     </div>
@@ -90,13 +91,35 @@
         select: 'email',
         email: '',
         mobile: '',
-        showSpin: true
+        showSpin: true,
+        dataLoaded: false
       };
     },
     created() {
       this.getCommentInfo();
     },
+    mounted() {
+      // window.addEventListener('scroll', this.handleScroll.bind(this));
+      // this.handleScroll();
+    },
     methods: {
+      // handleScroll() {
+      //   let socialSection = this.$refs.socialSection;
+      //   let scrollTop = 0;
+      //   let clientHeight = 0;
+      //   if (document.documentElement && document.documentElement.scrollTop) {
+      //     scrollTop = document.documentElement.scrollTop;
+      //     clientHeight = document.documentElement.clientHeight;
+      //   } else if (document.body) {
+      //     scrollTop = document.body.scrollTop;
+      //     clientHeight = document.body.clientHeight;
+      //   }
+      //   let socialSectionTop = socialSection.offsetTop;
+      //   console.log(scrollTop, socialSectionTop, scrollTop + clientHeight);
+      //   if (!this.dataLoaded && socialSectionTop < (scrollTop + clientHeight)) {
+      //     this.dataLoaded = true;
+      //   }
+      // },
       getCommentInfo() {
         getCommentInfo({
           params: {

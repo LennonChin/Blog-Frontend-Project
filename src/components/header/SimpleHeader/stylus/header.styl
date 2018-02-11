@@ -1,173 +1,176 @@
 @import "../../../../common/stylus/theme.styl";
 
 body
-  font-family $body-font
-  font-size $body-font-size
-  -webkit-font-smoothing antialiased
-  -moz-osx-font-smoothing grayscale
-  background-color white
-  padding-top $mobile-header-height
-  @media screen and (min-width $responsive-lg)
-    padding-top $header-height
+	font-family $body-font
+	font-size $body-font-size
+	-webkit-font-smoothing antialiased
+	-moz-osx-font-smoothing grayscale
+	background-color white
+	padding-top $mobile-header-height
+	min-height 100vh
+	@media screen and (min-width $responsive-lg)
+		padding-top $header-height
 
 #header
-  position fixed
-  padding 0 50px
-  width 100%
-  top 0
-  box-shadow 0 0 1px rgba(0, 0, 0, .25)
-  background-color rgba(255, 255, 255, .9)
-  transition background-color .3s ease-in-out
-  z-index 11
-  #logo
-    display inline-block
-    font-size 1.5em
-    height $header-height
-    line-height $header-height
-    color $dark
-    font-weight 500
-    img
-      vertical-align middle
-      margin-right 6px
-      width $header-inner-height
-      height $header-inner-height
-  #nav
-    float right
-    height $header-height
-    line-height $header-height
-    list-style-type none
-    > li
-      position relative
-      display inline-block
-    .nav-dropdown-container
-      &:hover
-        > .nav-dropdown
-          display block
-      > .nav-dropdown
-        top $header-height
-        left 0
-        li
-          position relative
-          display block
-          height $header-inner-height
-          line-height $header-inner-height
-          background-color #fff
-          overflow visible
-          &:hover
-            > .nav-dropdown
-              display block
-          > .nav-dropdown
-            top -1px
-            left 100%
-            max-height "calc(100vh - %s)" % $header-height
-            overflow-y auto
-            > li
-              display block
-              position relative
-              height $header-inner-height
-              line-height $header-inner-height
-    .nav-dropdown
-      position absolute
-      display none
-      box-sizing border-box
-      text-align left
-      border-left 1px solid $color-border
-      border-right 1px solid $color-border
-      border-bottom 1px solid $color-border
-      border-top 1px solid $color-border
-      white-space nowrap
-    a.nav-link
-      display block
-      color $color-gradually-gray-31
-      font-size 16px
-      font-weight 300
-      padding 0 20px
-      text-decoration none
-      cursor pointer
-      .arrow
-        display inline-block
-        vertical-align middle
-        margin-top -1px
-        margin-left 6px
-        margin-right -14px
-        width 0
-        height 0
-        border-left 4px solid transparent
-        border-right 4px solid transparent
-        border-top 5px solid #ccc
-      &:hover
-        text-decoration underline
-        color $color-main-primary
-      &:hover:not(.current)
-        border-bottom none
-      &.active
-        border-bottom none
-        color $color-main-primary
-        &::after
-          content ""
-          width 0
-          height 0
-          border-left 5px solid $color-main-primary
-          border-top 3px solid transparent
-          border-bottom 2px solid transparent
-          position absolute
-          top 50%
-          margin-top -4px
-          left 8px
+	position fixed
+	padding 0 50px
+	width 100%
+	top 0
+	border-bottom 1px solid rgba(240, 240, 240, 1.0)
+	background-color rgba(255, 255, 255, .9)
+	transition background-color .3s ease-in-out
+	z-index 11
+	#logo
+		display inline-block
+		font-size 1.5em
+		height $header-height
+		line-height $header-height
+		color $dark
+		font-weight 500
+		img
+			vertical-align middle
+			margin-right 6px
+			width $header-inner-height
+			height $header-inner-height
+	#nav
+		float right
+		height $header-height
+		line-height $header-height
+		list-style-type none
+		> li
+			position relative
+			display inline-block
+		.nav-dropdown-container
+			&:hover
+				> .nav-dropdown
+					display block
+			> .nav-dropdown
+				top $header-height
+				left 0
+				li
+					position relative
+					display block
+					height $header-inner-height
+					line-height $header-inner-height
+					background-color #fff
+					overflow visible
+					&:hover
+						> .nav-dropdown
+							display block
+					> .nav-dropdown
+						top -1px
+						left 100%
+						max-height "calc(100vh - %s)" % $header-height
+						overflow-y auto
+						> li
+							display block
+							position relative
+							height $header-inner-height
+							line-height $header-inner-height
+		.nav-dropdown
+			position absolute
+			display none
+			box-sizing border-box
+			text-align left
+			border-left 1px solid $color-border
+			border-right 1px solid $color-border
+			border-bottom 1px solid $color-border
+			border-top 1px solid $color-border
+			white-space nowrap
+		a.nav-link
+			display block
+			color $color-gradually-gray-31
+			font-size 16px
+			font-weight 300
+			padding 0 20px
+			text-decoration none
+			cursor pointer
+			.arrow
+				display inline-block
+				vertical-align middle
+				margin-top -1px
+				margin-left 6px
+				margin-right -14px
+				width 0
+				height 0
+				border-left 4px solid transparent
+				border-right 4px solid transparent
+				border-top 5px solid #ccc
+			&:hover
+				text-decoration underline
+				color $color-main-primary
+			&:hover:not(.current)
+				border-bottom none
+			&.active
+				border-bottom none
+				color $color-main-primary
+				&::after
+					content ""
+					width 0
+					height 0
+					border-left 5px solid $color-main-primary
+					border-top 3px solid transparent
+					border-bottom 2px solid transparent
+					position absolute
+					top 50%
+					margin-top -4px
+					left 8px
 
 // 搜索框
 .search-query
-  height 30px
-  line-height 30px
-  box-sizing border-box
-  padding 0 15px 0 30px
-  border 1px solid #e3e3e3
-  color $dark
-  outline none
-  border-radius 15px
-  transition border-color .2s ease
-  background #fff url(./../../../assets/search.png) 8px 5px no-repeat
-  background-size 20px
-  vertical-align middle !important
-  &:focus
-    border-color $color-main-primary
+	height 30px
+	line-height 30px
+	box-sizing border-box
+	padding 0 15px 0 30px
+	border 1px solid #e3e3e3
+	color $dark
+	outline none
+	border-radius 15px
+	transition border-color .2s ease
+	background #fff url(./../../../assets/search.png) 8px 5px no-repeat
+	background-size 20px
+	vertical-align middle !important
+	&:focus
+		border-color $color-main-primary
 
 // 小屏模式下的导航栏
 #mobile-bar
-  position fixed
-  top 0
-  left 0
-  width 100%
-  height $mobile-header-height
-  line-height $mobile-header-height
-  background-color #fff
-  z-index 11
-  display none
-  box-shadow 0 0 2px rgba(0, 0, 0, .25)
-  .menu-button
-    position absolute
-    cursor pointer
-    width $mobile-header-inner-height
-    height $mobile-header-inner-height
-    top "calc((%s - %s) / 2)" % ($mobile-header-height $mobile-header-inner-height)
-    left 12px
-    background url(./../../../assets/menu.png) center center no-repeat
-    background-size 24px
-  .logo
-    position absolute
-    width $mobile-header-inner-height
-    height $mobile-header-inner-height
-    background url(./../../../assets/logo.png) center center no-repeat
-    top "calc((%s - %s) / 2)" % ($mobile-header-height $mobile-header-inner-height)
-    left 50%
-    margin-left -15px
-    background-size $mobile-header-inner-height
+	position fixed
+	top 0
+	left 0
+	width 100%
+	height $mobile-header-height
+	line-height $mobile-header-height
+	background-color #fff
+	z-index 11
+	display none
+	box-shadow 0 0 2px rgba(0, 0, 0, .25)
+	.menu-button
+		position absolute
+		cursor pointer
+		width $mobile-header-inner-height
+		height $mobile-header-inner-height
+		top "calc((%s - %s) / 2)" % ($mobile-header-height $mobile-header-inner-height)
+		left 12px
+		background url(./../../../assets/menu.png) center center no-repeat
+		background-size 24px
+	.logo
+		position absolute
+		width $mobile-header-inner-height
+		height $mobile-header-inner-height
+		background url(./../../../assets/logo.png) center center no-repeat
+		top "calc((%s - %s) / 2)" % ($mobile-header-height $mobile-header-inner-height)
+		left 50%
+		margin-left -15px
+		background-size $mobile-header-inner-height
 
 @media screen and (max-width $responsive-lg)
-  body
-    -webkit-text-size-adjust none
-    font-size 14px
-  #header
-    display none
-  #mobile-bar
-    display block
+	body
+		-webkit-text-size-adjust none
+		font-size 14px
+
+	#header
+		display none
+
+	#mobile-bar
+		display block

@@ -69,7 +69,7 @@
   };
 </script>
 
-<style lang="stylus" rel="stylesheet/stylus" scoped>
+<style lang="stylus" type="text/stylus" rel="stylesheet/stylus">
   @import "../../common/stylus/theme.styl";
 
   .about
@@ -77,6 +77,7 @@
     text-align center
     border 1px solid $color-border
     padding-bottom 20px
+    background-color white
     img.background
       position absolute
       top 0

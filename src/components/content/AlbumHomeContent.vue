@@ -31,7 +31,7 @@
 
 <script type="text/ecmascript-6">
   import ClassifyWall from '@/components/views/Classify/ClassifyWall';
-  import SectionTitle from '@/components/views/SectionTitle/SectionTitle';
+  import SectionTitle from '@/components/views/SectionTitle';
   import ThumbCard from '@/components/views/ThumbCard';
   import BrowseMore from '@/components/views/BrowseMore';
   // swiper

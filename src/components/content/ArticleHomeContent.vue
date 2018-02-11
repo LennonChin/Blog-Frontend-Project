@@ -3,34 +3,7 @@
     <div class="banner" v-if="bannerArticles.length > 0">
       <div class="bracket"></div>
       <div class="target">
-        <iv-row class="row">
-          <iv-col :xs="24" :sm="24" :md="24" :lg="17" class="row">
-            <swiper :options="leftSwiperOption" class="gallery-left" ref="swiperLeft">
-              <swiper-slide v-for="article in bannerArticles" :key="article.id">
-                <a>
-                  <img :data-src="article.front_image" :title="article.title" class="swiper-lazy">
-                  <div class="swiper-lazy-preloader swiper-lazy-preloader-white"></div>
-                </a>
-              </swiper-slide>
-              <div class="swiper-pagination" slot="pagination"></div>
-              <div class="swiper-button-prev" slot="button-prev"></div>
-              <div class="swiper-button-next" slot="button-next"></div>
-            </swiper>
-          </iv-col>
-          <iv-col :xs="0" :sm="0" :md="0" :lg="7" class="row">
-            <swiper :options="rightSwiperOption" class="gallery-right" ref="swiperRight">
-              <swiper-slide class="swiper-no-swiping" v-for="article in bannerArticles" :key="article.id">
-                <div class="carousel-infos">
-                  <p class="title">{{ article.title | textLineBreak(35) }}</p>
-                  <p class="desc">
-                    {{ article.desc | textLineBreak(70) }}
-                  </p>
-                  <iv-button size="large" type="primary">点击查看更多</iv-button>
-                </div>
-              </swiper-slide>
-            </swiper>
-          </iv-col>
-        </iv-row>
+        <article-home-banner :bannerArticles="bannerArticles"></article-home-banner>
       </div>
     </div>
     <iv-row style="margin-top:20px;">
@@ -66,15 +39,13 @@
 </template>
 
 <script type="text/ecmascript-6">
+  import ArticleHomeBanner from '@/components/views/Article/ArticleHomeBanner';
   import ArticleListCell from '@/components/views/Article/ArticleListCell';
-  import SectionTitle from '@/components/views/SectionTitle/SectionTitle';
+  import SectionTitle from '@/components/views/SectionTitle';
   import ClassifyMenu from '@/components/views/Classify/ClassifyMenu';
   import Recommend from '@/components/views/Recommend';
   import TagWall from '@/components/views/TagWall';
   import BrowseMore from '@/components/views/BrowseMore';
-  // swiper
-  import 'swiper/dist/css/swiper.css';
-  import {swiper, swiperSlide} from 'vue-awesome-swiper';
 
   // API
   import {getArticleBaseInfo, getCategorys} from '@/api/api';
@@ -144,29 +115,7 @@
             }
           ]
         },
-        selectedDateRange: [],
-        leftSwiperOption: {
-          lazy: true,
-          centeredSlides: true,
-          loop: true,
-          autoplay: {
-            delay: 5000,
-            disableOnInteraction: false
-          },
-          pagination: {
-            el: '.swiper-pagination',
-            clickable: true
-          },
-          navigation: {
-            nextEl: '.swiper-button-next',
-            prevEl: '.swiper-button-prev'
-          }
-        },
-        rightSwiperOption: {
-          noSwiping: true,
-          loop: true,
-          direction: 'vertical'
-        }
+        selectedDateRange: []
       };
     },
     created() {
@@ -224,7 +173,7 @@
             params: {
               top_category: this.top_category,
               ordering: orderings.toString(),
-//              is_recommend: false,
+              is_recommend: this.recommend,
               time_min: this.selectedDateRange[0],
               time_max: this.selectedDateRange[1],
               limit: this.limit_size,
@@ -271,7 +220,7 @@
             this.mostComment = params[1];
             break;
           case 'recommend':
-            this.recommend = params[1];
+            this.recommend = params[1] ? true : undefined;
             break;
         }
         // 清空原数据
@@ -319,14 +268,13 @@
       }
     },
     components: {
+      'article-home-banner': ArticleHomeBanner,
       'section-title': SectionTitle,
       'classify-menu': ClassifyMenu,
       'article-list-cell': ArticleListCell,
       'recommend': Recommend,
       'tag-wall': TagWall,
-      'browse-more': BrowseMore,
-      'swiper': swiper,
-      'swiperSlide': swiperSlide
+      'browse-more': BrowseMore
     }
   };
 </script>
@@ -349,27 +297,6 @@
         bottom 0
         left 0
         right 0
-        .row
-          height 100%
-        .gallery-left, .gallery-right
-          width 100%
-          height 100%
-          img
-            height 100%
-            width 100%
-        .carousel-infos
-          height 100%
-          padding 30px
-          border 1px solid $color-border
-          .title
-            font-size 23px
-            line-height 31px
-            margin-bottom 10px
-          .desc
-            font-size 15px
-            font-weight 300
-            line-height 20px
-            margin-bottom 10px
     .thumb-cards
       margin-top 15px
 </style>

@@ -88,8 +88,8 @@
 </script>
 
 <style lang="stylus" type="text/stylus" rel="stylesheet/stylus">
-  @import "../../../common/stylus/theme.styl"
-  @import "../../../common/stylus/index.styl"
+  @import "../../common/stylus/theme.styl"
+  @import "../../common/stylus/index.styl"
 
   .section-title
     display flex
@@ -99,7 +99,7 @@
     line-height 40px
     text-align left
     box-sizing border-box
-    background white
+    background transparent
     @media only screen and (max-width: $responsive-sm)
       padding 5px 0
       height 50px

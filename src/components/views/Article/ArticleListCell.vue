@@ -21,9 +21,9 @@
             </p>
             <p class="operate_info">
               <span class="publish-time"><a>{{ article.add_time | socialDate }}</a></span>
-              <span class="readings"><a><iv-icon type="eye"></iv-icon> {{article.click_num}} 阅读</a></span>
-              <span class="comments"><a><iv-icon type="compose"></iv-icon> {{article.comment_num}} 评论</a></span>
-              <span class="likes"><a @click="likePost(article)"><iv-icon type="heart"></iv-icon> {{article.like_num}} 觉得赞</a></span>
+              <span class="readings"><a><iv-icon type="eye"></iv-icon> {{article.click_num}} 阅</a></span>
+              <span class="comments"><a><iv-icon type="compose"></iv-icon> {{article.comment_num}} 评</a></span>
+              <span class="likes"><a @click="likePost(article)"><iv-icon type="heart"></iv-icon> {{article.like_num}} 赞</a></span>
             </p>
           </div>
         </iv-col>
@@ -128,22 +128,26 @@
 
   .article-list-cell
     margin-bottom 15px
+    background-color white
     > a
       display block
       cursor default
       border 1px solid $color-border
       &:hover
         border 1px solid $color-border-hover
-        box-shadow 2px 2px 3px $color-border
+        box-shadow 1px 1px 1px $color-border
       .text-wrapper
         padding 20px 20px 0 20px
         text-align left
         @media only screen and (max-width: 768px)
-          padding 15px 15px 0 15px
+          padding 10px 10px 0 10px
         .title
           font-size 23px
           font-weight 100
           line-height 27px
+          word-wrap break-word
+          @media only screen and (max-width: 768px)
+            font-size 18px
           a
             color $color-typegraphy-title
             cursor pointer
@@ -163,12 +167,6 @@
               text-decoration underline
           .publish-time
             margin-left 20px
-        .line
-          width 50px
-          margin-top 30px
-          border-1px(rgba(7, 17, 27, 0.4))
-          &::after
-            margin-bottom 15px
         .tags
           margin: 8px 0
         .desc
@@ -176,6 +174,8 @@
           font-size 14px
           line-height 20px
           font-weight 200
+          @media only screen and (max-width: 768px)
+            font-size 12px
           a
             color $color-main-primary
             font-weight 500

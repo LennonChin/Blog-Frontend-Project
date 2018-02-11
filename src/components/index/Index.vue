@@ -13,7 +13,8 @@
   @import "../../common/stylus/base.styl";
 
   .main-wrapper
-    background-color #fff
+    background-color #fefefe
     width 100%
+    min-height 100vh
     margin 0 auto
 </style>

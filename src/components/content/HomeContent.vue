@@ -3,7 +3,6 @@
     <iv-row>
       <iv-col :xs="24" :sm="24" :md="24" :lg="17">
         <div class="layout-left">
-          <photo-wall></photo-wall>
           <iv-affix style="position: relative;z-index: 12;">
             <section-title v-if="this.specialCategory(1) !== 'undefined'"
                            :mainTitle="this.specialCategory(1).name"
@@ -68,14 +67,13 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import PhotoWall from '@/components/views/PhotoWall';
   import ArticleListCell from '@/components/views/Article/ArticleListCell';
-  import SectionTitle from '@/components/views/SectionTitle/SectionTitle';
+  import SectionTitle from '@/components/views/SectionTitle';
   import TopicCard from '@/components/views/TopicCard';
   import MovieListItem from '@/components/views/Movie/MovieListItem';
   import About from '@/components/views/About';
   import Recommend from '@/components/views/Recommend';
-  import Hot from '@/components/views/Hot/Hot';
+  import Hot from '@/components/views/Hot';
   import FriendLinks from '@/components/views/FriendLinks';
   import SideToc from '@/components/views/SideToc';
 
@@ -87,27 +85,27 @@
       return {
         categorys: [],
         articles: [],
-        mostCommentArticles: false,
-        hotArticles: false,
-        recommendArticles: false,
+        mostCommentArticles: undefined,
+        hotArticles: undefined,
+        recommendArticles: undefined,
         articlesTitleMenus: [
           {title: '评论最多', selected: false, method: 'mostComment'},
           {title: '最热', selected: false, method: 'hot'},
           {title: '推荐', selected: false, method: 'recommend'}
         ],
         albums: [],
-        mostCommentAlbums: false,
-        hotAlbums: false,
-        recommendAlbums: false,
+        mostCommentAlbums: undefined,
+        hotAlbums: undefined,
+        recommendAlbums: undefined,
         albumsTitleMenus: [
           {title: '评论最多', selected: false, method: 'mostComment'},
           {title: '最热', selected: false, method: 'hot'},
           {title: '推荐', selected: false, method: 'recommend'}
         ],
         movies: [],
-        mostCommentMovies: false,
-        hotMovies: false,
-        recommendMovies: false,
+        mostCommentMovies: undefined,
+        hotMovies: undefined,
+        recommendMovies: undefined,
         moviesTitleMenus: [
           {title: '评论最多', selected: false, method: 'mostComment'},
           {title: '最热', selected: false, method: 'hot'},
@@ -142,7 +140,7 @@
           params: {
             is_recommend: this.recommendArticles,
             is_hot: this.hotArticles,
-            ordering: this.mostCommentArticles ? '-comment_num' : 'comment_num',
+            ordering: this.mostCommentArticles,
             limit: 5,
             offset: 0,
             post_type: 'article'
@@ -159,7 +157,7 @@
           params: {
             is_recommend: this.recommendAlbums,
             is_hot: this.hotAlbums,
-            ordering: this.mostCommentAlbums ? '-comment_num' : 'comment_num',
+            ordering: this.mostCommentAlbums,
             limit: 6,
             offset: 0,
             post_type: 'album'
@@ -176,7 +174,7 @@
           params: {
             is_recommend: this.recommendMovies,
             is_hot: this.hotMovies,
-            ordering: this.mostCommentMovies ? '-comment_num' : 'comment_num',
+            ordering: this.mostCommentMovies,
             limit: 6,
             offset: 0,
             post_type: 'movie'
@@ -188,21 +186,21 @@
         });
       },
       refreshArticles() {
-        this.mostCommentArticles = false;
-        this.hotArticles = false;
-        this.recommendArticles = false;
+        this.mostCommentArticles = undefined;
+        this.hotArticles = undefined;
+        this.recommendArticles = undefined;
         this.getArticles();
       },
       refreshAlbums() {
-        this.mostCommentAlbums = false;
-        this.hotAlbums = false;
-        this.recommendAlbums = false;
+        this.mostCommentAlbums = undefined;
+        this.hotAlbums = undefined;
+        this.recommendAlbums = undefined;
         this.getAlbums();
       },
       refreshMovies() {
-        this.mostCommentMovies = false;
-        this.hotMovies = false;
-        this.recommendMovies = false;
+        this.mostCommentMovies = undefined;
+        this.hotMovies = undefined;
+        this.recommendMovies = undefined;
         this.getMovies();
       },
       specialCategory(id) {
@@ -214,13 +212,13 @@
       artclesMenusControl(params) {
         switch (params[0]) {
           case 'mostComment':
-            this.mostCommentArticles = params[1];
+            this.mostCommentArticles = params[1] ? '-comment_num' : undefined;
             break;
           case 'hot':
-            this.hotArticles = params[1];
+            this.hotArticles = params[1] ? true : undefined;
             break;
-          case 'recomment':
-            this.recommendArticles = params[1];
+          case 'recommend':
+            this.recommendArticles = params[1] ? true : undefined;
             break;
         }
         this.getArticles();
@@ -228,13 +226,13 @@
       albumsMenusControl(params) {
         switch (params[0]) {
           case 'mostComment':
-            this.mostCommentAlbums = params[1];
+            this.mostCommentAlbums = params[1] ? '-comment_num' : undefined;
             break;
           case 'hot':
-            this.hotAlbums = params[1];
+            this.hotAlbums = params[1] ? true : undefined;
             break;
-          case 'recomment':
-            this.recommendAlbums = params[1];
+          case 'recommend':
+            this.recommendAlbums = params[1] ? true : undefined;
             break;
         }
         this.getAlbums();
@@ -242,20 +240,19 @@
       moviesMenusControl(params) {
         switch (params[0]) {
           case 'mostComment':
-            this.mostCommentMovies = params[1];
+            this.mostCommentMovies = params[1] ? '-comment_num' : undefined;
             break;
           case 'hot':
-            this.hotMovies = params[1];
+            this.hotMovies = params[1] ? true : undefined;
             break;
-          case 'recomment':
-            this.recommendMovies = params[1];
+          case 'recommend':
+            this.recommendMovies = params[1] ? true : undefined;
             break;
         }
         this.getMovies();
       }
     },
     components: {
-      'photo-wall': PhotoWall,
       'article-list-cell': ArticleListCell,
       'section-title': SectionTitle,
       'topic-card': TopicCard,
