@@ -12,6 +12,7 @@
               <article v-if="movie != undefined" id="article-main-page" class="typo container article-main-content"
                        slot="content" v-html="movie.detail.formatted_content" ref="article"></article>
             </movie-page-content>
+            <article-page-footer :article="movie"></article-page-footer>
           </div>
         </iv-col>
         <iv-col :xs="0" :sm="0" :md="0" :lg="7">
@@ -30,6 +31,7 @@
 <script type="text/ecmascript-6">
   import MoviePageHeader from '@/components/views/Movie/MoviePageHeader';
   import MoviePageContent from '@/components/views/Movie/MoviePageContent';
+  import ArticlePageFooter from '@/components/views/Article/ArticlePageFooter';
   import SideToc from '@/components/views/SideToc';
   import Recommend from '@/components/views/Recommend';
   // highlight.js引入
@@ -56,6 +58,7 @@
     components: {
       'movie-page-header': MoviePageHeader,
       'movie-page-content': MoviePageContent,
+      'article-page-footer': ArticlePageFooter,
       'side-toc': SideToc,
       'recommend': Recommend
     },
@@ -182,6 +185,8 @@
       movie: function (newMovie) {
         this.$nextTick(() => {
           this.addCodeLineNumber();
+          // 添加图片前缀
+          this.resolveImageUrl(this.$refs.article.querySelectorAll('img'));
           this.addTocScrollSpy();
           window.scrollTo(0, 0);
         });

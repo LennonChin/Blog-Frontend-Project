@@ -5,7 +5,7 @@
       <div class="target">
         <swiper :options="swiperOption" class="gallery" ref="swiperTop">
           <swiper-slide class="row" v-for="banner in banners" :key="banner.id">
-            <a>
+            <a :href="banner.url">
               <img width="100%" :data-src="banner.image" alt="" class="swiper-lazy">
               <div class="swiper-lazy-preloader swiper-lazy-preloader-white"></div>
             </a>
@@ -37,6 +37,7 @@
   // swiper
   import 'swiper/dist/css/swiper.css';
   import {swiper, swiperSlide} from 'vue-awesome-swiper';
+  import {checkPostAuth} from '@/common/js/utils';
 
   // API
   import {getCategorys, getAlbumBaseInfo, getIndexBanners} from '@/api/api';
@@ -110,7 +111,9 @@
           this.totalCount += response.data.results.length;
           this.noMoreData = this.totalCount >= response.data.count;
           this.$nextTick(() => {
-            this.$refs.browseMore.stopLoading(this.noMoreData);
+            if (this.$refs.browseMore) {
+              this.$refs.browseMore.stopLoading(this.noMoreData);
+            }
           });
         }).catch(function (error) {
           console.log(error);
@@ -136,10 +139,26 @@
       browseMore() {
         this.page++;
         this.getAlbumBaseInfo();
+      },
+      gotoPostDetail(post) {
+        checkPostAuth.call(this, post, '提示', '该图集已加密，您需要输入阅读密码', () => {
+          this.$router.push({name: 'album/detail', params: {albumId: post.id}});
+        }, (encryptedBrowseAuth) => {
+          this.$router.push({
+            name: 'album/detail',
+            params: {albumId: post.id},
+            query: {browse_auth: encryptedBrowseAuth}
+          });
+        }, () => {
+          this.$Notice.error({
+            title: '密码错误'
+          });
+        });
       }
     },
     watch: {
       selectedCategory: function () {
+        this.albums = [];
         this.getDatas();
       }
     },

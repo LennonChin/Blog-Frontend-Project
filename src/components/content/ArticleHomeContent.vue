@@ -50,7 +50,7 @@
   // API
   import {getArticleBaseInfo, getCategorys} from '@/api/api';
 
-  const DEFAULT_LIMIT_SIZE = 20;
+  const DEFAULT_LIMIT_SIZE = 10;
   const MAX_LIMIT_SIZE = 100;
 
   export default {
@@ -126,7 +126,6 @@
     },
     methods: {
       browseMore() {
-        console.log('browseMore');
         this.page++;
         this.getArticleBaseInfo();
       },
@@ -136,9 +135,11 @@
         this.bannerArticles = [];
         this.noMoreData = false;
         this.getArticleBaseInfo();
+        this.getBannerArticleBaseInfo();
       },
       getDatas() {
         this.getArticleBaseInfo();
+        this.getBannerArticleBaseInfo();
       },
       getCategorys() {
         getCategorys({
@@ -149,6 +150,18 @@
           }
         }).then((response) => {
           this.categorys = response.data.results;
+        }).catch(function (error) {
+          console.log(error);
+        });
+      },
+      getBannerArticleBaseInfo() {
+        getArticleBaseInfo({
+          params: {
+            top_category: this.top_category,
+            is_banner: true
+          }
+        }).then((response) => {
+          this.bannerArticles = this.bannerArticles.concat(response.data.results);
         }).catch(function (error) {
           console.log(error);
         });
@@ -176,14 +189,17 @@
               is_recommend: this.recommend,
               time_min: this.selectedDateRange[0],
               time_max: this.selectedDateRange[1],
+              is_banner: false,
               limit: this.limit_size,
               offset: this.page * this.limit_size
             }
           }).then((response) => {
-            this.reduceArticles(response.data.results);
             this.totalCount += response.data.results.length;
             this.noMoreData = this.totalCount >= response.data.count;
-            this.$refs.browseMore.stopLoading(this.noMoreData);
+            this.articles = this.articles.concat(response.data.results);
+            this.$nextTick(() => {
+              this.$refs.browseMore.stopLoading(this.noMoreData);
+            });
           }).catch(function (error) {
             console.log(error);
           });
@@ -197,6 +213,8 @@
             this.articles.push(article);
           }
         });
+        console.table(this.articles);
+        console.table(this.bannerArticles);
       },
       refresh() {
         this.top_category = undefined;
@@ -209,7 +227,7 @@
         this.totalCount = 0;
         this.noMoreData = false;
         this.selectedDateRange = [];
-        this.getDatas();
+        this.getArticleBaseInfo();
       },
       menusControl(params) {
         switch (params[0]) {
@@ -217,7 +235,7 @@
             this.timeSorted = !params[1];
             break;
           case 'mostComment':
-            this.mostComment = params[1];
+            this.mostComment = params[1] ? true : undefined;
             break;
           case 'recommend':
             this.recommend = params[1] ? true : undefined;
@@ -229,7 +247,7 @@
         this.bannerArticles = [];
         this.totalCount = 0;
         this.noMoreData = false;
-        this.getDatas();
+        this.getArticleBaseInfo();
       },
       dateSelect(dateRange) {
         this.selectedDateRange = dateRange;
@@ -239,7 +257,7 @@
         this.bannerArticles = [];
         this.totalCount = 0;
         this.noMoreData = false;
-        this.getDatas();
+        this.getArticleBaseInfo();
       },
       dateSelectClear() {
         this.selectedDateRange = [];
@@ -249,22 +267,7 @@
         this.bannerArticles = [];
         this.totalCount = 0;
         this.noMoreData = false;
-        this.getDatas();
-      }
-    },
-    watch: {
-      selectedCategory: function () {
-        this.getDatas();
-      },
-      bannerArticles: function (newBannerArticles) {
-        if (newBannerArticles.length === 0) return;
-        this.$nextTick(() => {
-          const swiperLeft = this.$refs.swiperLeft;
-          const swiperRight = this.$refs.swiperRight;
-          if (swiperLeft && swiperRight) {
-            swiperLeft.swiper.controller.control = swiperRight.swiper;
-          }
-        });
+        this.getArticleBaseInfo();
       }
     },
     components: {

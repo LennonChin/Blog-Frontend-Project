@@ -2,7 +2,7 @@ import axios from '@/axios';
 
 // 自由API
 // let localHost = 'https://blog.coderap.com/api';
-let localHost = 'http://169.254.6.14:8000/api';
+let localHost = 'http://169.254.131.248:8000/api';
 
 // 豆瓣Api
 // let doubanHost = 'https://api.douban.com/v2';
@@ -44,6 +44,7 @@ export const getCategory = params => {
   }
 };
 
+// 获取标签
 export const getTags = params => {
   if ('id' in params) {
     return axios.get(`${localHost}/tags/` + params.id + '/');

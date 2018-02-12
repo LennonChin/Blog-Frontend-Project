@@ -70,9 +70,14 @@
         }
       };
     },
-    components: {
-      'swiper': swiper,
-      'swiperSlide': swiperSlide
+    mounted() {
+      this.$nextTick(() => {
+        const swiperLeft = this.$refs.swiperLeft;
+        const swiperRight = this.$refs.swiperRight;
+        if (swiperLeft && swiperRight) {
+          swiperLeft.swiper.controller.control = swiperRight.swiper;
+        }
+      });
     },
     methods: {
       gotoPostDetail(post) {
@@ -90,6 +95,10 @@
           });
         });
       }
+    },
+    components: {
+      'swiper': swiper,
+      'swiperSlide': swiperSlide
     }
   };
 </script>

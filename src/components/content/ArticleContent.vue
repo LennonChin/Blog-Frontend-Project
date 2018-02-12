@@ -194,6 +194,8 @@
         if (newArticle) {
           this.$nextTick(() => {
             this.addCodeLineNumber();
+            // 添加图片前缀
+            this.resolveImageUrl(this.$refs.article.querySelectorAll('img'));
             this.addTocScrollSpy();
             window.scrollTo(0, 0);
           });

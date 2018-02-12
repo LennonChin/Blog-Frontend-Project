@@ -80,6 +80,11 @@ Vue.component('iv-rate', Rate);
 
 // 全局混合
 Vue.mixin({
+  data() {
+    return {
+      postImageBaseUrl: 'https://material.coderap.com/'
+    };
+  },
   methods: {
     // 屏幕宽度响应式判断
     responsiveRender: function (xsShow, smShow, mdShow, lgShow) {
@@ -93,6 +98,20 @@ Vue.mixin({
       } else if (clientWidth >= ResponsivePoint.Lg) {
         return lgShow;
       }
+    },
+    // 用于添加图片前缀
+    resolveImageUrl(images) {
+      images.forEach((image) => {
+        let imageSrc = image.getAttribute('src');
+        if (imageSrc.indexOf('http') !== 0) {
+          while (imageSrc.indexOf('/') === 0) {
+            // 去掉前面的反斜杠
+            imageSrc = imageSrc.substr(1);
+          }
+          image.src = this.postImageBaseUrl + imageSrc;
+          console.log(image.src);
+        }
+      });
     }
   },
   filters: {
