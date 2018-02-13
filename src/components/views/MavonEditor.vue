@@ -35,7 +35,7 @@
       </iv-row>
     </div>
     <mavon-editor v-model="origin_content"
-                  class="editor-area" style="height: 100%; min-height: 50px; min-width: 200px; z-index: 9;"
+                  class="editor-area" style="height: 100%; min-height: 50px; min-width: 200px; z-index: 1000;"
                   :toolbarsFlag="toolbarsFlag"
                   :subfield="subfield"
                   :placeholder="placeholder"
@@ -195,7 +195,7 @@
       },
       listenWindowWidth() {
         // 此方法用于监听窗口宽度变化,改变编辑器菜单
-        var clientWidth = document.documentElement.clientWidth;
+        let clientWidth = document.documentElement.clientWidth;
         if (clientWidth < 900) {
           this.$set(this.toolbars, 'bold', false);
           this.$set(this.toolbars, 'italic', false);
@@ -272,12 +272,12 @@
             loadFromLocal('comment_auth', 'author_id', undefined) !== undefined &&
             loadFromLocal('comment_auth', 'nick_name', undefined) !== undefined)) {
           // 该邮箱在本地没有评论记录,需要验证邮箱
-          var that = this;
+          let that = this;
           getEmailCode({
             nick_name: this.nickName,
             email: this.email
           }).then((response) => {
-            var that = this;
+            let that = this;
             this.$Modal.confirm({
               render: (h) => {
                 let children = [];
@@ -349,7 +349,7 @@
         }
       },
       publish() {
-        var that = this;
+        let that = this;
         addCommentInfo({
           detail: {
             origin_content: this.origin_content
@@ -374,6 +374,7 @@
             nick_name: this.nickName
           };
           comment.reply_to_author = this.replyToComment ? this.replyToComment.author : null;
+          comment.sub_comment = [];
           this.$emit('publishedComment', comment);
         }).catch(function (error) {
           console.log(error);

@@ -54,7 +54,7 @@
                            :comment="comment_level2"
                            @publishedComment="publishedComment"></comment-cell-list>
         <browse-more @browseMore="showMoreSubComments(comment_level1)"
-                     v-if="comment_level1.comment_num > comment_level1.sub_comment.length"></browse-more>
+                     v-if="comment_level1.sub_comment && comment_level1.comment_num > comment_level1.sub_comment.length"></browse-more>
       </div>
       <browse-more @browseMore="getCommentInfo" ref="browseMore"></browse-more>
     </div>
@@ -260,5 +260,7 @@
         transition height 0.7s
         &.spread
           height 450px
+    > .ivu-menu
+      z-index 0
 
 </style>

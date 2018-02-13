@@ -125,7 +125,7 @@ export function uploadFile(file, useType, successCallback, failCallback) {
 
   // 上传文件
   let upload = function (data) {
-    var formdata = new FormData();
+    let formdata = new FormData();
     formdata.append('file', file);
     formdata.append('filename', file.name);
     formdata.append('key', data['key']);
