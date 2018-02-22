@@ -134,7 +134,7 @@ export function uploadFile(file, useType, successCallback, failCallback) {
     uploadImage(formdata).then((response) => {
       let fileURL = data.base_url + response.data.key;
       successCallback(response.data.hash, fileURL);
-    }).catch(function (error) {
+    }).catch((error) => {
       console.log(error);
       failCallback(error);
     });
@@ -145,7 +145,7 @@ export function uploadFile(file, useType, successCallback, failCallback) {
     suffix: suffix
   }).then((response) => {
     upload(response.data);
-  }).catch(function (error) {
+  }).catch((error) => {
     console.log(error);
     failCallback(error);
   });

@@ -53,7 +53,11 @@
       <div class="publish-area">
         <!--<img src="../../assets/captcha.png" style="height: 32px; padding-right: 5px">-->
         <!--<iv-input style="padding-right: 5px" placeholder="请输入验证码"></iv-input>-->
-        <iv-button size="default" @click="send" :type="buttonType">发布</iv-button>
+        <!--<iv-button size="default" @click="send" :type="buttonType">发布</iv-button>-->
+        <iv-button size="default" :type="buttonType" :loading="publishing" @click="send">
+          <span v-if="!publishing">发布</span>
+          <span v-else>发布中</span>
+        </iv-button>
       </div>
     </div>
   </div>
@@ -132,7 +136,8 @@
           /* 2.2.1 */
           subfield: true, // 单双栏模式
           preview: true // 预览
-        }
+        },
+        publishing: false
       };
     },
     computed: {
@@ -272,81 +277,95 @@
             loadFromLocal('comment_auth', 'author_id', undefined) !== undefined &&
             loadFromLocal('comment_auth', 'nick_name', undefined) !== undefined)) {
           // 该邮箱在本地没有评论记录,需要验证邮箱
+          this.publishing = true;
           let that = this;
           getEmailCode({
             nick_name: this.nickName,
             email: this.email
           }).then((response) => {
-            let that = this;
-            this.$Modal.confirm({
-              render: (h) => {
-                let children = [];
-                children.push(h('h2', {
-                  domProps: {
-                    innerHTML: '提示'
-                  },
-                  'class': {
-                    'modal-title': true
-                  }
-                }));
-                children.push(h('p', {
-                  domProps: {
-                    innerHTML: '第一次评论需要验证您的邮箱有效性，已经向您的邮箱发送了验证码，请输入验证码验证后再进行评论'
-                  },
-                  'class': {
-                    'modal-message': true
-                  }
-                }));
-                children.push(h('iv-input', {
-                  props: {
-                    value: this.value,
-                    autofocus: true,
-                    placeholder: '请输入验证码'
-                  },
-                  'class': {
-                    'modal-input': true
-                  },
-                  on: {
-                    input: (value) => {
-                      this.email_code = value;
-                    }
-                  }
-                }));
-                return h('div', {}, children);
-              },
-              onOk: () => {
-                verifyEmailCode({
-                  params: {
-                    email: that.email,
-                    nick_name: that.nickName,
-                    code: this.email_code
-                  }
-                }).then((response) => {
-                  this.guest = response.data.guest;
-                  saveToLocal('comment_auth', 'email', this.email);
-                  saveToLocal('comment_auth', 'verified', true);
-                  saveToLocal('comment_auth', 'author_id', this.guest);
-                  saveToLocal('comment_auth', 'nick_name', this.nickName);
-                  this.publish();
-                }).catch(function (error) {
-                  that.$Notice.error({
-                    title: '验证码验证失败',
-                    desc: error.error
-                  });
-                });
-              }
-            });
-          }).catch(function (error) {
+            this.checkEmail();
+          }).catch((error) => {
+            console.log(error.data.email[0]);
             that.$Notice.error({
               title: '验证码发送失败',
-              desc: error.email
+              desc: error.data.email[0]
             });
+            // 关闭loading状态
+            that.publishing = false;
           });
         } else {
           // 该邮箱在本地有评论记录,直接评论
           this.guest = loadFromLocal('comment_auth', 'author_id', undefined);
           this.publish();
         }
+      },
+      checkEmail() {
+        let that = this;
+        this.$Modal.confirm({
+          render: (h) => {
+            let children = [];
+            children.push(h('h2', {
+              domProps: {
+                innerHTML: '提示'
+              },
+              'class': {
+                'modal-title': true
+              }
+            }));
+            children.push(h('p', {
+              domProps: {
+                innerHTML: '第一次评论需要验证您的邮箱有效性，已经向您的邮箱发送了验证码，请输入验证码验证后再进行评论'
+              },
+              'class': {
+                'modal-message': true
+              }
+            }));
+            children.push(h('iv-input', {
+              props: {
+                value: this.value,
+                autofocus: true,
+                placeholder: '请输入验证码'
+              },
+              'class': {
+                'modal-input': true
+              },
+              on: {
+                input: (value) => {
+                  this.email_code = value;
+                }
+              }
+            }));
+            return h('div', {}, children);
+          },
+          onCancel: () => {
+            // 关闭loading状态
+            this.publishing = false;
+          },
+          onOk: () => {
+            verifyEmailCode({
+              params: {
+                email: that.email,
+                nick_name: that.nickName,
+                code: this.email_code
+              }
+            }).then((response) => {
+              this.guest = response.data.guest;
+              saveToLocal('comment_auth', 'email', this.email);
+              saveToLocal('comment_auth', 'verified', true);
+              saveToLocal('comment_auth', 'author_id', this.guest);
+              saveToLocal('comment_auth', 'nick_name', this.nickName);
+              this.publish();
+            }).catch((error) => {
+              that.$Notice.error({
+                title: '验证码验证失败',
+                desc: error.error,
+                onClose: () => {
+                  that.checkEmail();
+                }
+              });
+            });
+          }
+        });
       },
       publish() {
         let that = this;
@@ -364,6 +383,8 @@
         }).then((response) => {
           // 清空评论框内容
           this.origin_content = '';
+          // 关闭loading状态
+          this.publishing = false;
           this.$Notice.success({
             title: '提示',
             desc: '发送评论成功'
@@ -376,8 +397,10 @@
           comment.reply_to_author = this.replyToComment ? this.replyToComment.author : null;
           comment.sub_comment = [];
           this.$emit('publishedComment', comment);
-        }).catch(function (error) {
+        }).catch((error) => {
           console.log(error);
+          // 关闭loading状态
+          that.publishing = false;
           that.$Notice.error({
             title: '发送评论失败',
             desc: error.error

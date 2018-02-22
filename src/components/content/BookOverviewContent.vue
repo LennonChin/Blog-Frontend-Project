@@ -116,7 +116,7 @@
           } else {
             this.getDoubanInfo(this.book.douban_type, this.book.douban_id);
           }
-        }).catch(function (error) {
+        }).catch((error) => {
           console.log(error);
           if (error.status === 401) {
             if (that.browse_auth) {
@@ -140,7 +140,7 @@
           type: doubanType
         }).then((response) => {
           this.bookDoubanInfo = this.formatBookInfo(response.data);
-        }).catch(function (error) {
+        }).catch((error) => {
           console.log(error);
         });
       },

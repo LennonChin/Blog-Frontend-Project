@@ -62,7 +62,7 @@
         }).then((response) => {
           post.like_num += 1;
           this.$Message.success('点赞成功');
-        }).catch(function (error) {
+        }).catch((error) => {
           console.log(error);
         });
       }

@@ -28,7 +28,7 @@
           params: {}
         }).then((response) => {
           this.tags = response.data;
-        }).catch(function (error) {
+        }).catch((error) => {
           console.log(error);
         });
       }

@@ -47,7 +47,7 @@
           id: this.albumId
         }).then((response) => {
           this.album = response.data;
-        }).catch(function (error) {
+        }).catch((error) => {
           console.log(error);
           if (error.status === 401) {
             if (that.browse_auth) {

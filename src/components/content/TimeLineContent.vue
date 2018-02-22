@@ -141,7 +141,7 @@
           }
         }).then((response) => {
           this.categorys = response.data.results;
-        }).catch(function (error) {
+        }).catch((error) => {
           console.log(error);
         });
       },
@@ -177,13 +177,13 @@
             this.totalCount += response.data.results.length;
             this.noMoreData = this.totalCount >= response.data.count;
             this.reducePosts(response.data.results);
-          }).catch(function (error) {
+          }).catch((error) => {
             console.log(error);
           });
         }
       },
       reducePosts(posts) {
-        var that = this;
+        let that = this;
         posts.map((post) => {
           // 按年月分批
           let addYear = new Date(post.add_time).getFullYear();

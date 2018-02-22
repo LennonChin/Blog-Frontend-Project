@@ -126,7 +126,7 @@
           }
         }).then((response) => {
           this.categorys = response.data.results;
-        }).catch(function (error) {
+        }).catch((error) => {
           console.log(error);
         });
 
@@ -147,7 +147,7 @@
           }
         }).then((response) => {
           this.articles = response.data.results;
-        }).catch(function (error) {
+        }).catch((error) => {
           console.log(error);
         });
       },
@@ -164,7 +164,7 @@
           }
         }).then((response) => {
           this.albums = response.data.results;
-        }).catch(function (error) {
+        }).catch((error) => {
           console.log(error);
         });
       },
@@ -181,7 +181,7 @@
           }
         }).then((response) => {
           this.movies = response.data.results;
-        }).catch(function (error) {
+        }).catch((error) => {
           console.log(error);
         });
       },

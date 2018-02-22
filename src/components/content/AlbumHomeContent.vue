@@ -95,7 +95,7 @@
           }
         }).then((response) => {
           this.banners = response.data;
-        }).catch(function (error) {
+        }).catch((error) => {
           console.log(error);
         });
       },
@@ -115,7 +115,7 @@
               this.$refs.browseMore.stopLoading(this.noMoreData);
             }
           });
-        }).catch(function (error) {
+        }).catch((error) => {
           console.log(error);
         });
       },
@@ -129,7 +129,7 @@
           }
         }).then((response) => {
           this.categorys = response.data.results;
-        }).catch(function (error) {
+        }).catch((error) => {
           console.log(error);
         });
       },

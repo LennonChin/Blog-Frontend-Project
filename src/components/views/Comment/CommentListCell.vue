@@ -22,7 +22,7 @@
                         v-if="comment.reply_to_author !== null"><a>{{ comment.reply_to_author.nick_name }}</a></span>
                   <span class="time">{{ comment.add_time | socialDate }}</span>
                 </p>
-                <p class="comment-main-content" :class="theme" v-html="comment.detail.formatted_content"
+                <p class="comment-main-content" :class="theme" v-if="comment.detail" v-html="comment.detail.formatted_content"
                    ref="content" v-viewer="{movable: false}"></p>
                 <div class="operate-area" :class="theme">
                   <span class="like" @click="likeComment(comment)"><iv-icon type="thumbsup"></iv-icon> {{ comment.like_num }}</span>
@@ -115,14 +115,16 @@
       },
       addCodeLineNumber() {
         // 添加行号
-        let blocks = this.$refs.content.querySelectorAll('pre code');
-        blocks.forEach((block) => {
-          HLJS.highlightBlock(block);
-          // 去前后空格并添加行号
-          let reg = /<ul(.*?)><li(.*?)>[\s\S]*?<\/li><\/ul>/gm;
-          if (reg.test(block.innerHTML)) return;
-          block.innerHTML = '<ul><li>' + block.innerHTML.replace(/(^\s*)|(\s*$)/g, '').replace(/\n/g, '\n</li><li>') + '\n</li></ul>';
-        });
+        if (this.$refs.content) {
+          let blocks = this.$refs.content.querySelectorAll('pre code');
+          blocks.forEach((block) => {
+            HLJS.highlightBlock(block);
+            // 去前后空格并添加行号
+            let reg = /<ul(.*?)><li(.*?)>[\s\S]*?<\/li><\/ul>/gm;
+            if (reg.test(block.innerHTML)) return;
+            block.innerHTML = '<ul><li>' + block.innerHTML.replace(/(^\s*)|(\s*$)/g, '').replace(/\n/g, '\n</li><li>') + '\n</li></ul>';
+          });
+        }
       },
       cellSpan(size) {
         var span = {};
@@ -154,7 +156,7 @@
         }).then((response) => {
           comment.like_num += 1;
           this.$Message.success('点赞成功');
-        }).catch(function (error) {
+        }).catch((error) => {
           console.log(error);
         });
       },
@@ -165,7 +167,7 @@
         }).then((response) => {
           comment.unlike_num += 1;
           this.$Message.success('吐槽成功');
-        }).catch(function (error) {
+        }).catch((error) => {
           console.log(error);
         });
       }
@@ -173,6 +175,10 @@
     mounted() {
       this.$nextTick(() => {
         this.addCodeLineNumber();
+        // 添加图片前缀
+        if (this.$refs.content) {
+          this.resolveImageUrl(this.$refs.content.querySelectorAll('img'));
+        }
       });
     },
     components: {

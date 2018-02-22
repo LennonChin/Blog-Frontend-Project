@@ -61,7 +61,7 @@
             'blogger_info': this.bloggerInfo
           };
           saveToLocal('site', 'blogger_info', bloggerInfo);
-        }).catch(function (error) {
+        }).catch((error) => {
           console.log(error);
         });
       }

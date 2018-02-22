@@ -34,7 +34,7 @@
           }
         }).then((response) => {
           this.movies = response.data.results;
-        }).catch(function (error) {
+        }).catch((error) => {
           console.log(error);
         });
       }

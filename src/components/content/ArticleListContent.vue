@@ -138,7 +138,7 @@
           }
         }).then((response) => {
           this.categorys = response.data.results;
-        }).catch(function (error) {
+        }).catch((error) => {
           console.log(error);
         });
       },
@@ -173,7 +173,7 @@
             this.totalCount += response.data.results.length;
             this.noMoreData = this.totalCount >= response.data.count;
             this.$refs.browseMore.stopLoading(this.noMoreData);
-          }).catch(function (error) {
+          }).catch((error) => {
             console.log(error);
           });
         }

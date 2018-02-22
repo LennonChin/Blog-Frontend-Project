@@ -117,7 +117,7 @@
             'category_info': this.categorys
           };
           saveToLocal('site', 'category_info', categoryInfo);
-        }).catch(function (error) {
+        }).catch((error) => {
           console.log(error);
         });
       },
@@ -134,7 +134,7 @@
             'site_info': this.siteInfo
           };
           saveToLocal('site', 'site_info', siteInfo);
-        }).catch(function (error) {
+        }).catch((error) => {
           console.log(error);
         });
       },

@@ -35,7 +35,7 @@
           params: {}
         }).then((response) => {
           this.friendLinks = response.data;
-        }).catch(function (error) {
+        }).catch((error) => {
           console.log(error);
         });
       }

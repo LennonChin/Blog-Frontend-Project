@@ -79,7 +79,7 @@
           this.$nextTick(() => {
             this.article = response.data;
           });
-        }).catch(function (error) {
+        }).catch((error) => {
           console.log(error);
           if (error.status === 401) {
             if (that.browse_auth) {

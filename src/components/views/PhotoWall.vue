@@ -62,7 +62,7 @@
         }
       }).then((response) => {
         this.banners = response.data;
-      }).catch(function (error) {
+      }).catch((error) => {
         console.log(error);
       });
     },

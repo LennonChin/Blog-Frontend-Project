@@ -150,7 +150,7 @@
           }
         }).then((response) => {
           this.categorys = response.data.results;
-        }).catch(function (error) {
+        }).catch((error) => {
           console.log(error);
         });
       },
@@ -162,7 +162,7 @@
           }
         }).then((response) => {
           this.bannerArticles = this.bannerArticles.concat(response.data.results);
-        }).catch(function (error) {
+        }).catch((error) => {
           console.log(error);
         });
       },
@@ -200,7 +200,7 @@
             this.$nextTick(() => {
               this.$refs.browseMore.stopLoading(this.noMoreData);
             });
-          }).catch(function (error) {
+          }).catch((error) => {
             console.log(error);
           });
         }

@@ -138,7 +138,7 @@
             }
           });
           this.showSpin = false;
-        }).catch(function (error) {
+        }).catch((error) => {
           console.log(error);
         });
       },
@@ -148,7 +148,7 @@
         }).then((response) => {
           post.like_num += 1;
           this.$Message.success('点赞成功');
-        }).catch(function (error) {
+        }).catch((error) => {
           console.log(error);
         });
       },
@@ -209,7 +209,7 @@
           }
         }).then((response) => {
           parentComment.sub_comment = parentComment.sub_comment.concat(response.data.results);
-        }).catch(function (error) {
+        }).catch((error) => {
           console.log(error);
         });
       }

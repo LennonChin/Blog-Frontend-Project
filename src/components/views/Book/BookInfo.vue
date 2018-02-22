@@ -58,7 +58,7 @@
             type: book.douban_type
           }).then((response) => {
             this.bookDoubanInfo = this.formatBookInfo(response.data);
-          }).catch(function (error) {
+          }).catch((error) => {
             console.log(error);
           });
         }
