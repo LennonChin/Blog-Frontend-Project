@@ -27,12 +27,12 @@ Has now developed 11 pages, basically meet the needs of conventional blog. The p
 - Article Home, Routing`/artices`
 - Gallery Homepage, Routing`/albums`
 - Movie Homepage, routing`/movies`
-- Article List page, route`/articles/category/:categoryId`
-- Album list page, route`/albums/category/:categoryId`
-- Movie list page, route`/movies/category/:categoryId`
-- Article details page, route`/article/detail/:articleId`
-- Album browsing page, routing`/album/detail/:albumId`
-- Movie details page, route`/movie/detail/:movieId`
+- Article List page, route`/articles/category/:id`
+- Album list page, route`/albums/category/:id`
+- Movie list page, route`/movies/category/:id`
+- Article details page, route`/article/detail/:id`
+- Album browsing page, routing`/album/detail/:id`
+- Movie details page, route`/movie/detail/:id`
 - Timeline page, route`/timeline`
 
 At present, the development of ordinary pages basically completed the development, the need for the next test to verify the details and Bug; article details page has achieved code highlighting, catalogs, reviews and other functions.

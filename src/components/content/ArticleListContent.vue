@@ -111,7 +111,7 @@
       };
     },
     created() {
-      this.top_category = parseInt(this.$route.params.categoryId);
+      this.top_category = parseInt(this.$route.params.id);
       this.getDatas();
       this.getCategorys();
     },

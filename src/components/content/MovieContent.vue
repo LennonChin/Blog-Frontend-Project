@@ -55,7 +55,7 @@
   export default {
     data() {
       return {
-        movieId: 0,
+        id: 0,
         browse_auth: null,
         movie: undefined
       };
@@ -68,7 +68,7 @@
       'recommend': Recommend
     },
     created() {
-      this.movieId = this.$route.params.movieId;
+      this.id = this.$route.params.id;
       this.browse_auth = this.$route.query.browse_auth;
       this.getDatas();
     },
@@ -79,7 +79,7 @@
           params: {
             browse_auth: this.browse_auth
           },
-          id: this.movieId
+          id: this.id
         }).then((response) => {
           this.$nextTick(() => {
             this.movie = response.data;
@@ -144,7 +144,7 @@
             this.browse_auth = hexMd5(this.browse_auth_input);
             this.$router.push({
               name: 'movie/detail',
-              params: {movieId: this.movieId},
+              params: {id: this.id},
               query: {browse_auth: this.browse_auth}
             });
             this.getDatas();

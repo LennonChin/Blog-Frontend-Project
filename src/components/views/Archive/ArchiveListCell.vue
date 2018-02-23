@@ -61,7 +61,7 @@
             router.message = '该文章已图集，您需要输入阅读密码';
         }
         router.params = {};
-        router.params[post.post_type + 'Id'] = post.id;
+        router.params['id'] = post.id;
         return router;
       }
     },

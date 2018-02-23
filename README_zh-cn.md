@@ -27,12 +27,12 @@
 - 文章首页，路由`/artices`
 - 图集首页，路由`/albums`
 - 电影首页，路由`/movies`
-- 文章列表页，路由`/articles/category/:categoryId`
-- 图集列表页，路由`/albums/category/:categoryId`
-- 电影列表页，路由`/movies/category/:categoryId`
-- 文章详情页，路由`/article/detail/:articleId`
-- 图集浏览页，路由`/album/detail/:albumId`
-- 电影详情页，路由`/movie/detail/:movieId`
+- 文章列表页，路由`/articles/category/:id`
+- 图集列表页，路由`/albums/category/:id`
+- 电影列表页，路由`/movies/category/:id`
+- 文章详情页，路由`/article/detail/:id`
+- 图集浏览页，路由`/album/detail/:id`
+- 电影详情页，路由`/movie/detail/:id`
 - 时间轴页，路由`/timeline`
 
 目前普通页面的展示功能基本开发完成，需要接下来的测试以验证细节和Bug；文章详情页面已实现代码高亮、目录、评论等功能。

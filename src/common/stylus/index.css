@@ -23,7 +23,6 @@
 }
 body,
 html {
-  line-height: 1;
   font-weight: 300;
   font-family: Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial;
 }
@@ -32,23 +31,27 @@ html {
 }
 @media only screen and (max-width: 768px) {
   .layout-content {
-    margin: 5px 5px 0 5px;
+    margin: 0 5px 0 5px;
+    padding-top: 5px;
   }
 }
 @media screen and (min-width: 768px) {
   .layout-content {
-    margin: 10px 10px 0 10px;
+    margin: 0 10px 0 10px;
+    padding-top: 10px;
   }
 }
 @media screen and (min-width: 992px) {
   .layout-content {
-    margin: 15px 35px 0 35px;
+    margin: 0 35px 0 35px;
+    padding-top: 15px;
   }
 }
 @media screen and (min-width: 1200px) {
   .layout-content {
     width: 1200px;
-    margin: 15px auto;
+    margin: 0 auto 15px;
+    padding-top: 15px;
   }
   .layout-content .layout-left,
   .layout-content .layout-right {
@@ -104,4 +107,3 @@ html {
   margin-top: 15px;
   text-align: center;
 }
-/*# sourceMappingURL=index.css.map */

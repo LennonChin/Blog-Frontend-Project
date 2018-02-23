@@ -20,6 +20,7 @@ const MovieListContent = () => System.import('@/components/content/MovieListCont
 const AlbumPreviewContent = () => System.import('@/components/content/AlbumPreviewContent');
 const TimeLineContent = () => System.import('@/components/content/TimeLineContent');
 const BookOverviewContent = () => System.import('@/components/content/BookOverviewContent');
+const BookHomeContent = () => System.import('@/components/content/BookHomeContent');
 const BookNoteContent = () => System.import('@/components/content/BookNoteContent');
 
 Vue.use(Router);
@@ -56,7 +57,7 @@ let router = new Router({
           }
         },
         {
-          path: 'article/detail/:articleId',
+          path: 'article/detail/:id',
           name: 'article/detail',
           components: {
             header: SimpleHeader,
@@ -82,7 +83,7 @@ let router = new Router({
           }
         },
         {
-          path: 'album/detail/:albumId',
+          path: 'album/detail/:id',
           name: 'album/detail',
           components: {
             content: AlbumPreviewContent
@@ -106,7 +107,7 @@ let router = new Router({
           }
         },
         {
-          path: 'movie/detail/:movieId',
+          path: 'movie/detail/:id',
           name: 'movie/detail',
           components: {
             header: SimpleHeader,
@@ -123,7 +124,7 @@ let router = new Router({
           name: 'books',
           components: {
             header: SimpleHeader,
-            content: MovieHomeContent,
+            content: BookHomeContent,
             footer: CommonFooter
           },
           meta: {
@@ -132,7 +133,7 @@ let router = new Router({
           }
         },
         {
-          path: 'book/overview/:bookId',
+          path: 'book/overview/:id',
           name: 'book/overview',
           components: {
             header: SimpleHeader,
@@ -145,8 +146,8 @@ let router = new Router({
           }
         },
         {
-          path: 'book/detail/:bookId',
-          name: 'book/detail',
+          path: 'book/note/:id',
+          name: 'book/note',
           components: {
             header: SimpleHeader,
             content: BookNoteContent,
@@ -171,7 +172,7 @@ let router = new Router({
           }
         },
         {
-          path: 'articles/category/:categoryId',
+          path: 'articles/category/:id',
           name: 'articles/category',
           components: {
             header: SimpleHeader,
@@ -184,7 +185,7 @@ let router = new Router({
           }
         },
         {
-          path: 'albums/category/:categoryId',
+          path: 'albums/category/:id',
           name: 'albums/category',
           components: {
             header: SimpleHeader,
@@ -197,7 +198,7 @@ let router = new Router({
           }
         },
         {
-          path: 'movies/category/:categoryId',
+          path: 'movies/category/:id',
           name: 'movies/category',
           components: {
             header: SimpleHeader,

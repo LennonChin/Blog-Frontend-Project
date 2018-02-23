@@ -61,12 +61,12 @@
     beforeRouteUpdate(to, from, next) {
       next();
       this.article = undefined;
-      this.articleId = this.$route.params.bookId;
+      this.id = this.$route.params.id;
       this.browse_auth = this.$route.query.browse_auth;
       this.getDatas();
     },
     created() {
-      this.articleId = this.$route.params.bookId;
+      this.id = this.$route.params.id;
       this.browse_auth = this.$route.query.browse_auth;
       this.getDatas();
     },
@@ -77,7 +77,7 @@
           params: {
             browse_auth: this.browse_auth
           },
-          id: this.articleId
+          id: this.id
         }).then((response) => {
           this.$nextTick(() => {
             this.article = response.data;
@@ -142,7 +142,7 @@
             this.browse_auth = hexMd5(this.browse_auth_input);
             this.$router.push({
               name: 'article/detail',
-              params: {articleId: this.articleId},
+              params: {id: this.id},
               query: {browse_auth: this.browse_auth}
             });
             this.getDatas();

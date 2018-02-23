@@ -1,10 +1,15 @@
+html {
+  position: relative;
+}
 body {
+  position: relative;
   font-family: "Helvetica Neue", Arial, sans-serif;
   font-size: 15px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: #fff;
   padding-top: 50px;
+  min-height: 100vh;
 }
 @media screen and (min-width: 1200px) {
   body {
@@ -16,7 +21,7 @@ body {
   padding: 0 50px;
   width: 100%;
   top: 0;
-  box-shadow: 0 0 1px rgba(0,0,0,0.25);
+  border-bottom: 1px solid #f0f0f0;
   background-color: rgba(255,255,255,0.9);
   transition: background-color 0.3s ease-in-out;
   z-index: 11;
@@ -191,4 +196,3 @@ body {
     display: block;
   }
 }
-/*# sourceMappingURL=header.css.map */

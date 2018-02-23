@@ -1,27 +1,25 @@
 <template>
-  <div class="movie-list-content layout-content">
+  <div class="book-home-content layout-content">
     <iv-row>
       <iv-col :xs="24" :sm="24" :md="24" :lg="17">
         <div class="layout-left">
-          <classify-menu :categorys="categorys" @selectCategory="selectCategory" :defaultCategory="top_category"></classify-menu>
-          <section-title :mainTitle="'电影列表'"
-                         :subTitle="'Articles'"
-                         :menus="menus"
-                         :withRefresh="true"
-                         :withTimeSelect="true"
-                         :datePickerOptions="datePickerOptions"
-                         @refresh="refresh"
-                         @menusControl="menusControl"
-                         @comfirmDateSelect="dateSelect"
-                         @clearDateSelect="dateSelectClear">
-          </section-title>
-          <iv-row :gutter="10">
-            <iv-col :xs="12" :sm="12" :md="8" :lg="8" v-for="movie in movies" :key="movie.id"
-                    style="margin-bottom: 10px;">
-              <movie-list-item :movie="movie"></movie-list-item>
-            </iv-col>
-          </iv-row>
-          <browse-more @browseMore="browseMore" ref="browseMore"></browse-more>
+          <book-reading-cell></book-reading-cell>
+          <classify-menu :categorys="categorys"
+                         :defaultCategory="1"></classify-menu>
+          <iv-affix style="position: relative;z-index: 12;">
+            <section-title :mainTitle="'图书列表'"
+                           :subTitle="'Articles'"
+                           :menus="menus"
+                           :withRefresh="true"
+                           :withTimeSelect="true"
+                           :datePickerOptions="datePickerOptions"
+                           @refresh="refresh"
+                           @menusControl="menusControl"
+                           @comfirmDateSelect="dateSelect"
+                           @clearDateSelect="dateSelectClear">
+            </section-title>
+          </iv-affix>
+          <book-list-cell v-for="book in books" :book="book" :key="book.id"></book-list-cell>
         </div>
       </iv-col>
       <iv-col :xs="0" :sm="0" :md="0" :lg="7">
@@ -35,25 +33,26 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import MovieListItem from '@/components/views/Movie/MovieListItem';
-  import SectionTitle from '@/components/views/SectionTitle';
-  import ClassifyMenu from '@/components/views/Classify/ClassifyMenu';
+  import BookReadingCell from '@/components/views/Book/BookReadingCell';
+  import BookListCell from '@/components/views/Book/BookListCell';
   import Recommend from '@/components/views/Recommend';
   import TagWall from '@/components/views/TagWall';
-  import BrowseMore from '@/components/views/BrowseMore';
+  import ClassifyMenu from '@/components/views/Classify/ClassifyMenu';
+  import SectionTitle from '@/components/views/SectionTitle';
 
   // API
-  import {getMovieBaseInfo, getCategorys} from '@/api/api';
+  import {getBookBaseInfo, getCategorys} from '@/api/api';
 
-  const DEFAULT_LIMIT_SIZE = 6;
+  const DEFAULT_LIMIT_SIZE = 20;
   const MAX_LIMIT_SIZE = 100;
 
   export default {
     data() {
       return {
-        movies: [],
+        books: [],
+        readingBook: [],
         categorys: undefined,
-        top_category: undefined,
+        top_category: 1,
         timeSorted: false,
         mostComment: undefined,
         recommend: undefined,
@@ -113,30 +112,27 @@
       };
     },
     created() {
-      this.top_category = parseInt(this.$route.params.id);
-      this.getDatas();
       this.getCategorys();
+      this.getBookBaseInfo();
     },
     methods: {
       browseMore() {
-        console.log('browseMore');
         this.page++;
-        this.getMovieBaseInfo();
+        this.getArticleBaseInfo();
       },
       selectCategory(categoryId) {
         this.top_category = categoryId;
+        this.books = [];
+        this.readingBook = [];
         this.noMoreData = false;
-        this.getMovieBaseInfo();
-      },
-      getDatas() {
-        this.getMovieBaseInfo();
+        this.getBookBaseInfo();
       },
       getCategorys() {
         getCategorys({
           params: {
             'level_min': 1,
             'level_max': 1,
-            'id': 40
+            'id': 1
           }
         }).then((response) => {
           this.categorys = response.data.results;
@@ -144,7 +140,7 @@
           console.log(error);
         });
       },
-      getMovieBaseInfo() {
+      getBookBaseInfo() {
         if (!this.noMoreData) {
           // 排序条件
           let orderings = [];
@@ -160,20 +156,24 @@
               orderings.push('-comment_num');
             }
           }
-          getMovieBaseInfo({
+          getBookBaseInfo({
             params: {
               top_category: this.top_category,
               ordering: orderings.toString(),
+              is_recommend: this.recommend,
               time_min: this.selectedDateRange[0],
               time_max: this.selectedDateRange[1],
+              is_banner: false,
               limit: this.limit_size,
               offset: this.page * this.limit_size
             }
           }).then((response) => {
-            this.movies = this.movies.concat(response.data.results);
             this.totalCount += response.data.results.length;
             this.noMoreData = this.totalCount >= response.data.count;
-            this.$refs.browseMore.stopLoading(this.noMoreData);
+            this.books = this.books.concat(response.data.results);
+            this.$nextTick(() => {
+              this.$refs.browseMore.stopLoading(this.noMoreData);
+            });
           }).catch((error) => {
             console.log(error);
           });
@@ -185,11 +185,12 @@
         this.mostComment = undefined;
         this.recommend = undefined;
         this.page = 0;
-        this.movies = [];
+        this.books = [];
+        this.readingBook = [];
         this.totalCount = 0;
         this.noMoreData = false;
         this.selectedDateRange = [];
-        this.getMovieBaseInfo();
+        this.getBookBaseInfo();
       },
       menusControl(params) {
         switch (params[0]) {
@@ -197,53 +198,52 @@
             this.timeSorted = !params[1];
             break;
           case 'mostComment':
-            this.mostComment = params[1];
+            this.mostComment = params[1] ? true : undefined;
             break;
           case 'recommend':
-            this.recommend = params[1];
+            this.recommend = params[1] ? true : undefined;
             break;
         }
         // 清空原数据
         this.page = 0;
-        this.movies = [];
+        this.books = [];
+        this.readingBook = [];
         this.totalCount = 0;
         this.noMoreData = false;
-        this.getMovieBaseInfo();
+        this.getBookBaseInfo();
       },
       dateSelect(dateRange) {
         this.selectedDateRange = dateRange;
         this.page = 0;
         this.limit_size = MAX_LIMIT_SIZE;
-        this.movies = [];
+        this.books = [];
+        this.readingBook = [];
         this.totalCount = 0;
         this.noMoreData = false;
-        this.getMovieBaseInfo();
+        this.getBookBaseInfo();
       },
       dateSelectClear() {
         this.selectedDateRange = [];
         this.page = 0;
         this.limit_size = DEFAULT_LIMIT_SIZE;
-        this.movies = [];
+        this.books = [];
+        this.bannerArticles = [];
         this.totalCount = 0;
         this.noMoreData = false;
-        this.getMovieBaseInfo();
-      }
-    },
-    watch: {
-      selectedCategory: function () {
-        this.getDatas();
+        this.getBookBaseInfo();
       }
     },
     components: {
+      'book-reading-cell': BookReadingCell,
+      'book-list-cell': BookListCell,
       'section-title': SectionTitle,
-      'classify-menu': ClassifyMenu,
-      'movie-list-item': MovieListItem,
       'recommend': Recommend,
-      'tag-wall': TagWall,
-      'browse-more': BrowseMore
+      'classify-menu': ClassifyMenu,
+      'tag-wall': TagWall
     }
   };
 </script>
 
-<style lang="stylus" type="text/stylus" rel="stylesheet/stylus">
+<style lang="stylus" rel="stylesheet/stylus">
+
 </style>

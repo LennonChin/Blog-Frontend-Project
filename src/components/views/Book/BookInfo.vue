@@ -17,7 +17,7 @@
           <p class="desc"><span>出版日期：</span>{{ bookDoubanInfo.publish_date }}</p>
           <p class="desc"><span>页数：</span>{{ bookDoubanInfo.pages }}</p>
           <p class="desc"><span>评分：</span>
-            <iv-rate v-model="bookDoubanInfo.rating.average * 0.5" :allowHalf="true" :disabled="true"></iv-rate>
+            <iv-rate v-model="bookDoubanInfo.rating * 0.5" :allowHalf="true" :disabled="true"></iv-rate>
           </p>
           <p class="desc">
             <iv-tag type="border" v-for="tag in bookDoubanInfo.tags" :key="tag.name">{{ tag.name }}</iv-tag>
@@ -67,12 +67,12 @@
         let bookInfo = {};
         bookInfo.title = book.book_name;
         bookInfo.image = book.book_image;
-        bookInfo.author = book.book_author;
+        bookInfo.author = book.book_author.split('，');
         bookInfo.publisher = book.book_publisher;
         bookInfo.publish_date = book.publish_date;
         bookInfo.pages = book.book_pages;
-        bookInfo.tags = book.book_tags.split(',');
-        bookInfo.rating.average = book.book_rating;
+        bookInfo.tags = book.book_tags.split('，').map((tagName) => { return {name: tagName}; });
+        bookInfo.rating = book.book_rating;
         bookInfo.alt = book.book_url;
         return bookInfo;
       },

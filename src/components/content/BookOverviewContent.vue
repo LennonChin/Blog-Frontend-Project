@@ -86,7 +86,7 @@
   export default {
     data() {
       return {
-        bookId: undefined,
+        id: undefined,
         book: undefined,
         bookDoubanInfo: undefined,
         browse_auth: null,
@@ -97,12 +97,12 @@
       next();
       this.book = undefined;
       this.bookDoubanInfo = undefined;
-      this.bookId = this.$route.params.bookId;
+      this.id = this.$route.params.id;
       this.browse_auth = this.$route.query.browse_auth;
       this.getBookDetailInfo();
     },
     created() {
-      this.bookId = this.$route.params.bookId;
+      this.id = this.$route.params.id;
       this.browse_auth = this.$route.query.browse_auth;
       this.getBookDetailInfo();
     },
@@ -113,11 +113,11 @@
           params: {
             browse_auth: this.browse_auth
           },
-          id: this.bookId
+          id: this.id
         }).then((response) => {
           this.book = response.data;
-          if (this.book.detail.douban_infos) {
-            this.bookDoubanInfo = this.formatBookInfo(JSON.parse(this.book.detail.douban_infos));
+          if (this.book.douban_infos) {
+            this.bookDoubanInfo = this.formatBookInfo(JSON.parse(this.book.douban_infos));
           } else {
             this.getDoubanInfo(this.book.douban_type, this.book.douban_id);
           }
@@ -191,7 +191,7 @@
             this.browse_auth = hexMd5(this.browse_auth_input);
             this.$router.push({
               name: 'article/detail',
-              params: {articleId: this.articleId},
+              params: {id: this.id},
               query: {browse_auth: this.browse_auth}
             });
             this.getDatas();

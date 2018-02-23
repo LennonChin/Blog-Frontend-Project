@@ -147,7 +147,7 @@
         let router = {};
         router.name = category.code + '/category';
         router.params = {};
-        router.params['categoryId'] = categoryId;
+        router.params['id'] = categoryId;
         return router;
       },
       showMobileMenu() {

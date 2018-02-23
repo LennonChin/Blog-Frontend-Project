@@ -27,13 +27,13 @@
   export default {
     data() {
       return {
-        albumId: 0,
+        id: 0,
         browse_auth: null,
         album: undefined
       };
     },
     created() {
-      this.albumId = this.$route.params.albumId;
+      this.id = this.$route.params.id;
       this.browse_auth = this.$route.query.browse_auth;
       this.getDatas();
     },
@@ -44,7 +44,7 @@
           params: {
             browse_auth: this.browse_auth
           },
-          id: this.albumId
+          id: this.id
         }).then((response) => {
           this.album = response.data;
         }).catch((error) => {
@@ -107,7 +107,7 @@
             this.browse_auth = hexMd5(this.browse_auth_input);
             this.$router.push({
               name: 'album/detail',
-              params: {albumId: this.albumId},
+              params: {id: this.id},
               query: {browse_auth: this.browse_auth}
             });
             this.getDatas();
