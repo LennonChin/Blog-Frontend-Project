@@ -82,7 +82,7 @@ Vue.component('iv-rate', Rate);
 Vue.mixin({
   data() {
     return {
-      postImageBaseUrl: 'https://material.coderap.com/'
+      postImageBaseUrl: 'https://material.coderap.com'
     };
   },
   methods: {
@@ -108,7 +108,7 @@ Vue.mixin({
             // 去掉前面的反斜杠
             imageSrc = imageSrc.substr(1);
           }
-          image.src = this.postImageBaseUrl + imageSrc;
+          image.src = `${this.postImageBaseUrl}/${imageSrc}`;
           console.log(image.src);
         }
       });
