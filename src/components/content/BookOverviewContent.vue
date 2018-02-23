@@ -34,8 +34,13 @@
                 <p class="catalog" v-html="bookDoubanInfo.catalog"></p>
               </v-tab>
               <v-tab title="整书读后感">
-                <article v-if="book !== undefined" id="article-main-page" class="typo container article-main-content" v-html="book.detail.formatted_content" v-viewer ref="book">
-                </article>
+                <div class="article-details" id="article-main-page" v-viewer ref="book">
+                  <div class="detail" v-if="book !== undefined" v-for="detail in book.details">
+                    <article class="typo container article-main-content" v-html="detail.formatted_content">
+                    </article>
+                    <div class="detail-footer">Append At / {{ detail.add_time | socialDate }} &nbsp;&nbsp;&nbsp; Update At / {{ detail.update_time | socialDate }}</div>
+                  </div>
+                </div>
                 <!--<p class="summary" v-html="book.detail.formatted_content"></p>-->
               </v-tab>
               <v-tab title="简介">

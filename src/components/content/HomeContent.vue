@@ -204,7 +204,7 @@
         this.getMovies();
       },
       specialCategory(id) {
-        if (this.categorys.length === 0) return 'undefined';
+        if (this.categorys.length === 0) return undefined;
         return this.categorys.filter((category) => {
           return category.id === id;
         })[0];

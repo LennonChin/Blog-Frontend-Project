@@ -5,10 +5,13 @@
         <div class="layout-left">
           <article-page-header :article="article"></article-page-header>
           <article-page-content>
-            <article v-if="article !== undefined" id="article-main-page" class="typo container article-main-content"
-                     slot="content"
-                     v-html="article.detail.formatted_content" v-viewer ref="article">
-            </article>
+            <div class="article-details" id="article-main-page" slot="content" v-viewer ref="article">
+              <div class="detail" v-if="article !== undefined" v-for="detail in article.details">
+                <article class="typo container article-main-content" v-html="detail.formatted_content">
+                </article>
+                <div class="detail-footer">Append At / {{ detail.add_time | socialDate }} &nbsp;&nbsp;&nbsp; Update At / {{ detail.update_time | socialDate }}</div>
+              </div>
+            </div>
           </article-page-content>
           <article-page-footer :article="article"></article-page-footer>
         </div>

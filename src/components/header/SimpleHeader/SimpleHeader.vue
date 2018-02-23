@@ -1,17 +1,17 @@
 <template>
-  <div class="simple-header">
+  <div class="simple-header" v-if="siteInfo">
     <div id="mobile-bar" v-if="responsiveRender(true, true, true, false)">
       <a class="menu-button" @click="showMobileMenu"></a>
       <router-link class="logo" to="/"></router-link>
     </div>
     <div id="header" v-if="responsiveRender(false, false, false, true)">
       <router-link id="logo" to="/">
-        <img :src="this.siteInfo.icon">
-        <span>{{ this.siteInfo.name }}</span>
+        <img :src="siteInfo.icon">
+        <span>{{ siteInfo.name }}</span>
       </router-link>
       <ul id="nav">
         <!-- 类别导航 -->
-        <li class="nav-dropdown-container" v-for="category_level1 in this.categorys">
+        <li class="nav-dropdown-container" v-for="category_level1 in categorys">
           <router-link class="nav-link" :to="rootRouterLink(category_level1)">
             {{ category_level1.name }} <span class="arrow"></span>
           </router-link>
@@ -31,7 +31,7 @@
           </ul>
         </li>
         <!-- 自定义的导航 -->
-        <li class="nav-dropdown-container" v-for="navigation in this.siteInfo.navigations">
+        <li class="nav-dropdown-container" v-for="navigation in siteInfo.navigations">
           <a class="nav-link" :href="navigation.url">
             {{ navigation.name }}
           </a>

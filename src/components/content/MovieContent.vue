@@ -1,5 +1,5 @@
 <template>
-  <div class="movie-content" v-if="movie != undefined">
+  <div class="movie-content" v-if="movie !== undefined">
     <div class="header-wrapper">
       <img src="../../assets/background.jpg" alt="">
       <movie-page-header :movie="movie"></movie-page-header>
@@ -9,8 +9,13 @@
         <iv-col :xs="24" :sm="24" :md="24" :lg="17">
           <div class="layout-left">
             <movie-page-content>
-              <article v-if="movie != undefined" id="article-main-page" class="typo container article-main-content"
-                       slot="content" v-html="movie.detail.formatted_content" ref="article"></article>
+              <div class="article-details" id="article-main-page" slot="content" v-viewer ref="article">
+                <div class="detail" v-if="movie !== undefined" v-for="detail in movie.details">
+                  <article class="typo container article-main-content" v-html="detail.formatted_content">
+                  </article>
+                  <div class="detail-footer">Append At / {{ detail.add_time | socialDate }} &nbsp;&nbsp;&nbsp; Update At / {{ detail.update_time | socialDate }}</div>
+                </div>
+              </div>
             </movie-page-content>
             <article-page-footer :article="movie"></article-page-footer>
           </div>
