@@ -84,11 +84,11 @@
       gotoPostDetail(post) {
         let routerInfos = this.routerInfos(post);
         checkPostAuth.call(this, post, '提示', routerInfos.message, () => {
-          this.$router.push({name: routerInfos.name, params: routerInfos.params});
+          this.$router.push({name: post.post_type, params: {id: post.id}});
         }, (encryptedBrowseAuth) => {
           this.$router.push({
-            name: routerInfos.name,
-            params: routerInfos.params,
+            name: post.post_type,
+            params: {id: post.id},
             query: {browse_auth: encryptedBrowseAuth}
           });
         }, () => {
@@ -109,7 +109,6 @@
       },
       routerInfos(post) {
         let router = {};
-        router.name = post.post_type + '/detail';
         switch (post.post_type) {
           case 'article':
             router.message = '该文章为加密文章，您需要输入阅读密码';
@@ -123,8 +122,6 @@
           default:
             router.message = '该文章为加密文章，您需要输入阅读密码';
         }
-        router.params = {};
-        router.params['id'] = post.id;
         return router;
       },
       articleSlice(start, end) {

@@ -74,10 +74,10 @@
           return;
         }
         checkPostAuth.call(this, note, '提示', '该文章已加密，您需要输入阅读密码', () => {
-          this.$router.push({name: 'book/note', params: {id: note.id}});
+          this.$router.push({name: note.post_type, params: {id: note.id}});
         }, (encryptedBrowseAuth) => {
           this.$router.push({
-            name: 'book/note',
+            name: note.post_type,
             params: {id: note.id},
             query: {browse_auth: encryptedBrowseAuth}
           });

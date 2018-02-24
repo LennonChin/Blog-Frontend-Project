@@ -57,8 +57,8 @@ let router = new Router({
           }
         },
         {
-          path: 'article/detail/:id',
-          name: 'article/detail',
+          path: 'article/:id',
+          name: 'article',
           components: {
             header: SimpleHeader,
             content: ArticleContent,
@@ -83,8 +83,8 @@ let router = new Router({
           }
         },
         {
-          path: 'album/detail/:id',
-          name: 'album/detail',
+          path: 'album/:id',
+          name: 'album',
           components: {
             content: AlbumPreviewContent
           },
@@ -107,8 +107,8 @@ let router = new Router({
           }
         },
         {
-          path: 'movie/detail/:id',
-          name: 'movie/detail',
+          path: 'movie/:id',
+          name: 'movie',
           components: {
             header: SimpleHeader,
             content: MovieContent,
@@ -133,8 +133,8 @@ let router = new Router({
           }
         },
         {
-          path: 'book/overview/:id',
-          name: 'book/overview',
+          path: 'book/:id',
+          name: 'book',
           components: {
             header: SimpleHeader,
             content: BookOverviewContent,

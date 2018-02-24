@@ -95,10 +95,10 @@
     methods: {
       gotoPostDetail(post) {
         checkPostAuth.call(this, post, '提示', '该文章已加密，您需要输入阅读密码', () => {
-          this.$router.push({name: 'book/overview', params: {id: post.id}});
+          this.$router.push({name: post.post_type, params: {id: post.id}});
         }, (encryptedBrowseAuth) => {
           this.$router.push({
-            name: 'book/note',
+            name: post.post_type,
             params: {id: post.id},
             query: {browse_auth: encryptedBrowseAuth}
           });
@@ -122,7 +122,7 @@
   };
 </script>
 
-<style lang="stylus" rel="stylesheet/stylus">
+<style lang="stylus" type="text/stylus" rel="stylesheet/stylus">
   @import "../../../common/stylus/base.styl";
   @import "../../../common/stylus/index.styl";
 

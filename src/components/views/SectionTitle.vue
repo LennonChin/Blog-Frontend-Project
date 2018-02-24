@@ -99,7 +99,7 @@
     line-height 40px
     text-align left
     box-sizing border-box
-    background transparent
+    background white
     @media only screen and (max-width: $responsive-sm)
       padding 5px 0
       height 50px
