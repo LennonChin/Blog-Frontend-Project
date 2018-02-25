@@ -5,7 +5,7 @@
       <span class="main-title">{{mainTitle}}</span>
       <span class="vertical-line"></span>
       <span class="sub-title">{{subTitle}}</span>
-      <span class="view-more"><a @click="browseMore">{{tipText}} <iv-icon type="arrow-right-b"></iv-icon></a></span>
+      <span class="view-more"><a @click="tipAction">{{tipText}} <iv-icon type="arrow-right-b"></iv-icon></a></span>
     </div>
     <div class="menu">
       <ul class="list clearfix" v-if="menus.length > 0">
@@ -33,7 +33,7 @@
       mainTitle: '',
       subTitle: '',
       tipText: {
-        default: 'View More'
+        default: '查看更多'
       },
       menus: {
         Type: Array,
@@ -66,8 +66,8 @@
         });
         this.$emit('refresh');
       },
-      browseMore() {
-        this.$emit('browseMore');
+      tipAction() {
+        this.$emit('tipAction');
       },
       menusControl(menu) {
         menu.selected = !menu.selected;

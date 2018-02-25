@@ -19,9 +19,12 @@ const MovieHomeContent = () => System.import('@/components/content/MovieHomeCont
 const MovieListContent = () => System.import('@/components/content/MovieListContent');
 const AlbumPreviewContent = () => System.import('@/components/content/AlbumPreviewContent');
 const TimeLineContent = () => System.import('@/components/content/TimeLineContent');
-const BookOverviewContent = () => System.import('@/components/content/BookOverviewContent');
-const BookHomeContent = () => System.import('@/components/content/BookHomeContent');
+const ReadHomeContent = () => System.import('@/components/content/ReadHomeContent');
+const ReadListContent = () => System.import('@/components/content/ReadListContent');
+const BookContent = () => System.import('@/components/content/BookContent');
+const BookListContent = () => System.import('@/components/content/BookListContent');
 const BookNoteContent = () => System.import('@/components/content/BookNoteContent');
+const BookNoteListContent = () => System.import('@/components/content/BookNoteListContent');
 
 Vue.use(Router);
 
@@ -120,11 +123,11 @@ let router = new Router({
           }
         },
         {
-          path: 'books',
-          name: 'books',
+          path: 'readings',
+          name: 'readings',
           components: {
             header: SimpleHeader,
-            content: BookHomeContent,
+            content: ReadHomeContent,
             footer: CommonFooter
           },
           meta: {
@@ -137,7 +140,7 @@ let router = new Router({
           name: 'book',
           components: {
             header: SimpleHeader,
-            content: BookOverviewContent,
+            content: BookContent,
             footer: CommonFooter
           },
           meta: {
@@ -203,6 +206,45 @@ let router = new Router({
           components: {
             header: SimpleHeader,
             content: MovieListContent,
+            footer: CommonFooter
+          },
+          meta: {
+            title: '电影列表',
+            need_log: false
+          }
+        },
+        {
+          path: 'readings/category/:id',
+          name: 'readings/category',
+          components: {
+            header: SimpleHeader,
+            content: ReadListContent,
+            footer: CommonFooter
+          },
+          meta: {
+            title: '电影列表',
+            need_log: false
+          }
+        },
+        {
+          path: 'books/category/:id',
+          name: 'books/category',
+          components: {
+            header: SimpleHeader,
+            content: BookListContent,
+            footer: CommonFooter
+          },
+          meta: {
+            title: '电影列表',
+            need_log: false
+          }
+        },
+        {
+          path: 'book/notes/category/:id',
+          name: 'book/notes/category',
+          components: {
+            header: SimpleHeader,
+            content: BookNoteListContent,
             footer: CommonFooter
           },
           meta: {

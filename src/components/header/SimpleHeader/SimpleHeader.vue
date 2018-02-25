@@ -17,12 +17,12 @@
           </router-link>
           <ul class="nav-dropdown" v-if="category_level1.sub_category.length > 0">
             <li v-for="category_level2 in category_level1.sub_category">
-              <router-link class="nav-link" :to="routerLink(category_level1, category_level2.id)">
+              <router-link class="nav-link" :to="routerLink(category_level2)">
                 {{category_level2.name}}
               </router-link>
               <ul class="nav-dropdown">
                 <li v-for="category_level3 in category_level2.sub_category">
-                  <router-link class="nav-link" :to="routerLink(category_level1, category_level3.id)">
+                  <router-link class="nav-link" :to="routerLink(category_level3)">
                     {{category_level3.name}}
                   </router-link>
                 </li>
@@ -140,14 +140,14 @@
       },
       rootRouterLink(category) {
         let router = {};
-        router.name = category.code;
+        router.name = category.category_type;
         return router;
       },
-      routerLink(category, categoryId) {
+      routerLink(category) {
         let router = {};
-        router.name = category.code + '/category';
+        router.name = category.category_type;
         router.params = {};
-        router.params['id'] = categoryId;
+        router.params['id'] = category.id;
         return router;
       },
       showMobileMenu() {
