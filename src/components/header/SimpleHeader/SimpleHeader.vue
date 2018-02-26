@@ -69,6 +69,14 @@
       };
     },
     created: function () {
+      // 如果后台控制了强制刷新，即强制刷新
+      if (window.__force_refresh__) {
+        console.log('重新请求category_info');
+        this.getCategorys();
+        console.log('重新请求site_info');
+        this.getSiteInfo();
+        return;
+      }
       // 分类信息
       let categoryInfo = loadFromLocal('site', 'category_info', null);
       if (categoryInfo) {

@@ -4,7 +4,7 @@
       <iv-col :xs="24" :sm="24" :md="24" :lg="17">
         <div class="layout-left">
           <iv-affix style="position: relative;z-index: 12;">
-            <section-title v-if="this.specialCategory(1) !== 'undefined'"
+            <section-title v-if="this.specialCategory(1) !== undefined"
                            :mainTitle="this.specialCategory(1).name"
                            :subTitle="this.specialCategory(1).subname"
                            :menus="articlesTitleMenus"
@@ -16,7 +16,7 @@
           </iv-affix>
           <article-list-cell v-for="article in articles" :article="article" :key="article.id"></article-list-cell>
           <iv-affix :offset-top="0" style="position: relative;z-index: 12;">
-            <section-title v-if="this.specialCategory(55) !== 'undefined'"
+            <section-title v-if="this.specialCategory(55) !== undefined"
                            :mainTitle="this.specialCategory(55).name"
                            :subTitle="this.specialCategory(55).subname"
                            :menus="albumsTitleMenus"
@@ -34,7 +34,7 @@
             </iv-row>
           </div>
           <iv-affix style="position: relative;z-index: 12;">
-            <section-title v-if="this.specialCategory(40) !== 'undefined'"
+            <section-title v-if="this.specialCategory(40) !== undefined"
                            :mainTitle="this.specialCategory(40).name"
                            :subTitle="this.specialCategory(40).subname"
                            :menus="moviesTitleMenus"

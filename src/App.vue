@@ -11,6 +11,7 @@
 </script>
 
 <style lang="stylus" type="text/stylus" rel="stylesheet/stylus">
+  @import "./common/stylus/base.styl";
 
   #app
     font-family 'Avenir', Helvetica, Arial, sans-serif
