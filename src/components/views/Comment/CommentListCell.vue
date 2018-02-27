@@ -7,7 +7,7 @@
             <iv-col :xs="cellLeftSpan('xs')" :sm="cellLeftSpan('sm')" :md="cellLeftSpan('md')"
                     :lg="cellLeftSpan('lg')" :xl="cellLeftSpan('xl')">
               <div class="avatar">
-                <img :src="'http://p2qght9m1.bkt.clouddn.com/comment/avatar/' + avatarImage(comment.author)" alt="">
+                <img :src="postImageBaseUrl + '/comment/avatar/' + avatarImage(comment.author)" alt="">
               </div>
             </iv-col>
             <iv-col :xs="cellRightSpan('xs')" :sm="cellRightSpan('sm')" :md="cellRightSpan('md')"
@@ -111,7 +111,7 @@
         // 随机固定的头像图片名
         let idStr = author.id + '';
         let start = author.nick_name.length + idStr.length > 31 ? 31 : author.nick_name.length + idStr.length;
-        return hexMd5(author.nick_name + idStr).slice(start, start + 1) + '.ico';
+        return hexMd5(author.nick_name + idStr).slice(start, start + 1) + '.png';
       },
       addCodeLineNumber() {
         // 添加行号

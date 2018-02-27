@@ -4,9 +4,9 @@
       <iv-col :xs="24" :sm="24" :md="24" :lg="17">
         <div class="layout-left">
           <iv-affix style="position: relative;z-index: 12;">
-            <section-title v-if="this.specialCategory(1) !== undefined"
-                           :mainTitle="this.specialCategory(1).name"
-                           :subTitle="this.specialCategory(1).subname"
+            <section-title v-if="this.specialCategory(this.$Window.__category_info__.article) !== undefined"
+                           :mainTitle="this.specialCategory(this.$Window.__category_info__.article).name"
+                           :subTitle="this.specialCategory(this.$Window.__category_info__.article).subname"
                            :menus="articlesTitleMenus"
                            :withRefresh="true"
                            :withTimeSelect="false"
@@ -16,9 +16,9 @@
           </iv-affix>
           <article-list-cell v-for="article in articles" :article="article" :key="article.id"></article-list-cell>
           <iv-affix :offset-top="0" style="position: relative;z-index: 12;">
-            <section-title v-if="this.specialCategory(55) !== undefined"
-                           :mainTitle="this.specialCategory(55).name"
-                           :subTitle="this.specialCategory(55).subname"
+            <section-title v-if="this.specialCategory(this.$Window.__category_info__.album) !== undefined"
+                           :mainTitle="this.specialCategory(this.$Window.__category_info__.album).name"
+                           :subTitle="this.specialCategory(this.$Window.__category_info__.album).subname"
                            :menus="albumsTitleMenus"
                            :withRefresh="true"
                            :withTimeSelect="false"
@@ -34,9 +34,9 @@
             </iv-row>
           </div>
           <iv-affix style="position: relative;z-index: 12;">
-            <section-title v-if="this.specialCategory(40) !== undefined"
-                           :mainTitle="this.specialCategory(40).name"
-                           :subTitle="this.specialCategory(40).subname"
+            <section-title v-if="this.specialCategory(this.$Window.__category_info__.reading) !== undefined"
+                           :mainTitle="this.specialCategory(this.$Window.__category_info__.reading).name"
+                           :subTitle="this.specialCategory(this.$Window.__category_info__.reading).subname"
                            :menus="moviesTitleMenus"
                            :withRefresh="true"
                            :withTimeSelect="false"

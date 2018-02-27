@@ -3,7 +3,7 @@
     <iv-row>
       <iv-col :xs="24" :sm="24" :md="24" :lg="17">
         <div class="layout-left">
-          <book-reading-cell></book-reading-cell>
+          <book-reading-cell v-for="book in readingBooks" :key="book.id" :book="book"></book-reading-cell>
           <iv-affix style="position: relative;z-index: 12;">
             <section-title :mainTitle="'图书列表'"
                            :subTitle="'Books'"
@@ -57,9 +57,8 @@
       return {
         books: [],
         bookNotes: [],
-        readingBook: [],
+        readingBooks: [],
         categorys: undefined,
-        top_category: 1,
         timeSorted: false,
         mostComment: undefined,
         recommend: undefined,
@@ -77,19 +76,12 @@
       this.getBookNoteBaseInfo();
     },
     methods: {
-      selectCategory(categoryId) {
-        this.top_category = categoryId;
-        this.books = [];
-        this.readingBook = [];
-        this.noMoreData = false;
-        this.getBookBaseInfo();
-      },
       getCategorys() {
         getCategorys({
           params: {
             'level_min': 1,
             'level_max': 1,
-            'id': 1
+            'id': this.$Window.__category_info__.reading
           }
         }).then((response) => {
           this.categorys = response.data.results;
@@ -115,19 +107,26 @@
           }
           getBookBaseInfo({
             params: {
-              top_category: this.top_category,
               ordering: orderings.toString(),
               is_recommend: this.recommend,
               is_banner: false,
-              limit: this.limit_size,
-              offset: 0
+              limit: this.limit_size
             }
           }).then((response) => {
-            this.books = this.books.concat(response.data.results);
+            this.reduceBooks(response.data.results);
           }).catch((error) => {
             console.log(error);
           });
         }
+      },
+      reduceBooks(books) {
+        books.map((book) => {
+          if (book.is_reading) {
+            this.readingBooks.push(book);
+          } else {
+            this.books.push(book);
+          }
+        });
       },
       getBookNoteBaseInfo() {
         if (!this.noMoreData) {
@@ -147,12 +146,10 @@
           }
           getBookNoteBaseInfo({
             params: {
-              top_category: this.top_category,
               ordering: orderings.toString(),
               is_recommend: this.recommend,
               is_banner: false,
-              limit: this.limit_size,
-              offset: 0
+              limit: this.limit_size
             }
           }).then((response) => {
             this.bookNotes = this.bookNotes.concat(response.data.results);
@@ -168,7 +165,6 @@
         alert('viewBookNoteList');
       },
       refresh() {
-        this.top_category = undefined;
         this.timeSorted = false;
         this.mostComment = undefined;
         this.recommend = undefined;

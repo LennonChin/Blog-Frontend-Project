@@ -46,6 +46,7 @@ Vue.prototype.$Modal = Modal;
 Vue.prototype.$Message = Message;
 Vue.prototype.$Notice = Notice;
 Vue.prototype.$Spin = Spin;
+Vue.prototype.$Window = window;
 
 Vue.prototype.$Notice.config({
   top: 70,

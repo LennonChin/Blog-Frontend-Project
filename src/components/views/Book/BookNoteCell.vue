@@ -62,7 +62,7 @@
             <iv-icon type="checkmark-circled"></iv-icon>
             <span>20%</span>
           </iv-progress>
-          <p class="desc">{{ bookNote.book.desc }}</p>
+          <p class="desc">{{ bookNote.book.desc | textLineBreak(140) }}</p>
           <iv-tag type="border" v-for="tag in bookTags" :key="tag.name">{{ tag.name }}</iv-tag>
         </div>
       </a>
@@ -264,14 +264,15 @@
           flex 0 0 140px
           width 140px
           overflow hidden
-          margin 0 30px 20px 0
-          padding-top 20px
+          margin 20px 30px 20px 0
+          border 1px solid $color-border-hover
+          box-shadow 1px 1px 1px $color-border
           .container
             width 100%
             position relative
             overflow hidden
             .bracket
-              margin-top 130%
+              margin-top 135%
             .target
               position absolute
               top 0

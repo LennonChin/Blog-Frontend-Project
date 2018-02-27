@@ -139,7 +139,7 @@
           params: {
             'level_min': 1,
             'level_max': 1,
-            'id': 77
+            'id': this.$Window.__category_info__.reading
           }
         }).then((response) => {
           this.categorys = response.data.results;

@@ -59,7 +59,7 @@
         articles: [],
         bannerArticles: [],
         categorys: undefined,
-        top_category: 1,
+        top_category: this.$Window.__category_info__.article,
         timeSorted: false,
         mostComment: undefined,
         recommend: undefined,
@@ -146,7 +146,7 @@
           params: {
             'level_min': 1,
             'level_max': 1,
-            'id': 1
+            'id': this.$Window.__category_info__.article
           }
         }).then((response) => {
           this.categorys = response.data.results;

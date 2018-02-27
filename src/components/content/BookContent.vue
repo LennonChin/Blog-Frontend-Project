@@ -345,7 +345,5 @@
           text-align justify
         .nav-tabs-navigation
           margin-bottom 20px
-        .nav-tabs > li
-          margin-bottom 1px
 
 </style>

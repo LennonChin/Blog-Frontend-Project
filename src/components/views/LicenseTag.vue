@@ -32,9 +32,9 @@
         text-decoration none
       .name, .type, .desc
         display inline-block
-        padding 5px 8px
+        padding 1px 8px
         margin 5px 0
-        font-size 15px
+        font-size 13px
         text-align center
       .name
         background-color $color-main-primary

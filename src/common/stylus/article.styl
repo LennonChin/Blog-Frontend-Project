@@ -17,6 +17,7 @@ article.article-main-content
     padding-top 90px;
     margin-top -70px;
     font-weight 700
+    text-align justify
     &:focus
       outline none
   h1
@@ -42,11 +43,24 @@ article.article-main-content
     color $color-typegraphy-title
     font-weight 200
     margin 15px 0
+    word-wrap break-word
   img
     display block
     width 80%
     margin 0 auto
     cursor pointer
+  blockquote
+    padding-left 12px
+    font-size 10px
+    margin 15px 0
+    word-wrap break-word
+    border-left 5px solid $color-gradually-gray-81
+    > p
+      font-size 15px
+      line-height 22px
+      color $color-gradually-gray-51
+      font-weight 200
+      margin 5px 0
 
 // 代码相关
 pre
