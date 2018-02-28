@@ -248,9 +248,9 @@
         padding 5px 0
         > i
           transition: All 0.4s ease-in-out
-          transform rotateZ(180deg)
+          transform rotateX(180deg)
           &.show
-            transform rotateZ(0deg)
+            transform rotateX(0deg)
       .book-infos
         display flex
         padding 0 20px
