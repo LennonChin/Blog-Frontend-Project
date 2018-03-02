@@ -4,7 +4,7 @@
       <iv-col :xs="24" :sm="24" :md="24" :lg="17">
         <div class="layout-left">
           <iv-affix style="position: relative;z-index: 12;">
-            <section-title v-if="this.specialCategory(this.$Window.__category_info__.article) !== undefined"
+            <section-title v-if="this.specialCategory(this.$Window.__category_info__.article) !== undefined && articles.length > 0"
                            :mainTitle="this.specialCategory(this.$Window.__category_info__.article).name"
                            :subTitle="this.specialCategory(this.$Window.__category_info__.article).subname"
                            :menus="articlesTitleMenus"
@@ -16,7 +16,7 @@
           </iv-affix>
           <article-list-cell v-for="article in articles" :article="article" :key="article.id"></article-list-cell>
           <iv-affix :offset-top="0" style="position: relative;z-index: 12;">
-            <section-title v-if="this.specialCategory(this.$Window.__category_info__.album) !== undefined"
+            <section-title v-if="this.specialCategory(this.$Window.__category_info__.album) !== undefined && albums.length > 0"
                            :mainTitle="this.specialCategory(this.$Window.__category_info__.album).name"
                            :subTitle="this.specialCategory(this.$Window.__category_info__.album).subname"
                            :menus="albumsTitleMenus"
@@ -34,7 +34,35 @@
             </iv-row>
           </div>
           <iv-affix style="position: relative;z-index: 12;">
-            <section-title v-if="this.specialCategory(this.$Window.__category_info__.reading) !== undefined"
+            <section-title v-if="this.specialCategory(this.$Window.__category_info__.reading) !== undefined && books.length > 0"
+                           :mainTitle="this.specialCategory(this.$Window.__category_info__.reading).name"
+                           :subTitle="this.specialCategory(this.$Window.__category_info__.reading).subname"
+                           :menus="booksTitleMenus"
+                           :withRefresh="true"
+                           :withTimeSelect="false"
+                           @refresh="refreshBooks"
+                           @menusControl="booksMenusControl">
+            </section-title>
+          </iv-affix>
+          <div class="books">
+            <book-cell :book="book" v-for="book in books" :key="book.id"></book-cell>
+          </div>
+          <iv-affix style="position: relative;z-index: 12;">
+            <section-title v-if="this.specialCategory(this.$Window.__category_info__.reading) !== undefined && bookNotes.length > 0"
+                           :mainTitle="this.specialCategory(this.$Window.__category_info__.reading).name + '笔记'"
+                           :subTitle="this.specialCategory(this.$Window.__category_info__.reading).subname"
+                           :menus="bookNotesTitleMenus"
+                           :withRefresh="true"
+                           :withTimeSelect="false"
+                           @refresh="refreshBookNotes"
+                           @menusControl="bookNotesMenusControl">
+            </section-title>
+          </iv-affix>
+          <div class="bookNotes">
+            <book-note-cell :bookNote="bookNote" v-for="bookNote in bookNotes" :key="bookNote.id"></book-note-cell>
+          </div>
+          <iv-affix style="position: relative;z-index: 12;">
+            <section-title v-if="this.specialCategory(this.$Window.__category_info__.reading) !== undefined && movies.length > 0"
                            :mainTitle="this.specialCategory(this.$Window.__category_info__.reading).name"
                            :subTitle="this.specialCategory(this.$Window.__category_info__.reading).subname"
                            :menus="moviesTitleMenus"
@@ -70,6 +98,8 @@
   import ArticleListCell from '@/components/views/Article/ArticleListCell';
   import SectionTitle from '@/components/views/SectionTitle';
   import TopicCard from '@/components/views/TopicCard';
+  import BookCell from '@/components/views/Book/BookCell';
+  import BookNoteCell from '@/components/views/Book/BookNoteCell';
   import MovieListItem from '@/components/views/Movie/MovieListItem';
   import About from '@/components/views/About';
   import Recommend from '@/components/views/Recommend';
@@ -78,12 +108,13 @@
   import SideToc from '@/components/views/SideToc';
 
   // API
-  import {getCategory, getPostBaseInfo} from '@/api/api';
+  import {getCategory, getArticleBaseInfo, getAlbumBaseInfo, getBookBaseInfo, getBookNoteBaseInfo, getMovieBaseInfo} from '@/api/api';
 
   export default {
     data() {
       return {
         categorys: [],
+        // 文章
         articles: [],
         mostCommentArticles: undefined,
         hotArticles: undefined,
@@ -93,6 +124,7 @@
           {title: '最热', selected: false, method: 'hot'},
           {title: '推荐', selected: false, method: 'recommend'}
         ],
+        // 摄影
         albums: [],
         mostCommentAlbums: undefined,
         hotAlbums: undefined,
@@ -102,6 +134,27 @@
           {title: '最热', selected: false, method: 'hot'},
           {title: '推荐', selected: false, method: 'recommend'}
         ],
+        // 读书
+        books: [],
+        mostCommentBooks: undefined,
+        hotBooks: undefined,
+        recommendBooks: undefined,
+        booksTitleMenus: [
+          {title: '评论最多', selected: false, method: 'mostComment'},
+          {title: '最热', selected: false, method: 'hot'},
+          {title: '推荐', selected: false, method: 'recommend'}
+        ],
+        // 笔记
+        bookNotes: [],
+        mostCommentBookNotes: undefined,
+        hotBookNotes: undefined,
+        recommendBookNotes: undefined,
+        bookNotesTitleMenus: [
+          {title: '评论最多', selected: false, method: 'mostComment'},
+          {title: '最热', selected: false, method: 'hot'},
+          {title: '推荐', selected: false, method: 'recommend'}
+        ],
+        // 电影
         movies: [],
         mostCommentMovies: undefined,
         hotMovies: undefined,
@@ -129,21 +182,21 @@
         }).catch((error) => {
           console.log(error);
         });
-
-        this.getArticles();
-        this.getAlbums();
-        this.getMovies();
+        this.getArticleBaseInfo();
+        this.getAlbumBaseInfo();
+        this.getBookBaseInfo();
+        this.getBookNoteBaseInfo();
+        this.getMovieBaseInfo();
       },
-      getArticles() {
+      getArticleBaseInfo() {
         // 文章
-        getPostBaseInfo({
+        getArticleBaseInfo({
           params: {
             is_recommend: this.recommendArticles,
             is_hot: this.hotArticles,
             ordering: this.mostCommentArticles,
             limit: 5,
-            offset: 0,
-            post_type: 'article'
+            offset: 0
           }
         }).then((response) => {
           this.articles = response.data.results;
@@ -151,16 +204,15 @@
           console.log(error);
         });
       },
-      getAlbums() {
+      getAlbumBaseInfo() {
         // 图集
-        getPostBaseInfo({
+        getAlbumBaseInfo({
           params: {
             is_recommend: this.recommendAlbums,
             is_hot: this.hotAlbums,
             ordering: this.mostCommentAlbums,
             limit: 6,
-            offset: 0,
-            post_type: 'album'
+            offset: 0
           }
         }).then((response) => {
           this.albums = response.data.results;
@@ -168,16 +220,47 @@
           console.log(error);
         });
       },
-      getMovies() {
+      getBookBaseInfo() {
+        // 读书
+        getBookBaseInfo({
+          params: {
+            is_recommend: this.recommendBooks,
+            is_hot: this.hotBooks,
+            ordering: this.mostCommentBooks,
+            limit: 6,
+            offset: 0
+          }
+        }).then((response) => {
+          this.books = response.data.results;
+        }).catch((error) => {
+          console.log(error);
+        });
+      },
+      getBookNoteBaseInfo() {
+        // 读书笔记
+        getBookNoteBaseInfo({
+          params: {
+            is_recommend: this.recommendBooks,
+            is_hot: this.hotBooks,
+            ordering: this.mostCommentBooks,
+            limit: 6,
+            offset: 0
+          }
+        }).then((response) => {
+          this.bookNotes = response.data.results;
+        }).catch((error) => {
+          console.log(error);
+        });
+      },
+      getMovieBaseInfo() {
         // 电影
-        getPostBaseInfo({
+        getMovieBaseInfo({
           params: {
             is_recommend: this.recommendMovies,
             is_hot: this.hotMovies,
             ordering: this.mostCommentMovies,
             limit: 6,
-            offset: 0,
-            post_type: 'movie'
+            offset: 0
           }
         }).then((response) => {
           this.movies = response.data.results;
@@ -189,19 +272,31 @@
         this.mostCommentArticles = undefined;
         this.hotArticles = undefined;
         this.recommendArticles = undefined;
-        this.getArticles();
+        this.getArticleBaseInfo();
       },
       refreshAlbums() {
         this.mostCommentAlbums = undefined;
         this.hotAlbums = undefined;
         this.recommendAlbums = undefined;
-        this.getAlbums();
+        this.getAlbumBaseInfo();
+      },
+      refreshBooks() {
+        this.mostCommentBooks = undefined;
+        this.hotBooks = undefined;
+        this.recommendBooks = undefined;
+        this.getBookBaseInfo();
+      },
+      refreshBookNotes() {
+        this.mostCommentBookNotes = undefined;
+        this.hotBookNotes = undefined;
+        this.recommendBookNotes = undefined;
+        this.getBookNoteBaseInfo();
       },
       refreshMovies() {
         this.mostCommentMovies = undefined;
         this.hotMovies = undefined;
         this.recommendMovies = undefined;
-        this.getMovies();
+        this.getMovieBaseInfo();
       },
       specialCategory(id) {
         if (this.categorys.length === 0) return undefined;
@@ -221,7 +316,7 @@
             this.recommendArticles = params[1] ? true : undefined;
             break;
         }
-        this.getArticles();
+        this.getArticleBaseInfo();
       },
       albumsMenusControl(params) {
         switch (params[0]) {
@@ -235,7 +330,35 @@
             this.recommendAlbums = params[1] ? true : undefined;
             break;
         }
-        this.getAlbums();
+        this.getAlbumBaseInfo();
+      },
+      booksMenusControl(params) {
+        switch (params[0]) {
+          case 'mostComment':
+            this.mostCommentBooks = params[1] ? '-comment_num' : undefined;
+            break;
+          case 'hot':
+            this.hotBooks = params[1] ? true : undefined;
+            break;
+          case 'recommend':
+            this.recommendBooks = params[1] ? true : undefined;
+            break;
+        }
+        this.getBookBaseInfo();
+      },
+      bookNotesMenusControl(params) {
+        switch (params[0]) {
+          case 'mostComment':
+            this.mostCommentBookNotes = params[1] ? '-comment_num' : undefined;
+            break;
+          case 'hot':
+            this.hotBookNotes = params[1] ? true : undefined;
+            break;
+          case 'recommend':
+            this.recommendBookNotes = params[1] ? true : undefined;
+            break;
+        }
+        this.getBookNoteBaseInfo();
       },
       moviesMenusControl(params) {
         switch (params[0]) {
@@ -249,13 +372,15 @@
             this.recommendMovies = params[1] ? true : undefined;
             break;
         }
-        this.getMovies();
+        this.getMovieBaseInfo();
       }
     },
     components: {
       'article-list-cell': ArticleListCell,
       'section-title': SectionTitle,
       'topic-card': TopicCard,
+      'book-cell': BookCell,
+      'book-note-cell': BookNoteCell,
       'movie-list-item': MovieListItem,
       'about': About,
       'recommend': Recommend,

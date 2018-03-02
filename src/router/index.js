@@ -262,7 +262,7 @@ let router = new Router({
 // 整站访问控制
 let accessGuard = (successCallBack, password, defaultEncrypt) => {
   let browseAuth = '';
-  if (defaultEncrypt === password) {
+  if (password.length === 0 || defaultEncrypt === password) {
     successCallBack();
     return;
   }

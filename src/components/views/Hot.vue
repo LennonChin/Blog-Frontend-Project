@@ -25,7 +25,7 @@
               <span class="readings"><a><iv-icon type="eye"></iv-icon> {{ articleSlice(0, 1)[0].click_num }} </a></span>
             </p>
             <div class="img" v-if="articleSlice(0, 1)[0].front_image">
-              <img :src="articleSlice(0, 1)[0].front_image" :alt="articleSlice(0, 1)[0].title">
+              <img :src="articleSlice(0, 1)[0].front_image" :alt="articleSlice(0, 1)[0].title" v-if="articleSlice(0, 1)[0].front_image_type !== 0">
             </div>
             <p class="desc" v-if="articleSlice(0, 1)[0].desc">{{ articleSlice(0, 1)[0].desc | textLineBreak(60) }}</p>
           </a>

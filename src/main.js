@@ -104,7 +104,7 @@ Vue.mixin({
     resolveImageUrl(images) {
       images.forEach((image) => {
         let imageSrc = image.getAttribute('src');
-        if (imageSrc.indexOf('http') !== 0) {
+        if (imageSrc.length > 0 && imageSrc.indexOf('http') !== 0) {
           while (imageSrc.indexOf('/') === 0) {
             // 去掉前面的反斜杠
             imageSrc = imageSrc.substr(1);

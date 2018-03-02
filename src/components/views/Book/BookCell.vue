@@ -1,5 +1,5 @@
 <template>
-  <div class="book-recommend-cell">
+  <div class="book-cell">
     <a>
       <iv-row type="flex">
         <iv-col :xs="24" :sm="24" :md="textSpan" :lg="textSpan" :order="textOrderType"
@@ -9,7 +9,7 @@
               <iv-tool-tip placement="right" content="该文章已图集，您需要输入阅读密码" v-if="book.browse_password_encrypt">
                 <iv-icon type="android-lock" color="#FA5555" v-if="book.browse_password_encrypt"></iv-icon>
               </iv-tool-tip>
-              <a @click="gotoPostDetail(book)"> {{book.title}}</a>
+              <a @click="gotoPostDetail(book)">《{{book.title}}》</a>
             </h4>
             <div class="tags">
               <iv-tag :color="tag.color" type="border" v-for="tag in book.tags" :key="tag.id">{{ tag.name }}</iv-tag>
@@ -28,7 +28,7 @@
           </div>
         </iv-col>
         <iv-col :xs="0" :sm="0" :md="imgSpan" :lg="imgSpan" :order="imgOrderType"
-                style="padding-left: 0px;padding-right: 0px"
+                style="padding-left: 0;padding-right: 0"
                 v-if="responsiveRender(false, false, imgSpan !== 0, imgSpan !== 0)">
           <div class="img-wrapper" :class="themeClass">
             <img :src="book.front_image" alt="">
@@ -126,16 +126,24 @@
   @import "../../../common/stylus/base.styl";
   @import "../../../common/stylus/index.styl";
 
-  .book-recommend-cell
+  .book-cell
     margin-bottom 15px
     background-color white
     > a
       display block
       cursor default
       border 1px solid $color-border
+      img
+        width 100%
+        transition: All 0.4s ease-in-out
+        transform: scale(1.0)
+        zoom: 1.0
       &:hover
         border 1px solid $color-border-hover
         box-shadow 1px 1px 1px $color-border
+        img
+          transform: scale(1.05)
+          zoom: 1.02
       .text-wrapper
         padding 20px 20px 0 20px
         text-align left
@@ -201,6 +209,4 @@
         overflow hidden
         &.big-image
           padding-bottom 26%
-        img
-          width 100%
 </style>

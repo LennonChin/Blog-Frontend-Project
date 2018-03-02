@@ -55,7 +55,7 @@
             <iv-tool-tip placement="right" content="该文章已加密，您需要输入阅读密码" v-if="false">
               <iv-icon type="android-lock" color="#FA5555" v-if="false"></iv-icon>
             </iv-tool-tip>
-            {{ bookNote.book.book_name }}
+            《{{ bookNote.book.book_name }}》
           </p>
           <p class="desc"><span>作者：</span>{{ bookNote.book.book_author }}</p>
           <iv-progress :percent="20" :stroke-width="6">

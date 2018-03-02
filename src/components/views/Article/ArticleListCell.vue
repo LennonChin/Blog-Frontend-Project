@@ -133,9 +133,17 @@
       display block
       cursor default
       border 1px solid $color-border
+      img
+        width 100%
+        transition: All 0.4s ease-in-out
+        transform: scale(1.0)
+        zoom: 1.0
       &:hover
         border 1px solid $color-border-hover
         box-shadow 1px 1px 1px $color-border
+        img
+          transform: scale(1.05)
+          zoom: 1.02
       .text-wrapper
         padding 20px 20px 0 20px
         text-align left
@@ -201,6 +209,6 @@
         overflow hidden
         &.big-image
           padding-bottom 26%
-        img
-          width 100%
+          box-shadow 1px 1px 1px $color-border
+
 </style>
