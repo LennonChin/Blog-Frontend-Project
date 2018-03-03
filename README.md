@@ -8,6 +8,8 @@
 
 > Note 2: The backend code repository linked with this repository is linked here [BlogBackendProject](https://github.com/LennonChin/BlogBackendProject) and the backend code is implemented using Django + Xadmin + Django Rest Framework.
 
+Blog has been online ，welcome to browse：[https://blog.coderap.com/](https://blog.coderap.com/)
+
 Front effect display：
 
 ![Home Page](https://github.com/LennonChin/Blog-Frontend-Project/blob/master/static/exhibition/frontend1.png)

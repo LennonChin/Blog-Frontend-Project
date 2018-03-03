@@ -8,6 +8,8 @@
 
 > 注2：与该仓库配合的后端代码仓库链接在此[BlogBackendProject](https://github.com/LennonChin/BlogBackendProject)，后端代码使用Django + Xadmin + Django Rest Framework实现。
 
+博客已上线，欢迎浏览：[https://blog.coderap.com/](https://blog.coderap.com/)
+
 前端效果展示：
 
 ![首页](https://github.com/LennonChin/Blog-Frontend-Project/blob/master/static/exhibition/frontend1.png)
