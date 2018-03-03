@@ -37,19 +37,7 @@ Front effect display：
 
 ## Achieved basic functions
 
-Has now developed 11 pages, basically meet the needs of conventional blog. The page is as follows:
-
-- Homepage, Routing`/`
-- Article Home, Routing`/artices`
-- Gallery Homepage, Routing`/albums`
-- Movie Homepage, routing`/movies`
-- Article List page, route`/articles/category/:id`
-- Album list page, route`/albums/category/:id`
-- Movie list page, route`/movies/category/:id`
-- Article details page, route`/article/detail/:id`
-- Album browsing page, routing`/album/detail/:id`
-- Movie details page, route`/movie/detail/:id`
-- Timeline page, route`/timeline`
+Has now developed 17 pages, basically meet the needs of conventional blog. The page is as follows:
 
 - Homepage, Routing`/`
 - Article Home, Routing`/artices`
