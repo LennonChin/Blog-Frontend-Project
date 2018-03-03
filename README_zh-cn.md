@@ -8,6 +8,20 @@
 
 > 注2：与该仓库配合的后端代码仓库链接在此[BlogBackendProject](https://github.com/LennonChin/BlogBackendProject)，后端代码使用Django + Xadmin + Django Rest Framework实现。
 
+前端效果展示：
+
+![首页](https://github.com/LennonChin/Blog-Frontend-Project/blob/master/static/exhibition/frontend1.png)
+
+![文章页](https://github.com/LennonChin/Blog-Frontend-Project/blob/master/static/exhibition/frontend2.png)
+
+![时间轴](https://github.com/LennonChin/Blog-Frontend-Project/blob/master/static/exhibition/frontend3.png)
+
+![文章详情页](https://github.com/LennonChin/Blog-Frontend-Project/blob/master/static/exhibition/frontend4.png)
+
+![评论区域](https://github.com/LennonChin/Blog-Frontend-Project/blob/master/static/exhibition/frontend5.png)
+
+![读书页](https://github.com/LennonChin/Blog-Frontend-Project/blob/master/static/exhibition/frontend6.png)
+
 ## 整体技术栈
 
 - [Vue.js ^2.5.6](https://github.com/vuejs/vue)
@@ -21,18 +35,24 @@
 
 ## 已实现的基本功能
 
-目前已经开发了11个页面，基本满足常规博客需要。页面如下：
+目前已经开发了17个页面，基本满足常规博客需要。页面如下：
 
 - 首页，路由`/`
 - 文章首页，路由`/artices`
 - 图集首页，路由`/albums`
 - 电影首页，路由`/movies`
+- 阅读首页，路由`/readings`
 - 文章列表页，路由`/articles/category/:id`
 - 图集列表页，路由`/albums/category/:id`
 - 电影列表页，路由`/movies/category/:id`
-- 文章详情页，路由`/article/detail/:id`
-- 图集浏览页，路由`/album/detail/:id`
-- 电影详情页，路由`/movie/detail/:id`
+- 阅读列表页，路由`/readings/category/:id`
+- 书籍列表页，路由`/books/category/:id`
+- 书籍笔记列表页，路由`/book/notes/category/:id`
+- 文章详情页，路由`/article/:id`
+- 图集浏览页，路由`/album/:id`
+- 电影详情页，路由`/movie/:id`
+- 书籍详情页，路由`/book/:id`
+- 书籍笔记详情页，路由`/book/note/:id`
 - 时间轴页，路由`/timeline`
 
 目前普通页面的展示功能基本开发完成，需要接下来的测试以验证细节和Bug；文章详情页面已实现代码高亮、目录、评论等功能。
@@ -43,7 +63,7 @@
 
 1. 将考虑实现SSR服务端渲染。由于目前后端使用的Django Rest Framework，SSR的支持可能推后。
 2. 接入GitHub、微信、微博、Facebook等第三方登录评论。
-3. 前端页面Markdown编辑器接入阿里云OSS存储以存放图片。
+3. 前端页面Markdown编辑器接入七牛云存储以存放图片。（已完成）
 4. 优化图集详情的展示效果。
 5. 优化打包体积。
 

@@ -8,6 +8,20 @@
 
 > Note 2: The backend code repository linked with this repository is linked here [BlogBackendProject](https://github.com/LennonChin/BlogBackendProject) and the backend code is implemented using Django + Xadmin + Django Rest Framework.
 
+Front effect display：
+
+![Home Page](https://github.com/LennonChin/Blog-Frontend-Project/blob/master/static/exhibition/frontend1.png)
+
+![Article Page](https://github.com/LennonChin/Blog-Frontend-Project/blob/master/static/exhibition/frontend2.png)
+
+![Timeline](https://github.com/LennonChin/Blog-Frontend-Project/blob/master/static/exhibition/frontend3.png)
+
+![Article Detail Page](https://github.com/LennonChin/Blog-Frontend-Project/blob/master/static/exhibition/frontend4.png)
+
+![Comment Area](https://github.com/LennonChin/Blog-Frontend-Project/blob/master/static/exhibition/frontend5.png)
+
+![Reading Page](https://github.com/LennonChin/Blog-Frontend-Project/blob/master/static/exhibition/frontend6.png)
+
 ## The overall technology stack
 
 - [Vue.js ^2.5.6](https://github.com/vuejs/vue)
@@ -35,6 +49,24 @@ Has now developed 11 pages, basically meet the needs of conventional blog. The p
 - Movie details page, route`/movie/detail/:id`
 - Timeline page, route`/timeline`
 
+- Homepage, Routing`/`
+- Article Home, Routing`/artices`
+- Gallery Homepage, Routing`/albums`
+- Movie Homepage, routing`/movies`
+- Reading Homepage, routing`/readings`
+- Article List page, route`/articles/category/:id`
+- Album list page, route`/albums/category/:id`
+- Movie list page, route`/movies/category/:id`
+- Reading list page, route`/readings/category/:id`
+- Book list page, route`/books/category/:id`
+- Book note list page, route`/book/notes/category/:id`
+- Article details page, route`/article/:id`
+- Album browsing page, routing`/album/:id`
+- Movie details page, route`/movie/:id`
+- Book details page, route`/book/:id`
+- Book note details page, route`/book/note/:id`
+- Timeline page, route`/timeline`
+
 At present, the development of ordinary pages basically completed the development, the need for the next test to verify the details and Bug; article details page has achieved code highlighting, catalogs, reviews and other functions.
 
 > Note: The code highlighting `Highlight.js` plug-in, and in order to reduce the packaging volume customize the plug-in JS package, custom plug-ins stored in`./src/common/js/highlight.pack.js`, if you need other highlights please Custom plug-ins, [custom tutorials here](http://highlightjs.readthedocs.io/en/latest/building-testing.html)
@@ -43,7 +75,7 @@ At present, the development of ordinary pages basically completed the developmen
 
 1. Will consider implementing SSR server rendering. Due to the current backend Django Rest Framework, SSR support may be postponed.
 2. Access GitHub, WeChat, Weibo, Facebook and other third-party login comments.
-3. front-end page Markdown editor access Ali OSS storage to store pictures.
+3. front-end page Markdown editor access Qiniu Cloud Storage to store pictures. (Completed)
 4. Optimize the details of the gallery display.
 5. Optimize packaging volume.
 
