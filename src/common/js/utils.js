@@ -67,6 +67,18 @@ export function loadFromLocal(id, key, def) {
 export function checkPostAuth(post, title, message, noAuthCallback, successCallback, failCallback) {
   let browseAuth = '';
   if (post.browse_password_encrypt) {
+    let checkAuth = (browseAuth, isAutoRemove) => {
+      let encryptedBrowseAuth = hexMd5(browseAuth);
+      if (encryptedBrowseAuth === post.browse_password_encrypt) {
+        successCallback(encryptedBrowseAuth);
+        if (isAutoRemove) {
+          this.$Modal.remove();
+        }
+      } else {
+        failCallback();
+      }
+    };
+
     this.$Modal.confirm({
       maskClosable: true,
       render: (h) => {
@@ -100,17 +112,19 @@ export function checkPostAuth(post, title, message, noAuthCallback, successCallb
             input: (value) => {
               browseAuth = value;
             }
+          },
+          nativeOn: {
+            keyup: (event) => {
+              if (event.keyCode === 13) {
+                checkAuth(browseAuth, true);
+              }
+            }
           }
         }));
         return h('div', {}, children);
       },
       onOk: () => {
-        let encryptedBrowseAuth = hexMd5(browseAuth);
-        if (encryptedBrowseAuth === post.browse_password_encrypt) {
-          successCallback(encryptedBrowseAuth);
-        } else {
-          failCallback();
-        }
+        checkAuth(browseAuth, false);
       }
     });
   } else {

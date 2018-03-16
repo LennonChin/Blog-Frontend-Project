@@ -279,6 +279,32 @@ let accessGuard = (successCallBack, password, defaultEncrypt) => {
       }
     }
   }
+
+  // 校验密码是否正确
+  let checkAuth = (browseAuth, isAutoRemove) => {
+    let encryptedBrowseAuth = hexMd5(browseAuth);
+    if (encryptedBrowseAuth === password) {
+      // 将认证信息保存到本地，避免多次请求
+      let siteGuardInfo = {
+        'expire_time': Date.parse(new Date()),
+        'site_access_encrypt': encryptedBrowseAuth
+      };
+      saveToLocal('site', 'site_guard_info', siteGuardInfo);
+      successCallBack();
+      if (isAutoRemove) {
+        Modal.remove();
+      }
+    } else {
+      Notice.error({
+        title: '密码错误',
+        desc: '验证失败',
+        onClose: () => {
+          accessGuard(password, successCallBack);
+        }
+      });
+    }
+  };
+
   // 弹框让访问者输入密码
   Modal.confirm({
     maskClosable: true,
@@ -314,6 +340,14 @@ let accessGuard = (successCallBack, password, defaultEncrypt) => {
           input: (value) => {
             browseAuth = value;
           }
+        },
+        nativeOn: {
+          keyup: (event) => {
+            if (event.keyCode === 13) {
+              console.log(browseAuth);
+              checkAuth(browseAuth, true);
+            }
+          }
         }
       }));
       return h('div', {}, children);
@@ -328,24 +362,7 @@ let accessGuard = (successCallBack, password, defaultEncrypt) => {
       });
     },
     onOk: () => {
-      let encryptedBrowseAuth = hexMd5(browseAuth);
-      if (encryptedBrowseAuth === password) {
-        // 将认证信息保存到本地，避免多次请求
-        let siteGuardInfo = {
-          'expire_time': Date.parse(new Date()),
-          'site_access_encrypt': encryptedBrowseAuth
-        };
-        saveToLocal('site', 'site_guard_info', siteGuardInfo);
-        successCallBack();
-      } else {
-        Notice.error({
-          title: '密码错误',
-          desc: '验证失败',
-          onClose: () => {
-            accessGuard(password, successCallBack);
-          }
-        });
-      }
+      checkAuth(browseAuth, false);
     }
   });
 };

@@ -71,7 +71,7 @@
     },
     methods: {
       getDatas() {
-        var that = this;
+        let that = this;
         getArticleDetailInfo({
           params: {
             browse_auth: this.browse_auth
@@ -100,8 +100,20 @@
         });
       },
       checkPassword(message) {
+        let checkAuth = (browseAuthInput, isAutoRemove) => {
+          this.browse_auth = hexMd5(browseAuthInput);
+          this.$router.push({
+            name: this.$router.name,
+            params: {id: this.id},
+            query: {browse_auth: this.browse_auth}
+          });
+          if (isAutoRemove) {
+            this.$Modal.remove();
+          }
+        };
+
         this.$Modal.confirm({
-          autoClosable: false,
+          autoClosable: true,
           render: (h) => {
             let children = [];
             children.push(h('h2', {
@@ -133,18 +145,19 @@
                 input: (value) => {
                   this.browse_auth_input = value;
                 }
+              },
+              nativeOn: {
+                keyup: (event) => {
+                  if (event.keyCode === 13) {
+                    checkAuth(this.browse_auth_input, true);
+                  }
+                }
               }
             }));
             return h('div', {}, children);
           },
           onOk: () => {
-            this.browse_auth = hexMd5(this.browse_auth_input);
-            this.$router.push({
-              name: 'article/detail',
-              params: {id: this.id},
-              query: {browse_auth: this.browse_auth}
-            });
-            this.getDatas();
+            checkAuth(this.browse_auth_input, false);
           }
         });
       },
