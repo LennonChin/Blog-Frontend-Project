@@ -2,7 +2,7 @@ import axios from '@/axios';
 
 // 自由API
 let localHost = 'https://blog.coderap.com/api';
-// let localHost = 'http://47.96.138.114:8000/api';
+// let localHost = 'http://169.254.181.32:8000/api';
 
 // 豆瓣Api
 // let doubanHost = 'https://api.douban.com/v2';

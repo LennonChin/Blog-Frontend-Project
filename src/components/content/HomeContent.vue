@@ -3,29 +3,25 @@
     <iv-row>
       <iv-col :xs="24" :sm="24" :md="24" :lg="17">
         <div class="layout-left">
-          <iv-affix style="position: relative;z-index: 12;">
-            <section-title v-if="this.specialCategory(this.$Window.__category_info__.article) !== undefined && articles.length > 0"
-                           :mainTitle="this.specialCategory(this.$Window.__category_info__.article).name"
-                           :subTitle="this.specialCategory(this.$Window.__category_info__.article).subname"
-                           :menus="articlesTitleMenus"
-                           :withRefresh="true"
-                           :withTimeSelect="false"
-                           @refresh="refreshArticles"
-                           @menusControl="artclesMenusControl">
-            </section-title>
-          </iv-affix>
+          <section-title v-if="this.specialCategory(this.$Window.__category_info__.article) !== undefined && articles.length > 0"
+                         :mainTitle="this.specialCategory(this.$Window.__category_info__.article).name"
+                         :subTitle="this.specialCategory(this.$Window.__category_info__.article).subname"
+                         :menus="articlesTitleMenus"
+                         :withRefresh="true"
+                         :withTimeSelect="false"
+                         @refresh="refreshArticles"
+                         @menusControl="artclesMenusControl">
+          </section-title>
           <article-list-cell v-for="article in articles" :article="article" :key="article.id"></article-list-cell>
-          <iv-affix :offset-top="0" style="position: relative;z-index: 12;">
-            <section-title v-if="this.specialCategory(this.$Window.__category_info__.album) !== undefined && albums.length > 0"
-                           :mainTitle="this.specialCategory(this.$Window.__category_info__.album).name"
-                           :subTitle="this.specialCategory(this.$Window.__category_info__.album).subname"
-                           :menus="albumsTitleMenus"
-                           :withRefresh="true"
-                           :withTimeSelect="false"
-                           @refresh="refreshAlbums"
-                           @menusControl="albumsMenusControl">
-            </section-title>
-          </iv-affix>
+          <section-title v-if="this.specialCategory(this.$Window.__category_info__.album) !== undefined && albums.length > 0"
+                         :mainTitle="this.specialCategory(this.$Window.__category_info__.album).name"
+                         :subTitle="this.specialCategory(this.$Window.__category_info__.album).subname"
+                         :menus="albumsTitleMenus"
+                         :withRefresh="true"
+                         :withTimeSelect="false"
+                         @refresh="refreshAlbums"
+                         @menusControl="albumsMenusControl">
+          </section-title>
           <div class="topic-cards">
             <iv-row :gutter="10">
               <iv-col :xs="24" :sm="12" :md="8" :lg="8" :xl="8" v-for="album in albums" :key="album.id">
@@ -33,45 +29,39 @@
               </iv-col>
             </iv-row>
           </div>
-          <iv-affix style="position: relative;z-index: 12;">
-            <section-title v-if="this.specialCategory(this.$Window.__category_info__.reading) !== undefined && books.length > 0"
-                           :mainTitle="this.specialCategory(this.$Window.__category_info__.reading).name"
-                           :subTitle="this.specialCategory(this.$Window.__category_info__.reading).subname"
-                           :menus="booksTitleMenus"
-                           :withRefresh="true"
-                           :withTimeSelect="false"
-                           @refresh="refreshBooks"
-                           @menusControl="booksMenusControl">
-            </section-title>
-          </iv-affix>
+          <section-title v-if="this.specialCategory(this.$Window.__category_info__.reading) !== undefined && books.length > 0"
+                         :mainTitle="this.specialCategory(this.$Window.__category_info__.reading).name"
+                         :subTitle="this.specialCategory(this.$Window.__category_info__.reading).subname"
+                         :menus="booksTitleMenus"
+                         :withRefresh="true"
+                         :withTimeSelect="false"
+                         @refresh="refreshBooks"
+                         @menusControl="booksMenusControl">
+          </section-title>
           <div class="books">
             <book-cell :book="book" v-for="book in books" :key="book.id"></book-cell>
           </div>
-          <iv-affix style="position: relative;z-index: 12;">
-            <section-title v-if="this.specialCategory(this.$Window.__category_info__.reading) !== undefined && bookNotes.length > 0"
-                           :mainTitle="this.specialCategory(this.$Window.__category_info__.reading).name + '笔记'"
-                           :subTitle="this.specialCategory(this.$Window.__category_info__.reading).subname"
-                           :menus="bookNotesTitleMenus"
-                           :withRefresh="true"
-                           :withTimeSelect="false"
-                           @refresh="refreshBookNotes"
-                           @menusControl="bookNotesMenusControl">
-            </section-title>
-          </iv-affix>
+          <section-title v-if="this.specialCategory(this.$Window.__category_info__.reading) !== undefined && bookNotes.length > 0"
+                         :mainTitle="this.specialCategory(this.$Window.__category_info__.reading).name + '笔记'"
+                         :subTitle="this.specialCategory(this.$Window.__category_info__.reading).subname"
+                         :menus="bookNotesTitleMenus"
+                         :withRefresh="true"
+                         :withTimeSelect="false"
+                         @refresh="refreshBookNotes"
+                         @menusControl="bookNotesMenusControl">
+          </section-title>
           <div class="bookNotes">
             <book-note-cell :bookNote="bookNote" v-for="bookNote in bookNotes" :key="bookNote.id"></book-note-cell>
           </div>
-          <iv-affix style="position: relative;z-index: 12;">
-            <section-title v-if="this.specialCategory(this.$Window.__category_info__.reading) !== undefined && movies.length > 0"
-                           :mainTitle="this.specialCategory(this.$Window.__category_info__.reading).name"
-                           :subTitle="this.specialCategory(this.$Window.__category_info__.reading).subname"
-                           :menus="moviesTitleMenus"
-                           :withRefresh="true"
-                           :withTimeSelect="false"
-                           @refresh="refreshMovies"
-                           @menusControl="moviesMenusControl">
-            </section-title>
-          </iv-affix>
+          <section-title v-if="this.specialCategory(this.$Window.__category_info__.reading) !== undefined && movies.length > 0"
+                         :mainTitle="this.specialCategory(this.$Window.__category_info__.reading).name"
+                         :subTitle="this.specialCategory(this.$Window.__category_info__.reading).subname"
+                         :menus="moviesTitleMenus"
+                         :withRefresh="true"
+                         :withTimeSelect="false"
+                         @refresh="refreshMovies"
+                         @menusControl="moviesMenusControl">
+          </section-title>
           <div class="movies">
             <iv-row :gutter="10">
               <iv-col :xs="12" :sm="12" :md="8" :lg="8" v-for="movie in movies" :key="movie.id"
