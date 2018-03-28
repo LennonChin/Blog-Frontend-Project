@@ -58,9 +58,9 @@
             《{{ bookNote.book.book_name }}》
           </p>
           <p class="desc"><span>作者：</span>{{ bookNote.book.book_author }}</p>
-          <iv-progress :percent="20" :stroke-width="6">
+          <iv-progress :percent="bookNote.book.read_precentage" :stroke-width="6">
             <iv-icon type="checkmark-circled"></iv-icon>
-            <span>20%</span>
+            <span>{{bookNote.book.read_precentage}}%</span>
           </iv-progress>
           <p class="desc">{{ bookNote.book.desc | textLineBreak(140) }}</p>
           <iv-tag type="border" v-for="tag in bookTags" :key="tag.name">{{ tag.name }}</iv-tag>
