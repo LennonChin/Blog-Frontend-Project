@@ -9,7 +9,7 @@
               <iv-tool-tip placement="right" content="该文章已图集，您需要输入阅读密码" v-if="book.browse_password_encrypt">
                 <iv-icon type="android-lock" color="#FA5555" v-if="book.browse_password_encrypt"></iv-icon>
               </iv-tool-tip>
-              <a @click="gotoPostDetail(book)">《{{book.title}}》</a>
+              <a @click="gotoPostDetail(book)">{{book.title}}</a>
             </h4>
             <div class="tags">
               <iv-tag :color="tag.color" type="border" v-for="tag in book.tags" :key="tag.id">{{ tag.name }}</iv-tag>
