@@ -38,7 +38,8 @@ import {
   Spin,
   Tooltip,
   BackTop,
-  Rate
+  Rate,
+  AutoComplete
 } from 'iview';
 
 Vue.prototype.$http = Axios;
@@ -78,6 +79,7 @@ Vue.component('iv-backtop', BackTop);
 Vue.component('iv-spin', Spin);
 Vue.component('iv-tool-tip', Tooltip);
 Vue.component('iv-rate', Rate);
+Vue.component('iv-auto-complete', AutoComplete);
 
 // 全局混合
 Vue.mixin({

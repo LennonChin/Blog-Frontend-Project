@@ -208,6 +208,11 @@ export const verifyEmailCode = params => {
   }
 };
 
+// 搜索
+export const search = params => {
+  return axios.get(`${localHost}/search/`, params);
+};
+
 // 豆瓣API
 export const getDoubanInfo = params => {
   if ('type' in params && 'id' in params) {

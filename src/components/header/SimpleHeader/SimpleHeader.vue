@@ -10,6 +10,27 @@
         <span>{{ siteInfo.name }}</span>
       </router-link>
       <ul id="nav">
+        <!-- 搜索框 -->
+        <li>
+          <iv-auto-complete
+            v-model="value4"
+            icon="ios-search"
+            placeholder="输入搜索内容"
+            @on-change="search"
+            style="width:300px">
+            <div class="demo-auto-complete-item" v-for="item in data4">
+              <div class="demo-auto-complete-group">
+                <span>{{ item.title }}</span>
+                <a href="https://www.google.com/search?q=iView" target="_blank">更多</a>
+              </div>
+              <iv-option v-for="option in item.children" :value="option.title" :key="option.title">
+                <span class="demo-auto-complete-title">{{ option.title }}</span>
+                <span class="demo-auto-complete-count">{{ option.count }} 人关注</span>
+              </iv-option>
+            </div>
+            <a href="https://www.google.com/search?q=iView" target="_blank" class="demo-auto-complete-more">查看所有结果</a>
+          </iv-auto-complete>
+        </li>
         <!-- 类别导航 -->
         <li class="nav-dropdown-container" v-for="category_level1 in categorys">
           <router-link class="nav-link" :to="rootRouterLink(category_level1)">
@@ -36,20 +57,6 @@
             {{ navigation.name }}
           </a>
         </li>
-        <!-- 搜索框 -->
-        <li>
-          <form id="search-form">
-            <span class="algolia-autocomplete" style="position: relative; display: inline-block; direction: ltr;">
-              <input type="text"
-                     id="search-query-nav"
-                     class="search-query st-default-search-input aa-input"
-                     autocomplete="off" spellcheck="false" role="combobox" aria-autocomplete="list"
-                     aria-expanded="false"
-                     aria-owns="algolia-autocomplete-listbox-0" dir="auto"
-                     style="position: relative; vertical-align: top;"/>
-            </span>
-          </form>
-        </li>
       </ul>
     </div>
     <sidebar :categorys="this.categorys" v-if="responsiveRender(true, true, true, false)" ref="sidebar"></sidebar>
@@ -58,14 +65,52 @@
 
 <script type="text/ecmascript-6">
   import SideBar from '@/components/header/SimpleHeader/SideBar';
-  import {getSiteInfo, getCategorys} from '@/api/api';
+  import {getSiteInfo, getCategorys, search} from '@/api/api';
   import {saveToLocal, loadFromLocal} from '@/common/js/utils';
 
   export default {
     data() {
       return {
         categorys: [],
-        siteInfo: []
+        siteInfo: [],
+        value4: '',
+        data4: [
+          {
+            title: '话题',
+            children: [
+              {
+                title: 'iView',
+                count: 10000
+              },
+              {
+                title: 'iView UI',
+                count: 10600
+              }
+            ]
+          },
+          {
+            title: '问题',
+            children: [
+              {
+                title: 'iView UI 有多好',
+                count: 60100
+              },
+              {
+                title: 'iView 是啥',
+                count: 30010
+              }
+            ]
+          },
+          {
+            title: '文章',
+            children: [
+              {
+                title: 'iView 是一个设计语言',
+                count: 100000
+              }
+            ]
+          }
+        ]
       };
     },
     created: function () {
@@ -146,6 +191,18 @@
           console.log(error);
         });
       },
+      search() {
+        console.log('search');
+        search({
+          params: {
+            'title__contains': '入门'
+          }
+        }).then((response) => {
+          console.log(response.data);
+        }).catch((error) => {
+          console.log(error);
+        });
+      },
       rootRouterLink(category) {
         let router = {};
         router.name = category.category_type;
@@ -160,7 +217,7 @@
       },
       showMobileMenu() {
         // 显示手机端的菜单
-        var sidebar = this.$refs.sidebar;
+        let sidebar = this.$refs.sidebar;
         sidebar.toggleSideBar();
       }
     },
@@ -172,4 +229,30 @@
 
 <style lang="stylus" type="text/stylus" rel="stylesheet/stylus">
   @import "stylus/header.styl";
+  .demo-auto-complete-item{
+    padding: 4px 0;
+    border-bottom: 1px solid #F6F6F6;
+  }
+  .demo-auto-complete-group{
+    font-size: 12px;
+    padding: 4px 6px;
+  }
+  .demo-auto-complete-group span{
+    color: #666;
+    font-weight: bold;
+  }
+  .demo-auto-complete-group a{
+    float: right;
+  }
+  .demo-auto-complete-count{
+    float: right;
+    color: #999;
+  }
+  .demo-auto-complete-more{
+    display: block;
+    margin: 0 auto;
+    padding: 4px;
+    text-align: center;
+    font-size: 12px;
+  }
 </style>
