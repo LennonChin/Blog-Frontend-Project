@@ -27,6 +27,10 @@
               <div class="rating"></div>
             </a>
             <vue-tabs class="infos"  @tab-change="handleTabChange">
+              <v-tab title="简介">
+                <p class="author" v-html="bookDoubanInfo.author_intro"></p>
+                <p class="summary" v-html="bookDoubanInfo.summary"></p>
+              </v-tab>
               <v-tab title="读书目录">
                 <book-catalog :book="book"></book-catalog>
               </v-tab>
@@ -42,10 +46,6 @@
                   </div>
                 </div>
                 <!--<p class="summary" v-html="book.detail.formatted_content"></p>-->
-              </v-tab>
-              <v-tab title="简介">
-                <p class="author" v-html="bookDoubanInfo.author_intro"></p>
-                <p class="summary" v-html="bookDoubanInfo.summary"></p>
               </v-tab>
             </vue-tabs>
           </div>

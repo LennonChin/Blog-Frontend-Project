@@ -98,7 +98,7 @@
       setDefaultCategory(categoryId) {
         let recursiveCategorys = [];
         let recursiveCategoryIds = [];
-        var recursiveCategory = function (categorys, selectCategoryId) {
+        let recursiveCategory = function (categorys, selectCategoryId) {
           if (categoryId === null || categoryId === undefined) return null;
           for (let index = 0; index < categorys.length; index++) {
             let category = categorys[index];
