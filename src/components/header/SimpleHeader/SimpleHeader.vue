@@ -13,22 +13,23 @@
         <!-- 搜索框 -->
         <li>
           <iv-auto-complete
-            v-model="value4"
+            v-model="searchKeyWords"
             icon="ios-search"
             placeholder="输入搜索内容"
-            @on-change="search"
+            @on-search="search"
+            @on-select="selectSearchResult"
             style="width:300px">
-            <div class="demo-auto-complete-item" v-for="item in data4">
+            <div class="demo-auto-complete-item" v-for="(values, key) in searchResult">
               <div class="demo-auto-complete-group">
-                <span>{{ item.title }}</span>
+                <span>{{ key }}</span>
                 <a href="https://www.google.com/search?q=iView" target="_blank">更多</a>
               </div>
-              <iv-option v-for="option in item.children" :value="option.title" :key="option.title">
-                <span class="demo-auto-complete-title">{{ option.title }}</span>
-                <span class="demo-auto-complete-count">{{ option.count }} 人关注</span>
+              <iv-option v-for="(value, index) in values.slice(0, 5)" :value="value.title" :key="index">
+                <span class="demo-auto-complete-title">{{ value.title }}</span>
+                <span class="demo-auto-complete-count">{{ value.add_time | socialDate }}</span>
               </iv-option>
+              <a href="" target="_blank" class="demo-auto-complete-more" v-if="values.length > 5">查看所有结果</a>
             </div>
-            <a href="https://www.google.com/search?q=iView" target="_blank" class="demo-auto-complete-more">查看所有结果</a>
           </iv-auto-complete>
         </li>
         <!-- 类别导航 -->
@@ -73,44 +74,8 @@
       return {
         categorys: [],
         siteInfo: [],
-        value4: '',
-        data4: [
-          {
-            title: '话题',
-            children: [
-              {
-                title: 'iView',
-                count: 10000
-              },
-              {
-                title: 'iView UI',
-                count: 10600
-              }
-            ]
-          },
-          {
-            title: '问题',
-            children: [
-              {
-                title: 'iView UI 有多好',
-                count: 60100
-              },
-              {
-                title: 'iView 是啥',
-                count: 30010
-              }
-            ]
-          },
-          {
-            title: '文章',
-            children: [
-              {
-                title: 'iView 是一个设计语言',
-                count: 100000
-              }
-            ]
-          }
-        ]
+        searchKeyWords: '',
+        searchResult: []
       };
     },
     created: function () {
@@ -192,16 +157,22 @@
         });
       },
       search() {
-        console.log('search');
+        console.log(this.searchKeyWords);
+        if (this.searchKeyWords.length === 0) {
+          return;
+        }
         search({
           params: {
-            'title__contains': '入门'
+            'title__contains': this.searchKeyWords
           }
         }).then((response) => {
-          console.log(response.data);
+          this.searchResult = response.data;
         }).catch((error) => {
           console.log(error);
         });
+      },
+      selectSearchResult(link) {
+        window.open(link, '_blank');
       },
       rootRouterLink(category) {
         let router = {};

@@ -3,14 +3,14 @@ import {getUploadToken, uploadImage} from '@/api/api';
 
 // 按社交方式格式化时间
 export function socialDateFormat(formateDate) {
-  var timestamp = Date.parse(new Date(formateDate));
+  let timestamp = Date.parse(new Date(formateDate));
   // 获取时间戳
-  var time = new Date().getTime();
+  let time = new Date().getTime();
   // 去掉时间戳后三位，保持一致
   time = parseInt((time - timestamp) / 1000);
 
   // 存储转换值
-  var s;
+  let s;
   if (time < 60 * 10) {
     // 十分钟内
     return '刚刚';
@@ -28,7 +28,7 @@ export function socialDateFormat(formateDate) {
     return s + '天前';
   } else {
     // 超过3天
-    var date = new Date(parseInt(timestamp));
+    let date = new Date(parseInt(timestamp));
     return date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
   }
 };
