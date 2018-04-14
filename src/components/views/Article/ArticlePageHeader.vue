@@ -24,7 +24,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import {addPostLike} from '@/api/api';
+  import API from '@/api/client-api';
 
   export default {
     props: {
@@ -35,7 +35,7 @@
     },
     methods: {
       likePost(post) {
-        addPostLike({
+        API.addPostLike({
           post_id: post.id
         }).then((response) => {
           post.like_num += 1;

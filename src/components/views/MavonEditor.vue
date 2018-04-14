@@ -68,7 +68,7 @@
   import 'mavon-editor/dist/css/index.css';
   import {loadFromLocal, saveToLocal, uploadFile} from '@/common/js/utils';
   // API
-  import {getEmailCode, verifyEmailCode, addCommentInfo} from '@/api/api';
+  import API from '@/api/client-api';
 
   export default {
     props: {
@@ -279,7 +279,7 @@
           // 该邮箱在本地没有评论记录,需要验证邮箱
           this.publishing = true;
           let that = this;
-          getEmailCode({
+          API.getEmailCode({
             nick_name: this.nickName,
             email: this.email
           }).then((response) => {
@@ -342,7 +342,7 @@
             this.publishing = false;
           },
           onOk: () => {
-            verifyEmailCode({
+            API.verifyEmailCode({
               params: {
                 email: that.email,
                 nick_name: that.nickName,
@@ -369,7 +369,7 @@
       },
       publish() {
         let that = this;
-        addCommentInfo({
+        API.addCommentInfo({
           detail: {
             origin_content: this.origin_content
           },

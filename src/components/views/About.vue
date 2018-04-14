@@ -23,7 +23,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import {getBloggerInfo} from '@/api/api';
+  import API from '@/api/client-api';
   import {saveToLocal, loadFromLocal} from '@/common/js/utils';
 
   export default {
@@ -51,7 +51,7 @@
     },
     methods: {
       getBloggerInfo() {
-        getBloggerInfo({
+        API.getBloggerInfo({
           params: {}
         }).then((response) => {
           this.bloggerInfo = response.data[0];

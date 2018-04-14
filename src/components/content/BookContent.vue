@@ -71,7 +71,7 @@
   import Recommend from '@/components/views/Recommend';
   import SideToc from '@/components/views/SideToc';
   import SocialSection from '@/components/views/Comment/SocialSection';
-  import {getBookDetailInfo, getDoubanInfo} from '@/api/api';
+  import API from '@/api/client-api';
   // highlight.js引入
   import hljs from '@/common/js/highlight.pack';
   // 样式文件
@@ -108,8 +108,8 @@
     },
     methods: {
       getBookDetailInfo() {
-        var that = this;
-        getBookDetailInfo({
+        let that = this;
+        API.getBookDetailInfo({
           params: {
             browse_auth: this.browse_auth
           },
@@ -140,7 +140,7 @@
         });
       },
       getDoubanInfo(doubanType, doubanId) {
-        getDoubanInfo({
+        API.getDoubanInfo({
           id: doubanId,
           type: doubanType
         }).then((response) => {

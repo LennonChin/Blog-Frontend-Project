@@ -55,7 +55,7 @@
 
 <script type="text/ecmascript-6">
   import Panel from '@/components/views/Panel';
-  import {getPostBaseInfo, addPostLike} from '@/api/api';
+  import API from '@/api/client-api';
   import {checkPostAuth} from '@/common/js/utils';
 
   export default {
@@ -69,7 +69,7 @@
     },
     methods: {
       getDatas() {
-        getPostBaseInfo({
+        API.getPostBaseInfo({
           params: {
             is_recommend: true,
             limit: 5,
@@ -98,7 +98,7 @@
         });
       },
       likePost(post) {
-        addPostLike({
+        API.addPostLike({
           post_id: post.id
         }).then((response) => {
           post.like_num += 1;

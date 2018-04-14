@@ -1,5 +1,9 @@
 import Vue from 'vue';
-import router from '@/router';
+// vue router相关
+import VueRouter from 'vue-router';
+import Vuex from 'vuex';
+import createRouter from './router/router';
+import createStore from './store/store';
 import 'iview/dist/styles/iview.css';
 import App from './App.vue';
 import Viewer from 'v-viewer';
@@ -41,6 +45,13 @@ import {
   Rate,
   AutoComplete
 } from 'iview';
+
+Vue.use(VueRouter);
+Vue.use(Vuex);
+Vue.use(Viewer);
+
+const router = createRouter();
+const store = createStore();
 
 Vue.prototype.$http = Axios;
 Vue.prototype.$Modal = Modal;
@@ -150,11 +161,8 @@ Vue.mixin({
 
 let vm = new Vue({
   router,
-  el: '#app',
+  store,
   render: h => h(App)
 });
 
-Vue.use(Viewer);
-Vue.use({
-  vm
-});
+vm.$mount('#app');

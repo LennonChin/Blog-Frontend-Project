@@ -71,7 +71,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import {addPostLike} from '@/api/api';
+  import API from '@/api/client-api';
   import {checkPostAuth} from '@/common/js/utils';
 
   const ARTICLE_TYPE_NO_IMAGE = 0;
@@ -152,7 +152,7 @@
         console.log(this.showBookInfo);
       },
       likePost(post) {
-        addPostLike({
+        API.addPostLike({
           post_id: post.id
         }).then((response) => {
           post.like_num += 1;

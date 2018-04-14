@@ -66,7 +66,7 @@
   import CommentListCell from '@/components/views/Comment/CommentListCell';
   import BrowseMore from '@/components/views/BrowseMore';
   // API
-  import {getCommentInfo, addPostLike} from '@/api/api';
+  import API from '@/api/client-api';
 
   const COMMENT_DEFAULT_LIMIT = 10;
 
@@ -121,7 +121,7 @@
       //   }
       // },
       getCommentInfo() {
-        getCommentInfo({
+        API.getCommentInfo({
           params: {
             post_id: this.article.id,
             comment_level: 0,
@@ -143,7 +143,7 @@
         });
       },
       likePost(post) {
-        addPostLike({
+        API.addPostLike({
           post_id: post.id
         }).then((response) => {
           post.like_num += 1;
@@ -199,7 +199,7 @@
         return parentComment;
       },
       showMoreSubComments(parentComment) {
-        getCommentInfo({
+        API.getCommentInfo({
           params: {
             post_id: this.article.id,
             parent_comment: parentComment.id,

@@ -57,7 +57,7 @@
   import BrowseMore from '@/components/views/BrowseMore';
 
   // API
-  import {getBookBaseInfo, getBookNoteBaseInfo, getCategorys} from '@/api/api';
+  import API from '@/api/client-api';
 
   const DEFAULT_LIMIT_SIZE = 10;
 //  const MAX_LIMIT_SIZE = 100;
@@ -218,7 +218,7 @@
         this.getBookNoteBaseInfo();
       },
       getCategorys() {
-        getCategorys({
+        API.getCategorys({
           params: {
             'level_min': 1,
             'level_max': 1,
@@ -246,7 +246,7 @@
               orderings.push('-comment_num');
             }
           }
-          getBookBaseInfo({
+          API.getBookBaseInfo({
             params: {
               top_category: this.top_category,
               ordering: orderings.toString(),
@@ -337,7 +337,7 @@
               orderings.push('-comment_num');
             }
           }
-          getBookNoteBaseInfo({
+          API.getBookNoteBaseInfo({
             params: {
               top_category: this.top_category,
               ordering: orderings.toString(),

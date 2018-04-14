@@ -22,7 +22,7 @@
   // 加密
   import {hexMd5} from '@/common/js/md5';
   // API
-  import {getAlbumDetailInfo} from '@/api/api';
+  import API from '@/api/client-api';
 
   export default {
     data() {
@@ -40,7 +40,7 @@
     methods: {
       getDatas() {
         var that = this;
-        getAlbumDetailInfo({
+        API.getAlbumDetailInfo({
           params: {
             browse_auth: this.browse_auth
           },

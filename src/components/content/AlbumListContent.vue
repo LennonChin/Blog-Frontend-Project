@@ -42,7 +42,7 @@
   import BrowseMore from '@/components/views/BrowseMore';
 
   // API
-  import {getAlbumBaseInfo, getCategorys} from '@/api/api';
+  import API from '@/api/client-api';
 
   const DEFAULT_LIMIT_SIZE = 6;
   const MAX_LIMIT_SIZE = 100;
@@ -131,7 +131,7 @@
         this.getAlbumBaseInfo();
       },
       getCategorys() {
-        getCategorys({
+        API.getCategorys({
           params: {
             'level_min': 1,
             'level_max': 1,
@@ -159,7 +159,7 @@
               orderings.push('-comment_num');
             }
           }
-          getAlbumBaseInfo({
+          API.getAlbumBaseInfo({
             params: {
               top_category: this.top_category,
               ordering: orderings.toString(),

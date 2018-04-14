@@ -45,7 +45,7 @@
   // 加密
   import {hexMd5} from '@/common/js/md5';
   // API
-  import {getArticleDetailInfo} from '@/api/api';
+  import API from '@/api/client-api';
 
   var HLJS = hljs;
 
@@ -72,7 +72,7 @@
     methods: {
       getDatas() {
         let that = this;
-        getArticleDetailInfo({
+        API.getArticleDetailInfo({
           params: {
             browse_auth: this.browse_auth
           },

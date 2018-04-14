@@ -67,7 +67,7 @@
   // highlight.js引入
   import hljs from '@/common/js/highlight.pack';
   // Api
-  import {likeOrUnlikeComment} from '@/api/api';
+  import API from '@/api/client-api';
   // utils
   import {hexMd5} from '@/common/js/md5';
 
@@ -151,7 +151,7 @@
         this.$emit('publishedComment', comment);
       },
       likeComment(comment) {
-        likeOrUnlikeComment({
+        API.likeOrUnlikeComment({
           comment_id: comment.id,
           operation: true
         }).then((response) => {
@@ -162,7 +162,7 @@
         });
       },
       unlikeComment(comment) {
-        likeOrUnlikeComment({
+        API.likeOrUnlikeComment({
           comment_id: comment.id,
           operation: false
         }).then((response) => {

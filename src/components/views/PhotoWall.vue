@@ -47,7 +47,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import {getIndexBanners} from '@/api/api';
+  import API from '@/api/client-api';
 
   export default {
     data() {
@@ -56,7 +56,7 @@
       };
     },
     created() {
-      getIndexBanners({
+      API.getIndexBanners({
         params: {
           top_category: 1
         }

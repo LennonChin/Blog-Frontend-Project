@@ -48,7 +48,7 @@
   // 加密
   import {hexMd5} from '@/common/js/md5';
   // API
-  import {getMovieDetailInfo} from '@/api/api';
+  import API from '@/api/client-api';
 
   var HLJS = hljs;
 
@@ -74,8 +74,8 @@
     },
     methods: {
       getDatas() {
-        var that = this;
-        getMovieDetailInfo({
+        let that = this;
+        API.getMovieDetailInfo({
           params: {
             browse_auth: this.browse_auth
           },

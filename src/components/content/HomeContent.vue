@@ -98,7 +98,7 @@
   import SideToc from '@/components/views/SideToc';
 
   // API
-  import {getCategory, getArticleBaseInfo, getAlbumBaseInfo, getBookBaseInfo, getBookNoteBaseInfo, getMovieBaseInfo} from '@/api/api';
+  import API from '@/api/client-api';
 
   export default {
     data() {
@@ -162,7 +162,7 @@
     methods: {
       getDatas() {
         // 分类
-        getCategory({
+        API.getCategory({
           params: {
             level_min: 1,
             level_max: 1
@@ -180,7 +180,7 @@
       },
       getArticleBaseInfo() {
         // 文章
-        getArticleBaseInfo({
+        API.getArticleBaseInfo({
           params: {
             is_recommend: this.recommendArticles,
             is_hot: this.hotArticles,
@@ -196,7 +196,7 @@
       },
       getAlbumBaseInfo() {
         // 图集
-        getAlbumBaseInfo({
+        API.getAlbumBaseInfo({
           params: {
             is_recommend: this.recommendAlbums,
             is_hot: this.hotAlbums,
@@ -212,7 +212,7 @@
       },
       getBookBaseInfo() {
         // 读书
-        getBookBaseInfo({
+        API.getBookBaseInfo({
           params: {
             is_recommend: this.recommendBooks,
             is_hot: this.hotBooks,
@@ -228,7 +228,7 @@
       },
       getBookNoteBaseInfo() {
         // 读书笔记
-        getBookNoteBaseInfo({
+        API.getBookNoteBaseInfo({
           params: {
             is_recommend: this.recommendBooks,
             is_hot: this.hotBooks,
@@ -244,7 +244,7 @@
       },
       getMovieBaseInfo() {
         // 电影
-        getMovieBaseInfo({
+        API.getMovieBaseInfo({
           params: {
             is_recommend: this.recommendMovies,
             is_hot: this.hotMovies,

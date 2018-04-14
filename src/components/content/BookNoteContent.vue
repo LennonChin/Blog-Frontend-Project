@@ -46,7 +46,7 @@
   // 加密
   import {hexMd5} from '@/common/js/md5';
   // API
-  import {getBookNoteDetailInfo} from '@/api/api';
+  import API from '@/api/client-api';
 
   var HLJS = hljs;
 
@@ -72,8 +72,8 @@
     },
     methods: {
       getDatas() {
-        var that = this;
-        getBookNoteDetailInfo({
+        let that = this;
+        API.getBookNoteDetailInfo({
           params: {
             browse_auth: this.browse_auth
           },

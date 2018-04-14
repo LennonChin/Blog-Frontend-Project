@@ -48,7 +48,7 @@
   import BrowseMore from '@/components/views/BrowseMore';
 
   // API
-  import {getArticleBaseInfo, getCategorys} from '@/api/api';
+  import API from '@/api/client-api';
 
   const DEFAULT_LIMIT_SIZE = 10;
   const MAX_LIMIT_SIZE = 100;
@@ -142,7 +142,7 @@
         this.getBannerArticleBaseInfo();
       },
       getCategorys() {
-        getCategorys({
+        API.getCategorys({
           params: {
             'level_min': 1,
             'level_max': 1,
@@ -155,7 +155,7 @@
         });
       },
       getBannerArticleBaseInfo() {
-        getArticleBaseInfo({
+        API.getArticleBaseInfo({
           params: {
             top_category: this.top_category,
             is_banner: true
@@ -182,7 +182,7 @@
               orderings.push('-comment_num');
             }
           }
-          getArticleBaseInfo({
+          API.getArticleBaseInfo({
             params: {
               top_category: this.top_category,
               ordering: orderings.toString(),

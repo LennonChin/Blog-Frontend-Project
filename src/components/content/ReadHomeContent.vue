@@ -47,7 +47,7 @@
   import TagWall from '@/components/views/TagWall';
 
   // API
-  import {getBookBaseInfo, getBookNoteBaseInfo, getCategorys} from '@/api/api';
+  import API from '@/api/client-api';
 
   const DEFAULT_LIMIT_SIZE = 10;
   // const MAX_LIMIT_SIZE = 100;
@@ -77,7 +77,7 @@
     },
     methods: {
       getCategorys() {
-        getCategorys({
+        API.getCategorys({
           params: {
             'level_min': 1,
             'level_max': 1,
@@ -105,7 +105,7 @@
               orderings.push('-comment_num');
             }
           }
-          getBookBaseInfo({
+          API.getBookBaseInfo({
             params: {
               ordering: orderings.toString(),
               is_recommend: this.recommend,
@@ -144,7 +144,7 @@
               orderings.push('-comment_num');
             }
           }
-          getBookNoteBaseInfo({
+          API.getBookNoteBaseInfo({
             params: {
               ordering: orderings.toString(),
               is_recommend: this.recommend,

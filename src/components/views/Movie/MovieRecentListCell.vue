@@ -60,7 +60,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import {addPostLike} from '@/api/api';
+  import API from '@/api/client-api';
   import {checkPostAuth} from '@/common/js/utils';
 
   export default {
@@ -86,7 +86,7 @@
         });
       },
       likePost(post) {
-        addPostLike({
+        API.addPostLike({
           post_id: post.id
         }).then((response) => {
           post.like_num += 1;

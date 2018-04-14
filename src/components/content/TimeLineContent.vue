@@ -49,7 +49,7 @@
   import BrowseMore from '@/components/views/BrowseMore';
 
   // API
-  import {getPostBaseInfo, getCategorys} from '@/api/api';
+  import API from '@/api/client-api';
 
   const DEFAULT_LIMIT_SIZE = 10;
   const MAX_LIMIT_SIZE = 100;
@@ -134,7 +134,7 @@
         this.getPostBaseInfo();
       },
       getCategorys() {
-        getCategorys({
+        API.getCategorys({
           params: {
             'level_min': 1,
             'level_max': 1
@@ -162,7 +162,7 @@
               orderings.push('-comment_num');
             }
           }
-          getPostBaseInfo({
+          API.getPostBaseInfo({
             params: {
               top_category: this.top_category,
               ordering: orderings.toString(),

@@ -11,7 +11,7 @@
 
 <script type="text/ecmascript-6">
   import Panel from '@/components/views/Panel';
-  import { getTags } from '@/api/api';
+  import API from '@/api/client-api';
 
   export default {
     data() {
@@ -24,7 +24,7 @@
     },
     methods: {
       getDatas() {
-        getTags({
+        API.getTags({
           params: {}
         }).then((response) => {
           this.tags = response.data;

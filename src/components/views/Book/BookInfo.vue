@@ -31,7 +31,7 @@
 
 <script type="text/ecmascript-6">
   import Panel from '@/components/views/Panel';
-  import {getDoubanInfo} from '@/api/api';
+  import API from '@/api/client-api';
 
   export default {
     props: {
@@ -53,7 +53,7 @@
         if (book) {
           this.bookDoubanInfo = this.formatLocalBookInfo(book);
         } else {
-          getDoubanInfo({
+          API.getDoubanInfo({
             id: book.douban_id,
             type: book.douban_type
           }).then((response) => {

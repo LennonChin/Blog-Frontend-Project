@@ -66,7 +66,7 @@
 
 <script type="text/ecmascript-6">
   import SideBar from '@/components/header/SimpleHeader/SideBar';
-  import {getSiteInfo, getCategorys, search} from '@/api/api';
+  import API from '@/api/client-api';
   import {saveToLocal, loadFromLocal} from '@/common/js/utils';
 
   export default {
@@ -121,7 +121,7 @@
     },
     methods: {
       getCategorys() {
-        getCategorys({
+        API.getCategorys({
           params: {
             level_min: 1,
             level_max: 1,
@@ -140,7 +140,7 @@
         });
       },
       getSiteInfo() {
-        getSiteInfo({
+        API.getSiteInfo({
           params: {
             'is_active': true
           }
@@ -161,7 +161,7 @@
         if (this.searchKeyWords.length === 0) {
           return;
         }
-        search({
+        API.search({
           params: {
             'title__contains': this.searchKeyWords
           }

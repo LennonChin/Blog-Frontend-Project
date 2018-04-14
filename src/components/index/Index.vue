@@ -1,7 +1,9 @@
 <template>
   <div class="main-wrapper">
     <router-view name="header" keep-alive></router-view>
-    <router-view name="content" keep-alive></router-view>
+    <transition name="fade" mode="out-in">
+      <router-view name="content" keep-alive></router-view>
+    </transition>
     <router-view name="footer" keep-alive></router-view>
   </div>
 </template>

@@ -37,7 +37,7 @@
 <script type="text/ecmascript-6">
   import LicenseTag from '@/components/views/LicenseTag';
   import SocialSection from '@/components/views/Comment/SocialSection';
-  import {addPostLike} from '@/api/api';
+  import API from '@/api/client-api';
 
   export default {
     props: {
@@ -61,7 +61,7 @@
         }
       },
       likePost(post) {
-        addPostLike({
+        API.addPostLike({
           post_id: post.id
         }).then((response) => {
           post.like_num += 1;

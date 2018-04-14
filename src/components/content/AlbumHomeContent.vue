@@ -40,7 +40,7 @@
   import {checkPostAuth} from '@/common/js/utils';
 
   // API
-  import {getCategorys, getAlbumBaseInfo, getIndexBanners} from '@/api/api';
+  import API from '@/api/client-api';
 
   const DEFAULT_LIMIT_SIZE = 6;
 
@@ -89,7 +89,7 @@
         this.getIndexBanners();
       },
       getIndexBanners() {
-        getIndexBanners({
+        API.getIndexBanners({
           params: {
             top_category: 5
           }
@@ -100,7 +100,7 @@
         });
       },
       getAlbumBaseInfo() {
-        getAlbumBaseInfo({
+        API.getAlbumBaseInfo({
           params: {
             top_category: this.selectedCategory.id,
             limit: this.limit_size,
@@ -120,7 +120,7 @@
         });
       },
       getCategorys() {
-        getCategorys({
+        API.getCategorys({
           params: {
             level_min: 1,
             level_max: 3,
