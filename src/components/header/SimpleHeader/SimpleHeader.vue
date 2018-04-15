@@ -1,10 +1,10 @@
 <template>
   <div class="simple-header" v-if="siteInfo">
-    <div id="mobile-bar" v-if="responsiveRender(true, true, true, false)">
+    <div id="mobile-bar" v-if="false">
       <a class="menu-button" @click="showMobileMenu"></a>
       <router-link class="logo" to="/"></router-link>
     </div>
-    <div id="header" v-if="responsiveRender(false, false, false, true)">
+    <div id="header">
       <router-link id="logo" to="/">
         <img :src="siteInfo.icon">
         <span>{{ siteInfo.name }}</span>
@@ -12,7 +12,7 @@
       <ul id="nav">
         <!-- 搜索框 -->
         <li>
-          <iv-auto-complete
+          <i-auto-complete
             v-model="searchKeyWords"
             icon="ios-search"
             placeholder="输入搜索内容"
@@ -24,13 +24,13 @@
                 <span>{{ key }}</span>
                 <a href="https://www.google.com/search?q=iView" target="_blank">更多</a>
               </div>
-              <iv-option v-for="(value, index) in values.slice(0, 5)" :value="value.title" :key="index">
+              <i-option v-for="(value, index) in values.slice(0, 5)" :value="value.title" :key="index">
                 <span class="demo-auto-complete-title">{{ value.title }}</span>
                 <span class="demo-auto-complete-count">{{ value.add_time | socialDate }}</span>
-              </iv-option>
+              </i-option>
               <a href="" target="_blank" class="demo-auto-complete-more" v-if="values.length > 5">查看所有结果</a>
             </div>
-          </iv-auto-complete>
+          </i-auto-complete>
         </li>
         <!-- 类别导航 -->
         <li class="nav-dropdown-container" v-for="category_level1 in categorys">
@@ -60,14 +60,13 @@
         </li>
       </ul>
     </div>
-    <sidebar :categorys="this.categorys" v-if="responsiveRender(true, true, true, false)" ref="sidebar"></sidebar>
+    <sidebar :categorys="this.categorys" ref="sidebar"></sidebar>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
   import SideBar from '@/components/header/SimpleHeader/SideBar';
   import API from '@/api/client-api';
-  import {saveToLocal, loadFromLocal} from '@/common/js/utils';
 
   export default {
     data() {
@@ -79,45 +78,8 @@
       };
     },
     created: function () {
-      // 如果后台控制了强制刷新，即强制刷新
-      if (window.__force_refresh__) {
-        console.log('重新请求category_info');
-        this.getCategorys();
-        console.log('重新请求site_info');
-        this.getSiteInfo();
-        return;
-      }
-      // 分类信息
-      let categoryInfo = loadFromLocal('site', 'category_info', null);
-      if (categoryInfo) {
-        let expireTime = categoryInfo['expire_time'];
-        let nowTimestamp = Date.parse(new Date());
-        if (expireTime !== null && nowTimestamp - expireTime > 24 * 3600 * 1000) {
-          console.log('重新请求category_info');
-          this.getCategorys();
-        } else {
-          this.categorys = categoryInfo['category_info'];
-        }
-      } else {
-        console.log('重新请求category_info');
-        this.getCategorys();
-      }
-
-      // 网站信息
-      let siteInfo = loadFromLocal('site', 'site_info', null);
-      if (siteInfo) {
-        let expireTime = categoryInfo['expire_time'];
-        let nowTimestamp = Date.parse(new Date());
-        if (expireTime !== null && nowTimestamp - expireTime > 24 * 3600 * 1000) {
-          console.log('重新请求site_info');
-          this.getSiteInfo();
-        } else {
-          this.siteInfo = siteInfo['site_info'];
-        }
-      } else {
-        console.log('重新请求site_info');
-        this.getSiteInfo();
-      }
+      this.getCategorys();
+      this.getSiteInfo();
     },
     methods: {
       getCategorys() {
@@ -129,12 +91,6 @@
           }
         }).then((response) => {
           this.categorys = response.data.results;
-          // 将分类信息保存到本地，避免多次请求
-          let categoryInfo = {
-            'expire_time': Date.parse(new Date()),
-            'category_info': this.categorys
-          };
-          saveToLocal('site', 'category_info', categoryInfo);
         }).catch((error) => {
           console.log(error);
         });
@@ -146,12 +102,6 @@
           }
         }).then((response) => {
           this.siteInfo = response.data[0];
-          // 将站点信息保存到本地，避免多次请求
-          let siteInfo = {
-            'expire_time': Date.parse(new Date()),
-            'site_info': this.siteInfo
-          };
-          saveToLocal('site', 'site_info', siteInfo);
         }).catch((error) => {
           console.log(error);
         });

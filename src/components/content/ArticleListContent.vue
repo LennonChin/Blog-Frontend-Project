@@ -1,7 +1,7 @@
 <template>
   <div class="article-list-content layout-content">
-    <iv-row>
-      <iv-col :xs="24" :sm="24" :md="24" :lg="17">
+    <i-row>
+      <i-col :xs="24" :sm="24" :md="24" :lg="17">
         <div class="layout-left">
           <classify-menu :categorys="categorys" @selectCategory="selectCategory"
                          :defaultCategory="top_category"></classify-menu>
@@ -19,14 +19,14 @@
           <article-list-cell v-for="article in articles" :article="article" :key="article.title"></article-list-cell>
           <browse-more @browseMore="browseMore" ref="browseMore"></browse-more>
         </div>
-      </iv-col>
-      <iv-col :xs="0" :sm="0" :md="0" :lg="7">
+      </i-col>
+      <i-col :xs="0" :sm="0" :md="0" :lg="7">
         <div class="layout-right">
           <recommend></recommend>
           <tag-wall style="margin-top: 15px;"></tag-wall>
         </div>
-      </iv-col>
-    </iv-row>
+      </i-col>
+    </i-row>
   </div>
 </template>
 

@@ -1,7 +1,7 @@
 <template>
   <div class="book-note-content layout-content" v-if="article != undefined">
-    <iv-row>
-      <iv-col :xs="24" :sm="24" :md="24" :lg="17">
+    <i-row>
+      <i-col :xs="24" :sm="24" :md="24" :lg="17">
         <div class="layout-left">
           <article-page-header :article="article"></article-page-header>
           <article-page-content>
@@ -15,17 +15,17 @@
           </article-page-content>
           <article-page-footer :article="article"></article-page-footer>
         </div>
-      </iv-col>
-      <iv-col :xs="0" :sm="0" :md="0" :lg="7">
+      </i-col>
+      <i-col :xs="0" :sm="0" :md="0" :lg="7">
         <div class="layout-right">
           <book-info :book="article.book"></book-info>
           <recommend style="margin-top: 15px;"></recommend>
-          <iv-affix :offset-top="60" v-if="responsiveRender(false, false, false, true)">
+          <i-affix :offset-top="60">
             <side-toc style="margin-top: 15px;" ref="sideToc"></side-toc>
-          </iv-affix>
+          </i-affix>
         </div>
-      </iv-col>
-    </iv-row>
+      </i-col>
+    </i-row>
   </div>
 </template>
 
@@ -133,7 +133,7 @@
                 'modal-message': true
               }
             }));
-            children.push(h('iv-input', {
+            children.push(h('i-input', {
               props: {
                 type: 'password',
                 autofocus: true,
@@ -212,7 +212,6 @@
           this.$nextTick(() => {
             this.addCodeLineNumber();
             this.addTocScrollSpy();
-            window.scrollTo(0, 0);
           });
         }
       }

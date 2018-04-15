@@ -8,9 +8,9 @@
       </div>
       <div class="bottom-area">
         <h4 class="title">
-          <iv-tool-tip placement="right" content="该图集已图集，您需要输入阅读密码" v-if="album.browse_password_encrypt">
-            <iv-icon type="android-lock" color="#FA5555" v-if="album.browse_password_encrypt"></iv-icon>
-          </iv-tool-tip>
+          <i-tool-tip placement="right" content="该图集已图集，您需要输入阅读密码" v-if="album.browse_password_encrypt">
+            <i-icon type="android-lock" color="#FA5555" v-if="album.browse_password_encrypt"></i-icon>
+          </i-tool-tip>
           <a :title="album.title" @click="gotoPostDetail(album)">{{ album.title | textLineBreak(11) }}</a>
         </h4>
         <p class="info"><span class="author"><a>By / {{ album.author }}</a></span></p>

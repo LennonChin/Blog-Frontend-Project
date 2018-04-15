@@ -1,48 +1,48 @@
 <template>
   <div class="photowall">
-    <iv-row>
-      <iv-col span="12" style="padding-left: 0;padding-right: 0;">
+    <i-row>
+      <i-col span="12" style="padding-left: 0;padding-right: 0;">
         <div class="big-photo">
           <a href="">
             <img :src="getBannerImage(0)" alt="">
           </a>
         </div>
-      </iv-col>
-      <iv-col span="12" style="padding-left: 0;padding-right: 0;">
-        <iv-row>
-          <iv-col span="12" style="padding-left: 0;padding-right: 0;">
+      </i-col>
+      <i-col span="12" style="padding-left: 0;padding-right: 0;">
+        <i-row>
+          <i-col span="12" style="padding-left: 0;padding-right: 0;">
             <div class="small-photo">
               <a href="">
                 <img :src="getBannerImage(1)" alt="">
               </a>
             </div>
-          </iv-col>
-          <iv-col span="12" style="padding-left: 0;padding-right: 0;">
+          </i-col>
+          <i-col span="12" style="padding-left: 0;padding-right: 0;">
             <div class="small-photo">
               <a href="">
                 <img :src="getBannerImage(2)" alt="">
               </a>
             </div>
-          </iv-col>
-        </iv-row>
-        <iv-row>
-          <iv-col span="12" style="padding-left: 0;padding-right: 0;">
+          </i-col>
+        </i-row>
+        <i-row>
+          <i-col span="12" style="padding-left: 0;padding-right: 0;">
             <div class="small-photo">
               <a href="">
                 <img :src="getBannerImage(3)" alt="">
               </a>
             </div>
-          </iv-col>
-          <iv-col span="12" style="padding-left: 0;padding-right: 0;">
+          </i-col>
+          <i-col span="12" style="padding-left: 0;padding-right: 0;">
             <div class="small-photo">
               <a href="">
                 <img :src="getBannerImage(4)" alt="">
               </a>
             </div>
-          </iv-col>
-        </iv-row>
-      </iv-col>
-    </iv-row>
+          </i-col>
+        </i-row>
+      </i-col>
+    </i-row>
   </div>
 </template>
 

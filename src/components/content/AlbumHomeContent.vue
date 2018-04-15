@@ -19,11 +19,11 @@
     <classify-wall @selectCategory="selectCategory" :categorys="categorys"></classify-wall>
     <section-title :mainTitle="selectedCategory.name" :subTitle="selectedCategory.subname"></section-title>
     <div class="thumb-cards">
-      <iv-row>
-        <iv-col :xs="24" :sm="12" :md="8" :lg="8" v-for="album in albums" :key="album.tag">
+      <i-row>
+        <i-col :xs="24" :sm="12" :md="8" :lg="8" v-for="album in albums" :key="album.tag">
           <thumb-card :album="album"></thumb-card>
-        </iv-col>
-      </iv-row>
+        </i-col>
+      </i-row>
     </div>
     <browse-more @browseMore="browseMore" ref="browseMore"></browse-more>
   </div>

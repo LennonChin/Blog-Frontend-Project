@@ -27,16 +27,26 @@ module.exports = {
   },
   dev: {
     env: require('./dev.env'),
+    host: '0.0.0.0',
     port: process.env.PORT || 8090,
     autoOpenBrowser: true,
     assetsSubDirectory: 'static',
-    assetsPublicPath: '/',
+    assetsPublicPath: `${process.env.HOST || 'http://localhost'}:${process.env.PORT || 8090}/`,
     proxyTable: {
       '/api': {
         target: 'https://api.douban.com/v2',
         changeOrigin: true,
         pathRewrite: {
           '^/api': ''
+        }
+      },
+      '/static': {
+        target: {
+          host: "0.0.0.0",
+          changeOrigin: true,
+        },
+        pathRewrite: {
+          '^/static': ''
         }
       }
     },

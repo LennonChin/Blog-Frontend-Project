@@ -6,7 +6,11 @@
 
 <script>
   export default {
-    name: 'app'
+    name: 'app',
+    metaInfo: {
+      title: '首页',
+      titleTemplate: '%s | Diomedes'
+    }
   };
 </script>
 

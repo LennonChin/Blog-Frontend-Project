@@ -1,18 +1,18 @@
 <template>
   <div class="album-preview-content">
-    <iv-row>
-      <iv-col :xs="24" :sm="24" :md="16" :lg="18">
+    <i-row>
+      <i-col :xs="24" :sm="24" :md="16" :lg="18">
         <div class="album-preview">
           <album-carousel v-if="album != undefined && album.pictures.length > 0"
                           :pictures="album.pictures"
                           @slideToIndex="slideToIndex"
                           @close="back"></album-carousel>
         </div>
-      </iv-col>
-      <iv-col :xs="24" :sm="24" :md="8" :lg="6">
+      </i-col>
+      <i-col :xs="24" :sm="24" :md="8" :lg="6">
         <album-infos v-if="album != undefined" :album="album" ref="albumInfos"></album-infos>
-      </iv-col>
-    </iv-row>
+      </i-col>
+    </i-row>
   </div>
 </template>
 
@@ -98,7 +98,7 @@
                 'modal-message': true
               }
             }));
-            children.push(h('iv-input', {
+            children.push(h('i-input', {
               props: {
                 type: 'password',
                 autofocus: true,

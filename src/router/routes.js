@@ -25,7 +25,6 @@ const BookNoteListContent = () => System.import('@/components/content/BookNoteLi
 export default [
   {
     path: '/',
-    name: 'app',
     component: Index,
     children: [
       {

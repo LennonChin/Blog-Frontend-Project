@@ -1,6 +1,6 @@
 <template>
   <div class="common-footer">
-    <iv-backtop :height="500" :bottom="backTopBottom" :right="20"></iv-backtop>
+    <i-backtop :height="500" :bottom="backTopBottom" :right="20"></i-backtop>
     <p class="copyright">
       <a href="http://www.miibeian.gov.cn/">鄂ICP备14018621号-2</a><span>|</span>
       版权所有 ©  2008 - 2018<span>|</span>以商业目的使用本网站内容需获许可，非商业目的使用授权遵循
@@ -15,7 +15,7 @@
 export default {
   computed: {
     backTopBottom() {
-      return this.responsiveRender(true, true, false, false) ? 20 : 120;
+      return 120;
     }
   }
 };

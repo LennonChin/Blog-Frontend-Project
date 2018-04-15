@@ -1,25 +1,25 @@
 <template>
   <div class="social-section" v-if="article != undefined" ref="socialSection">
-    <iv-spin size="large" v-if="showSpin" fix style="z-index: 99;"></iv-spin>
-    <iv-menu :active-name="'1'" :class="theme" mode="horizontal">
-      <iv-menu-item name="1" style="padding-left: 0;" @click.native="likePost(article)">
-        <iv-icon type="heart"></iv-icon>
+    <i-spin size="large" v-if="showSpin" fix style="z-index: 99;"></i-spin>
+    <i-menu :active-name="'1'" :class="theme" mode="horizontal">
+      <i-menu-item name="1" style="padding-left: 0;" @click.native="likePost(article)">
+        <i-icon type="heart"></i-icon>
         {{ article.like_num }} 人觉得很赞
-      </iv-menu-item>
-      <!--<iv-submenu name="3" style="padding-left: 0;">-->
+      </i-menu-item>
+      <!--<i-submenu name="3" style="padding-left: 0;">-->
       <!--<template slot="title">-->
-      <!--<iv-icon type="android-share-alt"></iv-icon>-->
+      <!--<i-icon type="android-share-alt"></i-icon>-->
       <!--分享-->
       <!--</template>-->
-      <!--<iv-menu-item name="3-1">菜单</iv-menu-item>-->
-      <!--<iv-menu-item name="3-2">菜单</iv-menu-item>-->
-      <!--<iv-menu-item name="3-3">菜单</iv-menu-item>-->
-      <!--<iv-menu-item name="3-2">菜单</iv-menu-item>-->
-      <!--<iv-menu-item name="3-3">菜单</iv-menu-item>-->
-      <!--<iv-menu-item name="3-2">菜单</iv-menu-item>-->
-      <!--<iv-menu-item name="3-3">菜单</iv-menu-item>-->
-      <!--</iv-submenu>-->
-    </iv-menu>
+      <!--<i-menu-item name="3-1">菜单</i-menu-item>-->
+      <!--<i-menu-item name="3-2">菜单</i-menu-item>-->
+      <!--<i-menu-item name="3-3">菜单</i-menu-item>-->
+      <!--<i-menu-item name="3-2">菜单</i-menu-item>-->
+      <!--<i-menu-item name="3-3">菜单</i-menu-item>-->
+      <!--<i-menu-item name="3-2">菜单</i-menu-item>-->
+      <!--<i-menu-item name="3-3">菜单</i-menu-item>-->
+      <!--</i-submenu>-->
+    </i-menu>
     <!--<div class="content">-->
     <!--<div class="likes">-->
     <!--<a href=""><img src="../../../assets/avatar.png" alt=""></a>-->

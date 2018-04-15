@@ -12,17 +12,6 @@ LoadingBar.config({
   height: 2
 });
 
-let titleIdiom = [
-  '蜂采百花酿甜蜜，人读群书明真理',
-  '己所不欲，勿施于人',
-  '理想是人生的太阳',
-  '人生贵知心，定交无暮早',
-  '真实是人生的命脉，是一切价值的根基',
-  '人生中最困难者，莫过于选择',
-  '有所作为是生活的最高境界',
-  '爱情不过是一种疯'
-];
-
 // 整站访问控制
 let accessGuard = (successCallBack, password, defaultEncrypt) => {
   let browseAuth = '';
@@ -90,7 +79,7 @@ let accessGuard = (successCallBack, password, defaultEncrypt) => {
           'modal-message': true
         }
       }));
-      children.push(h('iv-input', {
+      children.push(h('i-input', {
         props: {
           type: 'password',
           autofocus: true,
@@ -144,21 +133,6 @@ export default () => {
         return { x: 0, y: 0 };
       }
     }
-  });
-
-  router.beforeEach((to, from, next) => {
-    LoadingBar.start();
-    document.title = '加载中...';
-    let defaultEncrypt = to.query.access_auth;
-    accessGuard(next, window.__access_auth__, defaultEncrypt);
-  });
-
-  router.afterEach((to, from, next) => {
-    // 停止进度条
-    LoadingBar.finish();
-    // 修改网页标题
-    document.title = to.matched[to.matched.length - 1].meta.title + ' - ' + titleIdiom[Math.floor(Math.random() * titleIdiom.length)];
-    window.scrollTo(0, 0);
   });
 
   return router;

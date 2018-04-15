@@ -1,7 +1,7 @@
 <template>
   <div class="album-list-content layout-content">
-    <iv-row>
-      <iv-col :xs="24" :sm="24" :md="24" :lg="17">
+    <i-row>
+      <i-col :xs="24" :sm="24" :md="24" :lg="17">
         <div class="layout-left">
           <classify-menu :categorys="categorys" @selectCategory="selectCategory" :defaultCategory="top_category"></classify-menu>
           <section-title :mainTitle="'图集列表'"
@@ -15,21 +15,21 @@
                          @comfirmDateSelect="dateSelect"
                          @clearDateSelect="dateSelectClear">
           </section-title>
-          <iv-row>
-            <iv-col :xs="24" :sm="12" :md="12" :lg="12" v-for="album in albums" :key="album.tag">
+          <i-row>
+            <i-col :xs="24" :sm="12" :md="12" :lg="12" v-for="album in albums" :key="album.tag">
               <thumb-card :album="album"></thumb-card>
-            </iv-col>
-          </iv-row>
+            </i-col>
+          </i-row>
           <browse-more @browseMore="browseMore" ref="browseMore"></browse-more>
         </div>
-      </iv-col>
-      <iv-col :xs="0" :sm="0" :md="0" :lg="7">
+      </i-col>
+      <i-col :xs="0" :sm="0" :md="0" :lg="7">
         <div class="layout-right">
           <recommend></recommend>
           <tag-wall style="margin-top: 15px;"></tag-wall>
         </div>
-      </iv-col>
-    </iv-row>
+      </i-col>
+    </i-row>
   </div>
 </template>
 

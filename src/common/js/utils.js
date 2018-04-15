@@ -35,6 +35,7 @@ export function socialDateFormat(formateDate) {
 
 // 存储到LocalStorage
 export function saveToLocal(id, key, value) {
+  if (!window) return;
   let blog = window.localStorage.__blog__;
   if (!blog) {
     blog = {};
@@ -51,6 +52,7 @@ export function saveToLocal(id, key, value) {
 
 // 从LocalStorage中取
 export function loadFromLocal(id, key, def) {
+  if (!window) return;
   let blog = window.localStorage.__blog__;
   if (!blog) {
     return def;
@@ -99,7 +101,7 @@ export function checkPostAuth(post, title, message, noAuthCallback, successCallb
             'modal-message': true
           }
         }));
-        children.push(h('iv-input', {
+        children.push(h('i-input', {
           props: {
             type: 'password',
             autofocus: true,

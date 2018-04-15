@@ -1,40 +1,39 @@
 <template>
   <div class="book-cell">
     <a>
-      <iv-row type="flex">
-        <iv-col :xs="24" :sm="24" :md="textSpan" :lg="textSpan" :order="textOrderType"
+      <i-row type="flex">
+        <i-col :xs="24" :sm="24" :md="textSpan" :lg="textSpan" :order="textOrderType"
                 style="padding-left: 0;padding-right: 0;">
           <div class="text-wrapper">
             <h4 class="title">
-              <iv-tool-tip placement="right" content="该文章已图集，您需要输入阅读密码" v-if="book.browse_password_encrypt">
-                <iv-icon type="android-lock" color="#FA5555" v-if="book.browse_password_encrypt"></iv-icon>
-              </iv-tool-tip>
+              <i-tool-tip placement="right" content="该文章已图集，您需要输入阅读密码" v-if="book.browse_password_encrypt">
+                <i-icon type="android-lock" color="#FA5555" v-if="book.browse_password_encrypt"></i-icon>
+              </i-tool-tip>
               <a @click="gotoPostDetail(book)">{{book.title}}</a>
             </h4>
             <div class="tags">
-              <iv-tag :color="tag.color" type="border" v-for="tag in book.tags" :key="tag.id">{{ tag.name }}</iv-tag>
+              <i-tag :color="tag.color" type="border" v-for="tag in book.tags" :key="tag.id">{{ tag.name }}</i-tag>
             </div>
             <p class="desc">{{book.desc | textLineBreak(70) }}
               <a @click="gotoPostDetail(book)"> View More
-                <iv-icon type="arrow-right-b"></iv-icon>
+                <i-icon type="arrow-right-b"></i-icon>
               </a>
             </p>
             <p class="operate_info">
               <span class="publish-time"><a>{{ book.add_time | socialDate }}</a></span>
-              <span class="readings"><a><iv-icon type="eye"></iv-icon> {{book.click_num}} 阅</a></span>
-              <span class="comments"><a><iv-icon type="compose"></iv-icon> {{book.comment_num}} 评</a></span>
-              <span class="likes"><a @click="likePost(book)"><iv-icon type="heart"></iv-icon> {{book.like_num}} 赞</a></span>
+              <span class="readings"><a><i-icon type="eye"></i-icon> {{book.click_num}} 阅</a></span>
+              <span class="comments"><a><i-icon type="compose"></i-icon> {{book.comment_num}} 评</a></span>
+              <span class="likes"><a @click="likePost(book)"><i-icon type="heart"></i-icon> {{book.like_num}} 赞</a></span>
             </p>
           </div>
-        </iv-col>
-        <iv-col :xs="0" :sm="0" :md="imgSpan" :lg="imgSpan" :order="imgOrderType"
-                style="padding-left: 0;padding-right: 0"
-                v-if="responsiveRender(false, false, imgSpan !== 0, imgSpan !== 0)">
+        </i-col>
+        <i-col :xs="0" :sm="0" :md="imgSpan" :lg="imgSpan" :order="imgOrderType"
+                style="padding-left: 0;padding-right: 0">
           <div class="img-wrapper" :class="themeClass">
             <img :src="book.front_image" alt="">
           </div>
-        </iv-col>
-      </iv-row>
+        </i-col>
+      </i-row>
     </a>
   </div>
 </template>

@@ -1,11 +1,11 @@
 <template>
   <div class="home-content layout-content">
-    <iv-row>
-      <iv-col :xs="24" :sm="24" :md="24" :lg="17">
+    <i-row>
+      <i-col :xs="24" :sm="24" :md="24" :lg="17">
         <div class="layout-left">
-          <section-title v-if="this.specialCategory(this.$Window.__category_info__.article) !== undefined && articles.length > 0"
-                         :mainTitle="this.specialCategory(this.$Window.__category_info__.article).name"
-                         :subTitle="this.specialCategory(this.$Window.__category_info__.article).subname"
+          <section-title v-if="this.specialCategory(1) !== undefined && articles.length > 0"
+                         :mainTitle="this.specialCategory(1).name"
+                         :subTitle="this.specialCategory(1).subname"
                          :menus="articlesTitleMenus"
                          :withRefresh="true"
                          :withTimeSelect="false"
@@ -13,9 +13,9 @@
                          @menusControl="artclesMenusControl">
           </section-title>
           <article-list-cell v-for="article in articles" :article="article" :key="article.id"></article-list-cell>
-          <section-title v-if="this.specialCategory(this.$Window.__category_info__.album) !== undefined && albums.length > 0"
-                         :mainTitle="this.specialCategory(this.$Window.__category_info__.album).name"
-                         :subTitle="this.specialCategory(this.$Window.__category_info__.album).subname"
+          <section-title v-if="this.specialCategory(3) !== undefined && albums.length > 0"
+                         :mainTitle="this.specialCategory(3).name"
+                         :subTitle="this.specialCategory(3).subname"
                          :menus="albumsTitleMenus"
                          :withRefresh="true"
                          :withTimeSelect="false"
@@ -23,15 +23,15 @@
                          @menusControl="albumsMenusControl">
           </section-title>
           <div class="topic-cards">
-            <iv-row :gutter="10">
-              <iv-col :xs="24" :sm="12" :md="8" :lg="8" :xl="8" v-for="album in albums" :key="album.id">
+            <i-row :gutter="10">
+              <i-col :xs="24" :sm="12" :md="8" :lg="8" :xl="8" v-for="album in albums" :key="album.id">
                 <topic-card :album="album"></topic-card>
-              </iv-col>
-            </iv-row>
+              </i-col>
+            </i-row>
           </div>
-          <section-title v-if="this.specialCategory(this.$Window.__category_info__.reading) !== undefined && books.length > 0"
-                         :mainTitle="this.specialCategory(this.$Window.__category_info__.reading).name"
-                         :subTitle="this.specialCategory(this.$Window.__category_info__.reading).subname"
+          <section-title v-if="this.specialCategory(2) !== undefined && books.length > 0"
+                         :mainTitle="this.specialCategory(2).name"
+                         :subTitle="this.specialCategory(2).subname"
                          :menus="booksTitleMenus"
                          :withRefresh="true"
                          :withTimeSelect="false"
@@ -41,9 +41,9 @@
           <div class="books">
             <book-cell :book="book" v-for="book in books" :key="book.id"></book-cell>
           </div>
-          <section-title v-if="this.specialCategory(this.$Window.__category_info__.reading) !== undefined && bookNotes.length > 0"
-                         :mainTitle="this.specialCategory(this.$Window.__category_info__.reading).name + '笔记'"
-                         :subTitle="this.specialCategory(this.$Window.__category_info__.reading).subname"
+          <section-title v-if="this.specialCategory(2) !== undefined && bookNotes.length > 0"
+                         :mainTitle="this.specialCategory(2).name + '笔记'"
+                         :subTitle="this.specialCategory(2).subname"
                          :menus="bookNotesTitleMenus"
                          :withRefresh="true"
                          :withTimeSelect="false"
@@ -53,9 +53,9 @@
           <div class="bookNotes">
             <book-note-cell :bookNote="bookNote" v-for="bookNote in bookNotes" :key="bookNote.id"></book-note-cell>
           </div>
-          <section-title v-if="this.specialCategory(this.$Window.__category_info__.reading) !== undefined && movies.length > 0"
-                         :mainTitle="this.specialCategory(this.$Window.__category_info__.reading).name"
-                         :subTitle="this.specialCategory(this.$Window.__category_info__.reading).subname"
+          <section-title v-if="this.specialCategory(2) !== undefined && movies.length > 0"
+                         :mainTitle="this.specialCategory(2).name"
+                         :subTitle="this.specialCategory(2).subname"
                          :menus="moviesTitleMenus"
                          :withRefresh="true"
                          :withTimeSelect="false"
@@ -63,24 +63,24 @@
                          @menusControl="moviesMenusControl">
           </section-title>
           <div class="movies">
-            <iv-row :gutter="10">
-              <iv-col :xs="12" :sm="12" :md="8" :lg="8" v-for="movie in movies" :key="movie.id"
-                      style="margin-bottom: 10px;">
+            <i-row :gutter="10">
+              <i-col :xs="12" :sm="12" :md="8" :lg="8" v-for="movie in movies" :key="movie.id"
+                     style="margin-bottom: 10px;">
                 <movie-list-item :movie="movie"></movie-list-item>
-              </iv-col>
-            </iv-row>
+              </i-col>
+            </i-row>
           </div>
         </div>
-      </iv-col>
-      <iv-col :xs="24" :sm="24" :md="24" :lg="7">
+      </i-col>
+      <i-col :xs="24" :sm="24" :md="24" :lg="7">
         <div class="layout-right">
-          <about v-if="responsiveRender(false, false, false, true)"></about>
+          <about></about>
           <recommend style="margin-top:15px;"></recommend>
           <hot style="margin-top:15px;"></hot>
           <friend-links style="margin-top:15px;"></friend-links>
         </div>
-      </iv-col>
-    </iv-row>
+      </i-col>
+    </i-row>
   </div>
 </template>
 
@@ -101,6 +101,9 @@
   import API from '@/api/client-api';
 
   export default {
+    metaInfo: {
+      title: '首页'
+    },
     data() {
       return {
         categorys: [],

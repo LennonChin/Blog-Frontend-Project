@@ -1,7 +1,7 @@
 <template>
   <div class="book-overview-content layout-content" v-if="bookDoubanInfo != undefined">
-    <iv-row>
-      <iv-col :xs="24" :sm="24" :md="24" :lg="17">
+    <i-row>
+      <i-col :xs="24" :sm="24" :md="24" :lg="17">
         <div class="layout-left">
           <div class="book-base-info">
             <a>
@@ -20,9 +20,9 @@
                 <p class="desc"><span>出版日期：</span>{{ bookDoubanInfo.publish_date }}</p>
                 <p class="desc"><span>页数：</span>{{ bookDoubanInfo.pages }}</p>
                 <p class="desc"><span>评分：</span>
-                  <iv-rate v-model="bookDoubanInfo.rating.average * 0.5" :allowHalf="true" :disabled="true"></iv-rate>
+                  <i-rate v-model="bookDoubanInfo.rating.average * 0.5" :allowHalf="true" :disabled="true"></i-rate>
                 </p>
-                <iv-tag type="border" v-for="tag in bookDoubanInfo.tags" :key="tag.name">{{ tag.name }}</iv-tag>
+                <i-tag type="border" v-for="tag in bookDoubanInfo.tags" :key="tag.name">{{ tag.name }}</i-tag>
               </div>
               <div class="rating"></div>
             </a>
@@ -51,16 +51,16 @@
           </div>
           <social-section :article="book"></social-section>
         </div>
-      </iv-col>
-      <iv-col :xs="0" :sm="0" :md="0" :lg="7">
+      </i-col>
+      <i-col :xs="0" :sm="0" :md="0" :lg="7">
         <div class="layout-right">
           <recommend></recommend>
-          <iv-affix :offset-top="60" v-if="responsiveRender(false, false, false, true)" v-show="showToc">
+          <i-affix :offset-top="60" v-show="showToc">
             <side-toc style="margin-top: 15px;" ref="sideToc"></side-toc>
-          </iv-affix>
+          </i-affix>
         </div>
-      </iv-col>
-    </iv-row>
+      </i-col>
+    </i-row>
   </div>
 </template>
 
@@ -182,7 +182,7 @@
                 'modal-message': true
               }
             }));
-            children.push(h('iv-input', {
+            children.push(h('i-input', {
               props: {
                 type: 'password',
                 autofocus: true,

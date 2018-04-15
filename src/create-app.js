@@ -2,18 +2,22 @@ import Vue from 'vue';
 // vue router相关
 import VueRouter from 'vue-router';
 import Vuex from 'vuex';
-import createRouter from './router/router';
-import createStore from './store/store';
-import 'iview/dist/styles/iview.css';
+import Meta from 'vue-meta';
 import App from './App.vue';
-import Viewer from 'v-viewer';
+// import Viewer from 'v-viewer';
 
 // 全局加载resource拦截器
 import Axios from 'axios';
-import {socialDateFormat} from '@/common/js/utils';
-import {LineBreakMode, ResponsivePoint} from '@/common/js/const';
 
-// iView UI 组件引入
+import createRouter from './router/router';
+import createStore from './store/store';
+
+import {socialDateFormat} from '@/common/js/utils';
+import {LineBreakMode} from '@/common/js/const';
+
+import 'iview/dist/styles/iview.css';
+
+// // iView UI 组件引入
 import {
   Row,
   Col,
@@ -48,10 +52,8 @@ import {
 
 Vue.use(VueRouter);
 Vue.use(Vuex);
-Vue.use(Viewer);
-
-const router = createRouter();
-const store = createStore();
+Vue.use(Meta);
+// Vue.use(Viewer);
 
 Vue.prototype.$http = Axios;
 Vue.prototype.$Modal = Modal;
@@ -99,19 +101,6 @@ Vue.mixin({
     };
   },
   methods: {
-    // 屏幕宽度响应式判断
-    responsiveRender: function (xsShow, smShow, mdShow, lgShow) {
-      let clientWidth = document.body.clientWidth;
-      if (clientWidth < ResponsivePoint.Sm) {
-        return xsShow;
-      } else if (clientWidth >= ResponsivePoint.Sm && clientWidth < ResponsivePoint.Md) {
-        return smShow;
-      } else if (clientWidth >= ResponsivePoint.Md && clientWidth < ResponsivePoint.Lg) {
-        return mdShow;
-      } else if (clientWidth >= ResponsivePoint.Lg) {
-        return lgShow;
-      }
-    },
     // 用于添加图片前缀
     resolveImageUrl(images) {
       images.forEach((image) => {
@@ -158,10 +147,14 @@ Vue.mixin({
   }
 });
 
-let vm = new Vue({
-  router,
-  store,
-  render: h => h(App)
-});
+export default () => {
+  const router = createRouter();
+  const store = createStore();
+  const app = new Vue({
+    router,
+    store,
+    render: h => h(App)
+  });
 
-vm.$mount('#root');
+  return { app, router, store };
+};

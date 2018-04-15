@@ -5,7 +5,7 @@
       <span class="main-title">{{mainTitle}}</span>
       <span class="vertical-line"></span>
       <span class="sub-title">{{subTitle}}</span>
-      <span class="view-more"><a @click="tipAction">{{tipText}} <iv-icon type="arrow-right-b"></iv-icon></a></span>
+      <span class="view-more"><a @click="tipAction">{{tipText}} <i-icon type="arrow-right-b"></i-icon></a></span>
     </div>
     <div class="menu">
       <ul class="list clearfix" v-if="menus.length > 0">
@@ -14,13 +14,13 @@
         </li>
       </ul>
       <div class="date-picker" v-if="withTimeSelect">
-        <iv-date-picker type="daterange" :options="datePickerOptions" confirm placement="bottom-end"
+        <i-date-picker type="daterange" :options="datePickerOptions" confirm placement="bottom-end"
                         placeholder="选择日期区间" @on-clear="clearDateSelect" @on-ok="comfirmDateSelect" @on-change="changeDate"
-                        style="width: 180px;"></iv-date-picker>
+                        style="width: 180px;"></i-date-picker>
       </div>
       <div class="refresh" v-if="withRefresh">
         <a @click="refresh" title="刷新">
-          <iv-icon type="refresh"></iv-icon>
+          <i-icon type="refresh"></i-icon>
         </a>
       </div>
     </div>

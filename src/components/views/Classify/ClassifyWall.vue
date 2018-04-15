@@ -1,15 +1,15 @@
 <template>
   <div class="classify" v-if="categorys.length > 0">
     <p class="header-title">摄影分类</p>
-    <iv-row>
-      <iv-col :xs="8" :sm="6" :md="4" :lg="4" v-for="category in categorys" :key="category.id">
+    <i-row>
+      <i-col :xs="8" :sm="6" :md="4" :lg="4" v-for="category in categorys" :key="category.id">
         <a class="content" @click="selectCategory(category)">
           <img :src="category.image" alt="">
           <p class="title">{{ category.name }}</p>
           <p class="desc">{{ category.desc }}</p>
         </a>
-      </iv-col>
-    </iv-row>
+      </i-col>
+    </i-row>
   </div>
 </template>
 

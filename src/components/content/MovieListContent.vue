@@ -1,7 +1,7 @@
 <template>
   <div class="movie-list-content layout-content">
-    <iv-row>
-      <iv-col :xs="24" :sm="24" :md="24" :lg="17">
+    <i-row>
+      <i-col :xs="24" :sm="24" :md="24" :lg="17">
         <div class="layout-left">
           <classify-menu :categorys="categorys" @selectCategory="selectCategory" :defaultCategory="top_category"></classify-menu>
           <section-title :mainTitle="'电影列表'"
@@ -15,22 +15,22 @@
                          @comfirmDateSelect="dateSelect"
                          @clearDateSelect="dateSelectClear">
           </section-title>
-          <iv-row :gutter="10">
-            <iv-col :xs="12" :sm="12" :md="8" :lg="8" v-for="movie in movies" :key="movie.id"
+          <i-row :gutter="10">
+            <i-col :xs="12" :sm="12" :md="8" :lg="8" v-for="movie in movies" :key="movie.id"
                     style="margin-bottom: 10px;">
               <movie-list-item :movie="movie"></movie-list-item>
-            </iv-col>
-          </iv-row>
+            </i-col>
+          </i-row>
           <browse-more @browseMore="browseMore" ref="browseMore"></browse-more>
         </div>
-      </iv-col>
-      <iv-col :xs="0" :sm="0" :md="0" :lg="7">
+      </i-col>
+      <i-col :xs="0" :sm="0" :md="0" :lg="7">
         <div class="layout-right">
           <recommend></recommend>
           <tag-wall style="margin-top: 15px;"></tag-wall>
         </div>
-      </iv-col>
-    </iv-row>
+      </i-col>
+    </i-row>
   </div>
 </template>
 
