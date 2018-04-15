@@ -65,6 +65,10 @@
 </template>
 
 <script type="text/ecmascript-6">
+  import {
+    mapState,
+    mapActions
+  } from 'vuex';
   import SideBar from '@/components/header/SimpleHeader/SideBar';
   import API from '@/api/client-api';
 
@@ -72,16 +76,21 @@
     data() {
       return {
         categorys: [],
-        siteInfo: [],
         searchKeyWords: '',
         searchResult: []
       };
     },
     created: function () {
       this.getCategorys();
+    },
+    mounted() {
       this.getSiteInfo();
     },
+    computed: {
+      ...mapState(['siteInfo'])
+    },
     methods: {
+      ...mapActions(['getSiteInfo']),
       getCategorys() {
         API.getCategorys({
           params: {
@@ -91,17 +100,6 @@
           }
         }).then((response) => {
           this.categorys = response.data.results;
-        }).catch((error) => {
-          console.log(error);
-        });
-      },
-      getSiteInfo() {
-        API.getSiteInfo({
-          params: {
-            'is_active': true
-          }
-        }).then((response) => {
-          this.siteInfo = response.data[0];
         }).catch((error) => {
           console.log(error);
         });
@@ -150,26 +148,31 @@
 
 <style lang="stylus" type="text/stylus" rel="stylesheet/stylus">
   @import "stylus/header.styl";
-  .demo-auto-complete-item{
+  .demo-auto-complete-item {
     padding: 4px 0;
     border-bottom: 1px solid #F6F6F6;
   }
-  .demo-auto-complete-group{
+
+  .demo-auto-complete-group {
     font-size: 12px;
     padding: 4px 6px;
   }
-  .demo-auto-complete-group span{
+
+  .demo-auto-complete-group span {
     color: #666;
     font-weight: bold;
   }
-  .demo-auto-complete-group a{
+
+  .demo-auto-complete-group a {
     float: right;
   }
-  .demo-auto-complete-count{
+
+  .demo-auto-complete-count {
     float: right;
     color: #999;
   }
-  .demo-auto-complete-more{
+
+  .demo-auto-complete-more {
     display: block;
     margin: 0 auto;
     padding: 4px;

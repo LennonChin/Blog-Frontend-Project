@@ -22,6 +22,9 @@ const devServer = {
   historyApiFallback: {
     index: '../index.html'
   },
+  proxy: {
+    '/api': 'http://localhost:8000'
+  },
   hot: true,
   disableHostCheck: true // 允许任何host域名访问
 };
