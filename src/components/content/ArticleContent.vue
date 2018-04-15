@@ -5,7 +5,7 @@
         <div class="layout-left">
           <article-page-header :article="article"></article-page-header>
           <article-page-content>
-            <div class="article-details" id="article-main-page" slot="content" v-viewer ref="article">
+            <div class="article-details" id="article-main-page" slot="content" ref="article">
               <div class="detail" v-if="article !== undefined" v-for="detail in article.details">
                 <article class="typo container article-main-content" v-html="detail.formatted_content">
                 </article>
@@ -64,7 +64,7 @@
       this.browse_auth = this.$route.query.browse_auth;
       this.getDatas();
     },
-    created() {
+    mounted() {
       this.id = this.$route.params.id;
       this.browse_auth = this.$route.query.browse_auth;
       this.getDatas();

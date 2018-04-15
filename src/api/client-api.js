@@ -2,7 +2,7 @@ import axios from 'axios';
 import {createError} from './utils';
 
 const request = axios.create({
-  baseURL: process.env.NODE_ENV === 'development' ? 'http://localhost:8000/api' : ''
+  baseURL: process.env.NODE_ENV === 'development' ? 'http://localhost:8000/api/' : ''
 });
 
 const handleRequest = (request) => {
@@ -25,7 +25,7 @@ export default {
   // 获取站点信息
   getSiteInfo(params) {
     if ('id' in params) {
-      return handleRequest(request.get(`/siteInfo/${params.id}`, params));
+      return handleRequest(request.get(`/siteInfo/${params.id}/`, params));
     } else {
       return handleRequest(request.get(`/siteInfo/`, params));
     }
@@ -44,7 +44,7 @@ export default {
   // 获取多级类别信息
   getCategorys(params) {
     if ('id' in params) {
-      return handleRequest(request.get(`/categorys/${params.id}`, params));
+      return handleRequest(request.get(`/categorys/${params.id}/`, params));
     } else {
       return handleRequest(request.get(`/categorys/`, params));
     }
@@ -53,7 +53,7 @@ export default {
   // 获得单级类别信息
   getCategory(params) {
     if ('id' in params) {
-      return handleRequest(request.get(`/category/${params.id}`, params));
+      return handleRequest(request.get(`/category/${params.id}/`, params));
     } else {
       return handleRequest(request.get(`/category/`, params));
     }
@@ -62,7 +62,7 @@ export default {
   // 获取标签
   getTags(params) {
     if ('id' in params) {
-      return handleRequest(request.get(`/tags/${params.id}`, params));
+      return handleRequest(request.get(`/tags/${params.id}/`, params));
     } else {
       return handleRequest(request.get(`/tags/`, params));
     }
@@ -71,7 +71,7 @@ export default {
   // 获取轮播图
   getIndexBanners(params) {
     if ('id' in params) {
-      return handleRequest(request.get(`/banners/${params.id}`, params));
+      return handleRequest(request.get(`/banners/${params.id}/`, params));
     } else {
       return handleRequest(request.get(`/banners/`, params));
     }
@@ -89,7 +89,7 @@ export default {
   // 获取文章详细信息
   getArticleDetailInfo(params) {
     if ('id' in params) {
-      return handleRequest(request.get(`/articleDetailInfos/${params.id}`, params));
+      return handleRequest(request.get(`/articleDetailInfos/${params.id}/`, params));
     } else {
       return handleRequest(request.get(`/articleDetailInfos/`, params));
     }
@@ -107,7 +107,7 @@ export default {
   // 获取图集详细信息
   getAlbumDetailInfo(params) {
     if ('id' in params) {
-      return handleRequest(request.get(`/albumDetailInfos/${params.id}`, params));
+      return handleRequest(request.get(`/albumDetailInfos/${params.id}/`, params));
     } else {
       return handleRequest(request.get(`/albumDetailInfos/`, params));
     }
@@ -125,7 +125,7 @@ export default {
   // 获取电影详细信息
   getMovieDetailInfo(params) {
     if ('id' in params) {
-      return handleRequest(request.get(`/movieDetailInfos/${params.id}`, params));
+      return handleRequest(request.get(`/movieDetailInfos/${params.id}/`, params));
     } else {
       return handleRequest(request.get(`/movieDetailInfos/`, params));
     }
@@ -143,7 +143,7 @@ export default {
   // 获取图书详细信息
   getBookDetailInfo(params) {
     if ('id' in params) {
-      return handleRequest(request.get(`/bookDetailInfos/${params.id}`, params));
+      return handleRequest(request.get(`/bookDetailInfos/${params.id}/`, params));
     } else {
       return handleRequest(request.get(`/bookDetailInfos/`, params));
     }
@@ -152,7 +152,7 @@ export default {
   // 获取图书笔记基本信息
   getBookNoteBaseInfo(params) {
     if ('id' in params) {
-      return handleRequest(request.get(`/bookNoteBaseInfos/${params.id}`, params));
+      return handleRequest(request.get(`/bookNoteBaseInfos/${params.id}/`, params));
     } else {
       return handleRequest(request.get(`/bookNoteBaseInfos/`, params));
     }
@@ -161,7 +161,7 @@ export default {
   // 获取图书笔记详细信息
   getBookNoteDetailInfo(params) {
     if ('id' in params) {
-      return handleRequest(request.get(`/bookNoteDetailInfos/${params.id}`, params));
+      return handleRequest(request.get(`/bookNoteDetailInfos/${params.id}/`, params));
     } else {
       return handleRequest(request.get(`/bookNoteDetailInfos/`, params));
     }
@@ -170,7 +170,7 @@ export default {
   // 获取时间轴信息
   getPostBaseInfo(params) {
     if ('id' in params) {
-      return handleRequest(request.get(`/postBaseInfos/${params.id}`, params));
+      return handleRequest(request.get(`/postBaseInfos/${params.id}/`, params));
     } else {
       return handleRequest(request.get(`/postBaseInfos/`, params));
     }
@@ -179,7 +179,7 @@ export default {
   // 获取评论信息
   getCommentInfo(params) {
     if ('id' in params) {
-      return handleRequest(request.get(`/comments/${params.id}`, params));
+      return handleRequest(request.get(`/comments/${params.id}/`, params));
     } else {
       return handleRequest(request.get(`/comments/`, params));
     }
@@ -218,7 +218,7 @@ export default {
   // 验证邮箱验证码
   verifyEmailCode(params) {
     if ('id' in params) {
-      return handleRequest(request.get(`/emailCode/${params.id}`, params));
+      return handleRequest(request.get(`/emailCode/${params.id}/`, params));
     } else {
       return handleRequest(request.get(`/emailCode/`, params));
     }
@@ -232,7 +232,7 @@ export default {
   // 豆瓣API
   getDoubanInfo(params) {
     if ('type' in params && 'id' in params) {
-      return handleRequest(request.get(`/api/${params.type}/${params.id}`, params));
+      return handleRequest(request.get(`/api/${params.type}/${params.id}/`, params));
     }
   }
 };

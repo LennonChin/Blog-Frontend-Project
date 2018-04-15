@@ -24,7 +24,7 @@
                   <span class="time">{{ comment.add_time | socialDate }}</span>
                 </p>
                 <p class="comment-main-content" :class="theme" v-if="comment.detail" v-html="comment.detail.formatted_content"
-                   ref="content" v-viewer="{movable: false}"></p>
+                   ref="content"></p>
                 <div class="operate-area" :class="theme">
                   <span class="like" @click="likeComment(comment)"><i-icon type="thumbsup"></i-icon> {{ comment.like_num }}</span>
                   <span class="unlike" @click="unlikeComment(comment)"><i-icon type="thumbsdown"></i-icon> {{ comment.unlike_num }}</span>
