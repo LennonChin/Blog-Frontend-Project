@@ -2,7 +2,7 @@ import axios from 'axios';
 import {createError} from './utils';
 
 const request = axios.create({
-  baseURL: process.env.NODE_ENV === 'development' ? 'http://localhost:8000/api/' : ''
+  baseURL: process.env.NODE_ENV === 'development' ? 'http://localhost:8000/api/' : 'http://localhost:8000/api/'
 });
 
 const handleRequest = (request) => {

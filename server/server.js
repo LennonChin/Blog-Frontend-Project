@@ -1,12 +1,13 @@
 const Koa = require('koa');
 const send = require('koa-send');
 const path = require('path');
-const pageRouter = require('./routers/dev-ssr');
 const chalk = require('chalk');
+const staticRouter = require('./routers/static');
 
 const app = new Koa();
 
 const isDev = process.env.NODE_ENV === 'development';
+// const pageRouter = require('./routers/dev-ssr');
 
 app.use(async (ctx, next) => {
   try {
@@ -32,6 +33,17 @@ app.use(async (ctx, next) => {
     await next();
   }
 });
+
+// 处理静态文件
+app.use(staticRouter.routes()).use(staticRouter.allowedMethods());
+
+// 区分生产环境和开发环境的Router
+let pageRouter;
+if (isDev) {
+  pageRouter = require('./routers/dev-ssr');
+} else {
+  pageRouter = require('./routers/ssr');
+}
 
 app.use(pageRouter.routes()).use(pageRouter.allowedMethods());
 
