@@ -26,7 +26,7 @@
               </div>
               <div class="rating"></div>
             </a>
-            <vue-tabs class="infos"  @tab-change="handleTabChange">
+            <vue-tabs class="infos" @tab-change="handleTabChange">
               <v-tab title="简介">
                 <p class="author" v-html="bookDoubanInfo.author_intro"></p>
                 <p class="summary" v-html="bookDoubanInfo.summary"></p>
@@ -38,11 +38,15 @@
                 <p class="catalog" v-html="bookDoubanInfo.catalog"></p>
               </v-tab>
               <v-tab title="整书读后感">
-                <div class="article-details" id="article-main-page" v-viewer ref="book">
+                <div class="article-details" id="article-main-page" ref="book">
                   <div class="detail" v-if="book !== undefined" v-for="detail in book.details">
-                    <article class="typo container article-main-content" v-html="detail.formatted_content">
-                    </article>
-                    <div class="detail-footer">Append At / {{ detail.add_time | socialDate }} &nbsp;&nbsp;&nbsp; Update At / {{ detail.update_time | socialDate }}</div>
+                    <v-viewer :trigger="detail.formatted_content">
+                      <article class="typo container article-main-content" v-html="detail.formatted_content">
+                      </article>
+                      <div class="detail-footer">Append At / {{ detail.add_time | socialDate
+                        }} &nbsp;&nbsp;&nbsp; Update At / {{ detail.update_time | socialDate }}
+                      </div>
+                    </v-viewer>
                   </div>
                 </div>
                 <!--<p class="summary" v-html="book.detail.formatted_content"></p>-->
@@ -71,6 +75,8 @@
   import Recommend from '@/components/views/Recommend';
   import SideToc from '@/components/views/SideToc';
   import SocialSection from '@/components/views/Comment/SocialSection';
+  import Viewer from 'v-viewer/src/component.vue';
+  import 'viewerjs/dist/viewer.css';
   import API from '@/api/client-api';
   // highlight.js引入
   import hljs from '@/common/js/highlight.pack';
@@ -276,7 +282,8 @@
       'book-catalog': BookCatalog,
       'social-section': SocialSection,
       'recommend': Recommend,
-      'side-toc': SideToc
+      'side-toc': SideToc,
+      'v-viewer': Viewer
     },
     watch: {
       showToc: function (newShowToc) {

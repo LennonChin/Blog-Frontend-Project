@@ -187,32 +187,32 @@ export default {
 
   // 创建评论
   addCommentInfo(params) {
-    return axios.post(`/comments/`, params);
+    return handleRequest(request.post(`/comments/`, params));
   },
 
   // 获取上传Token
   getUploadToken(params) {
-    return axios.post(`/qiniuToken/`, params);
+    return handleRequest(request.post(`/qiniuToken/`, params));
   },
 
   // 上传评论图片
   uploadImage(params) {
-    return axios.post(`http://upload.qiniup.com`, params, {headers: {'Content-Type': 'multipart/form-data'}});
+    return handleRequest(request.post(`http://upload.qiniup.com`, params, {headers: {'Content-Type': 'multipart/form-data'}}));
   },
 
   // 点赞文章
   addPostLike(params) {
-    return axios.post(`/likePost/`, params);
+    return handleRequest(request.post(`/likePost/`, params));
   },
 
   // 点赞文章
   likeOrUnlikeComment(params) {
-    return axios.post(`/likeOrUnlikeComment/`, params);
+    return handleRequest(request.post(`/likeOrUnlikeComment/`, params));
   },
 
   // 获取邮箱验证码
   getEmailCode(params) {
-    return axios.post(`/emailCode/`, params);
+    return handleRequest(request.post(`/emailCode/`, params));
   },
 
   // 验证邮箱验证码

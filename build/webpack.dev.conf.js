@@ -8,11 +8,6 @@ const baseWebpackConfig = require('./webpack.base.conf');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin');
 
-// add hot-reload related code to entry chunks
-Object.keys(baseWebpackConfig.entry).forEach(function (name) {
-  baseWebpackConfig.entry[name] = ['./build/dev-client'].concat(baseWebpackConfig.entry[name])
-});
-
 const devServer = {
   port: process.env.PORT || config.dev.port,
   host: config.dev.host || '0.0.0.0',
@@ -22,9 +17,6 @@ const devServer = {
   headers: { 'Access-Control-Allow-Origin': '*' },
   historyApiFallback: {
     index: '../index.html'
-  },
-  proxy: {
-    '/api': 'http://localhost:8000'
   },
   hot: true,
   disableHostCheck: true // 允许任何host域名访问
@@ -42,13 +34,11 @@ module.exports = merge(baseWebpackConfig, {
       'process.env': config.dev.env
     }),
     new webpack.NamedModulesPlugin(),
-    // https://github.com/ampedandwired/html-webpack-plugin
     new HtmlWebpackPlugin({
       filename: 'index.html',
       template: 'index.html',
       inject: true
     }),
-    // https://github.com/glenjamin/webpack-hot-middleware#installation--usage
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
     new FriendlyErrorsPlugin()

@@ -6,8 +6,8 @@ const handleError = (error) => {
 };
 
 export default {
+  // 获取站点信息
   getSiteInfo(store, params) {
-    console.log('vuex actions getSiteInfo invoked');
     return API.getSiteInfo({
       params: params
     }).then((response) => {
@@ -18,7 +18,6 @@ export default {
   },
   // 获取所有的分类
   getAllCategorys(store, params) {
-    console.log('vuex actions getAllCategorys invoked');
     return API.getCategorys({
       params: {
         level_min: 1,

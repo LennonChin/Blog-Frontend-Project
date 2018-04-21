@@ -31,7 +31,6 @@ export default context => {
           });
         }
       })).then(data => {
-        console.log(store.state);
         context.meta = app.$meta();
         context.state = store.state;
         resolve(app);
