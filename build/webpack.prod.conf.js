@@ -99,7 +99,12 @@ const webpackConfig = merge(baseWebpackConfig, {
         ignore: ['.*']
       }
     ])
-  ]
+  ],
+  resolve: {
+    alias: {
+      'API': path.join(__dirname, '../src/api/client-api.js')
+    }
+  }
 });
 
 if (config.build.productionGzip) {

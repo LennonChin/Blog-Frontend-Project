@@ -33,7 +33,7 @@
           </i-auto-complete>
         </li>
         <!-- 类别导航 -->
-        <li class="nav-dropdown-container" v-for="category_level1 in categorys">
+        <li class="nav-dropdown-container" v-for="category_level1 in allCategorysInfo">
           <router-link class="nav-link" :to="rootRouterLink(category_level1)">
             {{ category_level1.name }} <span class="arrow"></span>
           </router-link>
@@ -60,7 +60,7 @@
         </li>
       </ul>
     </div>
-    <sidebar :categorys="this.categorys" ref="sidebar"></sidebar>
+    <sidebar :categorys="allCategorysInfo" ref="sidebar"></sidebar>
   </div>
 </template>
 
@@ -80,30 +80,21 @@
         searchResult: []
       };
     },
-    created: function () {
-      this.getCategorys();
+    asyncData({store}) {
+      return Promise.all([
+        store.dispatch('getSiteInfo'),
+        store.dispatch('getAllCategorys')
+      ]);
     },
     mounted() {
-      this.getSiteInfo();
+      if (!this.$store.state.siteInfo) this.getSiteInfo();
+      if (!this.$store.state.allCategorysInfo) this.getAllCategorys();
     },
     computed: {
-      ...mapState(['siteInfo'])
+      ...mapState(['siteInfo', 'allCategorysInfo'])
     },
     methods: {
-      ...mapActions(['getSiteInfo']),
-      getCategorys() {
-        API.getCategorys({
-          params: {
-            level_min: 1,
-            level_max: 1,
-            is_tab: true
-          }
-        }).then((response) => {
-          this.categorys = response.data.results;
-        }).catch((error) => {
-          console.log(error);
-        });
-      },
+      ...mapActions(['getSiteInfo', 'getAllCategorys']),
       search() {
         console.log(this.searchKeyWords);
         if (this.searchKeyWords.length === 0) {

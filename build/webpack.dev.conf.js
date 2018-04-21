@@ -1,4 +1,5 @@
 'use strict';
+const path = require('path');
 const utils = require('./utils');
 const webpack = require('webpack');
 const config = require('../config');
@@ -51,5 +52,10 @@ module.exports = merge(baseWebpackConfig, {
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
     new FriendlyErrorsPlugin()
-  ]
+  ],
+  resolve: {
+    alias: {
+      'API': path.join(__dirname, '../src/api/client-api.js')
+    }
+  }
 });

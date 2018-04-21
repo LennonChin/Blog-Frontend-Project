@@ -10,7 +10,6 @@ const baseConfig = require('./webpack.base.conf');
 const VueServerPlugin = require('vue-server-renderer/server-plugin');
 
 let config;
-
 // const isDev = process.env.NODE_ENV === 'development';
 
 config = merge(baseConfig, {
@@ -67,11 +66,11 @@ config = merge(baseConfig, {
       // filename: 'vue-ssr-server-bundle.json' // 指定文件名
     })
   ],
-  // resolve: {
-  //   alias: {
-  //     'API': path.join(__dirname, '../src/api/server-api.js')
-  //   }
-  // }
+  resolve: {
+    alias: {
+      'API': path.join(__dirname, '../src/api/client-api.js')
+    }
+  }
 });
 
 module.exports = config;

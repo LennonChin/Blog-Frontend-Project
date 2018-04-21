@@ -9,7 +9,7 @@ export default context => {
    * 可以给这个context赋其他的属性值
    * */
   return new Promise((resolve, reject) => {
-    const { app, router } = createApp();
+    const { app, router, store } = createApp();
     // 给路由推一条记录，让router匹配到需要调用的组件
     router.push(context.url);
     /**
@@ -23,8 +23,19 @@ export default context => {
       if (!matchedComponents.length) {
         return reject(new Error('no component matched'));
       }
-      context.meta = app.$meta();
-      resolve(app);
+      Promise.all(matchedComponents.map(component => {
+        if (component.asyncData) {
+          return component.asyncData({
+            route: router.currentRoute,
+            store
+          });
+        }
+      })).then(data => {
+        console.log(store.state);
+        context.meta = app.$meta();
+        context.state = store.state;
+        resolve(app);
+      });
     });
   });
 };
