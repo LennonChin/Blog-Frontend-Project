@@ -85,6 +85,10 @@
 </template>
 
 <script type="text/ecmascript-6">
+  import {
+    mapState,
+    mapActions
+  } from 'vuex';
   import ArticleListCell from '@/components/views/Article/ArticleListCell';
   import SectionTitle from '@/components/views/SectionTitle';
   import TopicCard from '@/components/views/TopicCard';
@@ -101,14 +105,13 @@
   import API from '@/api/client-api';
 
   export default {
+    name: 'HomeContent',
     metaInfo: {
       title: '首页'
     },
     data() {
       return {
-        categorys: [],
         // 文章
-        articles: [],
         mostCommentArticles: undefined,
         hotArticles: undefined,
         recommendArticles: undefined,
@@ -128,7 +131,6 @@
           {title: '推荐', selected: false, method: 'recommend'}
         ],
         // 读书
-        books: [],
         mostCommentBooks: undefined,
         hotBooks: undefined,
         recommendBooks: undefined,
@@ -159,31 +161,15 @@
         ]
       };
     },
-    created() {
-      this.getDatas();
-    },
-    methods: {
-      getDatas() {
-        // 分类
-        API.getCategory({
+    asyncData({store}) {
+      return Promise.all([
+        store.dispatch('home/getTopLevelCategoriesInfo', {
           params: {
             level_min: 1,
             level_max: 1
           }
-        }).then((response) => {
-          this.categorys = response.data.results;
-        }).catch((error) => {
-          console.log(error);
-        });
-        this.getArticleBaseInfo();
-        this.getAlbumBaseInfo();
-        this.getBookBaseInfo();
-        this.getBookNoteBaseInfo();
-        this.getMovieBaseInfo();
-      },
-      getArticleBaseInfo() {
-        // 文章
-        API.getArticleBaseInfo({
+        }),
+        store.dispatch('home/getArticlesBaseInfo', {
           params: {
             is_recommend: this.recommendArticles,
             is_hot: this.hotArticles,
@@ -191,12 +177,33 @@
             limit: 5,
             offset: 0
           }
-        }).then((response) => {
-          this.articles = response.data.results;
-        }).catch((error) => {
-          console.log(error);
-        });
-      },
+        }),
+        store.dispatch('home/getBooksBaseInfo', {
+          params: {
+            is_recommend: this.recommendBooks,
+            is_hot: this.hotBooks,
+            ordering: this.mostCommentBooks,
+            limit: 6,
+            offset: 0
+          }
+        })
+      ]);
+    },
+    created() {
+    },
+    computed: {
+      ...mapState({
+        categorys: state => state.home.topLevelCategoriesInfo,
+        articles: state => state.home.articles,
+        books: state => state.home.books
+      })
+    },
+    methods: {
+      ...mapActions([
+        'home/getTopLevelCategoriesInfo',
+        'home/getArticlesBaseInfo',
+        'home/updateBooksBaseInfo'
+      ]),
       getAlbumBaseInfo() {
         // 图集
         API.getAlbumBaseInfo({
@@ -209,22 +216,6 @@
           }
         }).then((response) => {
           this.albums = response.data.results;
-        }).catch((error) => {
-          console.log(error);
-        });
-      },
-      getBookBaseInfo() {
-        // 读书
-        API.getBookBaseInfo({
-          params: {
-            is_recommend: this.recommendBooks,
-            is_hot: this.hotBooks,
-            ordering: this.mostCommentBooks,
-            limit: 6,
-            offset: 0
-          }
-        }).then((response) => {
-          this.books = response.data.results;
         }).catch((error) => {
           console.log(error);
         });

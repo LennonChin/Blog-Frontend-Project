@@ -1,5 +1,5 @@
 <template>
-  <div class="recommend" v-if="articles.length > 0">
+  <div class="recommend" v-if="recommends.length > 0">
     <panel :title="'推荐阅读'">
       <div slot="content" class="content">
         <div class="top">
@@ -54,33 +54,34 @@
 </template>
 
 <script type="text/ecmascript-6">
+  import {
+    mapState,
+    mapActions
+  } from 'vuex';
   import Panel from '@/components/views/Panel';
   import API from '@/api/client-api';
   import {checkPostAuth} from '@/common/js/utils';
 
   export default {
-    data() {
-      return {
-        articles: []
-      };
+    name: 'Recommend',
+    asyncData({store}) {
+      return Promise.all([
+        store.dispatch('common/getRecommends')
+      ]);
     },
-    created() {
-      this.getDatas();
+    mounted() {
+      if (!this.$store.state.common.recommends || this.$store.state.common.recommends.length === 0) {
+        console.log('recommend');
+        this['common/getRecommends']();
+      }
+    },
+    computed: {
+      ...mapState({
+        recommends: state => state.common.recommends
+      })
     },
     methods: {
-      getDatas() {
-        API.getPostBaseInfo({
-          params: {
-            is_recommend: true,
-            limit: 5,
-            offset: 0
-          }
-        }).then((response) => {
-          this.articles = response.data.results;
-        }).catch((error) => {
-          console.log(error);
-        });
-      },
+      ...mapActions(['common/getRecommends']),
       gotoPostDetail(post) {
         let routerInfos = this.routerInfos(post);
         checkPostAuth.call(this, post, '提示', routerInfos.message, () => {
@@ -125,7 +126,7 @@
         return router;
       },
       articleSlice(start, end) {
-        return this.articles.slice(start, end);
+        return this.recommends.slice(start, end);
       }
     },
     components: {

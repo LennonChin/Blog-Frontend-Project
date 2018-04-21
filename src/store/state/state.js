@@ -1,4 +1,2 @@
 export default {
-  siteInfo: {},
-  allCategorysInfo: []
 };

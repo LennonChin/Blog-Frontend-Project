@@ -9,7 +9,7 @@ export default context => {
    * 可以给这个context赋其他的属性值
    * */
   return new Promise((resolve, reject) => {
-    const { app, router, store } = createApp();
+    const {app, router, store} = createApp();
     // 给路由推一条记录，让router匹配到需要调用的组件
     router.push(context.url);
     /**
@@ -23,14 +23,29 @@ export default context => {
       if (!matchedComponents.length) {
         return reject(new Error('no component matched'));
       }
-      Promise.all(matchedComponents.map(component => {
-        if (component.asyncData) {
-          return component.asyncData({
-            route: router.currentRoute,
-            store
-          });
-        }
-      })).then(data => {
+      let result = [];
+      matchedComponents.map(component => {
+        // 包装请求数据
+        let doAsyncData = (component) => {
+          if (component.asyncData) {
+            result.push(component.asyncData({
+              route: router.currentRoute,
+              store
+            }));
+          }
+        };
+        // 递归查询子组件
+        let recursive = (component) => {
+          doAsyncData(component);
+          if (component.components) {
+            Object.keys(component.components).forEach(key => {
+              recursive(component.components[key]);
+            });
+          }
+        };
+        recursive(component);
+      });
+      Promise.all(result).then(data => {
         context.meta = app.$meta();
         context.state = store.state;
         resolve(app);

@@ -17,8 +17,11 @@
   } from 'vuex';
 
   export default {
+    name: 'CommonFooter',
     computed: {
-      ...mapState(['siteInfo']),
+      ...mapState({
+        siteInfo: state => state.base.siteInfo
+      }),
       backTopBottom() {
         return 120;
       }

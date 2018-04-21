@@ -73,6 +73,7 @@
   import API from '@/api/client-api';
 
   export default {
+    name: 'SimpleHeader',
     data() {
       return {
         categorys: [],
@@ -82,19 +83,22 @@
     },
     asyncData({store}) {
       return Promise.all([
-        store.dispatch('getSiteInfo'),
-        store.dispatch('getAllCategorys')
+        store.dispatch('base/getSiteInfo'),
+        store.dispatch('base/getAllCategorys')
       ]);
     },
     mounted() {
-      if (!this.$store.state.siteInfo) this.getSiteInfo();
-      if (!this.$store.state.allCategorysInfo) this.getAllCategorys();
+      if (!this.$store.state.base.siteInfo) this['base/getSiteInfo']();
+      if (!this.$store.state.base.allCategorysInfo) this['base/getAllCategorys']();
     },
     computed: {
-      ...mapState(['siteInfo', 'allCategorysInfo'])
+      ...mapState({
+        siteInfo: state => state.base.siteInfo,
+        allCategorysInfo: state => state.base.allCategorysInfo
+      })
     },
     methods: {
-      ...mapActions(['getSiteInfo', 'getAllCategorys']),
+      ...mapActions(['base/getSiteInfo', 'base/getAllCategorys']),
       search() {
         console.log(this.searchKeyWords);
         if (this.searchKeyWords.length === 0) {
