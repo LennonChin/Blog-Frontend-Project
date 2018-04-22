@@ -76,7 +76,6 @@
     name: 'SimpleHeader',
     data() {
       return {
-        categorys: [],
         searchKeyWords: '',
         searchResult: []
       };
