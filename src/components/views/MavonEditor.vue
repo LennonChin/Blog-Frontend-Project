@@ -35,6 +35,7 @@
       </i-row>
     </div>
     <mavon-editor v-model="origin_content"
+                  v-if="showEditor"
                   class="editor-area" style="height: 100%; min-height: 50px; min-width: 200px; z-index: 1000;"
                   :toolbarsFlag="toolbarsFlag"
                   :subfield="subfield"
@@ -100,6 +101,7 @@
         mobile: '',
         origin_content: '',
         select: 'email',
+        showEditor: false,
         valueChanged: false,
         toolbarsFlag: false,
         toolbars: {
@@ -200,6 +202,7 @@
       },
       listenWindowWidth() {
         // 此方法用于监听窗口宽度变化,改变编辑器菜单
+        if (!document) return;
         let clientWidth = document.documentElement.clientWidth;
         if (clientWidth < 900) {
           this.$set(this.toolbars, 'bold', false);
@@ -409,10 +412,13 @@
       }
     },
     mounted() {
+      // 显示编辑器
+      this.showEditor = true;
       // 获取本地有效用户的信息
       this.getLocalCommentUser();
       // 监听屏幕大小
-      var that = this;
+      let that = this;
+      if (!window) return;
       window.onresize = function temp() {
         that.listenWindowWidth();
       };

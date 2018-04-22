@@ -99,27 +99,8 @@
       this.getCommentInfo();
     },
     mounted() {
-      // window.addEventListener('scroll', this.handleScroll.bind(this));
-      // this.handleScroll();
     },
     methods: {
-      // handleScroll() {
-      //   let socialSection = this.$refs.socialSection;
-      //   let scrollTop = 0;
-      //   let clientHeight = 0;
-      //   if (document.documentElement && document.documentElement.scrollTop) {
-      //     scrollTop = document.documentElement.scrollTop;
-      //     clientHeight = document.documentElement.clientHeight;
-      //   } else if (document.body) {
-      //     scrollTop = document.body.scrollTop;
-      //     clientHeight = document.body.clientHeight;
-      //   }
-      //   let socialSectionTop = socialSection.offsetTop;
-      //   console.log(scrollTop, socialSectionTop, scrollTop + clientHeight);
-      //   if (!this.dataLoaded && socialSectionTop < (scrollTop + clientHeight)) {
-      //     this.dataLoaded = true;
-      //   }
-      // },
       getCommentInfo() {
         API.getCommentInfo({
           params: {

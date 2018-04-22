@@ -29,6 +29,10 @@
 </template>
 
 <script type="text/ecmascript-6">
+  import {
+    mapState,
+    mapActions
+  } from 'vuex';
   import ArticlePageHeader from '@/components/views/Article/ArticlePageHeader';
   import ArticlePageContent from '@/components/views/Article/ArticlePageContent';
   import ArticlePageFooter from '@/components/views/Article/ArticlePageFooter';
@@ -47,29 +51,66 @@
   // API
   import API from '@/api/client-api';
 
-  var HLJS = hljs;
+  let HLJS = hljs;
 
   export default {
     data() {
       return {
         id: 0,
-        browse_auth: null,
-        article: undefined
+        browse_auth: null
       };
+    },
+    asyncData({store, route}) {
+      this.id = route.params.id;
+      this.browse_auth = route.query.browse_auth;
+      return Promise.all([
+        store.dispatch('article/getArticleDetailInfo', {
+          params: {
+            browse_auth: this.browse_auth
+          },
+          id: this.id
+        })
+      ]);
     },
     beforeRouteUpdate(to, from, next) {
       next();
       this.article = undefined;
       this.id = this.$route.params.id;
       this.browse_auth = this.$route.query.browse_auth;
-      this.getDatas();
+      this.$store.dispatch('article/getArticleDetailInfo', {
+        params: {
+          browse_auth: this.browse_auth
+        },
+        id: this.id
+      });
     },
     mounted() {
       this.id = this.$route.params.id;
       this.browse_auth = this.$route.query.browse_auth;
-      this.getDatas();
+      if (!this.$store.state.article.article) {
+        this.getArticleDetailInfo({
+          params: {
+            browse_auth: this.browse_auth
+          },
+          id: this.id
+        });
+      }
+      this.$nextTick(() => {
+        this.addCodeLineNumber();
+        // 添加图片前缀
+        this.resolveImageUrl(this.$refs.article.querySelectorAll('img'));
+        this.addTocScrollSpy();
+      });
+    },
+    computed: {
+      ...mapState({
+        article: state => state.article.article
+      })
     },
     methods: {
+      ...mapActions({
+        getArticleDetailInfo: 'article/getArticleDetailInfo'
+      }),
       getDatas() {
         let that = this;
         API.getArticleDetailInfo({
@@ -163,6 +204,7 @@
       },
       addTocScrollSpy() {
         /* eslint-disable */
+        console.log('addTocScrollSpy');
         tocbot.init({
           tocSelector: '#side-toc',
           contentSelector: '#article-main-page',
@@ -188,11 +230,11 @@
         // 添加行号
         let blocks = this.$refs.article.querySelectorAll('pre code');
         blocks.forEach((block) => {
-          HLJS.highlightBlock(block);
           // 去前后空格并添加行号
           let reg = /<ul(.*?)><li(.*?)>[\s\S]*?<\/li><\/ul>/gm;
           if (reg.test(block.innerHTML)) return;
           block.innerHTML = '<ul><li>' + block.innerHTML.replace(/(^\s*)|(\s*$)/g, '').replace(/\n/g, '\n</li><li>') + '\n</li></ul>';
+          HLJS.highlightBlock(block);
         });
       }
     },
@@ -204,19 +246,7 @@
       'friend-links': FriendLinks,
       'side-toc': SideToc,
       'recommend': Recommend
-    },
-    watch: {
-      article: function (newArticle) {
-        if (newArticle) {
-          this.$nextTick(() => {
-            this.addCodeLineNumber();
-            // 添加图片前缀
-            this.resolveImageUrl(this.$refs.article.querySelectorAll('img'));
-            this.addTocScrollSpy();
-          });
-        }
-      }
-    },
+    }
   };
 </script>
 

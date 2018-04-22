@@ -104,7 +104,7 @@ Vue.mixin({
     // 用于添加图片前缀
     resolveImageUrl(images) {
       images.forEach((image) => {
-        let imageSrc = image.getAttribute('src');
+        let imageSrc = image.getAttribute('data-src');
         if (imageSrc.length > 0 && imageSrc.indexOf('http') !== 0) {
           while (imageSrc.indexOf('/') === 0) {
             // 去掉前面的反斜杠
@@ -112,6 +112,8 @@ Vue.mixin({
           }
           image.src = `${this.postImageBaseUrl}/${imageSrc}`;
           console.log(image.src);
+        } else {
+          image.src = imageSrc;
         }
       });
     }
