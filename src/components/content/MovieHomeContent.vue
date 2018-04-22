@@ -12,7 +12,7 @@
   import MovieListCell from '@/components/views/Movie/MovieListCell';
 
   // API
-  import { getMovieBaseInfo } from '@/api/api';
+  import API from '@/api/client-api';
 
   export default {
     data() {
@@ -28,7 +28,7 @@
     },
     methods: {
       getDatas() {
-        getMovieBaseInfo({
+        API.getMovieBaseInfo({
           params: {
             limit: 20
           }

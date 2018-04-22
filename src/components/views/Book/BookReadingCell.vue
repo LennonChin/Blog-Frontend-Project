@@ -12,18 +12,18 @@
       </div>
       <div class="book-info">
         <p class="title">
-          <iv-tool-tip placement="right" content="该文章已加密，您需要输入阅读密码" v-if="book.browse_password_encrypt">
-            <iv-icon type="android-lock" color="#FA5555" v-if="book.browse_password_encrypt"></iv-icon>
-          </iv-tool-tip>
+          <i-tool-tip placement="right" content="该文章已加密，您需要输入阅读密码" v-if="book.browse_password_encrypt">
+            <i-icon type="android-lock" color="#FA5555" v-if="book.browse_password_encrypt"></i-icon>
+          </i-tool-tip>
           <a @click="gotoPostDetail(book)"> {{book.book_name}}</a>
         </p>
         <p class="desc"><span>作者：</span>{{ book.book_author }}</p>
-        <iv-progress :percent="book.read_precentage" :stroke-width="6">
-          <iv-icon type="checkmark-circled"></iv-icon>
+        <i-progress :percent="book.read_precentage" :stroke-width="6">
+          <i-icon type="checkmark-circled"></i-icon>
           <span>{{ book.read_precentage }}%</span>
-        </iv-progress>
+        </i-progress>
         <p class="desc">{{ book.desc | textLineBreak(140) }}</p>
-        <iv-tag type="border" v-for="tag in book.tags" :key="tag.id">{{ tag.name }}</iv-tag>
+        <i-tag type="border" v-for="tag in book.tags" :key="tag.id">{{ tag.name }}</i-tag>
       </div>
     </a>
   </div>

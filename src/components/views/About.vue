@@ -10,21 +10,20 @@
     <div class="line"></div>
     <h4>技能值</h4>
     <div class="progresses">
-      <iv-row v-for="master in bloggerInfo.masters" :gutter="20" :key="master.id">
-        <iv-col :span="6">
+      <i-row v-for="master in bloggerInfo.masters" :gutter="20" :key="master.id">
+        <i-col :span="6">
           <p class="title">{{ master.name }}</p>
-        </iv-col>
-        <iv-col :span="18">
-          <iv-progress status="normal" :hide-info="true" :stroke-width="8" :percent="master.experience" class="bar"></iv-progress>
-        </iv-col>
-      </iv-row>
+        </i-col>
+        <i-col :span="18">
+          <i-progress status="normal" :hide-info="true" :stroke-width="8" :percent="master.experience" class="bar"></i-progress>
+        </i-col>
+      </i-row>
     </div>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
-  import {getBloggerInfo} from '@/api/api';
-  import {saveToLocal, loadFromLocal} from '@/common/js/utils';
+  import API from '@/api/client-api';
 
   export default {
     data() {
@@ -34,33 +33,14 @@
     },
     created() {
       // 博主信息
-      let categoryInfo = loadFromLocal('site', 'blogger_info', null);
-      if (categoryInfo) {
-        let expireTime = categoryInfo['expire_time'];
-        let nowTimestamp = Date.parse(new Date());
-        if (expireTime !== null && nowTimestamp - expireTime > 24 * 3600 * 1000) {
-          console.log('重新请求blogger_info');
-          this.getBloggerInfo();
-        } else {
-          this.bloggerInfo = categoryInfo['blogger_info'];
-        }
-      } else {
-        console.log('重新请求blogger_info');
-        this.getBloggerInfo();
-      }
+      this.getBloggerInfo();
     },
     methods: {
       getBloggerInfo() {
-        getBloggerInfo({
+        API.getBloggerInfo({
           params: {}
         }).then((response) => {
           this.bloggerInfo = response.data[0];
-          // 将分类信息保存到本地，避免多次请求
-          let bloggerInfo = {
-            'expire_time': Date.parse(new Date()),
-            'blogger_info': this.bloggerInfo
-          };
-          saveToLocal('site', 'blogger_info', bloggerInfo);
         }).catch((error) => {
           console.log(error);
         });

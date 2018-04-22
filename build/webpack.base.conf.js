@@ -1,16 +1,18 @@
 'use strict'
-const path = require('path')
-const utils = require('./utils')
-const config = require('../config')
-const vueLoaderConfig = require('./vue-loader.conf')
+const path = require('path');
+const utils = require('./utils');
+const config = require('../config');
+const vueLoaderConfig = require('./vue-loader.conf');
+const VueClientPlugin = require('vue-server-renderer/client-plugin');
 
 function resolve (dir) {
-  return path.join(__dirname, '..', dir)
+  return path.join(__dirname, '..', dir);
 }
 
 module.exports = {
+  target: 'web',
   entry: {
-    app: './src/main.js'
+    app: './src/client-entry.js'
   },
   output: {
     path: config.build.assetsRoot,
@@ -75,5 +77,9 @@ module.exports = {
         }
       }
     ]
-  }
-}
+  },
+  plugins: [
+    // SSR需要的插件
+    new VueClientPlugin()
+  ]
+};

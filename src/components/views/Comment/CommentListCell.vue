@@ -1,47 +1,47 @@
 <template>
   <div class="comment-list-cell">
-    <iv-row>
-      <iv-col :xs="cellSpan('xs')" :sm="cellSpan('sm')" :md="cellSpan('md')" :lg="cellSpan('lg')" :xl="cellSpan('xl')">
+    <i-row>
+      <i-col :xs="cellSpan('xs')" :sm="cellSpan('sm')" :md="cellSpan('md')" :lg="cellSpan('lg')" :xl="cellSpan('xl')">
         <div class="comment-main">
-          <iv-row :gutter="8">
-            <iv-col :xs="cellLeftSpan('xs')" :sm="cellLeftSpan('sm')" :md="cellLeftSpan('md')"
+          <i-row :gutter="8">
+            <i-col :xs="cellLeftSpan('xs')" :sm="cellLeftSpan('sm')" :md="cellLeftSpan('md')"
                     :lg="cellLeftSpan('lg')" :xl="cellLeftSpan('xl')">
               <div class="avatar">
                 <img :src="postImageBaseUrl + '/comment/avatar/' + avatarImage(comment.author)" alt="">
               </div>
-            </iv-col>
-            <iv-col :xs="cellRightSpan('xs')" :sm="cellRightSpan('sm')" :md="cellRightSpan('md')"
+            </i-col>
+            <i-col :xs="cellRightSpan('xs')" :sm="cellRightSpan('sm')" :md="cellRightSpan('md')"
                     :lg="cellRightSpan('lg')" :xl="cellRightSpan('xl')">
               <div class="content">
                 <p class="title">
                   <span class="name" :class="theme" v-if="comment.author !== null"><a>{{ comment.author.nick_name }}</a></span>
                   <span class="name-tag" v-if="comment.author !== null && comment.author.is_blogger">博主</span>
-                  <span class="reply-icon" :class="theme" v-if="comment.reply_to_author !== null"><iv-icon
-                    type="forward"></iv-icon></span>
+                  <span class="reply-icon" :class="theme" v-if="comment.reply_to_author !== null"><i-icon
+                    type="forward"></i-icon></span>
                   <span class="reply-name" :class="theme"
                         v-if="comment.reply_to_author !== null"><a>{{ comment.reply_to_author.nick_name }}</a></span>
                   <span class="name-tag" v-if="comment.reply_to_author !== null && comment.reply_to_author.is_blogger">博主</span>
                   <span class="time">{{ comment.add_time | socialDate }}</span>
                 </p>
                 <p class="comment-main-content" :class="theme" v-if="comment.detail" v-html="comment.detail.formatted_content"
-                   ref="content" v-viewer="{movable: false}"></p>
+                   ref="content"></p>
                 <div class="operate-area" :class="theme">
-                  <span class="like" @click="likeComment(comment)"><iv-icon type="thumbsup"></iv-icon> {{ comment.like_num }}</span>
-                  <span class="unlike" @click="unlikeComment(comment)"><iv-icon type="thumbsdown"></iv-icon> {{ comment.unlike_num }}</span>
-                  <span class="reply"><a @click="showEditor = !showEditor"><iv-icon
-                    type="forward"></iv-icon> 回复</a></span>
-                  <!--<iv-dropdown>-->
-                  <!--<span class="iv-dropdown-link">-->
-                  <!--<iv-icon type="android-share-alt"></iv-icon> 分享 <iv-icon type="arrow-down-b"></iv-icon>-->
+                  <span class="like" @click="likeComment(comment)"><i-icon type="thumbsup"></i-icon> {{ comment.like_num }}</span>
+                  <span class="unlike" @click="unlikeComment(comment)"><i-icon type="thumbsdown"></i-icon> {{ comment.unlike_num }}</span>
+                  <span class="reply"><a @click="showEditor = !showEditor"><i-icon
+                    type="forward"></i-icon> 回复</a></span>
+                  <!--<i-dropdown>-->
+                  <!--<span class="i-dropdown-link">-->
+                  <!--<i-icon type="android-share-alt"></i-icon> 分享 <i-icon type="arrow-down-b"></i-icon>-->
                   <!--</span>-->
-                  <!--<iv-dropdown-menu slot="list">-->
-                  <!--<iv-dropdown-item>菜单</iv-dropdown-item>-->
-                  <!--<iv-dropdown-item>菜单</iv-dropdown-item>-->
-                  <!--<iv-dropdown-item>菜单</iv-dropdown-item>-->
-                  <!--<iv-dropdown-item disabled>菜单</iv-dropdown-item>-->
-                  <!--<iv-dropdown-item divided>菜单</iv-dropdown-item>-->
-                  <!--</iv-dropdown-menu>-->
-                  <!--</iv-dropdown>-->
+                  <!--<i-dropdown-menu slot="list">-->
+                  <!--<i-dropdown-item>菜单</i-dropdown-item>-->
+                  <!--<i-dropdown-item>菜单</i-dropdown-item>-->
+                  <!--<i-dropdown-item>菜单</i-dropdown-item>-->
+                  <!--<i-dropdown-item disabled>菜单</i-dropdown-item>-->
+                  <!--<i-dropdown-item divided>菜单</i-dropdown-item>-->
+                  <!--</i-dropdown-menu>-->
+                  <!--</i-dropdown>-->
                   <!--<span class="reply"><a>查看评论列表</a></span>-->
                 </div>
                 <div class="comment-area" v-show="showEditor">
@@ -54,11 +54,11 @@
                   </div>
                 </div>
               </div>
-            </iv-col>
-          </iv-row>
+            </i-col>
+          </i-row>
         </div>
-      </iv-col>
-    </iv-row>
+      </i-col>
+    </i-row>
   </div>
 </template>
 
@@ -67,7 +67,7 @@
   // highlight.js引入
   import hljs from '@/common/js/highlight.pack';
   // Api
-  import {likeOrUnlikeComment} from '@/api/api';
+  import API from '@/api/client-api';
   // utils
   import {hexMd5} from '@/common/js/md5';
 
@@ -151,7 +151,7 @@
         this.$emit('publishedComment', comment);
       },
       likeComment(comment) {
-        likeOrUnlikeComment({
+        API.likeOrUnlikeComment({
           comment_id: comment.id,
           operation: true
         }).then((response) => {
@@ -162,7 +162,7 @@
         });
       },
       unlikeComment(comment) {
-        likeOrUnlikeComment({
+        API.likeOrUnlikeComment({
           comment_id: comment.id,
           operation: false
         }).then((response) => {
@@ -255,7 +255,7 @@
       font-size 14px
       span
         margin-right 10px
-      .iv-dropdown-link
+      .i-dropdown-link
         cursor pointer
       .like, .unlike
         color $light
@@ -264,7 +264,7 @@
       .reply
         cursor pointer
       &.dark-theme
-        .iv-dropdown-link
+        .i-dropdown-link
           &:hover
             color $color-secondary-warning
         .reply

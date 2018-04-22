@@ -18,7 +18,7 @@
 
 <script type="text/ecmascript-6">
   import Panel from '@/components/views/Panel';
-  import { getFriendLinks } from '@/api/api';
+  import API from '@/api/client-api';
 
   export default {
     data() {
@@ -31,7 +31,7 @@
     },
     methods: {
       getDatas() {
-        getFriendLinks({
+        API.getFriendLinks({
           params: {}
         }).then((response) => {
           this.friendLinks = response.data;

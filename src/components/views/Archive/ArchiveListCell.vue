@@ -2,11 +2,11 @@
   <div class="archive-list-cell">
     <p>
       <a @click="gotoPostDetail(post)">
-        <iv-tag>{{ post.add_time | formatDate}}</iv-tag>
+        <i-tag>{{ post.add_time | formatDate}}</i-tag>
         <span class="title">
-          <iv-tool-tip placement="right" :content="routerInfos(post).message" v-if="post.browse_password_encrypt">
-            <iv-icon type="android-lock" color="#FA5555" v-if="post.browse_password_encrypt"></iv-icon>
-          </iv-tool-tip>
+          <i-tool-tip placement="right" :content="routerInfos(post).message" v-if="post.browse_password_encrypt">
+            <i-icon type="android-lock" color="#FA5555" v-if="post.browse_password_encrypt"></i-icon>
+          </i-tool-tip>
           {{ post.title }}
         </span>
       </a>

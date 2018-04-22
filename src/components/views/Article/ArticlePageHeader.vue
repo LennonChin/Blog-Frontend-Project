@@ -1,22 +1,22 @@
 <template>
   <div class="article-page-header" v-if="article !== undefined">
     <div class="tags">
-      <iv-tag color="blue" v-for="tag in article.tags" :key="tag.id">{{ tag.name }}</iv-tag>
+      <i-tag color="blue" v-for="tag in article.tags" :key="tag.id">{{ tag.name }}</i-tag>
     </div>
     <p class="title">{{ article.title }}</p>
-    <iv-row>
-      <iv-col :xs="24" :sm="10" :md="10" :lg="10" style="padding-left: 0;padding-right: 0;">
+    <i-row>
+      <i-col :xs="24" :sm="10" :md="10" :lg="10" style="padding-left: 0;padding-right: 0;">
         <p class="info"><span class="author">By / <a href="">{{article.author}}</a></span><span
                 class="publish-time">  At time / <a href="">{{ article.add_time | socialDate }}</a></span></p>
-      </iv-col>
-      <iv-col :xs="24" :sm="14" :md="14" :lg="14" style="padding-left: 0;padding-right: 0;">
+      </i-col>
+      <i-col :xs="24" :sm="14" :md="14" :lg="14" style="padding-left: 0;padding-right: 0;">
         <p class="operate_info">
-          <span class="readings"><a><iv-icon type="eye"></iv-icon> {{article.click_num}} 阅读</a></span> |
-          <span class="comments"><a><iv-icon type="compose"></iv-icon> {{article.comment_num}} 评论</a></span> |
-          <span class="likes"><a @click="likePost(article)"><iv-icon type="heart"></iv-icon> {{article.like_num}} 觉得赞</a></span>
+          <span class="readings"><a><i-icon type="eye"></i-icon> {{article.click_num}} 阅读</a></span> |
+          <span class="comments"><a><i-icon type="compose"></i-icon> {{article.comment_num}} 评论</a></span> |
+          <span class="likes"><a @click="likePost(article)"><i-icon type="heart"></i-icon> {{article.like_num}} 觉得赞</a></span>
         </p>
-      </iv-col>
-    </iv-row>
+      </i-col>
+    </i-row>
     <p class="abstract" v-if="article.abstract">
       摘要：{{ article.abstract }}
     </p>
@@ -24,7 +24,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import {addPostLike} from '@/api/api';
+  import API from '@/api/client-api';
 
   export default {
     props: {
@@ -35,7 +35,7 @@
     },
     methods: {
       likePost(post) {
-        addPostLike({
+        API.addPostLike({
           post_id: post.id
         }).then((response) => {
           post.like_num += 1;

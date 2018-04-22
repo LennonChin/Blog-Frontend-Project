@@ -1,38 +1,38 @@
 <template>
   <div id="mavon-editor" :class="theme">
     <div class="operate">
-      <iv-row>
-        <iv-col :xs="8" :sm="8" :md="6" :lg="6" style="padding-left: 0; padding-right: 7.5px;">
-          <iv-input v-model="nickName" placeholder="请输入您的昵称" size="large">
+      <i-row>
+        <i-col :xs="8" :sm="8" :md="6" :lg="6" style="padding-left: 0; padding-right: 7.5px;">
+          <i-input v-model="nickName" placeholder="请输入您的昵称" size="large">
             <span slot="prepend">昵称 </span>
-          </iv-input>
-        </iv-col>
-        <iv-col :xs="16" :sm="16" :md="12" :lg="11" style="padding-left: 0; padding-right: 0;">
-          <iv-input v-model="email" placeholder="及邮箱以评论" size="large">
+          </i-input>
+        </i-col>
+        <i-col :xs="16" :sm="16" :md="12" :lg="11" style="padding-left: 0; padding-right: 0;">
+          <i-input v-model="email" placeholder="及邮箱以评论" size="large">
             <span slot="prepend">邮箱 </span>
-          </iv-input>
-          <!--<iv-input v-model="email" placeholder="联系方式（邮箱或手机号）以评论" size="large">-->
-          <!--<iv-select v-model="select" slot="prepend" style="width: 80px">-->
-          <!--<iv-option value="email">邮箱</iv-option>-->
-          <!--<iv-option value="mobile">手机号 </iv-option>-->
-          <!--</iv-select>-->
-          <!--</iv-input>-->
-        </iv-col>
-        <!--<iv-col :xs="24" :sm="24" :md="6" :lg="7" class-name="iv-dropdown-link">-->
-        <!--<iv-dropdown>-->
-        <!--<iv-icon type="log-in"></iv-icon>-->
+          </i-input>
+          <!--<i-input v-model="email" placeholder="联系方式（邮箱或手机号）以评论" size="large">-->
+          <!--<i-select v-model="select" slot="prepend" style="width: 80px">-->
+          <!--<i-option value="email">邮箱</i-option>-->
+          <!--<i-option value="mobile">手机号 </i-option>-->
+          <!--</i-select>-->
+          <!--</i-input>-->
+        </i-col>
+        <!--<i-col :xs="24" :sm="24" :md="6" :lg="7" class-name="i-dropdown-link">-->
+        <!--<i-dropdown>-->
+        <!--<i-icon type="log-in"></i-icon>-->
         <!--或登录以评论-->
-        <!--<iv-icon type="arrow-down-b"></iv-icon>-->
-        <!--<iv-dropdown-menu slot="list">-->
-        <!--<iv-dropdown-item>菜单</iv-dropdown-item>-->
-        <!--<iv-dropdown-item>菜单</iv-dropdown-item>-->
-        <!--<iv-dropdown-item>菜单</iv-dropdown-item>-->
-        <!--<iv-dropdown-item disabled>菜单</iv-dropdown-item>-->
-        <!--<iv-dropdown-item divided>菜单</iv-dropdown-item>-->
-        <!--</iv-dropdown-menu>-->
-        <!--</iv-dropdown>-->
-        <!--</iv-col>-->
-      </iv-row>
+        <!--<i-icon type="arrow-down-b"></i-icon>-->
+        <!--<i-dropdown-menu slot="list">-->
+        <!--<i-dropdown-item>菜单</i-dropdown-item>-->
+        <!--<i-dropdown-item>菜单</i-dropdown-item>-->
+        <!--<i-dropdown-item>菜单</i-dropdown-item>-->
+        <!--<i-dropdown-item disabled>菜单</i-dropdown-item>-->
+        <!--<i-dropdown-item divided>菜单</i-dropdown-item>-->
+        <!--</i-dropdown-menu>-->
+        <!--</i-dropdown>-->
+        <!--</i-col>-->
+      </i-row>
     </div>
     <mavon-editor v-model="origin_content"
                   class="editor-area" style="height: 100%; min-height: 50px; min-width: 200px; z-index: 1000;"
@@ -46,18 +46,18 @@
     <div class="bottom-area">
       <div class="comment-tip">
         <a href="https://guides.github.com/features/mastering-markdown/" target="_blank">
-          <iv-icon
-            type="information-circled"></iv-icon>
+          <i-icon
+            type="information-circled"></i-icon>
           支持MarkDown</a>
       </div>
       <div class="publish-area">
         <!--<img src="../../assets/captcha.png" style="height: 32px; padding-right: 5px">-->
-        <!--<iv-input style="padding-right: 5px" placeholder="请输入验证码"></iv-input>-->
-        <!--<iv-button size="default" @click="send" :type="buttonType">发布</iv-button>-->
-        <iv-button size="default" :type="buttonType" :loading="publishing" @click="send">
+        <!--<i-input style="padding-right: 5px" placeholder="请输入验证码"></i-input>-->
+        <!--<i-button size="default" @click="send" :type="buttonType">发布</i-button>-->
+        <i-button size="default" :type="buttonType" :loading="publishing" @click="send">
           <span v-if="!publishing">发布</span>
           <span v-else>发布中</span>
-        </iv-button>
+        </i-button>
       </div>
     </div>
   </div>
@@ -68,7 +68,7 @@
   import 'mavon-editor/dist/css/index.css';
   import {loadFromLocal, saveToLocal, uploadFile} from '@/common/js/utils';
   // API
-  import {getEmailCode, verifyEmailCode, addCommentInfo} from '@/api/api';
+  import API from '@/api/client-api';
 
   export default {
     props: {
@@ -279,7 +279,7 @@
           // 该邮箱在本地没有评论记录,需要验证邮箱
           this.publishing = true;
           let that = this;
-          getEmailCode({
+          API.getEmailCode({
             nick_name: this.nickName,
             email: this.email
           }).then((response) => {
@@ -320,7 +320,7 @@
                 'modal-message': true
               }
             }));
-            children.push(h('iv-input', {
+            children.push(h('i-input', {
               props: {
                 value: this.value,
                 autofocus: true,
@@ -342,7 +342,7 @@
             this.publishing = false;
           },
           onOk: () => {
-            verifyEmailCode({
+            API.verifyEmailCode({
               params: {
                 email: that.email,
                 nick_name: that.nickName,
@@ -369,7 +369,7 @@
       },
       publish() {
         let that = this;
-        addCommentInfo({
+        API.addCommentInfo({
           detail: {
             origin_content: this.origin_content
           },
@@ -434,7 +434,7 @@
     flex-direction column
     .operate
       margin-bottom 15px
-      .iv-dropdown-link
+      .i-dropdown-link
         display block
         height 36px
         line-height 36px
@@ -455,7 +455,7 @@
     &.dark-theme
       .operate
         margin-bottom 15px
-        .iv-dropdown-link
+        .i-dropdown-link
           display block
           height 36px
           line-height 36px

@@ -1,15 +1,15 @@
 <template>
   <div class="movie-recommend-list-cell" v-if="movies.length > 0">
     <h4>推荐影评</h4>
-    <iv-row>
-      <iv-col :xs="24" :sm="24" :md="6" :lg="8">
+    <i-row>
+      <i-col :xs="24" :sm="24" :md="6" :lg="8">
         <div class="left">
           <movie-list-item :movie="movies[0]"></movie-list-item>
         </div>
-      </iv-col>
-      <iv-col :xs="24" :sm="24" :md="18" :lg="16">
-        <iv-row>
-          <iv-col :xs="24" :sm="24" :md="12" :lg="12" v-for="movie in movies.slice(1, 5)" :key="movie.id">
+      </i-col>
+      <i-col :xs="24" :sm="24" :md="18" :lg="16">
+        <i-row>
+          <i-col :xs="24" :sm="24" :md="12" :lg="12" v-for="movie in movies.slice(1, 5)" :key="movie.id">
             <div class="right">
               <a @click="gotoPostDetail(movie)">
                 <div class="img">
@@ -22,9 +22,9 @@
                 </div>
                 <div class="info">
                   <p class="title">
-                    <iv-tool-tip placement="top" content="该文章已加密，您需要输入阅读密码" v-if="movie.browse_password_encrypt">
-                      <iv-icon type="android-lock" color="#FA5555" v-if="movie.browse_password_encrypt"></iv-icon>
-                    </iv-tool-tip>
+                    <i-tool-tip placement="top" content="该文章已加密，您需要输入阅读密码" v-if="movie.browse_password_encrypt">
+                      <i-icon type="android-lock" color="#FA5555" v-if="movie.browse_password_encrypt"></i-icon>
+                    </i-tool-tip>
                     {{ movie.title }}
                   </p>
                   <p class="desc"><span>导演：</span>{{ movie.director }}</p>
@@ -34,10 +34,10 @@
                 </div>
               </a>
             </div>
-          </iv-col>
-        </iv-row>
-        <iv-row>
-          <iv-col :xs="24" :sm="24" :md="12" :lg="12">
+          </i-col>
+        </i-row>
+        <i-row>
+          <i-col :xs="24" :sm="24" :md="12" :lg="12">
             <div class="comment">
               <a href="">
                 <img src="../../../assets/avatar.png" alt="">
@@ -48,8 +48,8 @@
                 <p class="content">终于赶上告别版的盗3了，可惜看不到末场的演出了！可惜看不到末场的演出了！</p>
               </a>
             </div>
-          </iv-col>
-          <iv-col :xs="24" :sm="24" :md="12" :lg="12">
+          </i-col>
+          <i-col :xs="24" :sm="24" :md="12" :lg="12">
             <div class="comment">
               <a href="">
                 <img src="../../../assets/avatar.png" alt="">
@@ -60,10 +60,10 @@
                 <p class="content">终于赶上告别版的盗3了，可惜看不到末场的演出了！可惜看不到末场的演出了！</p>
               </a>
             </div>
-          </iv-col>
-        </iv-row>
-      </iv-col>
-    </iv-row>
+          </i-col>
+        </i-row>
+      </i-col>
+    </i-row>
   </div>
 </template>
 

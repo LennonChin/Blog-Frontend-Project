@@ -1,5 +1,9 @@
 import Vue from 'vue';
-import router from '@/router';
+// vue router相关
+import VueRouter from 'vue-router';
+import Vuex from 'vuex';
+import createRouter from './router/router';
+import createStore from './store/store';
 import 'iview/dist/styles/iview.css';
 import App from './App.vue';
 import Viewer from 'v-viewer';
@@ -42,44 +46,50 @@ import {
   AutoComplete
 } from 'iview';
 
+Vue.use(VueRouter);
+Vue.use(Vuex);
+Vue.use(Viewer);
+
+const router = createRouter();
+const store = createStore();
+
 Vue.prototype.$http = Axios;
 Vue.prototype.$Modal = Modal;
 Vue.prototype.$Message = Message;
 Vue.prototype.$Notice = Notice;
 Vue.prototype.$Spin = Spin;
-Vue.prototype.$Window = window;
 
 Vue.prototype.$Notice.config({
   top: 70,
   duration: 3
 });
 
-Vue.component('iv-row', Row);
-Vue.component('iv-col', Col);
-Vue.component('iv-button', Button);
-Vue.component('iv-input', Input);
-Vue.component('iv-progress', Progress);
-Vue.component('iv-tag', Tag);
-Vue.component('iv-dropdown', Dropdown);
-Vue.component('iv-dropdown-menu', DropdownMenu);
-Vue.component('iv-dropdown-item', DropdownItem);
-Vue.component('iv-menu', Menu);
-Vue.component('iv-submenu', Submenu);
-Vue.component('iv-menu-item', MenuItem);
-Vue.component('iv-icon', Icon);
-Vue.component('iv-loadingBar', LoadingBar);
-Vue.component('iv-affix', Affix);
-Vue.component('iv-select', Select);
-Vue.component('iv-option', Option);
-Vue.component('iv-date-picker', DatePicker);
-Vue.component('iv-date-picker-cell', DatePickerCell);
-Vue.component('iv-switch', Switch);
-Vue.component('iv-avatar', Avatar);
-Vue.component('iv-backtop', BackTop);
-Vue.component('iv-spin', Spin);
-Vue.component('iv-tool-tip', Tooltip);
-Vue.component('iv-rate', Rate);
-Vue.component('iv-auto-complete', AutoComplete);
+Vue.component('i-row', Row);
+Vue.component('i-col', Col);
+Vue.component('i-button', Button);
+Vue.component('i-input', Input);
+Vue.component('i-progress', Progress);
+Vue.component('i-tag', Tag);
+Vue.component('i-dropdown', Dropdown);
+Vue.component('i-dropdown-menu', DropdownMenu);
+Vue.component('i-dropdown-item', DropdownItem);
+Vue.component('i-menu', Menu);
+Vue.component('i-submenu', Submenu);
+Vue.component('i-menu-item', MenuItem);
+Vue.component('i-icon', Icon);
+Vue.component('i-loadingBar', LoadingBar);
+Vue.component('i-affix', Affix);
+Vue.component('i-select', Select);
+Vue.component('i-option', Option);
+Vue.component('i-date-picker', DatePicker);
+Vue.component('i-date-picker-cell', DatePickerCell);
+Vue.component('i-switch', Switch);
+Vue.component('i-avatar', Avatar);
+Vue.component('i-backtop', BackTop);
+Vue.component('i-spin', Spin);
+Vue.component('i-tool-tip', Tooltip);
+Vue.component('i-rate', Rate);
+Vue.component('i-auto-complete', AutoComplete);
 
 // 全局混合
 Vue.mixin({
@@ -150,11 +160,8 @@ Vue.mixin({
 
 let vm = new Vue({
   router,
-  el: '#app',
+  store,
   render: h => h(App)
 });
 
-Vue.use(Viewer);
-Vue.use({
-  vm
-});
+vm.$mount('#root');

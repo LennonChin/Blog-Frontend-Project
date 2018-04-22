@@ -5,8 +5,8 @@
       <movie-page-header :movie="movie"></movie-page-header>
     </div>
     <div class="content-wrapper layout-content">
-      <iv-row>
-        <iv-col :xs="24" :sm="24" :md="24" :lg="17">
+      <i-row>
+        <i-col :xs="24" :sm="24" :md="24" :lg="17">
           <div class="layout-left">
             <movie-page-content>
               <div class="article-details" id="article-main-page" slot="content" v-viewer ref="article">
@@ -19,16 +19,16 @@
             </movie-page-content>
             <article-page-footer :article="movie"></article-page-footer>
           </div>
-        </iv-col>
-        <iv-col :xs="0" :sm="0" :md="0" :lg="7">
+        </i-col>
+        <i-col :xs="0" :sm="0" :md="0" :lg="7">
           <div class="layout-right">
             <recommend></recommend>
-            <iv-affix :offset-top="60" v-if="responsiveRender(false, false, false, true)">
+            <i-affix :offset-top="60">
               <side-toc style="margin-top: 15px;"></side-toc>
-            </iv-affix>
+            </i-affix>
           </div>
-        </iv-col>
-      </iv-row>
+        </i-col>
+      </i-row>
     </div>
   </div>
 </template>
@@ -48,7 +48,7 @@
   // 加密
   import {hexMd5} from '@/common/js/md5';
   // API
-  import {getMovieDetailInfo} from '@/api/api';
+  import API from '@/api/client-api';
 
   var HLJS = hljs;
 
@@ -74,8 +74,8 @@
     },
     methods: {
       getDatas() {
-        var that = this;
-        getMovieDetailInfo({
+        let that = this;
+        API.getMovieDetailInfo({
           params: {
             browse_auth: this.browse_auth
           },
@@ -135,7 +135,7 @@
                 'modal-message': true
               }
             }));
-            children.push(h('iv-input', {
+            children.push(h('i-input', {
               props: {
                 type: 'password',
                 autofocus: true,
@@ -206,7 +206,6 @@
           // 添加图片前缀
           this.resolveImageUrl(this.$refs.article.querySelectorAll('img'));
           this.addTocScrollSpy();
-          window.scrollTo(0, 0);
         });
       }
     }

@@ -4,7 +4,7 @@
     <span class="main-title">{{date}}</span>
     <span class="vertical-line"></span>
     <span class="sub-title">共 <a href="">{{count}}</a> 篇</span>
-    <span class="view-more"><a href="">{{tipText}} <iv-icon type="arrow-right-b"></iv-icon></a></span>
+    <span class="view-more"><a href="">{{tipText}} <i-icon type="arrow-right-b"></i-icon></a></span>
   </div>
 </template>
 

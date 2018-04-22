@@ -11,10 +11,10 @@
             </span>
       </form>
       <p class="site-nav">网站导航
-        <iv-switch v-model="showNav">
+        <i-switch v-model="showNav">
           <span slot="open">开</span>
           <span slot="close">关</span>
-        </iv-switch>
+        </i-switch>
       </p>
       <ul class="nav-menu" :class="{'hide': !showNav}">
         <li class="nav-dropdown-container" v-for="category_level1 in this.categorys">

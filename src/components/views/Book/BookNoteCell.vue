@@ -1,45 +1,44 @@
 <template>
   <div class="book-note-cell">
     <a>
-      <iv-row type="flex">
-        <iv-col :xs="24" :sm="24" :md="textSpan" :lg="textSpan" :order="textOrderType"
+      <i-row type="flex">
+        <i-col :xs="24" :sm="24" :md="textSpan" :lg="textSpan" :order="textOrderType"
                 style="padding-left: 0;padding-right: 0;">
           <div class="text-wrapper">
             <h4 class="title">
-              <iv-tool-tip placement="right" content="该文章已图集，您需要输入阅读密码" v-if="bookNote.browse_password_encrypt">
-                <iv-icon type="android-lock" color="#FA5555" v-if="bookNote.browse_password_encrypt"></iv-icon>
-              </iv-tool-tip>
+              <i-tool-tip placement="right" content="该文章已图集，您需要输入阅读密码" v-if="bookNote.browse_password_encrypt">
+                <i-icon type="android-lock" color="#FA5555" v-if="bookNote.browse_password_encrypt"></i-icon>
+              </i-tool-tip>
               <a @click="gotoPostDetail(bookNote)"> {{bookNote.title}}</a>
             </h4>
             <p class="book-info">
-              &nbsp;<iv-icon type="ios-book"></iv-icon>&nbsp;Book：《{{bookNote.book.book_name }}》 &nbsp;&nbsp;&nbsp;
-              <iv-icon type="document-text"></iv-icon>&nbsp;Chapter：{{bookNote.abstract | textLineBreak(70) }}</p>
+              &nbsp;<i-icon type="ios-book"></i-icon>&nbsp;Book：《{{bookNote.book.book_name }}》 &nbsp;&nbsp;&nbsp;
+              <i-icon type="document-text"></i-icon>&nbsp;Chapter：{{bookNote.abstract | textLineBreak(70) }}</p>
             <div class="tags">
-              <iv-tag :color="tag.color" type="border" v-for="tag in bookNote.tags" :key="tag.id">{{ tag.name }}</iv-tag>
+              <i-tag :color="tag.color" type="border" v-for="tag in bookNote.tags" :key="tag.id">{{ tag.name }}</i-tag>
             </div>
             <p class="desc">{{bookNote.abstract | textLineBreak(70) }}
               <a @click="gotoPostDetail(bookNote)"> View More
-                <iv-icon type="arrow-right-b"></iv-icon>
+                <i-icon type="arrow-right-b"></i-icon>
               </a>
             </p>
             <p class="operate_info">
               <span class="publish-time"><a>{{ bookNote.add_time | socialDate }}</a></span>
-              <span class="readings"><a><iv-icon type="eye"></iv-icon> {{bookNote.click_num}} 阅</a></span>
-              <span class="comments"><a><iv-icon type="compose"></iv-icon> {{bookNote.comment_num}} 评</a></span>
-              <span class="likes"><a @click="likePost(book)"><iv-icon type="heart"></iv-icon> {{bookNote.like_num}} 赞</a></span>
+              <span class="readings"><a><i-icon type="eye"></i-icon> {{bookNote.click_num}} 阅</a></span>
+              <span class="comments"><a><i-icon type="compose"></i-icon> {{bookNote.comment_num}} 评</a></span>
+              <span class="likes"><a @click="likePost(book)"><i-icon type="heart"></i-icon> {{bookNote.like_num}} 赞</a></span>
             </p>
           </div>
-        </iv-col>
-        <iv-col :xs="0" :sm="0" :md="imgSpan" :lg="imgSpan" :order="imgOrderType"
-                style="padding-left: 0px;padding-right: 0px"
-                v-if="responsiveRender(false, false, imgSpan !== 0, imgSpan !== 0)">
+        </i-col>
+        <i-col :xs="0" :sm="0" :md="imgSpan" :lg="imgSpan" :order="imgOrderType"
+                style="padding-left: 0px;padding-right: 0px">
           <div class="img-wrapper" :class="themeClass">
             <img :src="bookNote.front_image" alt="">
           </div>
-        </iv-col>
-      </iv-row>
+        </i-col>
+      </i-row>
       <a class="toggle-arrow" @click="toggleBookInfo" :class="{show: showBookInfo}">
-        {{ this.showBookInfo ? '隐藏书籍信息' : '查看书籍信息' }}：《{{ bookNote.book.book_name }}》 &nbsp;<iv-icon type="chevron-up" :class="{show: showBookInfo}"></iv-icon>
+        {{ this.showBookInfo ? '隐藏书籍信息' : '查看书籍信息' }}：《{{ bookNote.book.book_name }}》 &nbsp;<i-icon type="chevron-up" :class="{show: showBookInfo}"></i-icon>
       </a>
       <a class="book-infos" :class="{show: showBookInfo}" @click="gotoPostDetail(bookNote.book)">
         <div class="img">
@@ -52,18 +51,18 @@
         </div>
         <div class="book-info">
           <p class="title">
-            <iv-tool-tip placement="right" content="该文章已加密，您需要输入阅读密码" v-if="false">
-              <iv-icon type="android-lock" color="#FA5555" v-if="false"></iv-icon>
-            </iv-tool-tip>
+            <i-tool-tip placement="right" content="该文章已加密，您需要输入阅读密码" v-if="false">
+              <i-icon type="android-lock" color="#FA5555" v-if="false"></i-icon>
+            </i-tool-tip>
             《{{ bookNote.book.book_name }}》
           </p>
           <p class="desc"><span>作者：</span>{{ bookNote.book.book_author }}</p>
-          <iv-progress :percent="bookNote.book.read_precentage" :stroke-width="6">
-            <iv-icon type="checkmark-circled"></iv-icon>
+          <i-progress :percent="bookNote.book.read_precentage" :stroke-width="6">
+            <i-icon type="checkmark-circled"></i-icon>
             <span>{{bookNote.book.read_precentage}}%</span>
-          </iv-progress>
+          </i-progress>
           <p class="desc">{{ bookNote.book.desc | textLineBreak(140) }}</p>
-          <iv-tag type="border" v-for="tag in bookTags" :key="tag.name">{{ tag.name }}</iv-tag>
+          <i-tag type="border" v-for="tag in bookTags" :key="tag.name">{{ tag.name }}</i-tag>
         </div>
       </a>
     </a>
@@ -71,7 +70,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import {addPostLike} from '@/api/api';
+  import API from '@/api/client-api';
   import {checkPostAuth} from '@/common/js/utils';
 
   const ARTICLE_TYPE_NO_IMAGE = 0;
@@ -152,7 +151,7 @@
         console.log(this.showBookInfo);
       },
       likePost(post) {
-        addPostLike({
+        API.addPostLike({
           post_id: post.id
         }).then((response) => {
           post.like_num += 1;

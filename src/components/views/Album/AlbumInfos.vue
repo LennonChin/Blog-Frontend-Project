@@ -1,9 +1,9 @@
 <template>
   <div class="album-infos">
     <p class="operate_info">
-      <span class="readings"><a><iv-icon type="eye"></iv-icon> {{ album.click_num }} 阅读</a></span>
-      <span class="comments"><a><iv-icon type="compose"></iv-icon> {{ album.comment_num }} 评论</a></span>
-      <span class="likes"><a @click="likePost(album)"><iv-icon type="heart"></iv-icon> {{ album.like_num }} 喜欢</a></span>
+      <span class="readings"><a><i-icon type="eye"></i-icon> {{ album.click_num }} 阅读</a></span>
+      <span class="comments"><a><i-icon type="compose"></i-icon> {{ album.comment_num }} 评论</a></span>
+      <span class="likes"><a @click="likePost(album)"><i-icon type="heart"></i-icon> {{ album.like_num }} 喜欢</a></span>
     </p>
     <div class="author">
       <a href="">
@@ -37,7 +37,7 @@
 <script type="text/ecmascript-6">
   import LicenseTag from '@/components/views/LicenseTag';
   import SocialSection from '@/components/views/Comment/SocialSection';
-  import {addPostLike} from '@/api/api';
+  import API from '@/api/client-api';
 
   export default {
     props: {
@@ -61,7 +61,7 @@
         }
       },
       likePost(post) {
-        addPostLike({
+        API.addPostLike({
           post_id: post.id
         }).then((response) => {
           post.like_num += 1;

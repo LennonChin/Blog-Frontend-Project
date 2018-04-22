@@ -17,10 +17,10 @@
           <p class="desc"><span>出版日期：</span>{{ bookDoubanInfo.publish_date }}</p>
           <p class="desc"><span>页数：</span>{{ bookDoubanInfo.pages }}</p>
           <p class="desc"><span>评分：</span>
-            <iv-rate v-model="bookDoubanInfo.rating * 0.5" :allowHalf="true" :disabled="true"></iv-rate>
+            <i-rate v-model="bookDoubanInfo.rating * 0.5" :allowHalf="true" :disabled="true"></i-rate>
           </p>
           <p class="desc">
-            <iv-tag type="border" v-for="tag in bookDoubanInfo.tags" :key="tag.name">{{ tag.name }}</iv-tag>
+            <i-tag type="border" v-for="tag in bookDoubanInfo.tags" :key="tag.name">{{ tag.name }}</i-tag>
           </p>
         </div>
         <div class="rating"></div>
@@ -31,7 +31,7 @@
 
 <script type="text/ecmascript-6">
   import Panel from '@/components/views/Panel';
-  import {getDoubanInfo} from '@/api/api';
+  import API from '@/api/client-api';
 
   export default {
     props: {
@@ -53,7 +53,7 @@
         if (book) {
           this.bookDoubanInfo = this.formatLocalBookInfo(book);
         } else {
-          getDoubanInfo({
+          API.getDoubanInfo({
             id: book.douban_id,
             type: book.douban_type
           }).then((response) => {

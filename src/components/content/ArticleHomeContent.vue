@@ -6,12 +6,12 @@
         <article-home-banner :bannerArticles="bannerArticles"></article-home-banner>
       </div>
     </div>
-    <iv-row style="margin-top:20px;">
-      <iv-col :xs="24" :sm="24" :md="24" :lg="17">
+    <i-row style="margin-top:20px;">
+      <i-col :xs="24" :sm="24" :md="24" :lg="17">
         <div class="layout-left">
           <classify-menu :categorys="categorys" @selectCategory="selectCategory"
                          :defaultCategory="top_category"></classify-menu>
-          <iv-affix style="position: relative;z-index: 12;">
+          <i-affix style="position: relative;z-index: 12;">
             <section-title :mainTitle="'文章列表'"
                            :subTitle="'Articles'"
                            :menus="menus"
@@ -23,18 +23,18 @@
                            @comfirmDateSelect="dateSelect"
                            @clearDateSelect="dateSelectClear">
             </section-title>
-          </iv-affix>
+          </i-affix>
           <article-list-cell v-for="article in articles" :article="article" :key="article.id"></article-list-cell>
           <browse-more @browseMore="browseMore" ref="browseMore"></browse-more>
         </div>
-      </iv-col>
-      <iv-col :xs="0" :sm="0" :md="0" :lg="7">
+      </i-col>
+      <i-col :xs="0" :sm="0" :md="0" :lg="7">
         <div class="layout-right">
           <recommend></recommend>
           <tag-wall style="margin-top: 15px;"></tag-wall>
         </div>
-      </iv-col>
-    </iv-row>
+      </i-col>
+    </i-row>
   </div>
 </template>
 
@@ -48,7 +48,7 @@
   import BrowseMore from '@/components/views/BrowseMore';
 
   // API
-  import {getArticleBaseInfo, getCategorys} from '@/api/api';
+  import API from '@/api/client-api';
 
   const DEFAULT_LIMIT_SIZE = 10;
   const MAX_LIMIT_SIZE = 100;
@@ -142,7 +142,7 @@
         this.getBannerArticleBaseInfo();
       },
       getCategorys() {
-        getCategorys({
+        API.getCategorys({
           params: {
             'level_min': 1,
             'level_max': 1,
@@ -155,7 +155,7 @@
         });
       },
       getBannerArticleBaseInfo() {
-        getArticleBaseInfo({
+        API.getArticleBaseInfo({
           params: {
             top_category: this.top_category,
             is_banner: true
@@ -182,7 +182,7 @@
               orderings.push('-comment_num');
             }
           }
-          getArticleBaseInfo({
+          API.getArticleBaseInfo({
             params: {
               top_category: this.top_category,
               ordering: orderings.toString(),

@@ -19,11 +19,11 @@
     <classify-wall @selectCategory="selectCategory" :categorys="categorys"></classify-wall>
     <section-title :mainTitle="selectedCategory.name" :subTitle="selectedCategory.subname"></section-title>
     <div class="thumb-cards">
-      <iv-row>
-        <iv-col :xs="24" :sm="12" :md="8" :lg="8" v-for="album in albums" :key="album.tag">
+      <i-row>
+        <i-col :xs="24" :sm="12" :md="8" :lg="8" v-for="album in albums" :key="album.tag">
           <thumb-card :album="album"></thumb-card>
-        </iv-col>
-      </iv-row>
+        </i-col>
+      </i-row>
     </div>
     <browse-more @browseMore="browseMore" ref="browseMore"></browse-more>
   </div>
@@ -40,7 +40,7 @@
   import {checkPostAuth} from '@/common/js/utils';
 
   // API
-  import {getCategorys, getAlbumBaseInfo, getIndexBanners} from '@/api/api';
+  import API from '@/api/client-api';
 
   const DEFAULT_LIMIT_SIZE = 6;
 
@@ -89,7 +89,7 @@
         this.getIndexBanners();
       },
       getIndexBanners() {
-        getIndexBanners({
+        API.getIndexBanners({
           params: {
             top_category: 5
           }
@@ -100,7 +100,7 @@
         });
       },
       getAlbumBaseInfo() {
-        getAlbumBaseInfo({
+        API.getAlbumBaseInfo({
           params: {
             top_category: this.selectedCategory.id,
             limit: this.limit_size,
@@ -120,7 +120,7 @@
         });
       },
       getCategorys() {
-        getCategorys({
+        API.getCategorys({
           params: {
             level_min: 1,
             level_max: 3,

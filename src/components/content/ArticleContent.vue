@@ -1,11 +1,11 @@
 <template>
   <div class="article-content layout-content" v-if="article !== undefined">
-    <iv-row>
-      <iv-col :xs="24" :sm="24" :md="24" :lg="17">
+    <i-row>
+      <i-col :xs="24" :sm="24" :md="24" :lg="17">
         <div class="layout-left">
           <article-page-header :article="article"></article-page-header>
           <article-page-content>
-            <div class="article-details" id="article-main-page" slot="content" v-viewer ref="article">
+            <div class="article-details" id="article-main-page" slot="content" ref="article">
               <div class="detail" v-if="article !== undefined" v-for="detail in article.details">
                 <article class="typo container article-main-content" v-html="detail.formatted_content">
                 </article>
@@ -15,16 +15,16 @@
           </article-page-content>
           <article-page-footer :article="article"></article-page-footer>
         </div>
-      </iv-col>
-      <iv-col :xs="0" :sm="0" :md="0" :lg="7">
+      </i-col>
+      <i-col :xs="0" :sm="0" :md="0" :lg="7">
         <div class="layout-right">
           <recommend></recommend>
-          <iv-affix :offset-top="60" v-if="responsiveRender(false, false, false, true)">
+          <i-affix :offset-top="60">
             <side-toc style="margin-top: 15px;" ref="sideToc"></side-toc>
-          </iv-affix>
+          </i-affix>
         </div>
-      </iv-col>
-    </iv-row>
+      </i-col>
+    </i-row>
   </div>
 </template>
 
@@ -45,7 +45,7 @@
   // 加密
   import {hexMd5} from '@/common/js/md5';
   // API
-  import {getArticleDetailInfo} from '@/api/api';
+  import API from '@/api/client-api';
 
   var HLJS = hljs;
 
@@ -64,7 +64,7 @@
       this.browse_auth = this.$route.query.browse_auth;
       this.getDatas();
     },
-    created() {
+    mounted() {
       this.id = this.$route.params.id;
       this.browse_auth = this.$route.query.browse_auth;
       this.getDatas();
@@ -72,7 +72,7 @@
     methods: {
       getDatas() {
         let that = this;
-        getArticleDetailInfo({
+        API.getArticleDetailInfo({
           params: {
             browse_auth: this.browse_auth
           },
@@ -132,7 +132,7 @@
                 'modal-message': true
               }
             }));
-            children.push(h('iv-input', {
+            children.push(h('i-input', {
               props: {
                 type: 'password',
                 autofocus: true,
@@ -213,7 +213,6 @@
             // 添加图片前缀
             this.resolveImageUrl(this.$refs.article.querySelectorAll('img'));
             this.addTocScrollSpy();
-            window.scrollTo(0, 0);
           });
         }
       }

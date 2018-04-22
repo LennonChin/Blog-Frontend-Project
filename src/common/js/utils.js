@@ -1,5 +1,5 @@
 import {hexMd5} from '@/common/js/md5';
-import {getUploadToken, uploadImage} from '@/api/api';
+import API from '@/api/client-api';
 
 // 按社交方式格式化时间
 export function socialDateFormat(formateDate) {
@@ -35,6 +35,7 @@ export function socialDateFormat(formateDate) {
 
 // 存储到LocalStorage
 export function saveToLocal(id, key, value) {
+  if (!window) return;
   let blog = window.localStorage.__blog__;
   if (!blog) {
     blog = {};
@@ -51,6 +52,7 @@ export function saveToLocal(id, key, value) {
 
 // 从LocalStorage中取
 export function loadFromLocal(id, key, def) {
+  if (!window) return;
   let blog = window.localStorage.__blog__;
   if (!blog) {
     return def;
@@ -99,7 +101,7 @@ export function checkPostAuth(post, title, message, noAuthCallback, successCallb
             'modal-message': true
           }
         }));
-        children.push(h('iv-input', {
+        children.push(h('i-input', {
           props: {
             type: 'password',
             autofocus: true,
@@ -145,7 +147,7 @@ export function uploadFile(file, useType, successCallback, failCallback) {
     formdata.append('key', data['key']);
     formdata.append('token', data['token']);
 
-    uploadImage(formdata).then((response) => {
+    API.uploadImage(formdata).then((response) => {
       let fileURL = data.base_url + response.data.key;
       successCallback(response.data.hash, fileURL);
     }).catch((error) => {
@@ -155,7 +157,7 @@ export function uploadFile(file, useType, successCallback, failCallback) {
   };
 
   // 获取上传Token
-  getUploadToken({
+  API.getUploadToken({
     suffix: suffix
   }).then((response) => {
     upload(response.data);

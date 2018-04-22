@@ -1,17 +1,16 @@
-
-'use strict'
+'use strict';
 // Template version: 1.1.3
 // see http://vuejs-templates.github.io/webpack for documentation.
 
-const path = require('path')
+const path = require('path');
 
 module.exports = {
   build: {
     env: require('./prod.env'),
-    index: path.resolve(__dirname, '../dist/index.html'),
-    assetsRoot: path.resolve(__dirname, '../dist'),
+    index: path.resolve(__dirname, '../public/index.html'),
+    assetsRoot: path.resolve(__dirname, '../public'),
     assetsSubDirectory: 'static',
-    assetsPublicPath: '/',
+    assetsPublicPath: '/public',
     productionSourceMap: true,
     // Gzip off by default as many popular static hosts such as
     // Surge or Netlify already gzip all static assets for you.
@@ -27,10 +26,11 @@ module.exports = {
   },
   dev: {
     env: require('./dev.env'),
+    host: '127.0.0.1',
     port: process.env.PORT || 8090,
     autoOpenBrowser: true,
     assetsSubDirectory: 'static',
-    assetsPublicPath: '/',
+    assetsPublicPath: `${process.env.HOST || 'http://localhost'}:${process.env.PORT || 8090}/`,
     proxyTable: {
       '/api': {
         target: 'https://api.douban.com/v2',
@@ -47,4 +47,4 @@ module.exports = {
     // just be aware of this issue when enabling this option.
     cssSourceMap: true
   }
-}
+};

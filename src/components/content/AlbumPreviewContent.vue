@@ -1,18 +1,18 @@
 <template>
   <div class="album-preview-content">
-    <iv-row>
-      <iv-col :xs="24" :sm="24" :md="16" :lg="18">
+    <i-row>
+      <i-col :xs="24" :sm="24" :md="16" :lg="18">
         <div class="album-preview">
           <album-carousel v-if="album != undefined && album.pictures.length > 0"
                           :pictures="album.pictures"
                           @slideToIndex="slideToIndex"
                           @close="back"></album-carousel>
         </div>
-      </iv-col>
-      <iv-col :xs="24" :sm="24" :md="8" :lg="6">
+      </i-col>
+      <i-col :xs="24" :sm="24" :md="8" :lg="6">
         <album-infos v-if="album != undefined" :album="album" ref="albumInfos"></album-infos>
-      </iv-col>
-    </iv-row>
+      </i-col>
+    </i-row>
   </div>
 </template>
 
@@ -22,7 +22,7 @@
   // 加密
   import {hexMd5} from '@/common/js/md5';
   // API
-  import {getAlbumDetailInfo} from '@/api/api';
+  import API from '@/api/client-api';
 
   export default {
     data() {
@@ -40,7 +40,7 @@
     methods: {
       getDatas() {
         var that = this;
-        getAlbumDetailInfo({
+        API.getAlbumDetailInfo({
           params: {
             browse_auth: this.browse_auth
           },
@@ -98,7 +98,7 @@
                 'modal-message': true
               }
             }));
-            children.push(h('iv-input', {
+            children.push(h('i-input', {
               props: {
                 type: 'password',
                 autofocus: true,

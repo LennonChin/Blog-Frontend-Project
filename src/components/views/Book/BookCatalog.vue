@@ -3,24 +3,24 @@
     <ul class="book-toc-list">
       <li class="book-toc-list-item" v-for="note1 in book.book_note">
         <a class="book-toc-link" :class="{'is-active-link' : note1.is_reading}" @click="gotoBookNoteDetail(note1)">
-          <iv-tool-tip placement="right" :content="note1.is_completed ? '已读' : (note1.is_reading ? '正在读' : '未读')">
-            <span><iv-icon :type="note1.is_completed ? 'android-checkbox-outline' : (note1.is_reading ? 'play' : 'android-checkbox-outline-blank')"></iv-icon></span>
-          </iv-tool-tip>
+          <i-tool-tip placement="right" :content="note1.is_completed ? '已读' : (note1.is_reading ? '正在读' : '未读')">
+            <span><i-icon :type="note1.is_completed ? 'android-checkbox-outline' : (note1.is_reading ? 'play' : 'android-checkbox-outline-blank')"></i-icon></span>
+          </i-tool-tip>
           {{ note1.title }}
-          <iv-tool-tip placement="right" :content="'笔记已完成'" v-if="note1.is_noted">
-            <iv-icon type="ios-compose"></iv-icon>
-          </iv-tool-tip>
+          <i-tool-tip placement="right" :content="'笔记已完成'" v-if="note1.is_noted">
+            <i-icon type="ios-compose"></i-icon>
+          </i-tool-tip>
         </a>
         <ul class="book-toc-list is-collapsible" v-if="note1.sub_note.length > 0">
           <li class="book-toc-list-item" v-for="note2 in note1.sub_note">
             <a class="book-toc-link" :class="{'is-active-link' : note2.is_reading}" @click="gotoBookNoteDetail(note2)">
-              <iv-tool-tip placement="right" :content="note2.is_completed ? '已读' : (note2.is_reading ? '正在读' : '未读')">
-                <span><iv-icon :type="note2.is_completed ? 'android-checkbox-outline' : (note2.is_reading ? 'play' : 'android-checkbox-outline-blank')"></iv-icon></span>
-              </iv-tool-tip>
+              <i-tool-tip placement="right" :content="note2.is_completed ? '已读' : (note2.is_reading ? '正在读' : '未读')">
+                <span><i-icon :type="note2.is_completed ? 'android-checkbox-outline' : (note2.is_reading ? 'play' : 'android-checkbox-outline-blank')"></i-icon></span>
+              </i-tool-tip>
               {{ note2.title }}
-              <iv-tool-tip placement="right" :content="'笔记已完成'" v-if="note2.is_noted">
-                <iv-icon type="ios-compose"></iv-icon>
-              </iv-tool-tip>
+              <i-tool-tip placement="right" :content="'笔记已完成'" v-if="note2.is_noted">
+                <i-icon type="ios-compose"></i-icon>
+              </i-tool-tip>
             </a>
           </li>
         </ul>
@@ -29,7 +29,7 @@
     <a class="toggle-more" @click="openToc" v-if="showToggleMoreMenu">
       <span style="z-index: 10;">
         {{ showMoreToc ? '收起目录' : '展开查看所有目录' }}
-        <iv-icon :type="showMoreToc ? 'chevron-up' : 'chevron-down'"></iv-icon>
+        <i-icon :type="showMoreToc ? 'chevron-up' : 'chevron-down'"></i-icon>
       </span>
       <div class="mask" style="z-index: 9;"></div>
     </a>

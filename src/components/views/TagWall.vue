@@ -2,8 +2,8 @@
   <div class="tag-wall">
     <panel :title="'相关标签'">
       <div slot="content" class="content">
-        <iv-tag v-for="tag in tags" :color="tag.color" :key="tag.id" style="margin: 0 5px 5px 0;">{{ tag.name }}
-        </iv-tag>
+        <i-tag v-for="tag in tags" :color="tag.color" :key="tag.id" style="margin: 0 5px 5px 0;">{{ tag.name }}
+        </i-tag>
       </div>
     </panel>
   </div>
@@ -11,7 +11,7 @@
 
 <script type="text/ecmascript-6">
   import Panel from '@/components/views/Panel';
-  import { getTags } from '@/api/api';
+  import API from '@/api/client-api';
 
   export default {
     data() {
@@ -24,7 +24,7 @@
     },
     methods: {
       getDatas() {
-        getTags({
+        API.getTags({
           params: {}
         }).then((response) => {
           this.tags = response.data;

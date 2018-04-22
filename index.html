@@ -4,21 +4,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0.user-scalable=no">
     <link rel="stylesheet" type="text/css" href="/static/css/reset.css">
-    <script>
-      window.__host__ = 'http://localhost:8000/api';//'{{ site_infos.api_base_url }}';// 'http://localhost:8000/api';
-      window.__access_auth__ = '';//'{{ site_infos.access_password_encrypt }}';//'1a85df98521cad35038d705c946fa3ab';
-      window.__force_refresh__ = '{{ site_infos.is_force_refresh }}' === 'True';
-      window.__category_info__ = {
-        article: 1,
-        reading: 2,
-        album: 3,
-        movie: 4
-      };
-    </script>
     <title></title>
   </head>
   <body>
-    <div id="app"></div>
-    <!-- built files will be auto injected -->
+    <div id="root"></div>
   </body>
 </html>

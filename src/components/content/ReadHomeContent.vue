@@ -1,10 +1,10 @@
 <template>
   <div class="read-home-content layout-content">
-    <iv-row>
-      <iv-col :xs="24" :sm="24" :md="24" :lg="17">
+    <i-row>
+      <i-col :xs="24" :sm="24" :md="24" :lg="17">
         <div class="layout-left">
           <book-reading-cell v-for="book in readingBooks" :key="book.id" :book="book"></book-reading-cell>
-          <iv-affix style="position: relative;z-index: 12;">
+          <i-affix style="position: relative;z-index: 12;">
             <section-title :mainTitle="'图书列表'"
                            :subTitle="'Books'"
                            :menus="menus"
@@ -13,9 +13,9 @@
                            @refresh="refresh"
                            @menusControl="menusControl">
             </section-title>
-          </iv-affix>
+          </i-affix>
           <book-cell v-for="book in books" :book="book" :key="book.id"></book-cell>
-          <iv-affix style="position: relative;z-index: 12;">
+          <i-affix style="position: relative;z-index: 12;">
             <section-title :mainTitle="'笔记列表'"
                            :subTitle="'Book Notes'"
                            :menus="menus"
@@ -24,17 +24,17 @@
                            @refresh="refresh"
                            @menusControl="menusControl">
             </section-title>
-          </iv-affix>
+          </i-affix>
           <book-note-cell v-for="bookNote in bookNotes" :bookNote="bookNote" :key="bookNote.id"></book-note-cell>
         </div>
-      </iv-col>
-      <iv-col :xs="0" :sm="0" :md="0" :lg="7">
+      </i-col>
+      <i-col :xs="0" :sm="0" :md="0" :lg="7">
         <div class="layout-right">
           <recommend></recommend>
           <tag-wall style="margin-top: 15px;"></tag-wall>
         </div>
-      </iv-col>
-    </iv-row>
+      </i-col>
+    </i-row>
   </div>
 </template>
 
@@ -47,7 +47,7 @@
   import TagWall from '@/components/views/TagWall';
 
   // API
-  import {getBookBaseInfo, getBookNoteBaseInfo, getCategorys} from '@/api/api';
+  import API from '@/api/client-api';
 
   const DEFAULT_LIMIT_SIZE = 10;
   // const MAX_LIMIT_SIZE = 100;
@@ -77,7 +77,7 @@
     },
     methods: {
       getCategorys() {
-        getCategorys({
+        API.getCategorys({
           params: {
             'level_min': 1,
             'level_max': 1,
@@ -105,7 +105,7 @@
               orderings.push('-comment_num');
             }
           }
-          getBookBaseInfo({
+          API.getBookBaseInfo({
             params: {
               ordering: orderings.toString(),
               is_recommend: this.recommend,
@@ -144,7 +144,7 @@
               orderings.push('-comment_num');
             }
           }
-          getBookNoteBaseInfo({
+          API.getBookNoteBaseInfo({
             params: {
               ordering: orderings.toString(),
               is_recommend: this.recommend,

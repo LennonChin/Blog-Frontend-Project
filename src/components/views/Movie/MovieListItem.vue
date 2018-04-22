@@ -4,9 +4,9 @@
       <img :src="movie.front_image" alt="">
       <div class="movie-info">
         <p class="title">
-          <iv-tool-tip placement="right" content="该文章已加密，您需要输入阅读密码" v-if="movie.browse_password_encrypt">
-            <iv-icon type="android-lock" color="#FA5555" v-if="movie.browse_password_encrypt"></iv-icon>
-          </iv-tool-tip>
+          <i-tool-tip placement="right" content="该文章已加密，您需要输入阅读密码" v-if="movie.browse_password_encrypt">
+            <i-icon type="android-lock" color="#FA5555" v-if="movie.browse_password_encrypt"></i-icon>
+          </i-tool-tip>
           {{ movie.title }}
         </p>
         <p class="desc">

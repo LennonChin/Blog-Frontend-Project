@@ -1,28 +1,28 @@
 <template>
-  <div class="recommend" v-if="articles.length > 0">
+  <div class="recommend" v-if="recommends.length > 0">
     <panel :title="'推荐阅读'">
       <div slot="content" class="content">
         <div class="top">
           <a>
             <p class="title">
-              <iv-tool-tip placement="right" :content="routerInfos(articleSlice(0, 1)[0]).message" v-if="articleSlice(0, 1)[0].browse_password_encrypt">
-                <iv-icon type="android-lock" color="#FA5555" v-if="articleSlice(0, 1)[0].browse_password_encrypt"></iv-icon>
-              </iv-tool-tip>
+              <i-tool-tip placement="right" :content="routerInfos(articleSlice(0, 1)[0]).message" v-if="articleSlice(0, 1)[0].browse_password_encrypt">
+                <i-icon type="android-lock" color="#FA5555" v-if="articleSlice(0, 1)[0].browse_password_encrypt"></i-icon>
+              </i-tool-tip>
               <a @click="gotoPostDetail(articleSlice(0, 1)[0])">
                 {{ articleSlice(0, 1)[0].title }}
               </a>
             </p>
             <div class="tags">
-              <iv-tag :color="tag.color" type="border" v-for="tag in articleSlice(0, 1)[0].tags" :key="tag.id">{{
+              <i-tag :color="tag.color" type="border" v-for="tag in articleSlice(0, 1)[0].tags" :key="tag.id">{{
                 tag.name }}
-              </iv-tag>
+              </i-tag>
             </div>
             <p class="info">
               <span class="time">{{ articleSlice(0, 1)[0].add_time | socialDate }}</span>
-              <span class="likes"><a @click="likePost(articleSlice(0, 1)[0])"><iv-icon
-                type="heart"></iv-icon> {{ articleSlice(0, 1)[0].like_num }} </a></span>
-              <span class="comments"><a><iv-icon type="compose"></iv-icon> {{ articleSlice(0, 1)[0].comment_num }} </a></span>
-              <span class="readings"><a><iv-icon type="eye"></iv-icon> {{ articleSlice(0, 1)[0].click_num }} </a></span>
+              <span class="likes"><a @click="likePost(articleSlice(0, 1)[0])"><i-icon
+                type="heart"></i-icon> {{ articleSlice(0, 1)[0].like_num }} </a></span>
+              <span class="comments"><a><i-icon type="compose"></i-icon> {{ articleSlice(0, 1)[0].comment_num }} </a></span>
+              <span class="readings"><a><i-icon type="eye"></i-icon> {{ articleSlice(0, 1)[0].click_num }} </a></span>
             </p>
             <div class="img" v-if="articleSlice(0, 1)[0].front_image">
               <img :src="articleSlice(0, 1)[0].front_image" :alt="articleSlice(0, 1)[0].title">
@@ -34,16 +34,16 @@
           <li v-for="article in articleSlice(1)">
             <a>
               <p class="title">
-                <iv-tool-tip placement="right" :content="routerInfos(article).message" v-if="article.browse_password_encrypt">
-                  <iv-icon type="android-lock" color="#FA5555" v-if="article.browse_password_encrypt"></iv-icon>
-                </iv-tool-tip>
+                <i-tool-tip placement="right" :content="routerInfos(article).message" v-if="article.browse_password_encrypt">
+                  <i-icon type="android-lock" color="#FA5555" v-if="article.browse_password_encrypt"></i-icon>
+                </i-tool-tip>
                 <a @click="gotoPostDetail(article)">{{ article.title }}</a>
               </p>
               <p class="info">
                 <span class="time">{{ article.add_time | socialDate }}</span>
-                <span class="likes"><a @click="likePost(article)"><iv-icon type="heart"></iv-icon> {{ article.like_num}} </a></span>
-                <span class="comments"><a><iv-icon type="compose"></iv-icon> {{ article.comment_num}} </a></span>
-                <span class="readings"><a><iv-icon type="eye"></iv-icon> {{ article.click_num}} </a></span>
+                <span class="likes"><a @click="likePost(article)"><i-icon type="heart"></i-icon> {{ article.like_num}} </a></span>
+                <span class="comments"><a><i-icon type="compose"></i-icon> {{ article.comment_num}} </a></span>
+                <span class="readings"><a><i-icon type="eye"></i-icon> {{ article.click_num}} </a></span>
               </p>
             </a>
           </li>
@@ -54,33 +54,34 @@
 </template>
 
 <script type="text/ecmascript-6">
+  import {
+    mapState,
+    mapActions
+  } from 'vuex';
   import Panel from '@/components/views/Panel';
-  import {getPostBaseInfo, addPostLike} from '@/api/api';
+  import API from '@/api/client-api';
   import {checkPostAuth} from '@/common/js/utils';
 
   export default {
-    data() {
-      return {
-        articles: []
-      };
+    name: 'Recommend',
+    asyncData({store}) {
+      return Promise.all([
+        store.dispatch('common/getRecommends')
+      ]);
     },
-    created() {
-      this.getDatas();
+    mounted() {
+      if (!this.$store.state.common.recommends || this.$store.state.common.recommends.length === 0) {
+        console.log('recommend');
+        this['common/getRecommends']();
+      }
+    },
+    computed: {
+      ...mapState({
+        recommends: state => state.common.recommends
+      })
     },
     methods: {
-      getDatas() {
-        getPostBaseInfo({
-          params: {
-            is_recommend: true,
-            limit: 5,
-            offset: 0
-          }
-        }).then((response) => {
-          this.articles = response.data.results;
-        }).catch((error) => {
-          console.log(error);
-        });
-      },
+      ...mapActions(['common/getRecommends']),
       gotoPostDetail(post) {
         let routerInfos = this.routerInfos(post);
         checkPostAuth.call(this, post, '提示', routerInfos.message, () => {
@@ -98,7 +99,7 @@
         });
       },
       likePost(post) {
-        addPostLike({
+        API.addPostLike({
           post_id: post.id
         }).then((response) => {
           post.like_num += 1;
@@ -125,7 +126,7 @@
         return router;
       },
       articleSlice(start, end) {
-        return this.articles.slice(start, end);
+        return this.recommends.slice(start, end);
       }
     },
     components: {

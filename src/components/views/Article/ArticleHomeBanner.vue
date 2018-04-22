@@ -1,7 +1,7 @@
 <template>
   <div class="article-home-banner">
-    <iv-row class="row">
-      <iv-col :xs="24" :sm="24" :md="24" :lg="17" class="row">
+    <i-row class="row">
+      <i-col :xs="24" :sm="24" :md="24" :lg="17" class="row">
         <swiper :options="leftSwiperOption" class="gallery-left" ref="swiperLeft">
           <swiper-slide v-for="article in bannerArticles" :key="article.id">
             <a @click="gotoPostDetail(article)">
@@ -13,8 +13,8 @@
           <div class="swiper-button-prev" slot="button-prev"></div>
           <div class="swiper-button-next" slot="button-next"></div>
         </swiper>
-      </iv-col>
-      <iv-col :xs="0" :sm="0" :md="0" :lg="7" class="row">
+      </i-col>
+      <i-col :xs="0" :sm="0" :md="0" :lg="7" class="row">
         <swiper :options="rightSwiperOption" class="gallery-right" ref="swiperRight">
           <swiper-slide class="swiper-no-swiping" v-for="article in bannerArticles" :key="article.id">
             <div class="carousel-infos">
@@ -22,12 +22,12 @@
               <p class="desc">
                 {{ article.desc | textLineBreak(70) }}
               </p>
-              <iv-button size="large" type="primary" @click="gotoPostDetail(article)">点击查看更多</iv-button>
+              <i-button size="large" type="primary" @click="gotoPostDetail(article)">点击查看更多</i-button>
             </div>
           </swiper-slide>
         </swiper>
-      </iv-col>
-    </iv-row>
+      </i-col>
+    </i-row>
   </div>
 </template>
 

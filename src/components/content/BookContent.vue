@@ -1,7 +1,7 @@
 <template>
   <div class="book-overview-content layout-content" v-if="bookDoubanInfo != undefined">
-    <iv-row>
-      <iv-col :xs="24" :sm="24" :md="24" :lg="17">
+    <i-row>
+      <i-col :xs="24" :sm="24" :md="24" :lg="17">
         <div class="layout-left">
           <div class="book-base-info">
             <a>
@@ -20,13 +20,13 @@
                 <p class="desc"><span>出版日期：</span>{{ bookDoubanInfo.publish_date }}</p>
                 <p class="desc"><span>页数：</span>{{ bookDoubanInfo.pages }}</p>
                 <p class="desc"><span>评分：</span>
-                  <iv-rate v-model="bookDoubanInfo.rating.average * 0.5" :allowHalf="true" :disabled="true"></iv-rate>
+                  <i-rate v-model="bookDoubanInfo.rating.average * 0.5" :allowHalf="true" :disabled="true"></i-rate>
                 </p>
-                <iv-tag type="border" v-for="tag in bookDoubanInfo.tags" :key="tag.name">{{ tag.name }}</iv-tag>
+                <i-tag type="border" v-for="tag in bookDoubanInfo.tags" :key="tag.name">{{ tag.name }}</i-tag>
               </div>
               <div class="rating"></div>
             </a>
-            <vue-tabs class="infos"  @tab-change="handleTabChange">
+            <vue-tabs class="infos" @tab-change="handleTabChange">
               <v-tab title="简介">
                 <p class="author" v-html="bookDoubanInfo.author_intro"></p>
                 <p class="summary" v-html="bookDoubanInfo.summary"></p>
@@ -38,11 +38,15 @@
                 <p class="catalog" v-html="bookDoubanInfo.catalog"></p>
               </v-tab>
               <v-tab title="整书读后感">
-                <div class="article-details" id="article-main-page" v-viewer ref="book">
+                <div class="article-details" id="article-main-page" ref="book">
                   <div class="detail" v-if="book !== undefined" v-for="detail in book.details">
-                    <article class="typo container article-main-content" v-html="detail.formatted_content">
-                    </article>
-                    <div class="detail-footer">Append At / {{ detail.add_time | socialDate }} &nbsp;&nbsp;&nbsp; Update At / {{ detail.update_time | socialDate }}</div>
+                    <v-viewer :trigger="detail.formatted_content">
+                      <article class="typo container article-main-content" v-html="detail.formatted_content">
+                      </article>
+                      <div class="detail-footer">Append At / {{ detail.add_time | socialDate
+                        }} &nbsp;&nbsp;&nbsp; Update At / {{ detail.update_time | socialDate }}
+                      </div>
+                    </v-viewer>
                   </div>
                 </div>
                 <!--<p class="summary" v-html="book.detail.formatted_content"></p>-->
@@ -51,16 +55,16 @@
           </div>
           <social-section :article="book"></social-section>
         </div>
-      </iv-col>
-      <iv-col :xs="0" :sm="0" :md="0" :lg="7">
+      </i-col>
+      <i-col :xs="0" :sm="0" :md="0" :lg="7">
         <div class="layout-right">
           <recommend></recommend>
-          <iv-affix :offset-top="60" v-if="responsiveRender(false, false, false, true)" v-show="showToc">
+          <i-affix :offset-top="60" v-show="showToc">
             <side-toc style="margin-top: 15px;" ref="sideToc"></side-toc>
-          </iv-affix>
+          </i-affix>
         </div>
-      </iv-col>
-    </iv-row>
+      </i-col>
+    </i-row>
   </div>
 </template>
 
@@ -71,7 +75,9 @@
   import Recommend from '@/components/views/Recommend';
   import SideToc from '@/components/views/SideToc';
   import SocialSection from '@/components/views/Comment/SocialSection';
-  import {getBookDetailInfo, getDoubanInfo} from '@/api/api';
+  import Viewer from 'v-viewer/src/component.vue';
+  import 'viewerjs/dist/viewer.css';
+  import API from '@/api/client-api';
   // highlight.js引入
   import hljs from '@/common/js/highlight.pack';
   // 样式文件
@@ -108,8 +114,8 @@
     },
     methods: {
       getBookDetailInfo() {
-        var that = this;
-        getBookDetailInfo({
+        let that = this;
+        API.getBookDetailInfo({
           params: {
             browse_auth: this.browse_auth
           },
@@ -140,7 +146,7 @@
         });
       },
       getDoubanInfo(doubanType, doubanId) {
-        getDoubanInfo({
+        API.getDoubanInfo({
           id: doubanId,
           type: doubanType
         }).then((response) => {
@@ -182,7 +188,7 @@
                 'modal-message': true
               }
             }));
-            children.push(h('iv-input', {
+            children.push(h('i-input', {
               props: {
                 type: 'password',
                 autofocus: true,
@@ -276,7 +282,8 @@
       'book-catalog': BookCatalog,
       'social-section': SocialSection,
       'recommend': Recommend,
-      'side-toc': SideToc
+      'side-toc': SideToc,
+      'v-viewer': Viewer
     },
     watch: {
       showToc: function (newShowToc) {

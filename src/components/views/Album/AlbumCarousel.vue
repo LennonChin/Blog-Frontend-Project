@@ -1,9 +1,9 @@
 <template>
   <div class="album-carousel">
     <p class="top-bar">
-      <iv-icon type="android-close" @click.native="close"></iv-icon>
-      <iv-icon type="android-expand" @click.native="expand"></iv-icon>
-      <iv-icon type="ios-download-outline" @click.native="download"></iv-icon>
+      <i-icon type="android-close" @click.native="close"></i-icon>
+      <i-icon type="android-expand" @click.native="expand"></i-icon>
+      <i-icon type="ios-download-outline" @click.native="download"></i-icon>
     </p>
     <div class="carousel-wrapper">
       <!-- swiper previewer -->

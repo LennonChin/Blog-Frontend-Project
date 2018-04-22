@@ -1,52 +1,52 @@
 <template>
   <div class="movie-recent-list-cell">
     <h4>最近观影</h4>
-    <iv-row>
-      <iv-col :xs="24" :sm="24" :md="16" :lg="16" v-if="movies.length > 0">
+    <i-row>
+      <i-col :xs="24" :sm="24" :md="16" :lg="16" v-if="movies.length > 0">
         <ul class="recent">
           <li v-for="movie in movies.slice(0, 3)">
             <a @click="gotoPostDetail(movie)">
-              <iv-row>
-                <iv-col :xs="24" :sm="24" :md="7" :lg="6">
+              <i-row>
+                <i-col :xs="24" :sm="24" :md="7" :lg="6">
                   <div class="img">
                     <img :src="movie.front_image" alt="">
                   </div>
-                </iv-col>
-                <iv-col :xs="24" :sm="24" :md="17" :lg="18">
+                </i-col>
+                <i-col :xs="24" :sm="24" :md="17" :lg="18">
                   <div class="info">
                     <p class="title">
-                      <iv-tool-tip placement="top" content="该文章已加密，您需要输入阅读密码" v-if="movie.browse_password_encrypt">
-                        <iv-icon type="android-lock" color="#FA5555" v-if="movie.browse_password_encrypt"></iv-icon>
-                      </iv-tool-tip>
+                      <i-tool-tip placement="top" content="该文章已加密，您需要输入阅读密码" v-if="movie.browse_password_encrypt">
+                        <i-icon type="android-lock" color="#FA5555" v-if="movie.browse_password_encrypt"></i-icon>
+                      </i-tool-tip>
                       {{ movie.title }}
                     </p>
                     <p class="link">{{ movie.add_time | socialDate }}</p>
                     <p class="content">{{ movie.desc | textLineBreak(60) }}</p>
                   </div>
-                </iv-col>
-              </iv-row>
+                </i-col>
+              </i-row>
             </a>
           </li>
         </ul>
-      </iv-col>
-      <iv-col :xs="24" :sm="24" :md="8" :lg="8" v-if="movies[3] != undefined">
+      </i-col>
+      <i-col :xs="24" :sm="24" :md="8" :lg="8" v-if="movies[3] != undefined">
         <div class="recommend">
           <h4>推荐观影</h4>
           <a @click="gotoPostDetail(movies[3])">
             <p class="title">
-              <iv-tool-tip placement="top" content="该文章已加密，您需要输入阅读密码" v-if="movies[3].browse_password_encrypt">
-                <iv-icon type="android-lock" color="#FA5555" v-if="movies[3].browse_password_encrypt"></iv-icon>
-              </iv-tool-tip>
+              <i-tool-tip placement="top" content="该文章已加密，您需要输入阅读密码" v-if="movies[3].browse_password_encrypt">
+                <i-icon type="android-lock" color="#FA5555" v-if="movies[3].browse_password_encrypt"></i-icon>
+              </i-tool-tip>
               {{ movies[3].title }}
             </p>
             <div class="tags">
-              <iv-tag :color="tag.color" v-for="tag in movies[3].tags" :key="tag.id">{{ tag.name }}</iv-tag>
+              <i-tag :color="tag.color" v-for="tag in movies[3].tags" :key="tag.id">{{ tag.name }}</i-tag>
             </div>
             <p class="info">
               <span class="time">{{ movies[3].add_time | socialDate }}</span>
-              <span class="likes"><a @click="likePost(movies[3])"><iv-icon type="heart"></iv-icon> {{ movies[3].like_num }} </a></span>
-              <span class="comments"><a><iv-icon type="compose"></iv-icon> {{ movies[3].comment_click }} </a></span>
-              <span class="readings"><a><iv-icon type="eye"></iv-icon> {{ movies[3].click_num }} </a></span>
+              <span class="likes"><a @click="likePost(movies[3])"><i-icon type="heart"></i-icon> {{ movies[3].like_num }} </a></span>
+              <span class="comments"><a><i-icon type="compose"></i-icon> {{ movies[3].comment_click }} </a></span>
+              <span class="readings"><a><i-icon type="eye"></i-icon> {{ movies[3].click_num }} </a></span>
             </p>
             <div class="img">
               <img :src="movies[3].front_image" alt="">
@@ -54,13 +54,13 @@
             <p class="desc">{{ movies[3].desc | textLineBreak(100) }}</p>
           </a>
         </div>
-      </iv-col>
-    </iv-row>
+      </i-col>
+    </i-row>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
-  import {addPostLike} from '@/api/api';
+  import API from '@/api/client-api';
   import {checkPostAuth} from '@/common/js/utils';
 
   export default {
@@ -86,7 +86,7 @@
         });
       },
       likePost(post) {
-        addPostLike({
+        API.addPostLike({
           post_id: post.id
         }).then((response) => {
           post.like_num += 1;

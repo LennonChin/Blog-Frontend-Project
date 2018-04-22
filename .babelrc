@@ -1,3 +1,6 @@
 {
-  "presets": ["es2015"]
+  "presets": [
+    "env",
+    "stage-1" // 安装babel-preset-stage-1插件，可以支持vue store的mapState等方法
+  ]
 }
