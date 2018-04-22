@@ -24,25 +24,25 @@ export default context => {
         return reject(new Error('no component matched'));
       }
       let result = [];
+      // 包装请求数据
+      let doAsyncData = (component) => {
+        if (component.asyncData) {
+          result.push(component.asyncData({
+            route: router.currentRoute,
+            store
+          }));
+        }
+      };
+      // 递归查询子组件
+      let recursive = (component) => {
+        doAsyncData(component);
+        if (component.components) {
+          Object.keys(component.components).forEach(key => {
+            recursive(component.components[key]);
+          });
+        }
+      };
       matchedComponents.map(component => {
-        // 包装请求数据
-        let doAsyncData = (component) => {
-          if (component.asyncData) {
-            result.push(component.asyncData({
-              route: router.currentRoute,
-              store
-            }));
-          }
-        };
-        // 递归查询子组件
-        let recursive = (component) => {
-          doAsyncData(component);
-          if (component.components) {
-            Object.keys(component.components).forEach(key => {
-              recursive(component.components[key]);
-            });
-          }
-        };
         recursive(component);
       });
       Promise.all(result).then(data => {
