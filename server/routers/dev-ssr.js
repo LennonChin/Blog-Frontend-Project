@@ -39,11 +39,11 @@ serverCompiler.watch({}, (err, stats) => {
 const handleSSR = async (ctx) => {
   if (!bundle) {
     // 服务刚启动的时候bundle打包会非常慢
-    ctx.body = '你等一会，别着急......';
+    ctx.body = 'Waiting for generating bundle......';
     return;
   }
   const clientManifestResp = await axios.get(
-    'http://127.0.0.1:8090/vue-ssr-client-manifest.json'
+    'http://127.0.0.1:8080/vue-ssr-client-manifest.json'
   );
   const clientManifest = clientManifestResp.data;
   // 使用EJS作为模板渲染
