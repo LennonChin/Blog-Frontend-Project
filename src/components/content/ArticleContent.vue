@@ -9,7 +9,9 @@
               <div class="detail" v-if="article" v-for="detail in article.details">
                 <article class="typo container article-main-content" v-html="detail.formatted_content">
                 </article>
-                <div class="detail-footer">Append At / {{ detail.add_time | socialDate }} &nbsp;&nbsp;&nbsp; Update At / {{ detail.update_time | socialDate }}</div>
+                <div class="detail-footer">Append At / {{ detail.add_time | socialDate
+                  }} &nbsp;&nbsp;&nbsp; Update At / {{ detail.update_time | socialDate }}
+                </div>
               </div>
             </div>
           </article-page-content>
@@ -60,12 +62,14 @@
         browse_auth: undefined
       };
     },
-    metaInfo: {
-      title: '文章详情',
-      titleTemplate: '%s | Diomedes'
+    metaInfo() {
+      return {
+        title: this.documentTitle,
+        titleTemplate: '%s | Diomedes'
+      };
     },
-    beforeRouteLeave (to, from, next) {
-      // 导航离开该组件的对应路由时调用
+    beforeRouteLeave(to, from, next) {
+      // 导航离开时清空vuex中文章数据
       this.clearArticleInfo();
       next();
     },
@@ -116,7 +120,7 @@
         needAuth: state => state.article.needAuth
       }),
       ...mapGetters({
-        documentTitle: 'article/DOCUMENT_TITLE'
+        documentTitle: 'DOCUMENT_TITLE'
       })
     },
     methods: {

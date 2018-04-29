@@ -87,6 +87,7 @@
 <script type="text/ecmascript-6">
   import {
     mapState,
+    mapGetters,
     mapActions
   } from 'vuex';
   import ArticleListCell from '@/components/views/Article/ArticleListCell';
@@ -103,9 +104,6 @@
 
   export default {
     name: 'HomeContent',
-    metaInfo: {
-      title: '首页'
-    },
     data() {
       return {
         // 文章
@@ -153,6 +151,12 @@
           {title: '最热', selected: false, method: 'hot'},
           {title: '推荐', selected: false, method: 'recommend'}
         ]
+      };
+    },
+    metaInfo() {
+      return {
+        title: this.documentTitle,
+        titleTemplate: '%s | Diomedes'
       };
     },
     asyncData({store}) {
@@ -218,9 +222,13 @@
         bookNotes: state => state.home.bookNotes,
         albums: state => state.home.albums,
         movies: state => state.home.movies
+      }),
+      ...mapGetters({
+        documentTitle: 'DOCUMENT_TITLE'
       })
     },
     beforeMount() {
+      this.$store.commit('UPDATE_DOCUMENT_TITLE', '首页');
       if (this.$store.state.home.topLevelCategoriesInfo.length === 0) {
         this.getTopLevelCategoriesInfo({
           params: {

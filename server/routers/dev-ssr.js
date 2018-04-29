@@ -39,7 +39,7 @@ serverCompiler.watch({}, (err, stats) => {
 const handleSSR = async (ctx) => {
   if (!bundle) {
     // 服务刚启动的时候bundle打包会非常慢
-    ctx.body = '你等一会，别着急......';
+    ctx.body = 'Waiting a moment for bundle generating';
     return;
   }
   const clientManifestResp = await axios.get(

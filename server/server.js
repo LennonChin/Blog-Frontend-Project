@@ -7,7 +7,6 @@ const staticRouter = require('./routers/static');
 const app = new Koa();
 
 const isDev = process.env.NODE_ENV === 'development';
-// const pageRouter = require('./routers/dev-ssr');
 
 app.use(async (ctx, next) => {
   try {

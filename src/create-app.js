@@ -6,9 +6,6 @@ import Meta from 'vue-meta';
 import App from './App.vue';
 // import Viewer from 'v-viewer';
 
-// 全局加载resource拦截器
-import Axios from 'axios';
-
 import createRouter from './router/router';
 import createStore from './store/store';
 
@@ -55,7 +52,6 @@ Vue.use(Vuex);
 Vue.use(Meta);
 // Vue.use(Viewer);
 
-Vue.prototype.$http = Axios;
 Vue.prototype.$Modal = Modal;
 Vue.prototype.$Message = Message;
 Vue.prototype.$Notice = Notice;

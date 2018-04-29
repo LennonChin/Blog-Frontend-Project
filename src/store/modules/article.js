@@ -9,11 +9,6 @@ export default {
     browseAuth: undefined,
     needAuth: false
   },
-  getters: {
-    DOCUMENT_TITLE: state => {
-      return Object.keys(state.article).length > 0 ? state.article.title : '文章详情';
-    }
-  },
   mutations: {
     UPDATE_ARTICLE_DETAIL_INFO(state, article) {
       state.article = article;
@@ -33,6 +28,7 @@ export default {
       return new Promise((resolve, reject) => {
         API.getArticleDetailInfo(params).then((response) => {
           commit('UPDATE_ARTICLE_DETAIL_INFO', response.data);
+          commit('UPDATE_DOCUMENT_TITLE', response.data.title, { root: true });
           commit('UPDATE_ARTICLE_AUTH', false);
           resolve(response);
         }).catch((error) => {

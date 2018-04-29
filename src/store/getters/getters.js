@@ -1,5 +1,8 @@
 export default {
   IS_LOADING: state => {
-    return state.IS_LOADING;
+    return state.isLoading;
+  },
+  DOCUMENT_TITLE: state => {
+    return state.documentTitle;
   }
 };
