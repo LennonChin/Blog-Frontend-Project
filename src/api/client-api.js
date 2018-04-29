@@ -2,7 +2,7 @@ import axios from 'axios';
 import {createError} from './utils';
 
 const request = axios.create({
-  baseURL: process.env.NODE_ENV === 'development' ? 'http://localhost:8000/api/' : 'https://blog.coderap.com/api/'
+  baseURL: process.env.NODE_ENV === 'development' ? 'https://blog.coderap.com/api/' : 'https://blog.coderap.com/api/'
 });
 
 // http request 拦截器

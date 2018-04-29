@@ -13,72 +13,96 @@ export default {
     movies: []
   },
   mutations: {
-    updateTopLevelCategoiesInfo(state, categoryInfos) {
+    UPDATE_TOP_LEVEL_CATEGORIES_INFO(state, categoryInfos) {
       state.topLevelCategoriesInfo = categoryInfos;
     },
-    updateArticlesBaseInfo(state, articles) {
+    UPDATE_ARTICLES_BASE_INFO(state, articles) {
       state.articles = articles;
     },
-    updateBooksBaseInfo(state, books) {
+    UPDATE_BOOKS_BASE_INFO(state, books) {
       state.books = books;
     },
-    updateBookNotesBaseInfo(state, bookNotes) {
+    UPDATE_BOOKNOTES_BASE_INFO(state, bookNotes) {
       state.bookNotes = bookNotes;
     },
-    updateAlbumsBaseInfo(state, albums) {
+    UPDATE_ALBUMS_BASE_INFO(state, albums) {
       state.albums = albums;
     },
-    updateMoviesBaseInfo(state, movies) {
+    UPDATE_MOVIES_BASE_INFO(state, movies) {
       state.movies = movies;
     }
   },
   actions: {
     // 获取部分单级分类，不包括子级分类
-    getTopLevelCategoriesInfo({state, commit}, params) {
-      return API.getCategory(params).then((response) => {
-        commit('updateTopLevelCategoiesInfo', response.data.results);
-      }).catch((error) => {
-        handleError(error);
+    GET_TOP_LEVEL_CATEGORIES_INFO({state, commit}, params) {
+      return new Promise((resolve, reject) => {
+        API.getCategory(params).then((response) => {
+          commit('UPDATE_TOP_LEVEL_CATEGORIES_INFO', response.data.results);
+          resolve(response);
+        }).catch((error) => {
+          handleError(error);
+          reject(error);
+        });
       });
     },
     // 获取文章基本信息
-    getArticlesBaseInfo({state, commit}, params) {
-      return API.getArticleBaseInfo(params).then((response) => {
-        commit('updateArticlesBaseInfo', response.data.results);
-      }).catch((error) => {
-        handleError(error);
+    GET_ARTICLES_BASE_INFO({state, commit}, params) {
+      return new Promise((resolve, reject) => {
+        API.getArticleBaseInfo(params).then((response) => {
+          commit('UPDATE_ARTICLES_BASE_INFO', response.data.results);
+          resolve(response);
+        }).catch((error) => {
+          handleError(error);
+          reject(error);
+        });
       });
     },
     // 获取图书基本信息
-    getBooksBaseInfo({state, commit}, params) {
-      return API.getBookBaseInfo(params).then((response) => {
-        commit('updateBooksBaseInfo', response.data.results);
-      }).catch((error) => {
-        handleError(error);
+    GET_BOOKS_BASE_INFO({state, commit}, params) {
+      return new Promise((resolve, reject) => {
+        API.getBookBaseInfo(params).then((response) => {
+          commit('UPDATE_BOOKS_BASE_INFO', response.data.results);
+          resolve(response);
+        }).catch((error) => {
+          handleError(error);
+          reject(error);
+        });
       });
     },
     // 获取图书笔记基本信息
-    getBookNotesBaseInfo({state, commit}, params) {
-      return API.getBookNoteBaseInfo(params).then((response) => {
-        commit('updateBookNotesBaseInfo', response.data.results);
-      }).catch((error) => {
-        handleError(error);
+    GET_BOOKNOTES_BASE_INFO({state, commit}, params) {
+      return new Promise((resolve, reject) => {
+        API.getBookNoteBaseInfo(params).then((response) => {
+          commit('UPDATE_BOOKNOTES_BASE_INFO', response.data.results);
+          resolve(response);
+        }).catch((error) => {
+          handleError(error);
+          reject(error);
+        });
       });
     },
     // 获取图集基本信息
-    getAlbumsBaseInfo({state, commit}, params) {
-      return API.getAlbumBaseInfo(params).then((response) => {
-        commit('updateAlbumsBaseInfo', response.data.results);
-      }).catch((error) => {
-        handleError(error);
+    GET_ALBUMS_BASE_INFO({state, commit}, params) {
+      return new Promise((resolve, reject) => {
+        API.getAlbumBaseInfo(params).then((response) => {
+          commit('UPDATE_ALBUMS_BASE_INFO', response.data.results);
+          resolve(response);
+        }).catch((error) => {
+          handleError(error);
+          reject(error);
+        });
       });
     },
     // 获取电影基本信息
-    getMoviesBaseInfo({state, commit}, params) {
-      return API.getMovieBaseInfo(params).then((response) => {
-        commit('updateMoviesBaseInfo', response.data.results);
-      }).catch((error) => {
-        handleError(error);
+    GET_MOVIES_BASE_INFO({state, commit}, params) {
+      return new Promise((resolve, reject) => {
+        API.getMovieBaseInfo(params).then((response) => {
+          commit('UPDATE_MOVIES_BASE_INFO', response.data.results);
+          resolve(response);
+        }).catch((error) => {
+          handleError(error);
+          reject(error);
+        });
       });
     }
   }

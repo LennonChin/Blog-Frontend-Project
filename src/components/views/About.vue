@@ -31,7 +31,7 @@
   export default {
     asyncData({store}) {
       return Promise.all([
-        store.dispatch('base/getBloggerInfo')
+        store.dispatch('base/GET_BLOGGER_INFO')
       ]);
     },
     mounted() {
@@ -44,7 +44,7 @@
     },
     methods: {
       ...mapActions({
-        getBloggerInfo: 'base/getBloggerInfo'
+        getBloggerInfo: 'base/GET_BLOGGER_INFO'
       })
     }
   };

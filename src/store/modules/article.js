@@ -10,17 +10,21 @@ export default {
     need_auth: false
   },
   mutations: {
-    updateArticleDetailInfo(state, article) {
+    UPDATE_ARTICLE_DETAIL_INFO(state, article) {
       state.article = article;
     }
   },
   actions: {
     // 获取文章详细信息
-    getArticleDetailInfo({state, commit}, params) {
-      return API.getArticleDetailInfo(params).then((response) => {
-        commit('updateArticleDetailInfo', response.data);
-      }).catch((error) => {
-        handleError(error);
+    GET_ARTICLE_DETAIL_INFO({state, commit}, params) {
+      return new Promise((resolve, reject) => {
+        API.getArticleDetailInfo(params).then((response) => {
+          commit('UPDATE_ARTICLE_DETAIL_INFO', response.data);
+          resolve(response);
+        }).catch((error) => {
+          handleError(error);
+          reject(error);
+        });
       });
     }
   }

@@ -66,13 +66,13 @@
     name: 'Recommend',
     asyncData({store}) {
       return Promise.all([
-        store.dispatch('common/getRecommends')
+        store.dispatch('common/GET_RECOMMENDS')
       ]);
     },
     mounted() {
       if (!this.$store.state.common.recommends || this.$store.state.common.recommends.length === 0) {
         console.log('recommend');
-        this['common/getRecommends']();
+        this['common/GET_RECOMMENDS']();
       }
     },
     computed: {
@@ -81,7 +81,7 @@
       })
     },
     methods: {
-      ...mapActions(['common/getRecommends']),
+      ...mapActions(['common/GET_RECOMMENDS']),
       gotoPostDetail(post) {
         let routerInfos = this.routerInfos(post);
         checkPostAuth.call(this, post, '提示', routerInfos.message, () => {

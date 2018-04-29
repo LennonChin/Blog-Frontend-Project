@@ -157,13 +157,13 @@
     },
     asyncData({store}) {
       return Promise.all([
-        store.dispatch('home/getTopLevelCategoriesInfo', {
+        store.dispatch('home/GET_TOP_LEVEL_CATEGORIES_INFO', {
           params: {
             level_min: 1,
             level_max: 1
           }
         }),
-        store.dispatch('home/getArticlesBaseInfo', {
+        store.dispatch('home/GET_ARTICLES_BASE_INFO', {
           params: {
             is_recommend: this.recommendArticles,
             is_hot: this.hotArticles,
@@ -172,7 +172,7 @@
             offset: 0
           }
         }),
-        store.dispatch('home/getBooksBaseInfo', {
+        store.dispatch('home/GET_BOOKS_BASE_INFO', {
           params: {
             is_recommend: this.recommendBooks,
             is_hot: this.hotBooks,
@@ -181,7 +181,7 @@
             offset: 0
           }
         }),
-        store.dispatch('home/getBookNotesBaseInfo', {
+        store.dispatch('home/GET_BOOKNOTES_BASE_INFO', {
           params: {
             is_recommend: this.recommendBooks,
             is_hot: this.hotBooks,
@@ -190,7 +190,7 @@
             offset: 0
           }
         }),
-        store.dispatch('home/getAlbumsBaseInfo', {
+        store.dispatch('home/GET_ALBUMS_BASE_INFO', {
           params: {
             is_recommend: this.recommendAlbums,
             is_hot: this.hotAlbums,
@@ -199,7 +199,7 @@
             offset: 0
           }
         }),
-        store.dispatch('home/getMoviesBaseInfo', {
+        store.dispatch('home/GET_MOVIES_BASE_INFO', {
           params: {
             is_recommend: this.recommendMovies,
             is_hot: this.hotMovies,
@@ -220,14 +220,79 @@
         movies: state => state.home.movies
       })
     },
+    beforeMount() {
+      if (this.$store.state.home.topLevelCategoriesInfo.length === 0) {
+        this.getTopLevelCategoriesInfo({
+          params: {
+            level_min: 1,
+            level_max: 1
+          }
+        });
+      }
+      if (this.$store.state.home.articles.length === 0) {
+        this.getArticlesBaseInfo({
+          params: {
+            is_recommend: this.recommendArticles,
+            is_hot: this.hotArticles,
+            ordering: this.mostCommentArticles,
+            limit: 5,
+            offset: 0
+          }
+        });
+      }
+      if (this.$store.state.home.books.length === 0) {
+        this.getBooksBaseInfo({
+          params: {
+            is_recommend: this.recommendBooks,
+            is_hot: this.hotBooks,
+            ordering: this.mostCommentBooks,
+            limit: 6,
+            offset: 0
+          }
+        });
+      }
+      if (this.$store.state.home.bookNotes.length === 0) {
+        this.getBookNotesBaseInfo({
+          params: {
+            is_recommend: this.recommendBooks,
+            is_hot: this.hotBooks,
+            ordering: this.mostCommentBooks,
+            limit: 6,
+            offset: 0
+          }
+        });
+      }
+      if (this.$store.state.home.albums.length === 0) {
+        this.getAlbumsBaseInfo({
+          params: {
+            is_recommend: this.recommendAlbums,
+            is_hot: this.hotAlbums,
+            ordering: this.mostCommentAlbums,
+            limit: 6,
+            offset: 0
+          }
+        });
+      }
+      if (this.$store.state.home.movies.length === 0) {
+        this.getMoviesBaseInfo({
+          params: {
+            is_recommend: this.recommendMovies,
+            is_hot: this.hotMovies,
+            ordering: this.mostCommentMovies,
+            limit: 6,
+            offset: 0
+          }
+        });
+      }
+    },
     methods: {
       ...mapActions({
-        getTopLevelCategoriesInfo: 'home/getTopLevelCategoriesInfo',
-        getArticlesBaseInfo: 'home/getArticlesBaseInfo',
-        getBooksBaseInfo: 'home/getBooksBaseInfo',
-        getBookNotesBaseInfo: 'home/getBookNotesBaseInfo',
-        getAlbumsBaseInfo: 'home/getAlbumsBaseInfo',
-        getMoviesBaseInfo: 'home/getMoviesBaseInfo'
+        getTopLevelCategoriesInfo: 'home/GET_TOP_LEVEL_CATEGORIES_INFO',
+        getArticlesBaseInfo: 'home/GET_ARTICLES_BASE_INFO',
+        getBooksBaseInfo: 'home/GET_BOOKS_BASE_INFO',
+        getBookNotesBaseInfo: 'home/GET_BOOKNOTES_BASE_INFO',
+        getAlbumsBaseInfo: 'home/GET_ALBUMS_BASE_INFO',
+        getMoviesBaseInfo: 'home/GET_MOVIES_BASE_INFO'
       }),
       refreshArticles() {
         this.mostCommentArticles = undefined;

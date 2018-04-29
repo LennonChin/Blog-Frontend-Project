@@ -48,8 +48,6 @@
   import tocbot from 'tocbot';
   // 加密
   import {hexMd5} from '@/common/js/md5';
-  // API
-  import API from '@/api/client-api';
 
   let HLJS = hljs;
 
@@ -64,7 +62,7 @@
       this.id = route.params.id;
       this.browse_auth = route.query.browse_auth;
       return Promise.all([
-        store.dispatch('article/getArticleDetailInfo', {
+        store.dispatch('article/GET_ARTICLE_DETAIL_INFO', {
           params: {
             browse_auth: this.browse_auth
           },
@@ -74,54 +72,25 @@
     },
     beforeRouteUpdate(to, from, next) {
       next();
-      this.article = undefined;
       this.id = this.$route.params.id;
       this.browse_auth = this.$route.query.browse_auth;
-      this.$store.dispatch('article/getArticleDetailInfo', {
+      this.getArticleDetailInfo({
         params: {
           browse_auth: this.browse_auth
         },
         id: this.id
       });
     },
-    mounted() {
-      this.id = this.$route.params.id;
-      this.browse_auth = this.$route.query.browse_auth;
-      if (!this.$store.state.article.article) {
+    beforeMount() {
+      let that = this;
+      if (Object.keys(this.$store.state.article.article).length === 0) {
+        this.id = this.$route.params.id;
+        this.browse_auth = this.$route.query.browse_auth;
         this.getArticleDetailInfo({
           params: {
             browse_auth: this.browse_auth
           },
           id: this.id
-        });
-      }
-      this.$nextTick(() => {
-        this.addCodeLineNumber();
-        // 添加图片前缀
-        this.resolveImageUrl(this.$refs.article.querySelectorAll('img'));
-        this.addTocScrollSpy();
-      });
-    },
-    computed: {
-      ...mapState({
-        article: state => state.article.article
-      })
-    },
-    methods: {
-      ...mapActions({
-        getArticleDetailInfo: 'article/getArticleDetailInfo'
-      }),
-      getDatas() {
-        let that = this;
-        API.getArticleDetailInfo({
-          params: {
-            browse_auth: this.browse_auth
-          },
-          id: this.id
-        }).then((response) => {
-          this.$nextTick(() => {
-            this.article = response.data;
-          });
         }).catch((error) => {
           console.log(error);
           if (error.status === 401) {
@@ -139,7 +108,19 @@
             }
           }
         });
-      },
+      }
+    },
+    mounted() {
+    },
+    computed: {
+      ...mapState({
+        article: state => state.article.article
+      })
+    },
+    methods: {
+      ...mapActions({
+        getArticleDetailInfo: 'article/GET_ARTICLE_DETAIL_INFO'
+      }),
       checkPassword(message) {
         let checkAuth = (browseAuthInput, isAutoRemove) => {
           this.browse_auth = hexMd5(browseAuthInput);
@@ -235,6 +216,17 @@
           if (reg.test(block.innerHTML)) return;
           block.innerHTML = '<ul><li>' + block.innerHTML.replace(/(^\s*)|(\s*$)/g, '').replace(/\n/g, '\n</li><li>') + '\n</li></ul>';
           HLJS.highlightBlock(block);
+        });
+      }
+    },
+    watch: {
+      article: (newArticle) => {
+        console.log(article);
+        this.$nextTick(() => {
+          this.addCodeLineNumber();
+          // 添加图片前缀
+          this.resolveImageUrl(this.$refs.article.querySelectorAll('img'));
+          this.addTocScrollSpy();
         });
       }
     },

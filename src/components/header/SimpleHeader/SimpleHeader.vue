@@ -82,13 +82,13 @@
     },
     asyncData({store}) {
       return Promise.all([
-        store.dispatch('base/getSiteInfo'),
-        store.dispatch('base/getAllCategorys')
+        store.dispatch('base/GET_SITE_INFO'),
+        store.dispatch('base/GET_ALL_CATEGORYS')
       ]);
     },
     mounted() {
-      if (!this.$store.state.base.siteInfo) this['base/getSiteInfo']();
-      if (!this.$store.state.base.allCategorysInfo) this['base/getAllCategorys']();
+      if (!this.$store.state.base.siteInfo) this['base/GET_SITE_INFO']();
+      if (!this.$store.state.base.allCategorysInfo) this['base/GET_ALL_CATEGORYS']();
     },
     computed: {
       ...mapState({
@@ -97,7 +97,7 @@
       })
     },
     methods: {
-      ...mapActions(['base/getSiteInfo', 'base/getAllCategorys']),
+      ...mapActions(['base/GET_SITE_INFO', 'base/GET_ALL_CATEGORYS']),
       search() {
         console.log(this.searchKeyWords);
         if (this.searchKeyWords.length === 0) {

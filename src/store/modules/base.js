@@ -10,47 +10,59 @@ export default {
     allCategorysInfo: []
   },
   mutations: {
-    updateSiteInfo(state, siteInfo) {
+    UPDATE_SITE_INFO(state, siteInfo) {
       state.siteInfo = siteInfo;
     },
-    updateBloggerInfo(state, bloggerInfo) {
+    UPDATE_BLOGGER_INFO(state, bloggerInfo) {
       state.bloggerInfo = bloggerInfo;
     },
-    updateAllCategorys(state, categorysInfo) {
+    UPDATE_ALL_CATEGORYS(state, categorysInfo) {
       state.allCategorysInfo = categorysInfo;
     }
   },
   actions: {
     // 获取站点信息
-    getSiteInfo({state, commit}, params) {
-      return API.getSiteInfo({params}).then((response) => {
-        commit('updateSiteInfo', response.data[0]);
-      }).catch((error) => {
-        handleError(error);
+    GET_SITE_INFO: ({state, commit}, params) => {
+      return new Promise((resolve, reject) => {
+        API.getSiteInfo({params}).then((response) => {
+          commit('UPDATE_SITE_INFO', response.data[0]);
+          resolve(response);
+        }).catch((error) => {
+          handleError(error);
+          reject(error);
+        });
       });
     },
     // 获取博主信息
-    getBloggerInfo({state, commit}, params) {
-      return API.getBloggerInfo({
-        params: {}
-      }).then((response) => {
-        commit('updateBloggerInfo', response.data[0]);
-      }).catch((error) => {
-        handleError(error);
+    GET_BLOGGER_INFO({state, commit}, params) {
+      return new Promise((resolve, reject) => {
+        API.getBloggerInfo({
+          params: {}
+        }).then((response) => {
+          commit('UPDATE_BLOGGER_INFO', response.data[0]);
+          resolve(response);
+        }).catch((error) => {
+          handleError(error);
+          reject(error);
+        });
       });
     },
     // 获取所有的分类
-    getAllCategorys({state, commit}, params) {
-      return API.getCategorys({
-        params: {
-          level_min: 1,
-          level_max: 1,
-          is_tab: true
-        }
-      }).then((response) => {
-        commit('updateAllCategorys', response.data.results);
-      }).catch((error) => {
-        handleError(error);
+    GET_ALL_CATEGORYS({state, commit}, params) {
+      return new Promise((resolve, reject) => {
+        API.getCategorys({
+          params: {
+            level_min: 1,
+            level_max: 1,
+            is_tab: true
+          }
+        }).then((response) => {
+          commit('UPDATE_ALL_CATEGORYS', response.data.results);
+          resolve(response);
+        }).catch((error) => {
+          handleError(error);
+          reject(error);
+        });
       });
     }
   }
