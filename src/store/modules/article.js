@@ -6,7 +6,6 @@ export default {
   namespaced: true,
   state: {
     article: {},
-    browseAuth: undefined,
     needAuth: false
   },
   mutations: {
@@ -18,7 +17,6 @@ export default {
     },
     CLAER_ARICLE_DETAIL_INFO(state) {
       state.article = {};
-      state.browseAuth = undefined;
       state.needAuth = false;
     }
   },
@@ -27,9 +25,15 @@ export default {
     GET_ARTICLE_DETAIL_INFO({state, commit}, params) {
       return new Promise((resolve, reject) => {
         API.getArticleDetailInfo(params).then((response) => {
+          // 更新文章信息和权限信息
           commit('UPDATE_ARTICLE_DETAIL_INFO', response.data);
-          commit('UPDATE_DOCUMENT_TITLE', response.data.title, { root: true });
           commit('UPDATE_ARTICLE_AUTH', false);
+          // 更新文章页的meta信息
+          commit('UPDATE_DOCUMENT_TITLE', response.data.title, { root: true });
+          commit('UPDATE_DOCUMENT_DESCRIPTION', response.data.desc, { root: true });
+          commit('UPDATE_DOCUMENT_KEYWORDS', response.data.tags.map((tags) => {
+            return tags.name;
+          }).join(','), { root: true });
           resolve(response);
         }).catch((error) => {
           if (error.code === 401) {

@@ -155,8 +155,11 @@
     },
     metaInfo() {
       return {
-        title: this.documentTitle,
-        titleTemplate: '%s | Diomedes'
+        title: this.documentMeta.title,
+        meta: [
+          {name: 'description', content: this.documentMeta.description},
+          {name: 'keywords', content: this.documentMeta.keywords}
+        ]
       };
     },
     asyncData({store}) {
@@ -224,11 +227,12 @@
         movies: state => state.home.movies
       }),
       ...mapGetters({
-        documentTitle: 'DOCUMENT_TITLE'
+        documentMeta: 'DOCUMENT_META'
       })
     },
     beforeMount() {
-      this.$store.commit('UPDATE_DOCUMENT_TITLE', '首页');
+      // 更新首页meta信息
+      this.updateHomeMeta();
       if (this.$store.state.home.topLevelCategoriesInfo.length === 0) {
         this.getTopLevelCategoriesInfo({
           params: {
@@ -295,6 +299,7 @@
     },
     methods: {
       ...mapActions({
+        updateHomeMeta: 'home/UPDATE_HOME_META',
         getTopLevelCategoriesInfo: 'home/GET_TOP_LEVEL_CATEGORIES_INFO',
         getArticlesBaseInfo: 'home/GET_ARTICLES_BASE_INFO',
         getBooksBaseInfo: 'home/GET_BOOKS_BASE_INFO',

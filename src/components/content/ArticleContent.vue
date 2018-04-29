@@ -64,8 +64,11 @@
     },
     metaInfo() {
       return {
-        title: this.documentTitle,
-        titleTemplate: '%s | Diomedes'
+        title: this.documentMeta.title,
+        meta: [
+          {name: 'description', content: this.documentMeta.description},
+          {name: 'keywords', content: this.documentMeta.keywords}
+        ]
       };
     },
     beforeRouteLeave(to, from, next) {
@@ -120,7 +123,7 @@
         needAuth: state => state.article.needAuth
       }),
       ...mapGetters({
-        documentTitle: 'DOCUMENT_TITLE'
+        documentMeta: 'DOCUMENT_META'
       })
     },
     methods: {

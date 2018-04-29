@@ -33,8 +33,14 @@ export default {
     }
   },
   actions: {
+    // 更新首页的meta信息
+    UPDATE_HOME_META({state, commit, rootState}) {
+      commit('UPDATE_DOCUMENT_TITLE', '首页', {root: true});
+      commit('UPDATE_DOCUMENT_DESCRIPTION', rootState.base.siteInfo.desc, {root: true});
+      commit('UPDATE_DOCUMENT_KEYWORDS', rootState.base.siteInfo.keywords, {root: true});
+    },
     // 获取部分单级分类，不包括子级分类
-    GET_TOP_LEVEL_CATEGORIES_INFO({state, commit}, params) {
+    GET_TOP_LEVEL_CATEGORIES_INFO({state, commit, rootState}, params) {
       return new Promise((resolve, reject) => {
         API.getCategory(params).then((response) => {
           commit('UPDATE_TOP_LEVEL_CATEGORIES_INFO', response.data.results);
