@@ -11,10 +11,10 @@ const isDev = process.env.NODE_ENV === 'development';
 
 app.use(async (ctx, next) => {
   try {
-    console.log(chalk.green(`request with path ${ctx.path}`));
+    console.log(chalk.green(`request with url ${ctx.url}`));
     await next();
   } catch (err) {
-    console.log(chalk.red(`error request with path ${ctx.path}`));
+    console.log(chalk.red(`error request with url ${ctx.url}`));
     console.log(chalk.red(err));
     ctx.status = 500;
     if (isDev) {

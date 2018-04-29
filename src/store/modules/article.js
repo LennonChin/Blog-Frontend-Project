@@ -6,20 +6,20 @@ export default {
   namespaced: true,
   state: {
     article: {},
-    browse_auth: undefined,
-    need_auth: false
+    browseAuth: undefined,
+    needAuth: false
   },
   mutations: {
     UPDATE_ARTICLE_DETAIL_INFO(state, article) {
       state.article = article;
     },
     UPDATE_ARTICLE_AUTH(state, isAuth) {
-      state.need_auth = isAuth;
+      state.needAuth = isAuth;
     },
     CLAER_ARICLE_DETAIL_INFO(state) {
       state.article = {};
-      state.browse_auth = undefined;
-      state.need_auth = false;
+      state.browseAuth = undefined;
+      state.needAuth = false;
     }
   },
   actions: {
@@ -28,6 +28,7 @@ export default {
       return new Promise((resolve, reject) => {
         API.getArticleDetailInfo(params).then((response) => {
           commit('UPDATE_ARTICLE_DETAIL_INFO', response.data);
+          commit('UPDATE_ARTICLE_AUTH', false);
           resolve(response);
         }).catch((error) => {
           if (error.code === 401) {

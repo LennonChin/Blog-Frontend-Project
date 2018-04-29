@@ -1,6 +1,6 @@
 <template>
-  <div class="article-content layout-content" v-if="article">
-    <i-row>
+  <div class="article-content layout-content">
+    <i-row v-if="!needAuth">
       <i-col :xs="24" :sm="24" :md="24" :lg="17">
         <div class="layout-left" v-if="article">
           <article-page-header :article="article"></article-page-header>
@@ -56,7 +56,7 @@
     data() {
       return {
         id: 0,
-        browse_auth: null
+        browse_auth: undefined
       };
     },
     beforeRouteLeave (to, from, next) {
@@ -64,9 +64,15 @@
       this.clearArticleInfo();
       next();
     },
+    beforeRouteUpdate(to, from, next) {
+      next();
+      this.refreshData();
+    },
     asyncData({store, route}) {
+      console.log('====>', route);
       this.id = route.params.id;
       this.browse_auth = route.query.browse_auth;
+      console.log(this.id, this.browse_auth);
       return Promise.all([
         store.dispatch('article/GET_ARTICLE_DETAIL_INFO', {
           params: {
@@ -78,31 +84,55 @@
     },
     mounted() {
       console.log('mounted');
-
-      // 更新文章结构，高亮、图片、代码行号
-      let refreshContent = () => {
-        this.$nextTick(() => {
-          // 添加图片前缀
-          this.resolveImageUrl(this.$refs.article.querySelectorAll('img'));
-          this.addCodeLineNumber();
-          this.addTocScrollSpy();
-        });
-      };
-
+      this.id = this.$route.params.id;
+      this.browse_auth = this.$route.query.browse_auth;
       let that = this;
-      if (Object.keys(this.$store.state.article.article).length === 0) {
-        this.id = this.$route.params.id;
-        this.browse_auth = this.$route.query.browse_auth;
+      if (this.needAuth) {
+        this.$Notice.error({
+          title: '您输入的阅读密码错误',
+          duration: 3,
+          closable: true,
+          onClose: () => {
+            that.checkPassword('该文章为加密文章，<br />您输入的阅读密码错误，请重新验证');
+          }
+        });
+      } else {
+        if (Object.keys(this.$store.state.article.article).length === 0) {
+          console.log('non ssr');
+          // 未SSR的情况
+          this.refreshData();
+        } else {
+          // SSR的情况
+          this.refreshContent();
+        }
+      }
+    },
+    computed: {
+      ...mapState({
+        article: state => state.article.article,
+        needAuth: state => state.article.needAuth
+      })
+    },
+    methods: {
+      ...mapMutations({
+        updateArticleAuth: 'article/UPDATE_ARTICLE_AUTH',
+        clearArticleInfo: 'article/CLAER_ARICLE_DETAIL_INFO'
+      }),
+      ...mapActions({
+        getArticleDetailInfo: 'article/GET_ARTICLE_DETAIL_INFO'
+      }),
+      refreshData() {
+        let that = this;
         this.getArticleDetailInfo({
           params: {
             browse_auth: this.browse_auth
           },
           id: this.id
         }).then(response => {
-          refreshContent();
+          this.refreshContent();
         }).catch((error) => {
           console.log('article detail need auth');
-          if (error.status === 401) {
+          if (error.code === 401) {
             if (that.browse_auth) {
               that.$Notice.error({
                 title: '您输入的阅读密码错误',
@@ -117,26 +147,12 @@
             }
           }
         });
-      } else {
-        refreshContent();
-      }
-    },
-    computed: {
-      ...mapState({
-        article: state => state.article.article
-      })
-    },
-    methods: {
-      ...mapMutations({
-        clearArticleInfo: 'article/CLAER_ARICLE_DETAIL_INFO'
-      }),
-      ...mapActions({
-        getArticleDetailInfo: 'article/GET_ARTICLE_DETAIL_INFO'
-      }),
+      },
       checkPassword(message) {
         let checkAuth = (browseAuthInput, isAutoRemove) => {
           this.browse_auth = hexMd5(browseAuthInput);
-          this.$router.push({
+          console.log(this.id, this.browse_auth);
+          this.$router.replace({
             name: this.$router.name,
             params: {id: this.id},
             query: {browse_auth: this.browse_auth}
@@ -193,6 +209,15 @@
           onOk: () => {
             checkAuth(this.browse_auth_input, false);
           }
+        });
+      },
+      // 更新文章结构，高亮、图片、代码行号
+      refreshContent() {
+        this.$nextTick(() => {
+          // 添加图片前缀
+          this.resolveImageUrl(this.$refs.article.querySelectorAll('img'));
+          this.addCodeLineNumber();
+          this.addTocScrollSpy();
         });
       },
       addTocScrollSpy() {
