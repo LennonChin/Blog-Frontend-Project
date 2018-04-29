@@ -9,6 +9,11 @@ export default {
     browseAuth: undefined,
     needAuth: false
   },
+  getters: {
+    DOCUMENT_TITLE: state => {
+      return Object.keys(state.article).length > 0 ? state.article.title : '文章详情';
+    }
+  },
   mutations: {
     UPDATE_ARTICLE_DETAIL_INFO(state, article) {
       state.article = article;

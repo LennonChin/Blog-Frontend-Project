@@ -2,7 +2,6 @@
  * 服务端渲染入口文件
  * */
 import createApp from './create-app';
-import chalk from 'chalk';
 
 export default context => {
   /**
@@ -12,9 +11,6 @@ export default context => {
   return new Promise((resolve, reject) => {
     const {app, router, store} = createApp();
     // 给路由推一条记录，让router匹配到需要调用的组件
-    console.log(chalk.red('==========>'));
-    console.log(context);
-    console.log(chalk.red('==========>'));
     router.push(context.url);
     /**
      * 只有在服务端渲染才用到

@@ -27,10 +27,10 @@ module.exports = {
   dev: {
     env: require('./dev.env'),
     host: '0.0.0.0',
-    port: process.env.PORT || 8090,
+    port: process.env.PORT || 8080,
     autoOpenBrowser: true,
     assetsSubDirectory: 'static',
-    assetsPublicPath: `${process.env.HOST || 'http://localhost'}:${process.env.PORT || 8090}/`,
+    assetsPublicPath: `${process.env.HOST || 'http://localhost'}:${process.env.PORT || 8080}/`,
     proxyTable: {
       '/api': {
         target: 'https://api.douban.com/v2',

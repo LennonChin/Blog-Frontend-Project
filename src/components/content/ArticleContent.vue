@@ -31,6 +31,7 @@
 <script type="text/ecmascript-6">
   import {
     mapState,
+    mapGetters,
     mapMutations,
     mapActions
   } from 'vuex';
@@ -59,6 +60,10 @@
         browse_auth: undefined
       };
     },
+    metaInfo: {
+      title: '文章详情',
+      titleTemplate: '%s | Diomedes'
+    },
     beforeRouteLeave (to, from, next) {
       // 导航离开该组件的对应路由时调用
       this.clearArticleInfo();
@@ -69,10 +74,8 @@
       this.refreshData();
     },
     asyncData({store, route}) {
-      console.log('====>', route);
       this.id = route.params.id;
       this.browse_auth = route.query.browse_auth;
-      console.log(this.id, this.browse_auth);
       return Promise.all([
         store.dispatch('article/GET_ARTICLE_DETAIL_INFO', {
           params: {
@@ -111,6 +114,9 @@
       ...mapState({
         article: state => state.article.article,
         needAuth: state => state.article.needAuth
+      }),
+      ...mapGetters({
+        documentTitle: 'article/DOCUMENT_TITLE'
       })
     },
     methods: {
