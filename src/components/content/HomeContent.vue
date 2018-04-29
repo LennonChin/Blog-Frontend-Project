@@ -101,9 +101,6 @@
   import FriendLinks from '@/components/views/FriendLinks';
   import SideToc from '@/components/views/SideToc';
 
-  // API
-  import API from '@/api/client-api';
-
   export default {
     name: 'HomeContent',
     metaInfo: {
@@ -121,7 +118,6 @@
           {title: '推荐', selected: false, method: 'recommend'}
         ],
         // 摄影
-        albums: [],
         mostCommentAlbums: undefined,
         hotAlbums: undefined,
         recommendAlbums: undefined,
@@ -140,7 +136,6 @@
           {title: '推荐', selected: false, method: 'recommend'}
         ],
         // 笔记
-        bookNotes: [],
         mostCommentBookNotes: undefined,
         hotBookNotes: undefined,
         recommendBookNotes: undefined,
@@ -150,7 +145,6 @@
           {title: '推荐', selected: false, method: 'recommend'}
         ],
         // 电影
-        movies: [],
         mostCommentMovies: undefined,
         hotMovies: undefined,
         recommendMovies: undefined,
@@ -163,13 +157,13 @@
     },
     asyncData({store}) {
       return Promise.all([
-        store.dispatch('home/getTopLevelCategoriesInfo', {
+        store.dispatch('home/GET_TOP_LEVEL_CATEGORIES_INFO', {
           params: {
             level_min: 1,
             level_max: 1
           }
         }),
-        store.dispatch('home/getArticlesBaseInfo', {
+        store.dispatch('home/GET_ARTICLES_BASE_INFO', {
           params: {
             is_recommend: this.recommendArticles,
             is_hot: this.hotArticles,
@@ -178,7 +172,7 @@
             offset: 0
           }
         }),
-        store.dispatch('home/getBooksBaseInfo', {
+        store.dispatch('home/GET_BOOKS_BASE_INFO', {
           params: {
             is_recommend: this.recommendBooks,
             is_hot: this.hotBooks,
@@ -186,27 +180,17 @@
             limit: 6,
             offset: 0
           }
-        })
-      ]);
-    },
-    created() {
-    },
-    computed: {
-      ...mapState({
-        categorys: state => state.home.topLevelCategoriesInfo,
-        articles: state => state.home.articles,
-        books: state => state.home.books
-      })
-    },
-    methods: {
-      ...mapActions([
-        'home/getTopLevelCategoriesInfo',
-        'home/getArticlesBaseInfo',
-        'home/updateBooksBaseInfo'
-      ]),
-      getAlbumBaseInfo() {
-        // 图集
-        API.getAlbumBaseInfo({
+        }),
+        store.dispatch('home/GET_BOOKNOTES_BASE_INFO', {
+          params: {
+            is_recommend: this.recommendBooks,
+            is_hot: this.hotBooks,
+            ordering: this.mostCommentBooks,
+            limit: 6,
+            offset: 0
+          }
+        }),
+        store.dispatch('home/GET_ALBUMS_BASE_INFO', {
           params: {
             is_recommend: this.recommendAlbums,
             is_hot: this.hotAlbums,
@@ -214,31 +198,8 @@
             limit: 6,
             offset: 0
           }
-        }).then((response) => {
-          this.albums = response.data.results;
-        }).catch((error) => {
-          console.log(error);
-        });
-      },
-      getBookNoteBaseInfo() {
-        // 读书笔记
-        API.getBookNoteBaseInfo({
-          params: {
-            is_recommend: this.recommendBooks,
-            is_hot: this.hotBooks,
-            ordering: this.mostCommentBooks,
-            limit: 6,
-            offset: 0
-          }
-        }).then((response) => {
-          this.bookNotes = response.data.results;
-        }).catch((error) => {
-          console.log(error);
-        });
-      },
-      getMovieBaseInfo() {
-        // 电影
-        API.getMovieBaseInfo({
+        }),
+        store.dispatch('home/GET_MOVIES_BASE_INFO', {
           params: {
             is_recommend: this.recommendMovies,
             is_hot: this.hotMovies,
@@ -246,41 +207,162 @@
             limit: 6,
             offset: 0
           }
-        }).then((response) => {
-          this.movies = response.data.results;
-        }).catch((error) => {
-          console.log(error);
+        })
+      ]);
+    },
+    computed: {
+      ...mapState({
+        categorys: state => state.home.topLevelCategoriesInfo,
+        articles: state => state.home.articles,
+        books: state => state.home.books,
+        bookNotes: state => state.home.bookNotes,
+        albums: state => state.home.albums,
+        movies: state => state.home.movies
+      })
+    },
+    beforeMount() {
+      if (this.$store.state.home.topLevelCategoriesInfo.length === 0) {
+        this.getTopLevelCategoriesInfo({
+          params: {
+            level_min: 1,
+            level_max: 1
+          }
         });
-      },
+      }
+      if (this.$store.state.home.articles.length === 0) {
+        this.getArticlesBaseInfo({
+          params: {
+            is_recommend: this.recommendArticles,
+            is_hot: this.hotArticles,
+            ordering: this.mostCommentArticles,
+            limit: 5,
+            offset: 0
+          }
+        });
+      }
+      if (this.$store.state.home.books.length === 0) {
+        this.getBooksBaseInfo({
+          params: {
+            is_recommend: this.recommendBooks,
+            is_hot: this.hotBooks,
+            ordering: this.mostCommentBooks,
+            limit: 6,
+            offset: 0
+          }
+        });
+      }
+      if (this.$store.state.home.bookNotes.length === 0) {
+        this.getBookNotesBaseInfo({
+          params: {
+            is_recommend: this.recommendBooks,
+            is_hot: this.hotBooks,
+            ordering: this.mostCommentBooks,
+            limit: 6,
+            offset: 0
+          }
+        });
+      }
+      if (this.$store.state.home.albums.length === 0) {
+        this.getAlbumsBaseInfo({
+          params: {
+            is_recommend: this.recommendAlbums,
+            is_hot: this.hotAlbums,
+            ordering: this.mostCommentAlbums,
+            limit: 6,
+            offset: 0
+          }
+        });
+      }
+      if (this.$store.state.home.movies.length === 0) {
+        this.getMoviesBaseInfo({
+          params: {
+            is_recommend: this.recommendMovies,
+            is_hot: this.hotMovies,
+            ordering: this.mostCommentMovies,
+            limit: 6,
+            offset: 0
+          }
+        });
+      }
+    },
+    methods: {
+      ...mapActions({
+        getTopLevelCategoriesInfo: 'home/GET_TOP_LEVEL_CATEGORIES_INFO',
+        getArticlesBaseInfo: 'home/GET_ARTICLES_BASE_INFO',
+        getBooksBaseInfo: 'home/GET_BOOKS_BASE_INFO',
+        getBookNotesBaseInfo: 'home/GET_BOOKNOTES_BASE_INFO',
+        getAlbumsBaseInfo: 'home/GET_ALBUMS_BASE_INFO',
+        getMoviesBaseInfo: 'home/GET_MOVIES_BASE_INFO'
+      }),
       refreshArticles() {
         this.mostCommentArticles = undefined;
         this.hotArticles = undefined;
         this.recommendArticles = undefined;
-        this.getArticleBaseInfo();
+        this.getArticlesBaseInfo({
+          params: {
+            is_recommend: this.recommendArticles,
+            is_hot: this.hotArticles,
+            ordering: this.mostCommentArticles,
+            limit: 5,
+            offset: 0
+          }
+        });
       },
       refreshAlbums() {
         this.mostCommentAlbums = undefined;
         this.hotAlbums = undefined;
         this.recommendAlbums = undefined;
-        this.getAlbumBaseInfo();
+        this.getAlbumsBaseInfo({
+          params: {
+            is_recommend: this.recommendAlbums,
+            is_hot: this.hotAlbums,
+            ordering: this.mostCommentAlbums,
+            limit: 6,
+            offset: 0
+          }
+        });
       },
       refreshBooks() {
         this.mostCommentBooks = undefined;
         this.hotBooks = undefined;
         this.recommendBooks = undefined;
-        this.getBookBaseInfo();
+        this.getBooksBaseInfo({
+          params: {
+            is_recommend: this.recommendBooks,
+            is_hot: this.hotBooks,
+            ordering: this.mostCommentBooks,
+            limit: 6,
+            offset: 0
+          }
+        });
       },
       refreshBookNotes() {
         this.mostCommentBookNotes = undefined;
         this.hotBookNotes = undefined;
         this.recommendBookNotes = undefined;
-        this.getBookNoteBaseInfo();
+        this.getBookNotesBaseInfo({
+          params: {
+            is_recommend: this.recommendBooks,
+            is_hot: this.hotBooks,
+            ordering: this.mostCommentBooks,
+            limit: 6,
+            offset: 0
+          }
+        });
       },
       refreshMovies() {
         this.mostCommentMovies = undefined;
         this.hotMovies = undefined;
         this.recommendMovies = undefined;
-        this.getMovieBaseInfo();
+        this.getMoviesBaseInfo({
+          params: {
+            is_recommend: this.recommendMovies,
+            is_hot: this.hotMovies,
+            ordering: this.mostCommentMovies,
+            limit: 6,
+            offset: 0
+          }
+        });
       },
       specialCategory(id) {
         if (this.categorys.length === 0) return undefined;
@@ -300,7 +382,15 @@
             this.recommendArticles = params[1] ? true : undefined;
             break;
         }
-        this.getArticleBaseInfo();
+        this.getArticlesBaseInfo({
+          params: {
+            is_recommend: this.recommendArticles,
+            is_hot: this.hotArticles,
+            ordering: this.mostCommentArticles,
+            limit: 5,
+            offset: 0
+          }
+        });
       },
       albumsMenusControl(params) {
         switch (params[0]) {
@@ -314,7 +404,15 @@
             this.recommendAlbums = params[1] ? true : undefined;
             break;
         }
-        this.getAlbumBaseInfo();
+        this.getAlbumsBaseInfo({
+          params: {
+            is_recommend: this.recommendAlbums,
+            is_hot: this.hotAlbums,
+            ordering: this.mostCommentAlbums,
+            limit: 6,
+            offset: 0
+          }
+        });
       },
       booksMenusControl(params) {
         switch (params[0]) {
@@ -328,7 +426,15 @@
             this.recommendBooks = params[1] ? true : undefined;
             break;
         }
-        this.getBookBaseInfo();
+        this.getBooksBaseInfo({
+          params: {
+            is_recommend: this.recommendBooks,
+            is_hot: this.hotBooks,
+            ordering: this.mostCommentBooks,
+            limit: 6,
+            offset: 0
+          }
+        });
       },
       bookNotesMenusControl(params) {
         switch (params[0]) {
@@ -342,7 +448,15 @@
             this.recommendBookNotes = params[1] ? true : undefined;
             break;
         }
-        this.getBookNoteBaseInfo();
+        this.getBookNotesBaseInfo({
+          params: {
+            is_recommend: this.recommendBooks,
+            is_hot: this.hotBooks,
+            ordering: this.mostCommentBooks,
+            limit: 6,
+            offset: 0
+          }
+        });
       },
       moviesMenusControl(params) {
         switch (params[0]) {
@@ -356,7 +470,15 @@
             this.recommendMovies = params[1] ? true : undefined;
             break;
         }
-        this.getMovieBaseInfo();
+        this.getMoviesBaseInfo({
+          params: {
+            is_recommend: this.recommendMovies,
+            is_hot: this.hotMovies,
+            ordering: this.mostCommentMovies,
+            limit: 6,
+            offset: 0
+          }
+        });
       }
     },
     components: {

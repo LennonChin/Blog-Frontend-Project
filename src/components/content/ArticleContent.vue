@@ -1,12 +1,12 @@
 <template>
-  <div class="article-content layout-content" v-if="article !== undefined">
-    <i-row>
+  <div class="article-content layout-content">
+    <i-row v-if="!needAuth">
       <i-col :xs="24" :sm="24" :md="24" :lg="17">
-        <div class="layout-left">
+        <div class="layout-left" v-if="article">
           <article-page-header :article="article"></article-page-header>
           <article-page-content>
             <div class="article-details" id="article-main-page" slot="content" ref="article">
-              <div class="detail" v-if="article !== undefined" v-for="detail in article.details">
+              <div class="detail" v-if="article" v-for="detail in article.details">
                 <article class="typo container article-main-content" v-html="detail.formatted_content">
                 </article>
                 <div class="detail-footer">Append At / {{ detail.add_time | socialDate }} &nbsp;&nbsp;&nbsp; Update At / {{ detail.update_time | socialDate }}</div>
@@ -29,6 +29,11 @@
 </template>
 
 <script type="text/ecmascript-6">
+  import {
+    mapState,
+    mapMutations,
+    mapActions
+  } from 'vuex';
   import ArticlePageHeader from '@/components/views/Article/ArticlePageHeader';
   import ArticlePageContent from '@/components/views/Article/ArticlePageContent';
   import ArticlePageFooter from '@/components/views/Article/ArticlePageFooter';
@@ -44,46 +49,90 @@
   import tocbot from 'tocbot';
   // 加密
   import {hexMd5} from '@/common/js/md5';
-  // API
-  import API from '@/api/client-api';
 
-  var HLJS = hljs;
+  let HLJS = hljs;
 
   export default {
     data() {
       return {
         id: 0,
-        browse_auth: null,
-        article: undefined
+        browse_auth: undefined
       };
+    },
+    beforeRouteLeave (to, from, next) {
+      // 导航离开该组件的对应路由时调用
+      this.clearArticleInfo();
+      next();
     },
     beforeRouteUpdate(to, from, next) {
       next();
-      this.article = undefined;
-      this.id = this.$route.params.id;
-      this.browse_auth = this.$route.query.browse_auth;
-      this.getDatas();
+      this.refreshData();
     },
-    mounted() {
-      this.id = this.$route.params.id;
-      this.browse_auth = this.$route.query.browse_auth;
-      this.getDatas();
-    },
-    methods: {
-      getDatas() {
-        let that = this;
-        API.getArticleDetailInfo({
+    asyncData({store, route}) {
+      console.log('====>', route);
+      this.id = route.params.id;
+      this.browse_auth = route.query.browse_auth;
+      console.log(this.id, this.browse_auth);
+      return Promise.all([
+        store.dispatch('article/GET_ARTICLE_DETAIL_INFO', {
           params: {
             browse_auth: this.browse_auth
           },
           id: this.id
-        }).then((response) => {
-          this.$nextTick(() => {
-            this.article = response.data;
-          });
+        })
+      ]);
+    },
+    mounted() {
+      console.log('mounted');
+      this.id = this.$route.params.id;
+      this.browse_auth = this.$route.query.browse_auth;
+      let that = this;
+      if (this.needAuth) {
+        this.$Notice.error({
+          title: '您输入的阅读密码错误',
+          duration: 3,
+          closable: true,
+          onClose: () => {
+            that.checkPassword('该文章为加密文章，<br />您输入的阅读密码错误，请重新验证');
+          }
+        });
+      } else {
+        if (Object.keys(this.$store.state.article.article).length === 0) {
+          console.log('non ssr');
+          // 未SSR的情况
+          this.refreshData();
+        } else {
+          // SSR的情况
+          this.refreshContent();
+        }
+      }
+    },
+    computed: {
+      ...mapState({
+        article: state => state.article.article,
+        needAuth: state => state.article.needAuth
+      })
+    },
+    methods: {
+      ...mapMutations({
+        updateArticleAuth: 'article/UPDATE_ARTICLE_AUTH',
+        clearArticleInfo: 'article/CLAER_ARICLE_DETAIL_INFO'
+      }),
+      ...mapActions({
+        getArticleDetailInfo: 'article/GET_ARTICLE_DETAIL_INFO'
+      }),
+      refreshData() {
+        let that = this;
+        this.getArticleDetailInfo({
+          params: {
+            browse_auth: this.browse_auth
+          },
+          id: this.id
+        }).then(response => {
+          this.refreshContent();
         }).catch((error) => {
-          console.log(error);
-          if (error.status === 401) {
+          console.log('article detail need auth');
+          if (error.code === 401) {
             if (that.browse_auth) {
               that.$Notice.error({
                 title: '您输入的阅读密码错误',
@@ -102,7 +151,8 @@
       checkPassword(message) {
         let checkAuth = (browseAuthInput, isAutoRemove) => {
           this.browse_auth = hexMd5(browseAuthInput);
-          this.$router.push({
+          console.log(this.id, this.browse_auth);
+          this.$router.replace({
             name: this.$router.name,
             params: {id: this.id},
             query: {browse_auth: this.browse_auth}
@@ -161,8 +211,18 @@
           }
         });
       },
+      // 更新文章结构，高亮、图片、代码行号
+      refreshContent() {
+        this.$nextTick(() => {
+          // 添加图片前缀
+          this.resolveImageUrl(this.$refs.article.querySelectorAll('img'));
+          this.addCodeLineNumber();
+          this.addTocScrollSpy();
+        });
+      },
       addTocScrollSpy() {
         /* eslint-disable */
+        console.log('addTocScrollSpy');
         tocbot.init({
           tocSelector: '#side-toc',
           contentSelector: '#article-main-page',
@@ -188,11 +248,11 @@
         // 添加行号
         let blocks = this.$refs.article.querySelectorAll('pre code');
         blocks.forEach((block) => {
-          HLJS.highlightBlock(block);
           // 去前后空格并添加行号
           let reg = /<ul(.*?)><li(.*?)>[\s\S]*?<\/li><\/ul>/gm;
           if (reg.test(block.innerHTML)) return;
           block.innerHTML = '<ul><li>' + block.innerHTML.replace(/(^\s*)|(\s*$)/g, '').replace(/\n/g, '\n</li><li>') + '\n</li></ul>';
+          HLJS.highlightBlock(block);
         });
       }
     },
@@ -204,19 +264,7 @@
       'friend-links': FriendLinks,
       'side-toc': SideToc,
       'recommend': Recommend
-    },
-    watch: {
-      article: function (newArticle) {
-        if (newArticle) {
-          this.$nextTick(() => {
-            this.addCodeLineNumber();
-            // 添加图片前缀
-            this.resolveImageUrl(this.$refs.article.querySelectorAll('img'));
-            this.addTocScrollSpy();
-          });
-        }
-      }
-    },
+    }
   };
 </script>
 

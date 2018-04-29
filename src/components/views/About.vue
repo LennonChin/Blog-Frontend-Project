@@ -23,28 +23,29 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import API from '@/api/client-api';
+  import {
+    mapState,
+    mapActions
+  } from 'vuex';
 
   export default {
-    data() {
-      return {
-        bloggerInfo: undefined
-      };
+    asyncData({store}) {
+      return Promise.all([
+        store.dispatch('base/GET_BLOGGER_INFO')
+      ]);
     },
-    created() {
-      // 博主信息
-      this.getBloggerInfo();
+    mounted() {
+      if (!this.$store.state.base.bloggerInfo) this.getBloggerInfo();
+    },
+    computed: {
+      ...mapState({
+        bloggerInfo: state => state.base.bloggerInfo
+      })
     },
     methods: {
-      getBloggerInfo() {
-        API.getBloggerInfo({
-          params: {}
-        }).then((response) => {
-          this.bloggerInfo = response.data[0];
-        }).catch((error) => {
-          console.log(error);
-        });
-      }
+      ...mapActions({
+        getBloggerInfo: 'base/GET_BLOGGER_INFO'
+      })
     }
   };
 </script>

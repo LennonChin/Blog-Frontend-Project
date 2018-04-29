@@ -9,40 +9,48 @@ export default {
     hots: []
   },
   mutations: {
-    updateRecommends(state, recommends) {
+    UPDATE_RECOMMENDS(state, recommends) {
       state.recommends = recommends;
     },
-    updateHots(state, hots) {
+    UPDATE_HOTS(state, hots) {
       state.hots = hots;
     }
   },
   actions: {
     // 获取推荐内容
-    getRecommends(store, params) {
-      return API.getPostBaseInfo({
-        params: {
-          is_recommend: true,
-          limit: 5,
-          offset: 0
-        }
-      }).then((response) => {
-        store.commit('updateRecommends', response.data.results);
-      }).catch((error) => {
-        handleError(error);
+    GET_RECOMMENDS(store, params) {
+      return new Promise((resolve, reject) => {
+        API.getPostBaseInfo({
+          params: {
+            is_recommend: true,
+            limit: 5,
+            offset: 0
+          }
+        }).then((response) => {
+          store.commit('UPDATE_RECOMMENDS', response.data.results);
+          resolve(response);
+        }).catch((error) => {
+          handleError(error);
+          reject(error);
+        });
       });
     },
     // 获取热门内容
-    getHots(store, params) {
-      return API.getPostBaseInfo({
-        params: {
-          is_hot: true,
-          limit: 5,
-          offset: 0
-        }
-      }).then((response) => {
-        store.commit('updateHots', response.data.results);
-      }).catch((error) => {
-        handleError(error);
+    GET_HOTS(store, params) {
+      return new Promise((resolve, reject) => {
+        API.getPostBaseInfo({
+          params: {
+            is_hot: true,
+            limit: 5,
+            offset: 0
+          }
+        }).then((response) => {
+          store.commit('UPDATE_HOTS', response.data.results);
+          resolve(response);
+        }).catch((error) => {
+          handleError(error);
+          reject(error);
+        });
       });
     }
   }
