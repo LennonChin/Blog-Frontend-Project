@@ -12,8 +12,6 @@ import createStore from './store/store';
 import {socialDateFormat} from '@/common/js/utils';
 import {LineBreakMode} from '@/common/js/const';
 
-import 'iview/dist/styles/iview.css';
-
 // // iView UI 组件引入
 import {
   Row,

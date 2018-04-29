@@ -164,6 +164,7 @@
     },
     asyncData({store}) {
       return Promise.all([
+        store.dispatch('home/UPDATE_HOME_META'),
         store.dispatch('home/GET_TOP_LEVEL_CATEGORIES_INFO', {
           params: {
             level_min: 1,
@@ -231,8 +232,6 @@
       })
     },
     beforeMount() {
-      // 更新首页meta信息
-      this.updateHomeMeta();
       if (this.$store.state.home.topLevelCategoriesInfo.length === 0) {
         this.getTopLevelCategoriesInfo({
           params: {
@@ -296,6 +295,10 @@
           }
         });
       }
+    },
+    mounted() {
+      // 更新首页meta信息
+      this.updateHomeMeta();
     },
     methods: {
       ...mapActions({
