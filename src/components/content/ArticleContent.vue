@@ -1,12 +1,12 @@
 <template>
-  <div class="article-content layout-content" v-if="article !== undefined">
+  <div class="article-content layout-content" v-if="article">
     <i-row>
       <i-col :xs="24" :sm="24" :md="24" :lg="17">
-        <div class="layout-left">
+        <div class="layout-left" v-if="article">
           <article-page-header :article="article"></article-page-header>
           <article-page-content>
             <div class="article-details" id="article-main-page" slot="content" ref="article">
-              <div class="detail" v-if="article !== undefined" v-for="detail in article.details">
+              <div class="detail" v-if="article" v-for="detail in article.details">
                 <article class="typo container article-main-content" v-html="detail.formatted_content">
                 </article>
                 <div class="detail-footer">Append At / {{ detail.add_time | socialDate }} &nbsp;&nbsp;&nbsp; Update At / {{ detail.update_time | socialDate }}</div>
@@ -31,6 +31,7 @@
 <script type="text/ecmascript-6">
   import {
     mapState,
+    mapMutations,
     mapActions
   } from 'vuex';
   import ArticlePageHeader from '@/components/views/Article/ArticlePageHeader';
@@ -58,6 +59,11 @@
         browse_auth: null
       };
     },
+    beforeRouteLeave (to, from, next) {
+      // 导航离开该组件的对应路由时调用
+      this.clearArticleInfo();
+      next();
+    },
     asyncData({store, route}) {
       this.id = route.params.id;
       this.browse_auth = route.query.browse_auth;
@@ -70,18 +76,19 @@
         })
       ]);
     },
-    beforeRouteUpdate(to, from, next) {
-      next();
-      this.id = this.$route.params.id;
-      this.browse_auth = this.$route.query.browse_auth;
-      this.getArticleDetailInfo({
-        params: {
-          browse_auth: this.browse_auth
-        },
-        id: this.id
-      });
-    },
-    beforeMount() {
+    mounted() {
+      console.log('mounted');
+
+      // 更新文章结构，高亮、图片、代码行号
+      let refreshContent = () => {
+        this.$nextTick(() => {
+          // 添加图片前缀
+          this.resolveImageUrl(this.$refs.article.querySelectorAll('img'));
+          this.addCodeLineNumber();
+          this.addTocScrollSpy();
+        });
+      };
+
       let that = this;
       if (Object.keys(this.$store.state.article.article).length === 0) {
         this.id = this.$route.params.id;
@@ -91,8 +98,10 @@
             browse_auth: this.browse_auth
           },
           id: this.id
+        }).then(response => {
+          refreshContent();
         }).catch((error) => {
-          console.log(error);
+          console.log('article detail need auth');
           if (error.status === 401) {
             if (that.browse_auth) {
               that.$Notice.error({
@@ -108,9 +117,9 @@
             }
           }
         });
+      } else {
+        refreshContent();
       }
-    },
-    mounted() {
     },
     computed: {
       ...mapState({
@@ -118,6 +127,9 @@
       })
     },
     methods: {
+      ...mapMutations({
+        clearArticleInfo: 'article/CLAER_ARICLE_DETAIL_INFO'
+      }),
       ...mapActions({
         getArticleDetailInfo: 'article/GET_ARTICLE_DETAIL_INFO'
       }),
@@ -216,17 +228,6 @@
           if (reg.test(block.innerHTML)) return;
           block.innerHTML = '<ul><li>' + block.innerHTML.replace(/(^\s*)|(\s*$)/g, '').replace(/\n/g, '\n</li><li>') + '\n</li></ul>';
           HLJS.highlightBlock(block);
-        });
-      }
-    },
-    watch: {
-      article: (newArticle) => {
-        console.log(article);
-        this.$nextTick(() => {
-          this.addCodeLineNumber();
-          // 添加图片前缀
-          this.resolveImageUrl(this.$refs.article.querySelectorAll('img'));
-          this.addTocScrollSpy();
         });
       }
     },

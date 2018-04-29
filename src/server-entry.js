@@ -49,6 +49,15 @@ export default context => {
         context.meta = app.$meta();
         context.state = store.state;
         resolve(app);
+      }).catch(error => {
+        // 这里需要处理请求失败的情况，可能是文章加密了
+        if (error.code === 401) {
+          // 文章加密了
+          console.log('server-entry auth', error.code);
+          context.meta = app.$meta();
+          context.state = store.state;
+          resolve(app);
+        }
       });
     });
   });

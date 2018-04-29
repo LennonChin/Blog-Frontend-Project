@@ -18,7 +18,6 @@ request.interceptors.request.use(
 const handleRequest = (request) => {
   return new Promise((resolve, reject) => {
     request.then(response => {
-      console.log(`request url ${response.request.path}`);
       if (!response.data) {
         return reject(createError(400, 'no data'));
       }

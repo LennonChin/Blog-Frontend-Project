@@ -111,7 +111,6 @@ Vue.mixin({
             imageSrc = imageSrc.substr(1);
           }
           image.src = `${this.postImageBaseUrl}/${imageSrc}`;
-          console.log(image.src);
         } else {
           image.src = imageSrc;
         }
