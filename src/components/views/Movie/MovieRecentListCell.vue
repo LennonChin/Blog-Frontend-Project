@@ -64,6 +64,7 @@
   import {checkPostAuth} from '@/common/js/utils';
 
   export default {
+    name: 'movie-recent-list-cell',
     props: {
       movies: {
         Type: Array

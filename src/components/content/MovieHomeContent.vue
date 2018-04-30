@@ -15,6 +15,7 @@
   import API from '@/api/client-api';
 
   export default {
+    name: 'movie-home-content',
     data() {
       return {
         movies: undefined,

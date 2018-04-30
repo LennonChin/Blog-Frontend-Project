@@ -53,6 +53,7 @@
   var HLJS = hljs;
 
   export default {
+    name: 'movie-content',
     data() {
       return {
         id: 0,

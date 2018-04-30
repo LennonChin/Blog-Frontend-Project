@@ -34,6 +34,7 @@
 //  import {getCategorys} from '@/api/api';
 
   export default {
+    name: 'classify-menu',
     props: {
       defaultCategory: {
         Type: Number,

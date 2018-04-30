@@ -1,5 +1,5 @@
 <template>
-  <div class="article-content layout-content">
+  <div class="article-content layout-content" v-if="Object.keys(article).length > 0">
     <i-row v-if="!needAuth">
       <i-col :xs="24" :sm="24" :md="24" :lg="17">
         <div class="layout-left" v-if="article">
@@ -56,9 +56,10 @@
   let HLJS = hljs;
 
   export default {
+    name: 'article-content',
     data() {
       return {
-        id: 0,
+        id: undefined,
         browse_auth: undefined
       };
     },
@@ -235,6 +236,7 @@
       },
       addTocScrollSpy() {
         /* eslint-disable */
+        if (!this.$refs.article) return;
         console.log('addTocScrollSpy');
         tocbot.init({
           tocSelector: '#side-toc',

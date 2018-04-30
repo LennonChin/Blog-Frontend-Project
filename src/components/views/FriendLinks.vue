@@ -21,6 +21,7 @@
   import API from '@/api/client-api';
 
   export default {
+    name: 'friend-links',
     data() {
       return {
         friendLinks: []

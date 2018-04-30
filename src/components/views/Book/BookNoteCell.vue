@@ -78,6 +78,7 @@
   const ARTICLE_TYPE_BIG_IMAGE = 2;
 
   export default {
+    name: 'book-note-cell',
     props: {
       bookNote: {
         Type: Object

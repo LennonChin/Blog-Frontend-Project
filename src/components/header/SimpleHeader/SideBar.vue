@@ -41,6 +41,7 @@
 
 <script type="text/ecmascript-6">
   export default {
+    name: 'side-bar',
     props: {
       categorys: {
         Type: Array,

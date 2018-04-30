@@ -51,6 +51,7 @@
   var HLJS = hljs;
 
   export default {
+    name: 'book-note-content',
     data() {
       return {
         articleId: 0,

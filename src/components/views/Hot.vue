@@ -59,7 +59,7 @@
   import {checkPostAuth} from '@/common/js/utils';
 
   export default {
-    name: 'Hot',
+    name: 'hot',
     data() {
       return {
         articles: []

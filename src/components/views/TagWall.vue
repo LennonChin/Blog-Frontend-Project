@@ -14,6 +14,7 @@
   import API from '@/api/client-api';
 
   export default {
+    name: 'tag-wall',
     data() {
       return {
         tags: []

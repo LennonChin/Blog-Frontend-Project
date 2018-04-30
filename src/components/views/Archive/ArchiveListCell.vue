@@ -22,6 +22,7 @@
   const POST_TYPE_MOVIE = 'movie';
 
   export default {
+    name: 'archive-list-cell',
     props: {
       post: {
         Type: Object

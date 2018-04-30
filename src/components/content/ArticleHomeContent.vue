@@ -54,6 +54,7 @@
   const MAX_LIMIT_SIZE = 100;
 
   export default {
+    name: 'article-home-content',
     data() {
       return {
         articles: [],

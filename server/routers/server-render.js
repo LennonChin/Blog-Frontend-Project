@@ -19,7 +19,7 @@ module.exports = async (ctx, renderer, template) => {
       initialState: context.renderState()
     });
   } catch (err) {
-    console.log(chalk.red('render error', err));
+    console.log(chalk.red('Render Error ', err));
     throw err;
   }
 };

@@ -29,6 +29,7 @@
 
 <script type="text/ecmascript-6">
   export default {
+    name: 'section-title',
     props: {
       mainTitle: '',
       subTitle: '',

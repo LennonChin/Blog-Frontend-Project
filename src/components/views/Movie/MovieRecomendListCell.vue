@@ -72,6 +72,7 @@
   import {checkPostAuth} from '@/common/js/utils';
 
   export default {
+    name: 'movie-recomend-list-cell',
     props: {
       movies: {
         Type: Array,

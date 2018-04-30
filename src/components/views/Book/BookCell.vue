@@ -47,6 +47,7 @@
   const ARTICLE_TYPE_BIG_IMAGE = 2;
 
   export default {
+    name: 'book-cell',
     props: {
       book: {
         Type: Object

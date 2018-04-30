@@ -50,6 +50,7 @@
   import API from '@/api/client-api';
 
   export default {
+    name: 'photo-wall',
     data() {
       return {
         banners: []

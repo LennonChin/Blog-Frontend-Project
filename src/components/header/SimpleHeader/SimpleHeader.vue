@@ -73,7 +73,7 @@
   import API from '@/api/client-api';
 
   export default {
-    name: 'SimpleHeader',
+    name: 'simple-header',
     data() {
       return {
         searchKeyWords: '',

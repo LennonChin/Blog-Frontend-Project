@@ -38,6 +38,7 @@
   import {checkPostAuth} from '@/common/js/utils';
 
   export default {
+    name: 'article-home-banner',
     props: {
       bannerArticles: {
         Type: Array,

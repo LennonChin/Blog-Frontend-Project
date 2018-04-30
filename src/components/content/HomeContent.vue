@@ -103,7 +103,7 @@
   import SideToc from '@/components/views/SideToc';
 
   export default {
-    name: 'HomeContent',
+    name: 'home-content',
     data() {
       return {
         // 文章

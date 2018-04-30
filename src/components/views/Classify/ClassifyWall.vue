@@ -15,6 +15,7 @@
 
 <script type="text/ecmascript-6">
   export default {
+    name: 'classify-wall',
     props: {
       categorys: {
         Type: Array,

@@ -7,6 +7,9 @@
 </template>
 
 <script>
+  export default {
+    name: 'index'
+  };
 </script>
 
 <style lang="stylus" type="text/stylus" rel="stylesheet/stylus">

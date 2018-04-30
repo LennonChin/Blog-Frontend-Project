@@ -63,7 +63,7 @@
   import {checkPostAuth} from '@/common/js/utils';
 
   export default {
-    name: 'Recommend',
+    name: 'recommend',
     asyncData({store}) {
       return Promise.all([
         store.dispatch('common/GET_RECOMMENDS')

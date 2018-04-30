@@ -49,6 +49,7 @@
   const MAX_LIMIT_SIZE = 100;
 
   export default {
+    name: 'movie-list-content',
     data() {
       return {
         movies: [],

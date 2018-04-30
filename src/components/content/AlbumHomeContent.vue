@@ -45,6 +45,7 @@
   const DEFAULT_LIMIT_SIZE = 6;
 
   export default {
+    name: 'album-home-content',
     data() {
       return {
         banners: [],

@@ -15,6 +15,7 @@
   import MovieListItem from '@/components/views/Movie/MovieListItem';
 
   export default {
+    name: 'movie-list-cell',
     props: {
       movies: {
         Type: Array

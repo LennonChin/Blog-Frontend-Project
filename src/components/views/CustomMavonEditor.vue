@@ -37,9 +37,10 @@
     <mavon-editor v-model="origin_content"
                   v-if="showEditor"
                   class="editor-area" style="height: 100%; min-height: 50px; min-width: 200px; z-index: 1000;"
+                  :editable="post.is_commentable"
                   :toolbarsFlag="toolbarsFlag"
                   :subfield="subfield"
-                  :placeholder="placeholder"
+                  :placeholder="placeholderText"
                   :toolbars="toolbars"
                   @change="change"
                   @imgAdd="addImage"
@@ -72,6 +73,7 @@
   import API from '@/api/client-api';
 
   export default {
+    name: 'custom-mavon-editor',
     props: {
       post: {
         Type: Object,
@@ -145,6 +147,9 @@
     computed: {
       buttonType: function () {
         return this.theme === 'dark-theme' ? 'warning' : 'primary';
+      },
+      placeholderText: function () {
+        return this.post.is_commentable ? this.placeholder : '本文章已经关闭了评论功能';
       }
     },
     methods: {

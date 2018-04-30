@@ -21,6 +21,7 @@
 
 <script type="text/ecmascript-6">
   export default {
+    name: 'movie-page-header',
     props: {
       movie: {
         Type: Object,

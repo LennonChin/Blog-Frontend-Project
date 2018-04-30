@@ -40,6 +40,7 @@
   import API from '@/api/client-api';
 
   export default {
+    name: 'album-infos',
     props: {
       album: {
         Type: Object,

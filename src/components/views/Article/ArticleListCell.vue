@@ -47,6 +47,7 @@
   const ARTICLE_TYPE_BIG_IMAGE = 2;
 
   export default {
+    name: 'article-list-cell',
     props: {
       article: {
         Type: Object

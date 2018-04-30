@@ -48,6 +48,7 @@
   const MAX_LIMIT_SIZE = 100;
 
   export default {
+    name: 'album-list-content',
     data() {
       return {
         albums: [],

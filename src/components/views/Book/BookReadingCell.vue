@@ -33,6 +33,7 @@
   import {checkPostAuth} from '@/common/js/utils';
 
   export default {
+    name: 'book-reading-cell',
     props: {
       book: {
         Type: Object,

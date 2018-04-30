@@ -29,6 +29,7 @@
   import {checkPostAuth} from '@/common/js/utils';
 
   export default {
+    name: 'topic-card',
     props: {
       album: {
         Type: Object
