@@ -1,24 +1,26 @@
 <template>
-  <div class="book-note-content layout-content" v-if="article != undefined">
-    <i-row>
+  <div class="book-note-content layout-content" v-if="Object.keys(bookNote).length > 0">
+    <i-row v-if="!needAuth">
       <i-col :xs="24" :sm="24" :md="24" :lg="17">
         <div class="layout-left">
-          <article-page-header :article="article"></article-page-header>
+          <article-page-header :article="bookNote"></article-page-header>
           <article-page-content>
-            <div class="article-details" id="article-main-page" slot="content" v-viewer ref="article">
-              <div class="detail" v-if="article !== undefined" v-for="detail in article.details">
+            <div class="article-details" id="article-main-page" slot="content" ref="article">
+              <div class="detail" v-if="bookNote !== undefined" v-for="detail in bookNote.details">
                 <article class="typo container article-main-content" v-html="detail.formatted_content">
                 </article>
-                <div class="detail-footer">Append At / {{ detail.add_time | socialDate }} &nbsp;&nbsp;&nbsp; Update At / {{ detail.update_time | socialDate }}</div>
+                <div class="detail-footer">Append At / {{ detail.add_time | socialDate
+                  }} &nbsp;&nbsp;&nbsp; Update At / {{ detail.update_time | socialDate }}
+                </div>
               </div>
             </div>
           </article-page-content>
-          <article-page-footer :article="article"></article-page-footer>
+          <article-page-footer :article="bookNote"></article-page-footer>
         </div>
       </i-col>
       <i-col :xs="0" :sm="0" :md="0" :lg="7">
         <div class="layout-right">
-          <book-info :book="article.book"></book-info>
+          <book-info :book="bookNote.book"></book-info>
           <recommend style="margin-top: 15px;"></recommend>
           <i-affix :offset-top="60">
             <side-toc style="margin-top: 15px;" ref="sideToc"></side-toc>
@@ -30,6 +32,12 @@
 </template>
 
 <script type="text/ecmascript-6">
+  import {
+    mapState,
+    mapGetters,
+    mapMutations,
+    mapActions
+  } from 'vuex';
   import ArticlePageHeader from '@/components/views/Article/ArticlePageHeader';
   import ArticlePageContent from '@/components/views/Article/ArticlePageContent';
   import ArticlePageFooter from '@/components/views/Article/ArticlePageFooter';
@@ -45,47 +53,101 @@
   import tocbot from 'tocbot';
   // 加密
   import {hexMd5} from '@/common/js/md5';
-  // API
-  import API from '@/api/client-api';
 
-  var HLJS = hljs;
+  let HLJS = hljs;
 
   export default {
     name: 'book-note-content',
     data() {
       return {
-        articleId: 0,
-        browse_auth: null,
-        article: undefined
+        id: undefined,
+        browse_auth: undefined
       };
+    },
+    metaInfo() {
+      return {
+        title: this.documentMeta.title,
+        meta: [
+          {name: 'description', content: this.documentMeta.description},
+          {name: 'keywords', content: this.documentMeta.keywords}
+        ]
+      };
+    },
+    beforeRouteLeave(to, from, next) {
+      // 导航离开时清空vuex中图书笔记数据
+      this.clearBookNoteInfo();
+      next();
     },
     beforeRouteUpdate(to, from, next) {
       next();
-      this.article = undefined;
-      this.id = this.$route.params.id;
-      this.browse_auth = this.$route.query.browse_auth;
-      this.getDatas();
+      this.refreshData();
     },
-    created() {
-      this.id = this.$route.params.id;
-      this.browse_auth = this.$route.query.browse_auth;
-      this.getDatas();
-    },
-    methods: {
-      getDatas() {
-        let that = this;
-        API.getBookNoteDetailInfo({
+    asyncData({store, route}) {
+      this.id = route.params.id;
+      this.browse_auth = route.query.browse_auth;
+      return Promise.all([
+        store.dispatch('bookNote/GET_BOOKNOTE_DETAIL_INFO', {
           params: {
             browse_auth: this.browse_auth
           },
           id: this.id
-        }).then((response) => {
-          this.$nextTick(() => {
-            this.article = response.data;
-          });
+        })
+      ]);
+    },
+    mounted() {
+      console.log('mounted');
+      this.id = this.$route.params.id;
+      this.browse_auth = this.$route.query.browse_auth;
+      let that = this;
+      if (this.needAuth) {
+        this.$Notice.error({
+          title: '您输入的阅读密码错误',
+          duration: 3,
+          closable: true,
+          onClose: () => {
+            that.checkPassword('该文章为加密文章，<br />您输入的阅读密码错误，请重新验证');
+          }
+        });
+      } else {
+        if (Object.keys(this.$store.state.bookNote.bookNote).length === 0) {
+          console.log('non ssr');
+          // 未SSR的情况
+          this.refreshData();
+        } else {
+          // SSR的情况
+          this.refreshContent();
+        }
+      }
+    },
+    computed: {
+      ...mapState({
+        bookNote: state => state.bookNote.bookNote,
+        needAuth: state => state.bookNote.needAuth
+      }),
+      ...mapGetters({
+        documentMeta: 'DOCUMENT_META'
+      })
+    },
+    methods: {
+      ...mapMutations({
+        updateBookNoteAuth: 'bookNote/UPDATE_BOOKNOTE_AUTH',
+        clearBookNoteInfo: 'bookNote/CLAER_BOOKNOTE_DETAIL_INFO'
+      }),
+      ...mapActions({
+        getBookNoteDetailInfo: 'bookNote/GET_BOOKNOTE_DETAIL_INFO'
+      }),
+      refreshData() {
+        let that = this;
+        this.getBookNoteDetailInfo({
+          params: {
+            browse_auth: this.browse_auth
+          },
+          id: this.id
+        }).then(response => {
+          this.refreshContent();
         }).catch((error) => {
-          console.log(error);
-          if (error.status === 401) {
+          console.log('book note detail need auth');
+          if (error.code === 401) {
             if (that.browse_auth) {
               that.$Notice.error({
                 title: '您输入的阅读密码错误',
@@ -113,7 +175,6 @@
             this.$Modal.remove();
           }
         };
-
         this.$Modal.confirm({
           autoClosable: true,
           render: (h) => {
@@ -163,8 +224,18 @@
           }
         });
       },
+      // 更新文章结构，高亮、图片、代码行号
+      refreshContent() {
+        this.$nextTick(() => {
+          // 添加图片前缀
+          this.resolveImageUrl(this.$refs.article.querySelectorAll('img'));
+          this.addCodeLineNumber();
+          this.addTocScrollSpy();
+        });
+      },
       addTocScrollSpy() {
         /* eslint-disable */
+        if (!this.$refs.article) return;
         tocbot.init({
           tocSelector: '#side-toc',
           contentSelector: '#article-main-page',
@@ -206,17 +277,7 @@
       'book-info': BookInfo,
       'side-toc': SideToc,
       'recommend': Recommend
-    },
-    watch: {
-      article: function (newArticle) {
-        if (newArticle) {
-          this.$nextTick(() => {
-            this.addCodeLineNumber();
-            this.addTocScrollSpy();
-          });
-        }
-      }
-    },
+    }
   };
 </script>
 
