@@ -267,7 +267,7 @@
       refreshContent() {
         this.$nextTick(() => {
           // 添加图片前缀
-          this.resolveImageUrl(this.$refs.book.querySelectorAll('img'));
+          this.resolveImageTagsUrl(this.$refs.book.querySelectorAll('img'));
           this.addCodeLineNumber();
           this.addTocScrollSpy();
         });

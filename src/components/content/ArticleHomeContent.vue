@@ -60,7 +60,7 @@
         articles: [],
         bannerArticles: [],
         categorys: undefined,
-        top_category: this.$Window.__category_info__.article,
+        top_category: 1,
         timeSorted: false,
         mostComment: undefined,
         recommend: undefined,
@@ -147,7 +147,7 @@
           params: {
             'level_min': 1,
             'level_max': 1,
-            'id': this.$Window.__category_info__.article
+            'id': 1
           }
         }).then((response) => {
           this.categorys = response.data.results;
@@ -199,7 +199,7 @@
             this.noMoreData = this.totalCount >= response.data.count;
             this.articles = this.articles.concat(response.data.results);
             this.$nextTick(() => {
-              this.$refs.browseMore.stopLoading(this.noMoreData);
+//              this.$refs.browseMore.stopLoading(this.noMoreData);
             });
           }).catch((error) => {
             console.log(error);

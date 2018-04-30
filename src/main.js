@@ -108,7 +108,7 @@ Vue.mixin({
       }
     },
     // 用于添加图片前缀
-    resolveImageUrl(images) {
+    resolveImageTagsUrl(images) {
       images.forEach((image) => {
         let imageSrc = image.getAttribute('data-src');
         if (imageSrc.length > 0 && imageSrc.indexOf('http') !== 0) {

@@ -53,9 +53,9 @@
           <div class="bookNotes">
             <book-note-cell :bookNote="bookNote" v-for="bookNote in bookNotes" :key="bookNote.id"></book-note-cell>
           </div>
-          <section-title v-if="this.specialCategory(2) !== undefined && movies.length > 0"
-                         :mainTitle="this.specialCategory(2).name"
-                         :subTitle="this.specialCategory(2).subname"
+          <section-title v-if="this.specialCategory(9) !== undefined && movies.length > 0"
+                         :mainTitle="this.specialCategory(9).name"
+                         :subTitle="this.specialCategory(9).subname"
                          :menus="moviesTitleMenus"
                          :withRefresh="true"
                          :withTimeSelect="false"

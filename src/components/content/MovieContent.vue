@@ -1,5 +1,5 @@
 <template>
-  <div class="movie-content" v-if="movie !== undefined">
+  <div class="movie-content" v-if="Object.keys(movie).length > 0">
     <div class="header-wrapper">
       <img src="../../assets/background.jpg" alt="">
       <movie-page-header :movie="movie"></movie-page-header>
@@ -9,7 +9,7 @@
         <i-col :xs="24" :sm="24" :md="24" :lg="17">
           <div class="layout-left">
             <movie-page-content>
-              <div class="article-details" id="article-main-page" slot="content" v-viewer ref="article">
+              <div class="article-details" id="article-main-page" slot="content" ref="article">
                 <div class="detail" v-if="movie !== undefined" v-for="detail in movie.details">
                   <article class="typo container article-main-content" v-html="detail.formatted_content">
                   </article>
@@ -34,6 +34,12 @@
 </template>
 
 <script type="text/ecmascript-6">
+  import {
+    mapState,
+    mapGetters,
+    mapMutations,
+    mapActions
+  } from 'vuex';
   import MoviePageHeader from '@/components/views/Movie/MoviePageHeader';
   import MoviePageContent from '@/components/views/Movie/MoviePageContent';
   import ArticlePageFooter from '@/components/views/Article/ArticlePageFooter';
@@ -47,47 +53,101 @@
   import tocbot from 'tocbot';
   // 加密
   import {hexMd5} from '@/common/js/md5';
-  // API
-  import API from '@/api/client-api';
 
-  var HLJS = hljs;
+  let HLJS = hljs;
 
   export default {
     name: 'movie-content',
     data() {
       return {
-        id: 0,
-        browse_auth: null,
-        movie: undefined
+        id: undefined,
+        browse_auth: undefined
       };
     },
-    components: {
-      'movie-page-header': MoviePageHeader,
-      'movie-page-content': MoviePageContent,
-      'article-page-footer': ArticlePageFooter,
-      'side-toc': SideToc,
-      'recommend': Recommend
+    metaInfo() {
+      return {
+        title: this.documentMeta.title,
+        meta: [
+          {name: 'description', content: this.documentMeta.description},
+          {name: 'keywords', content: this.documentMeta.keywords}
+        ]
+      };
     },
-    created() {
-      this.id = this.$route.params.id;
-      this.browse_auth = this.$route.query.browse_auth;
-      this.getDatas();
+    beforeRouteLeave(to, from, next) {
+      // 导航离开时清空vuex中文章数据
+      this.clearMovieInfo();
+      next();
     },
-    methods: {
-      getDatas() {
-        let that = this;
-        API.getMovieDetailInfo({
+    beforeRouteUpdate(to, from, next) {
+      next();
+      this.refreshData();
+    },
+    asyncData({store, route}) {
+      this.id = route.params.id;
+      this.browse_auth = route.query.browse_auth;
+      return Promise.all([
+        store.dispatch('movie/GET_MOVIE_DETAIL_INFO', {
           params: {
             browse_auth: this.browse_auth
           },
           id: this.id
-        }).then((response) => {
-          this.$nextTick(() => {
-            this.movie = response.data;
-          });
+        })
+      ]);
+    },
+    mounted() {
+      console.log('mounted');
+      this.id = this.$route.params.id;
+      this.browse_auth = this.$route.query.browse_auth;
+      let that = this;
+      if (this.needAuth) {
+        this.$Notice.error({
+          title: '您输入的阅读密码错误',
+          duration: 3,
+          closable: true,
+          onClose: () => {
+            that.checkPassword('该文章为加密文章，<br />您输入的阅读密码错误，请重新验证');
+          }
+        });
+      } else {
+        if (Object.keys(this.$store.state.movie.movie).length === 0) {
+          console.log('non ssr');
+          // 未SSR的情况
+          this.refreshData();
+        } else {
+          // SSR的情况
+          this.refreshContent();
+        }
+      }
+    },
+    computed: {
+      ...mapState({
+        movie: state => state.movie.movie,
+        needAuth: state => state.movie.needAuth
+      }),
+      ...mapGetters({
+        documentMeta: 'DOCUMENT_META'
+      })
+    },
+    methods: {
+      ...mapMutations({
+        updateMovieAuth: 'movie/UPDATE_MOVIE_AUTH',
+        clearMovieInfo: 'movie/CLAER_MOVIE_DETAIL_INFO'
+      }),
+      ...mapActions({
+        getMovieDetailInfo: 'movie/GET_MOVIE_DETAIL_INFO'
+      }),
+      refreshData() {
+        let that = this;
+        this.getMovieDetailInfo({
+          params: {
+            browse_auth: this.browse_auth
+          },
+          id: this.id
+        }).then(response => {
+          this.refreshContent();
         }).catch((error) => {
-          console.log(error);
-          if (error.status === 401) {
+          console.log('article detail need auth');
+          if (error.code === 401) {
             if (that.browse_auth) {
               that.$Notice.error({
                 title: '您输入的阅读密码错误',
@@ -165,6 +225,15 @@
           }
         });
       },
+      // 更新文章结构，高亮、图片、代码行号
+      refreshContent() {
+        this.$nextTick(() => {
+          // 添加图片前缀
+          this.resolveImageTagsUrl(this.$refs.article.querySelectorAll('img'));
+          this.addCodeLineNumber();
+          this.addTocScrollSpy();
+        });
+      },
       addTocScrollSpy() {
         /* eslint-disable */
         tocbot.init({
@@ -200,15 +269,12 @@
         });
       }
     },
-    watch: {
-      movie: function (newMovie) {
-        this.$nextTick(() => {
-          this.addCodeLineNumber();
-          // 添加图片前缀
-          this.resolveImageUrl(this.$refs.article.querySelectorAll('img'));
-          this.addTocScrollSpy();
-        });
-      }
+    components: {
+      'movie-page-header': MoviePageHeader,
+      'movie-page-content': MoviePageContent,
+      'article-page-footer': ArticlePageFooter,
+      'side-toc': SideToc,
+      'recommend': Recommend
     }
   };
 </script>

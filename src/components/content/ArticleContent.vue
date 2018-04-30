@@ -130,7 +130,7 @@
     methods: {
       ...mapMutations({
         updateArticleAuth: 'article/UPDATE_ARTICLE_AUTH',
-        clearArticleInfo: 'article/CLAER_ARICLE_DETAIL_INFO'
+        clearArticleInfo: 'article/CLAER_ARTICLE_DETAIL_INFO'
       }),
       ...mapActions({
         getArticleDetailInfo: 'article/GET_ARTICLE_DETAIL_INFO'
@@ -229,7 +229,7 @@
       refreshContent() {
         this.$nextTick(() => {
           // 添加图片前缀
-          this.resolveImageUrl(this.$refs.article.querySelectorAll('img'));
+          this.resolveImageTagsUrl(this.$refs.article.querySelectorAll('img'));
           this.addCodeLineNumber();
           this.addTocScrollSpy();
         });

@@ -96,19 +96,22 @@ Vue.mixin({
   },
   methods: {
     // 用于添加图片前缀
-    resolveImageUrl(images) {
+    resolveImageTagsUrl(images) {
       images.forEach((image) => {
         let imageSrc = image.getAttribute('data-src');
-        if (imageSrc.length > 0 && imageSrc.indexOf('http') !== 0) {
-          while (imageSrc.indexOf('/') === 0) {
-            // 去掉前面的反斜杠
-            imageSrc = imageSrc.substr(1);
-          }
-          image.src = `${this.postImageBaseUrl}/${imageSrc}`;
-        } else {
-          image.src = imageSrc;
-        }
+        image.src = this.resolveImageUrl(imageSrc);
       });
+    },
+    resolveImageUrl(url) {
+      if (url.length > 0 && url.indexOf('http') !== 0) {
+        while (url.indexOf('/') === 0) {
+          // 去掉前面的反斜杠
+          url = url.substr(1);
+        }
+        return `${this.postImageBaseUrl}/${url}`;
+      } else {
+        return url;
+      }
     }
   },
   filters: {

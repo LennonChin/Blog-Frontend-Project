@@ -179,7 +179,7 @@
         this.addCodeLineNumber();
         // 添加图片前缀
         if (this.$refs.content) {
-          this.resolveImageUrl(this.$refs.content.querySelectorAll('img'));
+          this.resolveImageTagsUrl(this.$refs.content.querySelectorAll('img'));
         }
       });
     },
