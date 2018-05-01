@@ -12,25 +12,7 @@
       <ul id="nav">
         <!-- 搜索框 -->
         <li>
-          <i-auto-complete
-            v-model="searchKeyWords"
-            icon="ios-search"
-            placeholder="输入搜索内容"
-            @on-search="search"
-            @on-select="selectSearchResult"
-            style="width:300px">
-            <div class="demo-auto-complete-item" v-for="(values, key) in searchResult">
-              <div class="demo-auto-complete-group">
-                <span>{{ key }}</span>
-                <a href="https://www.google.com/search?q=iView" target="_blank">更多</a>
-              </div>
-              <i-option v-for="(value, index) in values.slice(0, 5)" :value="value.title" :key="index">
-                <span class="demo-auto-complete-title">{{ value.title }}</span>
-                <span class="demo-auto-complete-count">{{ value.add_time | socialDate }}</span>
-              </i-option>
-              <a href="" target="_blank" class="demo-auto-complete-more" v-if="values.length > 5">查看所有结果</a>
-            </div>
-          </i-auto-complete>
+          <search-view></search-view>
         </li>
         <!-- 类别导航 -->
         <li class="nav-dropdown-container" v-for="category_level1 in allCategorysInfo">
@@ -60,7 +42,7 @@
         </li>
       </ul>
     </div>
-    <!--<sidebar :categorys="allCategorysInfo" ref="sidebar"></sidebar>-->
+    <!--<side-bar :categorys="allCategorysInfo" ref="sidebar"></side-bar>-->
   </div>
 </template>
 
@@ -70,7 +52,7 @@
     mapActions
   } from 'vuex';
   import SideBar from '@/components/header/SimpleHeader/SideBar';
-  import API from '@/api/client-api';
+  import SearchView from '@/components/views/Search/SearchView';
 
   export default {
     name: 'simple-header',
@@ -101,24 +83,6 @@
         getSiteInfo: 'base/GET_SITE_INFO',
         getAllCategorys: 'base/GET_ALL_CATEGORYS'
       }),
-      search() {
-        console.log(this.searchKeyWords);
-        if (this.searchKeyWords.length === 0) {
-          return;
-        }
-        API.search({
-          params: {
-            'title__contains': this.searchKeyWords
-          }
-        }).then((response) => {
-          this.searchResult = response.data;
-        }).catch((error) => {
-          console.log(error);
-        });
-      },
-      selectSearchResult(link) {
-        window.open(link, '_blank');
-      },
       rootRouterLink(category) {
         let router = {};
         router.name = category.category_type;
@@ -138,7 +102,8 @@
       }
     },
     components: {
-      'sidebar': SideBar
+      'side-bar': SideBar,
+      'search-view': SearchView
     }
   };
 </script>
