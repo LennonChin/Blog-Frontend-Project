@@ -182,7 +182,7 @@
   .classify-bar
     .level
       display flex
-      padding 10px
+      padding 10px 0
       font-size 15px
       line-height 22px
       border-bottom 1px solid $color-border

@@ -66,6 +66,7 @@
   .book-reading-cell
     border 1px solid $color-border
     padding 20px 20px
+    background-color white
     h4
       font-size 23px
       line-height 30px

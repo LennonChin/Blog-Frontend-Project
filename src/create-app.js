@@ -1,7 +1,9 @@
 import Vue from 'vue';
 // vue router相关
 import VueRouter from 'vue-router';
-import Vuex from 'vuex';
+import Vuex, {
+  mapState
+} from 'vuex';
 import Meta from 'vue-meta';
 import App from './App.vue';
 // import Viewer from 'v-viewer';
@@ -91,6 +93,11 @@ Vue.mixin({
     return {
       postImageBaseUrl: 'https://material.coderap.com'
     };
+  },
+  computed: {
+    ...mapState({
+      allCategorysInfo: state => state.base.allCategorysInfo
+    })
   },
   methods: {
     // 用于添加图片前缀

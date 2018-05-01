@@ -135,7 +135,7 @@
           params: {
             'level_min': 1,
             'level_max': 1,
-            'id': this.$Window.__category_info__.article
+            'id': 1
           }
         }).then((response) => {
           this.categorys = response.data.results;

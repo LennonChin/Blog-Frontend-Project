@@ -1,35 +1,6 @@
 <template>
   <div class="social-section" v-if="article != undefined" ref="socialSection">
     <i-spin size="large" v-if="showSpin" fix style="z-index: 99;"></i-spin>
-    <i-menu :active-name="'1'" :class="theme" mode="horizontal">
-      <i-menu-item name="1" style="padding-left: 0;" @click.native="likePost(article)">
-        <i-icon type="heart"></i-icon>
-        {{ article.like_num }} 人觉得很赞
-      </i-menu-item>
-      <!--<i-submenu name="3" style="padding-left: 0;">-->
-      <!--<template slot="title">-->
-      <!--<i-icon type="android-share-alt"></i-icon>-->
-      <!--分享-->
-      <!--</template>-->
-      <!--<i-menu-item name="3-1">菜单</i-menu-item>-->
-      <!--<i-menu-item name="3-2">菜单</i-menu-item>-->
-      <!--<i-menu-item name="3-3">菜单</i-menu-item>-->
-      <!--<i-menu-item name="3-2">菜单</i-menu-item>-->
-      <!--<i-menu-item name="3-3">菜单</i-menu-item>-->
-      <!--<i-menu-item name="3-2">菜单</i-menu-item>-->
-      <!--<i-menu-item name="3-3">菜单</i-menu-item>-->
-      <!--</i-submenu>-->
-    </i-menu>
-    <!--<div class="content">-->
-    <!--<div class="likes">-->
-    <!--<a href=""><img src="../../../assets/avatar.png" alt=""></a>-->
-    <!--<a href=""><img src="../../../assets/avatar.png" alt=""></a>-->
-    <!--<a href=""><img src="../../../assets/avatar.png" alt=""></a>-->
-    <!--<a href=""><img src="../../../assets/avatar.png" alt=""></a>-->
-    <!--<a href=""><img src="../../../assets/avatar.png" alt=""></a>-->
-    <!--</div>-->
-    <!--</div>-->
-
     <div class="comment-area">
       <div class="editor" :class="{spread: spreadEditor}">
         <custom-mavon-editor :post="article"
@@ -209,6 +180,7 @@
 
   .social-section
     position relative
+    margin-top 10px
     .dark-theme
       background #000
       &::after

@@ -97,12 +97,12 @@
     justify-content space-between
     height 60px
     line-height 40px
-    padding 10px
+    padding 10px 0
     margin-bottom 10px
     text-align left
     box-sizing border-box
     @media only screen and (max-width: $responsive-sm)
-      padding 5px
+      padding 5px 0
       margin-bottom 5px
       height 50px
     .title

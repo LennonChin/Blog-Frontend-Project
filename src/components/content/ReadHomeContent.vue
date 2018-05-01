@@ -4,27 +4,23 @@
       <i-col :xs="24" :sm="24" :md="24" :lg="17">
         <div class="layout-left">
           <book-reading-cell v-for="book in readingBooks" :key="book.id" :book="book"></book-reading-cell>
-          <i-affix style="position: relative;z-index: 12;">
-            <section-title :mainTitle="'图书列表'"
-                           :subTitle="'Books'"
-                           :menus="menus"
-                           :withRefresh="true"
-                           @tipAction="viewBookList"
-                           @refresh="refresh"
-                           @menusControl="menusControl">
-            </section-title>
-          </i-affix>
+          <section-title :mainTitle="'图书列表'"
+                         :subTitle="'Books'"
+                         :menus="menus"
+                         :withRefresh="true"
+                         @tipAction="viewBookList"
+                         @refresh="refresh"
+                         @menusControl="menusControl">
+          </section-title>
           <book-cell v-for="book in books" :book="book" :key="book.id"></book-cell>
-          <i-affix style="position: relative;z-index: 12;">
-            <section-title :mainTitle="'笔记列表'"
-                           :subTitle="'Book Notes'"
-                           :menus="menus"
-                           :withRefresh="true"
-                           @tipAction="viewBookNoteList"
-                           @refresh="refresh"
-                           @menusControl="menusControl">
-            </section-title>
-          </i-affix>
+          <section-title :mainTitle="'笔记列表'"
+                         :subTitle="'Book Notes'"
+                         :menus="menus"
+                         :withRefresh="true"
+                         @tipAction="viewBookNoteList"
+                         @refresh="refresh"
+                         @menusControl="menusControl">
+          </section-title>
           <book-note-cell v-for="bookNote in bookNotes" :bookNote="bookNote" :key="bookNote.id"></book-note-cell>
         </div>
       </i-col>
@@ -82,7 +78,9 @@
           params: {
             'level_min': 1,
             'level_max': 1,
-            'id': this.$Window.__category_info__.reading
+            'id': this.allCategorysInfo.filter(category => {
+              return category.category_type === 'readings';
+            })[0].id
           }
         }).then((response) => {
           this.categorys = response.data.results;
