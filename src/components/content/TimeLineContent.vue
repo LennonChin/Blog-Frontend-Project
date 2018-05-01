@@ -55,6 +55,7 @@
   const MAX_LIMIT_SIZE = 100;
 
   export default {
+    name: 'read-list-content',
     data() {
       return {
         posts: {},

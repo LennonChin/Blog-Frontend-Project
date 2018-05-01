@@ -22,7 +22,7 @@ export default {
   },
   actions: {
     // 获取站点信息
-    GET_SITE_INFO: ({state, commit}, params) => {
+    GET_SITE_INFO({state, commit}, params) {
       return new Promise((resolve, reject) => {
         API.getSiteInfo({params}).then((response) => {
           commit('UPDATE_SITE_INFO', response.data[0]);

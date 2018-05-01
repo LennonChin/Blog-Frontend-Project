@@ -135,5 +135,20 @@ export default () => {
     }
   });
 
+  router.beforeEach((to, from, next) => {
+    try {
+      LoadingBar.start();
+    } catch (err) {
+    }
+    next();
+  });
+
+  router.afterEach(route => {
+    try {
+      LoadingBar.finish();
+    } catch (err) {
+    }
+  });
+
   return router;
 };

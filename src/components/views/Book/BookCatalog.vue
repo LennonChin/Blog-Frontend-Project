@@ -40,6 +40,7 @@
   import {checkPostAuth} from '@/common/js/utils';
 
   export default {
+    name: 'book-catalog',
     props: {
       book: {
         Type: Object,

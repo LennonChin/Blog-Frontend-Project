@@ -46,11 +46,11 @@
                 </div>
                 <div class="comment-area" v-show="showEditor">
                   <div class="reply-editor" :class="{spread: spreadEditor}">
-                    <mavon-editor :post="post"
+                    <custom-mavon-editor :post="post"
                                   :replyToComment="comment"
                                   :theme="theme"
                                   @valueChanged="valueChanged"
-                                  @publishedComment="publishedComment"></mavon-editor>
+                                  @publishedComment="publishedComment"></custom-mavon-editor>
                   </div>
                 </div>
               </div>
@@ -63,7 +63,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import MavonEditor from '@/components/views/MavonEditor';
+  import CustomMavonEditor from '@/components/views/CustomMavonEditor';
   // highlight.js引入
   import hljs from '@/common/js/highlight.pack';
   // Api
@@ -87,6 +87,7 @@
   };
 
   export default {
+    name: 'comment-list-cell',
     props: {
       post: {
         Type: Object,
@@ -178,12 +179,12 @@
         this.addCodeLineNumber();
         // 添加图片前缀
         if (this.$refs.content) {
-          this.resolveImageUrl(this.$refs.content.querySelectorAll('img'));
+          this.resolveImageTagsUrl(this.$refs.content.querySelectorAll('img'));
         }
       });
     },
     components: {
-      'mavon-editor': MavonEditor
+      'custom-mavon-editor': CustomMavonEditor
     }
   };
 </script>

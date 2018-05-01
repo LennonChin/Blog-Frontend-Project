@@ -1,6 +1,6 @@
 <template>
-  <div class="book-overview-content layout-content" v-if="bookDoubanInfo != undefined">
-    <i-row>
+  <div class="book-overview-content layout-content" v-if="Object.keys(bookDoubanInfo).length > 0">
+    <i-row v-if="!needAuth">
       <i-col :xs="24" :sm="24" :md="24" :lg="17">
         <div class="layout-left">
           <div class="book-base-info">
@@ -37,16 +37,14 @@
               <v-tab title="原书目录">
                 <p class="catalog" v-html="bookDoubanInfo.catalog"></p>
               </v-tab>
-              <v-tab title="整书读后感">
+              <v-tab title="整书读后感" v-if="book !== undefined">
                 <div class="article-details" id="article-main-page" ref="book">
-                  <div class="detail" v-if="book !== undefined" v-for="detail in book.details">
-                    <v-viewer :trigger="detail.formatted_content">
-                      <article class="typo container article-main-content" v-html="detail.formatted_content">
-                      </article>
-                      <div class="detail-footer">Append At / {{ detail.add_time | socialDate
-                        }} &nbsp;&nbsp;&nbsp; Update At / {{ detail.update_time | socialDate }}
-                      </div>
-                    </v-viewer>
+                  <div class="detail" v-for="detail in book.details">
+                    <article class="typo container article-main-content" v-html="detail.formatted_content">
+                    </article>
+                    <div class="detail-footer">Append At / {{ detail.add_time | socialDate
+                      }} &nbsp;&nbsp;&nbsp; Update At / {{ detail.update_time | socialDate }}
+                    </div>
                   </div>
                 </div>
                 <!--<p class="summary" v-html="book.detail.formatted_content"></p>-->
@@ -69,6 +67,12 @@
 </template>
 
 <script type="text/ecmascript-6">
+  import {
+    mapState,
+    mapGetters,
+    mapMutations,
+    mapActions
+  } from 'vuex';
   import {VueTabs, VTab} from 'vue-nav-tabs';
   import 'vue-nav-tabs/themes/paper.css';
   import BookCatalog from '@/components/views/Book/BookCatalog';
@@ -77,7 +81,6 @@
   import SocialSection from '@/components/views/Comment/SocialSection';
   import Viewer from 'v-viewer/src/component.vue';
   import 'viewerjs/dist/viewer.css';
-  import API from '@/api/client-api';
   // highlight.js引入
   import hljs from '@/common/js/highlight.pack';
   // 样式文件
@@ -87,49 +90,102 @@
   // 加密
   import {hexMd5} from '@/common/js/md5';
 
-  var HLJS = hljs;
+  let HLJS = hljs;
 
   export default {
+    name: 'book-content',
     data() {
       return {
-        id: undefined,
-        book: undefined,
-        bookDoubanInfo: undefined,
-        browse_auth: null,
+        id: 0,
         showToc: false
       };
     },
+    metaInfo() {
+      return {
+        title: this.documentMeta.title,
+        meta: [
+          {name: 'description', content: this.documentMeta.description},
+          {name: 'keywords', content: this.documentMeta.keywords}
+        ]
+      };
+    },
+    beforeRouteLeave(to, from, next) {
+      // 导航离开时清空vuex中文章数据
+      this.clearBookInfo();
+      next();
+    },
     beforeRouteUpdate(to, from, next) {
       next();
-      this.book = undefined;
-      this.bookDoubanInfo = undefined;
-      this.id = this.$route.params.id;
-      this.browse_auth = this.$route.query.browse_auth;
-      this.getBookDetailInfo();
+      this.refreshData();
     },
-    created() {
-      this.id = this.$route.params.id;
-      this.browse_auth = this.$route.query.browse_auth;
-      this.getBookDetailInfo();
-    },
-    methods: {
-      getBookDetailInfo() {
-        let that = this;
-        API.getBookDetailInfo({
+    asyncData({store, route}) {
+      this.id = route.params.id;
+      this.browse_auth = route.query.browse_auth;
+      return Promise.all([
+        store.dispatch('book/GET_BOOK_DETAIL_INFO', {
           params: {
             browse_auth: this.browse_auth
           },
           id: this.id
-        }).then((response) => {
-          this.book = response.data;
-          if (this.book.douban_infos) {
-            this.bookDoubanInfo = this.formatBookInfo(JSON.parse(this.book.douban_infos));
-          } else {
-            this.getDoubanInfo(this.book.douban_type, this.book.douban_id);
+        })
+      ]);
+    },
+    computed: {
+      ...mapState({
+        book: state => state.book.book,
+        bookDoubanInfo: state => state.book.bookDoubanInfo,
+        needAuth: state => state.book.needAuth
+      }),
+      ...mapGetters({
+        documentMeta: 'DOCUMENT_META'
+      })
+    },
+    mounted() {
+      console.log('mounted');
+      this.id = this.$route.params.id;
+      this.browse_auth = this.$route.query.browse_auth;
+      let that = this;
+      if (this.needAuth) {
+        this.$Notice.error({
+          title: '您输入的阅读密码错误',
+          duration: 3,
+          closable: true,
+          onClose: () => {
+            that.checkPassword('该文章为加密文章，<br />您输入的阅读密码错误，请重新验证');
           }
+        });
+      } else {
+        if (Object.keys(this.$store.state.book.book).length === 0) {
+          console.log('non ssr');
+          // 未SSR的情况
+          this.refreshData();
+        } else {
+          // SSR的情况
+          this.refreshContent();
+        }
+      }
+    },
+    methods: {
+      ...mapMutations({
+        updateBookAuth: 'book/UPDATE_BOOK_AUTH',
+        clearBookInfo: 'book/CLAER_BOOK_DETAIL_INFO'
+      }),
+      ...mapActions({
+        getBookDetailInfo: 'book/GET_BOOK_DETAIL_INFO'
+      }),
+      refreshData() {
+        let that = this;
+        this.getBookDetailInfo({
+          params: {
+            browse_auth: this.browse_auth
+          },
+          id: this.id
+        }).then(response => {
+          console.log('book refreshContent');
+          this.refreshContent();
         }).catch((error) => {
-          console.log(error);
-          if (error.status === 401) {
+          console.log('book detail need auth');
+          if (error.code === 401) {
             if (that.browse_auth) {
               that.$Notice.error({
                 title: '您输入的阅读密码错误',
@@ -143,16 +199,6 @@
               that.checkPassword('该文章为加密文章，请输入阅读密码');
             }
           }
-        });
-      },
-      getDoubanInfo(doubanType, doubanId) {
-        API.getDoubanInfo({
-          id: doubanId,
-          type: doubanType
-        }).then((response) => {
-          this.bookDoubanInfo = this.formatBookInfo(response.data);
-        }).catch((error) => {
-          console.log(error);
         });
       },
       checkPassword(message) {
@@ -217,27 +263,18 @@
           }
         });
       },
-      formatBookInfo(book) {
-        let bookInfo = {};
-        bookInfo.title = book.title;
-        bookInfo.images = book.images;
-        bookInfo.author = book.author;
-        bookInfo.author_intro = this.formatContent(book.author_intro);
-        bookInfo.publisher = book.publisher;
-        bookInfo.publish_date = book.pubdate;
-        bookInfo.pages = book.pages;
-        bookInfo.summary = this.formatContent(book.summary);
-        bookInfo.catalog = this.formatContent(book.catalog);
-        bookInfo.tags = book.tags;
-        bookInfo.rating = book.rating;
-        return bookInfo;
-      },
-      formatContent(content) {
-        return content.replace(/\n/g, '<br />');
+      // 更新文章结构，高亮、图片、代码行号
+      refreshContent() {
+        this.$nextTick(() => {
+          // 添加图片前缀
+          this.resolveImageTagsUrl(this.$refs.book.querySelectorAll('img'));
+          this.addCodeLineNumber();
+          this.addTocScrollSpy();
+        });
       },
       handleTabChange(tabIndex, newTab, oldTab) {
         console.log(tabIndex);
-        this.showToc = tabIndex === 2;
+        this.showToc = tabIndex === 3;
       },
       addTocScrollSpy() {
         /* eslint-disable */

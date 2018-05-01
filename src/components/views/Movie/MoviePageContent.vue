@@ -5,6 +5,9 @@
 </template>
 
 <script type="text/ecmascript-6">
+  export default {
+    name: 'movie-page-content'
+  };
 </script>
 
 <style lang="stylus" type="text/stylus" rel="stylesheet/stylus">

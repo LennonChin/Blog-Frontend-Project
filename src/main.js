@@ -8,8 +8,6 @@ import 'iview/dist/styles/iview.css';
 import App from './App.vue';
 import Viewer from 'v-viewer';
 
-// 全局加载resource拦截器
-import Axios from 'axios';
 import {socialDateFormat} from '@/common/js/utils';
 import {LineBreakMode, ResponsivePoint} from '@/common/js/const';
 
@@ -39,7 +37,6 @@ import {
   Message,
   Notice,
   Avatar,
-  Spin,
   Tooltip,
   BackTop,
   Rate,
@@ -53,11 +50,9 @@ Vue.use(Viewer);
 const router = createRouter();
 const store = createStore();
 
-Vue.prototype.$http = Axios;
 Vue.prototype.$Modal = Modal;
 Vue.prototype.$Message = Message;
 Vue.prototype.$Notice = Notice;
-Vue.prototype.$Spin = Spin;
 
 Vue.prototype.$Notice.config({
   top: 70,
@@ -113,7 +108,7 @@ Vue.mixin({
       }
     },
     // 用于添加图片前缀
-    resolveImageUrl(images) {
+    resolveImageTagsUrl(images) {
       images.forEach((image) => {
         let imageSrc = image.getAttribute('data-src');
         if (imageSrc.length > 0 && imageSrc.indexOf('http') !== 0) {

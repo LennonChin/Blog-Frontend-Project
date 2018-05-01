@@ -29,6 +29,7 @@
   } from 'vuex';
 
   export default {
+    name: 'about',
     asyncData({store}) {
       return Promise.all([
         store.dispatch('base/GET_BLOGGER_INFO')

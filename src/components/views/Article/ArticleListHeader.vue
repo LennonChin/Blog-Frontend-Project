@@ -10,6 +10,7 @@
   import ClassifyMenu from '@/components/views/Classify/ClassifyMenu';
 
   export default {
+    name: 'article-list-header',
     methods: {
       selectCategory(categoryId) {
         this.$emit('selectCategory', categoryId);

@@ -6,16 +6,11 @@ import Meta from 'vue-meta';
 import App from './App.vue';
 // import Viewer from 'v-viewer';
 
-// 全局加载resource拦截器
-import Axios from 'axios';
-
 import createRouter from './router/router';
 import createStore from './store/store';
 
 import {socialDateFormat} from '@/common/js/utils';
 import {LineBreakMode} from '@/common/js/const';
-
-import 'iview/dist/styles/iview.css';
 
 // // iView UI 组件引入
 import {
@@ -37,7 +32,6 @@ import {
   Select,
   Option,
   DatePicker,
-  DatePickerCell,
   Switch,
   Modal,
   Message,
@@ -55,7 +49,6 @@ Vue.use(Vuex);
 Vue.use(Meta);
 // Vue.use(Viewer);
 
-Vue.prototype.$http = Axios;
 Vue.prototype.$Modal = Modal;
 Vue.prototype.$Message = Message;
 Vue.prototype.$Notice = Notice;
@@ -84,7 +77,6 @@ Vue.component('i-affix', Affix);
 Vue.component('i-select', Select);
 Vue.component('i-option', Option);
 Vue.component('i-date-picker', DatePicker);
-Vue.component('i-date-picker-cell', DatePickerCell);
 Vue.component('i-switch', Switch);
 Vue.component('i-avatar', Avatar);
 Vue.component('i-backtop', BackTop);
@@ -102,19 +94,22 @@ Vue.mixin({
   },
   methods: {
     // 用于添加图片前缀
-    resolveImageUrl(images) {
+    resolveImageTagsUrl(images) {
       images.forEach((image) => {
         let imageSrc = image.getAttribute('data-src');
-        if (imageSrc.length > 0 && imageSrc.indexOf('http') !== 0) {
-          while (imageSrc.indexOf('/') === 0) {
-            // 去掉前面的反斜杠
-            imageSrc = imageSrc.substr(1);
-          }
-          image.src = `${this.postImageBaseUrl}/${imageSrc}`;
-        } else {
-          image.src = imageSrc;
-        }
+        image.src = this.resolveImageUrl(imageSrc);
       });
+    },
+    resolveImageUrl(url) {
+      if (url.length > 0 && url.indexOf('http') !== 0) {
+        while (url.indexOf('/') === 0) {
+          // 去掉前面的反斜杠
+          url = url.substr(1);
+        }
+        return `${this.postImageBaseUrl}/${url}`;
+      } else {
+        return url;
+      }
     }
   },
   filters: {

@@ -2,7 +2,6 @@
  * 服务端渲染入口文件
  * */
 import createApp from './create-app';
-import chalk from 'chalk';
 
 export default context => {
   /**
@@ -12,9 +11,6 @@ export default context => {
   return new Promise((resolve, reject) => {
     const {app, router, store} = createApp();
     // 给路由推一条记录，让router匹配到需要调用的组件
-    console.log(chalk.red('==========>'));
-    console.log(context);
-    console.log(chalk.red('==========>'));
     router.push(context.url);
     /**
      * 只有在服务端渲染才用到
@@ -27,29 +23,38 @@ export default context => {
       if (!matchedComponents.length) {
         return reject(new Error('no component matched'));
       }
-      let result = [];
+      // 用于装载所有的promise
+      let targetPromises = [];
+      // 这个缓存用于记录已经处理的组件的key，防止循环递归导致爆栈
+      let keyCache = [];
       // 包装请求数据
       let doAsyncData = (component) => {
         if (component.asyncData) {
-          result.push(component.asyncData({
+          targetPromises.push(component.asyncData({
             route: router.currentRoute,
             store
           }));
         }
       };
       // 递归查询子组件
-      let recursive = (component) => {
+      let recursive = (component, key) => {
+        // 判断是否有name的缓存，如果有说明已经递归过
+        if (keyCache.indexOf(key) !== -1) return;
+        // 缓存key
+        keyCache.push(key);
+        // 请求数据
         doAsyncData(component);
+        // 遍历子组件
         if (component.components) {
           Object.keys(component.components).forEach(key => {
-            recursive(component.components[key]);
+            recursive(component.components[key], key);
           });
         }
       };
       matchedComponents.map(component => {
-        recursive(component);
+        recursive(component, component.name);
       });
-      Promise.all(result).then(data => {
+      Promise.all(targetPromises).then(data => {
         context.meta = app.$meta();
         context.state = store.state;
         resolve(app);

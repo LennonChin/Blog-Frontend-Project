@@ -7,13 +7,16 @@
 </template>
 
 <script>
+  export default {
+    name: 'index'
+  };
 </script>
 
 <style lang="stylus" type="text/stylus" rel="stylesheet/stylus">
   @import "../../common/stylus/base.styl";
 
   .main-wrapper
-    background-color #fefefe
+    background-color #fafafa
     width 100%
     min-height 100vh
     margin 0 auto

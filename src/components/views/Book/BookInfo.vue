@@ -34,6 +34,7 @@
   import API from '@/api/client-api';
 
   export default {
+    name: 'book-info',
     props: {
       book: {
         Type: Object,

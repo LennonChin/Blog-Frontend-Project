@@ -31,9 +31,8 @@
 </template>
 
 <script type="text/ecmascript-6">
-//  import {getCategorys} from '@/api/api';
-
   export default {
+    name: 'classify-menu',
     props: {
       defaultCategory: {
         Type: Number,
@@ -183,7 +182,7 @@
   .classify-bar
     .level
       display flex
-      padding 15px 0
+      padding 10px
       font-size 15px
       line-height 22px
       border-bottom 1px solid $color-border

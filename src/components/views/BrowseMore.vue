@@ -15,6 +15,7 @@
 
 <script type="text/ecmascript-6">
   export default {
+    name: 'browse-more',
     props: {
       tipText: {
         default: '浏览更多'

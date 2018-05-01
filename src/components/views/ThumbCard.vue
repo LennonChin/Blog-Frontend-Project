@@ -35,6 +35,7 @@
   import {checkPostAuth} from '@/common/js/utils';
 
   export default {
+    name: 'thumb-card',
     props: {
       album: {
         Type: Object

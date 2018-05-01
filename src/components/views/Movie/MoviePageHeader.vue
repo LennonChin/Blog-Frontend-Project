@@ -1,10 +1,10 @@
 <template>
-  <div class="movie-page-header" v-if="movie != undefined">
+  <div class="movie-page-header" v-if="Object.keys(movie).length > 0">
     <p class="title">{{ movie.title }}<span>（{{ movie.subtitle }}）</span></p>
-    <p class="desc">{{ movie.desc.slice(0, 30) + '...' }}</p>
+    <p class="desc">{{ movie.desc | textLineBreak(150) }}</p>
     <div class="infos">
       <div class="img">
-        <img :src="movie.front_image" alt="">
+        <img :src="resolveImageUrl(movie.front_image)" alt="">
       </div>
       <div class="info">
         <p class="director"><span>导演：</span>{{ movie.director }}</p>
@@ -21,6 +21,7 @@
 
 <script type="text/ecmascript-6">
   export default {
+    name: 'movie-page-header',
     props: {
       movie: {
         Type: Object,

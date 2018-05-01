@@ -20,6 +20,7 @@
   import {checkPostAuth} from '@/common/js/utils';
 
   export default {
+    name: 'movie-list-item',
     props: {
       movie: {
         Type: Object,

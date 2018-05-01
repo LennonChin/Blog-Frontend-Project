@@ -32,10 +32,10 @@
 
     <div class="comment-area">
       <div class="editor" :class="{spread: spreadEditor}">
-        <mavon-editor :post="article"
+        <custom-mavon-editor :post="article"
                       :theme="theme"
                       @valueChanged="valueChanged"
-                      @publishedComment="publishedComment"></mavon-editor>
+                      @publishedComment="publishedComment"></custom-mavon-editor>
       </div>
     </div>
 
@@ -62,7 +62,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import MavonEditor from '@/components/views/MavonEditor';
+  import CustomMavonEditor from '@/components/views/CustomMavonEditor';
   import CommentListCell from '@/components/views/Comment/CommentListCell';
   import BrowseMore from '@/components/views/BrowseMore';
   // API
@@ -71,6 +71,7 @@
   const COMMENT_DEFAULT_LIMIT = 10;
 
   export default {
+    name: 'social-section',
     props: {
       article: {
         Type: Object,
@@ -196,7 +197,7 @@
       }
     },
     components: {
-      'mavon-editor': MavonEditor,
+      'custom-mavon-editor': CustomMavonEditor,
       'comment-cell-list': CommentListCell,
       'browse-more': BrowseMore
     }

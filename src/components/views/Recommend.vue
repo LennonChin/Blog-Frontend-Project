@@ -63,7 +63,7 @@
   import {checkPostAuth} from '@/common/js/utils';
 
   export default {
-    name: 'Recommend',
+    name: 'recommend',
     asyncData({store}) {
       return Promise.all([
         store.dispatch('common/GET_RECOMMENDS')
@@ -176,7 +176,7 @@
             &:hover
               color $color-main-primary
         .img
-          padding-bottom: 40%
+          padding-bottom: 30%
           width: 100%
           height: 0
           margin 5px 0

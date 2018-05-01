@@ -27,6 +27,7 @@
   import API from '@/api/client-api';
 
   export default {
+    name: 'article-page-header',
     props: {
       article: {
         Type: Object,

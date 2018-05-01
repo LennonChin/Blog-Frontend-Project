@@ -11,12 +11,7 @@
   import Panel from '@/components/views/Panel';
 
   export default {
-    methods: {
-    },
-    mounted: function () {
-    },
-    updated: function () {
-    },
+    name: 'side-toc',
     components: {
       'panel': Panel
     }

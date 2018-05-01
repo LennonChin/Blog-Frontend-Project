@@ -10,6 +10,7 @@
 
 <script type="text/ecmascript-6">
   export default {
+    name: 'archive-list-time-title',
     props: {
       dateType: {
         default: 'year'

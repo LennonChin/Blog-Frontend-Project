@@ -59,7 +59,7 @@
   import {checkPostAuth} from '@/common/js/utils';
 
   export default {
-    name: 'Hot',
+    name: 'hot',
     data() {
       return {
         articles: []
@@ -177,7 +177,7 @@
               color $color-main-primary
               text-decoration underline
         .img
-          padding-bottom: 40%
+          padding-bottom: 30%
           width: 100%
           height: 0
           margin 5px 0

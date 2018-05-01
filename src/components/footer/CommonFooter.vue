@@ -17,7 +17,7 @@
   } from 'vuex';
 
   export default {
-    name: 'CommonFooter',
+    name: 'common-footer',
     computed: {
       ...mapState({
         siteInfo: state => state.base.siteInfo

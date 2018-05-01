@@ -10,6 +10,7 @@
   import SocialSection from '@/components/views/Comment/SocialSection';
 
   export default {
+    name: 'article-page-footer',
     props: {
       article: {
         Type: Object,

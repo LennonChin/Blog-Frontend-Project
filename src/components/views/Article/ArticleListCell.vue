@@ -47,6 +47,7 @@
   const ARTICLE_TYPE_BIG_IMAGE = 2;
 
   export default {
+    name: 'article-list-cell',
     props: {
       article: {
         Type: Object
@@ -126,7 +127,7 @@
   @import "../../../common/stylus/index.styl";
 
   .article-list-cell
-    margin-bottom 15px
+    margin-bottom 10px
     background-color white
     > a
       display block
@@ -139,7 +140,6 @@
         zoom: 1.0
       &:hover
         border 1px solid $color-border-hover
-        box-shadow 1px 1px 1px $color-border
         img
           transform: scale(1.05)
           zoom: 1.02

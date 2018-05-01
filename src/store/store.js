@@ -9,6 +9,9 @@ import base from './modules/base';
 import common from './modules/common';
 import home from './modules/home';
 import article from './modules/article';
+import book from './modules/book';
+import bookNote from './modules/bookNote';
+import movie from './modules/movie';
 
 const isDev = process.env.NODE_ENV === 'development';
 
@@ -23,7 +26,10 @@ export default () => {
       base,
       common,
       home,
-      article
+      article,
+      book,
+      bookNote,
+      movie
     }
   });
 
@@ -36,7 +42,10 @@ export default () => {
       './modules/base',
       './modules/common',
       './modules/home',
-      './modules/article'
+      './modules/article',
+      './modules/book',
+      './modules/bookNote',
+      './modules/movie'
     ], () => {
       const newState = require('./state/state').default;
       const newMutations = require('./mutations/mutations').default;
@@ -46,6 +55,9 @@ export default () => {
       const common = require('./modules/common').default;
       const home = require('./modules/home').default;
       const article = require('./modules/article').default;
+      const book = require('./modules/book').default;
+      const bookNote = require('./modules/bookNote').default;
+      const movie = require('./modules/movie').default;
 
       store.hotUpdate({
         state: newState,
@@ -56,7 +68,10 @@ export default () => {
           base,
           common,
           home,
-          article
+          article,
+          book,
+          bookNote,
+          movie
         }
       });
     });

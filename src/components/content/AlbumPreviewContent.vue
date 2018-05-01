@@ -25,6 +25,7 @@
   import API from '@/api/client-api';
 
   export default {
+    name: 'album-preview-content',
     data() {
       return {
         id: 0,

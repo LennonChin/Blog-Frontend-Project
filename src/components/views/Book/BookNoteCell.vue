@@ -78,6 +78,7 @@
   const ARTICLE_TYPE_BIG_IMAGE = 2;
 
   export default {
+    name: 'book-note-cell',
     props: {
       bookNote: {
         Type: Object
@@ -169,7 +170,7 @@
   @import "../../../common/stylus/index.styl";
 
   .book-note-cell
-    margin-bottom 15px
+    margin-bottom 10px
     background-color white
     > a
       display block
@@ -177,7 +178,6 @@
       border 1px solid $color-border
       &:hover
         border 1px solid $color-border-hover
-        box-shadow 1px 1px 1px $color-border
       .text-wrapper
         padding 20px 20px 0 20px
         text-align left

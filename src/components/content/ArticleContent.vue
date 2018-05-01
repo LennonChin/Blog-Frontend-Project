@@ -1,5 +1,5 @@
 <template>
-  <div class="article-content layout-content">
+  <div class="article-content layout-content" v-if="Object.keys(article).length > 0">
     <i-row v-if="!needAuth">
       <i-col :xs="24" :sm="24" :md="24" :lg="17">
         <div class="layout-left" v-if="article">
@@ -9,7 +9,9 @@
               <div class="detail" v-if="article" v-for="detail in article.details">
                 <article class="typo container article-main-content" v-html="detail.formatted_content">
                 </article>
-                <div class="detail-footer">Append At / {{ detail.add_time | socialDate }} &nbsp;&nbsp;&nbsp; Update At / {{ detail.update_time | socialDate }}</div>
+                <div class="detail-footer">Append At / {{ detail.add_time | socialDate
+                  }} &nbsp;&nbsp;&nbsp; Update At / {{ detail.update_time | socialDate }}
+                </div>
               </div>
             </div>
           </article-page-content>
@@ -31,6 +33,7 @@
 <script type="text/ecmascript-6">
   import {
     mapState,
+    mapGetters,
     mapMutations,
     mapActions
   } from 'vuex';
@@ -53,14 +56,24 @@
   let HLJS = hljs;
 
   export default {
+    name: 'article-content',
     data() {
       return {
-        id: 0,
+        id: undefined,
         browse_auth: undefined
       };
     },
-    beforeRouteLeave (to, from, next) {
-      // 导航离开该组件的对应路由时调用
+    metaInfo() {
+      return {
+        title: this.documentMeta.title,
+        meta: [
+          {name: 'description', content: this.documentMeta.description},
+          {name: 'keywords', content: this.documentMeta.keywords}
+        ]
+      };
+    },
+    beforeRouteLeave(to, from, next) {
+      // 导航离开时清空vuex中文章数据
       this.clearArticleInfo();
       next();
     },
@@ -69,10 +82,8 @@
       this.refreshData();
     },
     asyncData({store, route}) {
-      console.log('====>', route);
       this.id = route.params.id;
       this.browse_auth = route.query.browse_auth;
-      console.log(this.id, this.browse_auth);
       return Promise.all([
         store.dispatch('article/GET_ARTICLE_DETAIL_INFO', {
           params: {
@@ -111,12 +122,15 @@
       ...mapState({
         article: state => state.article.article,
         needAuth: state => state.article.needAuth
+      }),
+      ...mapGetters({
+        documentMeta: 'DOCUMENT_META'
       })
     },
     methods: {
       ...mapMutations({
         updateArticleAuth: 'article/UPDATE_ARTICLE_AUTH',
-        clearArticleInfo: 'article/CLAER_ARICLE_DETAIL_INFO'
+        clearArticleInfo: 'article/CLAER_ARTICLE_DETAIL_INFO'
       }),
       ...mapActions({
         getArticleDetailInfo: 'article/GET_ARTICLE_DETAIL_INFO'
@@ -215,13 +229,14 @@
       refreshContent() {
         this.$nextTick(() => {
           // 添加图片前缀
-          this.resolveImageUrl(this.$refs.article.querySelectorAll('img'));
+          this.resolveImageTagsUrl(this.$refs.article.querySelectorAll('img'));
           this.addCodeLineNumber();
           this.addTocScrollSpy();
         });
       },
       addTocScrollSpy() {
         /* eslint-disable */
+        if (!this.$refs.article) return;
         console.log('addTocScrollSpy');
         tocbot.init({
           tocSelector: '#side-toc',

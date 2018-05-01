@@ -53,9 +53,9 @@
           <div class="bookNotes">
             <book-note-cell :bookNote="bookNote" v-for="bookNote in bookNotes" :key="bookNote.id"></book-note-cell>
           </div>
-          <section-title v-if="this.specialCategory(2) !== undefined && movies.length > 0"
-                         :mainTitle="this.specialCategory(2).name"
-                         :subTitle="this.specialCategory(2).subname"
+          <section-title v-if="this.specialCategory(9) !== undefined && movies.length > 0"
+                         :mainTitle="this.specialCategory(9).name"
+                         :subTitle="this.specialCategory(9).subname"
                          :menus="moviesTitleMenus"
                          :withRefresh="true"
                          :withTimeSelect="false"
@@ -87,6 +87,7 @@
 <script type="text/ecmascript-6">
   import {
     mapState,
+    mapGetters,
     mapActions
   } from 'vuex';
   import ArticleListCell from '@/components/views/Article/ArticleListCell';
@@ -102,10 +103,7 @@
   import SideToc from '@/components/views/SideToc';
 
   export default {
-    name: 'HomeContent',
-    metaInfo: {
-      title: '首页'
-    },
+    name: 'home-content',
     data() {
       return {
         // 文章
@@ -155,8 +153,18 @@
         ]
       };
     },
+    metaInfo() {
+      return {
+        title: this.documentMeta.title,
+        meta: [
+          {name: 'description', content: this.documentMeta.description},
+          {name: 'keywords', content: this.documentMeta.keywords}
+        ]
+      };
+    },
     asyncData({store}) {
       return Promise.all([
+        store.dispatch('home/UPDATE_HOME_META'),
         store.dispatch('home/GET_TOP_LEVEL_CATEGORIES_INFO', {
           params: {
             level_min: 1,
@@ -218,6 +226,9 @@
         bookNotes: state => state.home.bookNotes,
         albums: state => state.home.albums,
         movies: state => state.home.movies
+      }),
+      ...mapGetters({
+        documentMeta: 'DOCUMENT_META'
       })
     },
     beforeMount() {
@@ -285,8 +296,13 @@
         });
       }
     },
+    mounted() {
+      // 更新首页meta信息
+      this.updateHomeMeta();
+    },
     methods: {
       ...mapActions({
+        updateHomeMeta: 'home/UPDATE_HOME_META',
         getTopLevelCategoriesInfo: 'home/GET_TOP_LEVEL_CATEGORIES_INFO',
         getArticlesBaseInfo: 'home/GET_ARTICLES_BASE_INFO',
         getBooksBaseInfo: 'home/GET_BOOKS_BASE_INFO',
