@@ -1,6 +1,16 @@
 {
   "presets": [
     "env",
-    "stage-1" // 安装babel-preset-stage-1插件，可以支持vue store的mapState等方法
+    "stage-1"
+    // 安装babel-preset-stage-1插件，可以支持vue store的mapState等方法
+  ],
+  "plugins": [
+    [
+      "import",
+      {
+        "libraryName": "iview",
+        "libraryDirectory": "src/components"
+      }
+    ]
   ]
 }

@@ -32,7 +32,6 @@ import {
   Select,
   Option,
   DatePicker,
-  DatePickerCell,
   Switch,
   Modal,
   Message,
@@ -78,7 +77,6 @@ Vue.component('i-affix', Affix);
 Vue.component('i-select', Select);
 Vue.component('i-option', Option);
 Vue.component('i-date-picker', DatePicker);
-Vue.component('i-date-picker-cell', DatePickerCell);
 Vue.component('i-switch', Switch);
 Vue.component('i-avatar', Avatar);
 Vue.component('i-backtop', BackTop);
