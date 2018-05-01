@@ -1,8 +1,8 @@
 <template>
   <div class="article-home-banner">
     <i-row class="row">
-      <i-col :xs="24" :sm="24" :md="24" :lg="17" class="row">
-        <div v-swiper:leftSwiper="leftSwiperOption" class="gallery">
+      <i-col :xs="24" :sm="24" :md="24" :lg="17" class="col">
+        <div v-swiper="leftSwiperOption" :instanceName="'leftSwiper'" class="gallery">
           <div class="swiper-wrapper">
             <div class="swiper-slide" v-for="article in bannerArticles">
               <a @click="gotoPostDetail(article)">
@@ -16,8 +16,8 @@
           <div class="swiper-button-next" slot="button-next"></div>
         </div>
       </i-col>
-      <i-col :xs="0" :sm="0" :md="0" :lg="7" class="row">
-        <div v-swiper:rightSwiper="rightSwiperOption" class="gallery">
+      <i-col :xs="0" :sm="0" :md="0" :lg="7" class="col">
+        <div v-swiper="rightSwiperOption" :instanceName="'rightSwiper'" class="gallery">
           <div class="swiper-wrapper">
             <div class="swiper-slide" v-for="article in bannerArticles">
               <div class="carousel-infos">
@@ -41,8 +41,7 @@
 
   if (process.browser) {
     require('swiper/dist/css/swiper.css');
-    const VueAwesomeSwiper = require('vue-awesome-swiper/dist/ssr');
-    Vue.use(VueAwesomeSwiper);
+    Vue.use(require('vue-awesome-swiper/dist/ssr'));
   }
 
   export default {
@@ -110,31 +109,30 @@
 
   .article-home-banner
     height 100%
+    .row, .col, .gallery
+      height 100%
     .gallery
       width 100%
-      height 100%
-      .row
+      border 1px solid $color-border
+      a
+        display block
         height 100%
-        .col
+        overflow hidden
+        img
           height 100%
-          a
-            display block
-            height 100%
-            overflow hidden
-          img
-            height 100%
-            width 100%
-          .carousel-infos
-            height 100%
-            width 100%
-            padding 30px
-            .title
-              font-size 23px
-              line-height 31px
-              margin-bottom 10px
-            .desc
-              font-size 15px
-              font-weight 300
-              line-height 20px
-              margin-bottom 10px
+          width 100%
+      .carousel-infos
+        height 100%
+        width 100%
+        padding 20px
+        background-color white
+        .title
+          font-size 23px
+          line-height 31px
+          margin-bottom 10px
+        .desc
+          font-size 15px
+          font-weight 300
+          line-height 20px
+          margin-bottom 10px
 </style>

@@ -127,7 +127,7 @@
   @import "../../../common/stylus/index.styl";
 
   .book-cell
-    margin-bottom 15px
+    margin-bottom 10px
     background-color white
     > a
       display block
@@ -140,7 +140,6 @@
         zoom: 1.0
       &:hover
         border 1px solid $color-border-hover
-        box-shadow 1px 1px 1px $color-border
         img
           transform: scale(1.05)
           zoom: 1.02
