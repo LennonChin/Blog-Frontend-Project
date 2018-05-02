@@ -1,16 +1,18 @@
 <template>
-  <div class="search-view">
+  <div class="search-view" @click.prevent.stop>
     <i-input v-model="searchKeyWords"
              icon="ios-search"
              placeholder="你想搜什么？"
+             @on-focus="search"
+             @on-keydown="handleKeydown"
              @on-change="search">
     </i-input>
-    <transition name="fade" mode="out-in">
-      <div class="result-area custom-scrollbar" :class="{hide: !optionsVisible}" ref="resultsContianer">
-        <search-result-section v-for="(value, key) in searchResult" :key="key" :type="key"
-                               :results="value"></search-result-section>
-      </div>
-    </transition>
+    <div class="result-area custom-scrollbar" :class="{hide: !optionsVisible()}" ref="resultsContianer">
+      <search-result-section v-for="(result, index) in searchResult"
+                             :key="index"
+                             :result="result"
+                             @clickOption="clickOption"></search-result-section>
+    </div>
   </div>
 </template>
 
@@ -29,26 +31,10 @@
       };
     },
     mounted() {
-      document.addEventListener('keydown', this.handleKeydown);
-    },
-    computed: {
-      optionsVisible: function() {
-        const visible = !(this.searchKeyWords.length === 0 || this.searchResult.length === 0 || this.hideOptions);
-        if (!visible && this.$refs.resultsContianer !== undefined) {
-          this.$refs.resultsContianer.scrollTop = 0;
-        }
-        return visible;
-      },
-      resultOptions: function () {
-        if (this.$refs.resultsContianer !== undefined) {
-          return this.$refs.resultsContianer.querySelectorAll('.result-option');
-        }
-        return undefined;
-      }
+
     },
     methods: {
       search() {
-        console.log(this.searchKeyWords);
         this.hideOptions = false;
         if (this.searchKeyWords.length === 0) {
           this.searchResult = [];
@@ -59,32 +45,75 @@
             'title__contains': this.searchKeyWords
           }
         }).then((response) => {
-          this.searchResult = response.data;
+          this.searchResult = this.reduceSearchResults(response.data);
         }).catch((error) => {
           console.log(error);
         });
       },
-      handleKeydown (e) {
-        if (this.optionsVisible) {
-          const keyCode = e.keyCode;
+      reduceSearchResults(searchResult) {
+        let results = [];
+        let types = searchResult.map((result) => {
+          return result.type;
+        });
+        types = Array.from(new Set(types));
+        for (let i = 0; i < types.length; i++) {
+          let type = types[i];
+          let filterResult = searchResult.filter((result) => {
+            return result.type === type;
+          });
+          let result = {
+            type: type,
+            results: filterResult
+          };
+          results.push(result);
+        }
+        return results;
+      },
+      optionsVisible() {
+        const visible = !(this.searchKeyWords.length === 0 || this.searchResult.length === 0 || this.hideOptions);
+        if (!visible) {
+          this.focusIndex = -1;
+          if (this.$refs.resultsContianer !== undefined) {
+            this.$refs.resultsContianer.scrollTop = 0;
+            document.removeEventListener('click', this.handleClickWindow);
+          }
+        } else {
+          if (this.$refs.resultsContianer !== undefined) {
+            document.addEventListener('click', this.handleClickWindow);
+          }
+        }
+        return visible;
+      },
+      resultOptions() {
+        if (this.$refs.resultsContianer !== undefined) {
+          return this.$refs.resultsContianer.querySelectorAll('.result-option');
+        }
+        return undefined;
+      },
+      handleClickWindow() {
+        this.hideMenu();
+      },
+      handleKeydown (event) {
+        if (this.optionsVisible()) {
+          const keyCode = event.keyCode;
           // Esc slide-up
           if (keyCode === 27) {
-            e.preventDefault();
+            event.preventDefault();
             this.hideMenu();
           }
           // next
           if (keyCode === 40) {
-            e.preventDefault();
+            event.preventDefault();
             this.navigateOptions('next');
           }
           // prev
           if (keyCode === 38) {
-            e.preventDefault();
+            event.preventDefault();
             this.navigateOptions('prev');
           }
           // enter
           if (keyCode === 13) {
-            e.preventDefault();
+            event.preventDefault();
             this.choseOption(this.focusIndex);
           }
         }
@@ -106,8 +135,14 @@
         // 重置菜单滚动高度
         this.resetScrollTop(option);
       },
+      clickOption(option) {
+        this.searchResult = [];
+        this.hideMenu();
+        if (option !== undefined) {
+          window.open(option.getAttribute('data-link'), '_blank');
+        }
+      },
       navigateOptions (direction) {
-        console.log(direction);
         if (direction === 'next') {
           this.focusIndex++;
         } else if (direction === 'prev') {
@@ -122,15 +157,15 @@
           return undefined;
         }
         // 大于所有个数
-        if (index > this.resultOptions.length - 1) {
-          this.focusIndex = this.resultOptions.length - 1;
+        if (index > this.resultOptions().length - 1) {
+          this.focusIndex = this.resultOptions().length - 1;
           return undefined;
         }
         // 等于0时重置scrollTop为0，让内容顶到顶部
         if (index === 0) {
           this.$refs.resultsContianer.scrollTop = 0;
         }
-        return this.resultOptions.item(index);
+        return this.resultOptions().item(index);
       },
       resetScrollTop (selectedOptions) {
         const menu = this.$refs.resultsContianer;
@@ -152,8 +187,10 @@
         }
       },
       hideMenu() {
-        this.hideOptions = true;
+        // 重置选项索引
         this.focusIndex = -1;
+        // 隐藏选项
+        this.hideOptions = true;
       }
     },
     components: {
@@ -162,7 +199,7 @@
   };
 </script>
 
-<style lang="stylus" rel="stylesheet/stylus">
+<style lang="stylus" type="text/stylus" rel="stylesheet/stylus">
   @import "../../../common/stylus/theme.styl";
 
   .search-view

@@ -5,16 +5,16 @@
   "author": "Lennon <i@coderap.com>",
   "private": true,
   "scripts": {
-    "dev:client": "set NODE_ENV=development && webpack-dev-server --config build/webpack.dev.conf.js",
+    "dev:client": "cross-env NODE_ENV=development && webpack-dev-server --config build/webpack.dev.conf.js",
     "dev:server": "nodemon server/server.js",
     "dev": "concurrently \"npm run dev:client\" \"npm run dev:server\"",
-    "build:client": "set NODE_ENV=production && webpack --config build/webpack.prod.conf.js",
-    "build:server": "set NODE_ENV=production && webpack --config build/webpack.server.conf.js",
+    "build:client": "cross-env NODE_ENV=production && webpack --config build/webpack.prod.conf.js",
+    "build:server": "cross-env NODE_ENV=production && webpack --config build/webpack.server.conf.js",
     "build": "npm run clean && npm run build:client && npm run build:server",
-    "start": "set NODE_ENV=production && node server/server.js",
+    "start": "cross-env NODE_ENV=production && node server/server.js",
     "clean": "rimraf public && rimraf server-build",
     "lint": "eslint --ext .js,.vue src",
-    "analyz": "set NODE_ENV=production && set npm_config_report=true && npm run build"
+    "analyz": "cross-env NODE_ENV=production && cross-env npm_config_report=true && npm run build"
   },
   "dependencies": {
     "axios": "^0.17.1",
