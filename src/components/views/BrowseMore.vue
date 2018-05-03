@@ -20,6 +20,9 @@
       tipText: {
         default: '浏览更多'
       },
+      noMoreData: {
+        default: false
+      },
       noMoreDataTipText: {
         default: '到底啦'
       }
@@ -27,23 +30,28 @@
     data() {
       return {
         loading: false,
-        noMoreData: false
+        noMore: false
       };
     },
     computed: {
       tipStr: function () {
-        return this.noMoreData ? this.noMoreDataTipText : this.tipText;
+        let isNoMore = this.noMoreData || this.noMore;
+        if (isNoMore) this.loading = false;
+        return isNoMore ? this.noMoreDataTipText : this.tipText;
       }
     },
     methods: {
       browseMore() {
-        if (this.noMoreData) return;
+        if (this.noMoreData || this.noMore) {
+          this.loading = false;
+          return;
+        }
         this.loading = true;
         this.$emit('browseMore');
       },
       stopLoading(noMoreData) {
         this.loading = false;
-        this.noMoreData = noMoreData;
+        this.noMore = noMoreData;
       }
     }
   };
