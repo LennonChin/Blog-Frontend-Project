@@ -24,7 +24,7 @@
         default: false
       },
       noMoreDataTipText: {
-        default: '到底啦'
+        default: '暂无更多'
       }
     },
     data() {
