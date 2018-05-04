@@ -11,8 +11,8 @@
         <div class="layout-left">
           <classify-menu :categorys="categorysInfo" @selectCategory="selectCategory"
                          :defaultCategory="selected_category"></classify-menu>
-          <section-title :mainTitle="'文章列表'"
-                         :subTitle="'Articles'"
+          <section-title :mainTitle="categorysInfo[0].name + '列表'"
+                         :subTitle="categorysInfo[0].subname + ' List'"
                          :menus="menus"
                          :withRefresh="true"
                          :withTimeSelect="true"
@@ -51,13 +51,18 @@
   import TagWall from '@/components/views/TagWall';
   import BrowseMore from '@/components/views/BrowseMore';
 
-  import {DefaultLimitSize, MaxLimitSize, SectionTitleDefaultMenus, SectionTitleDefaultDatePickerOptions} from '@/common/js/const';
+  import {
+    DefaultLimitSize,
+    MaxLimitSize,
+    SectionTitleDefaultMenus,
+    SectionTitleDefaultDatePickerOptions
+  } from '@/common/js/const';
 
   export default {
     name: 'article-home-content',
     data() {
       return {
-        selected_category: 1,
+        selected_category: undefined,
         timeSorted: false,
         mostComment: undefined,
         recommend: undefined,
@@ -79,6 +84,10 @@
           }
         })
       ]);
+    },
+    created() {
+      // 设置默认的分类id
+      this.selected_category = this.categorysInfo[0].id;
     },
     mounted() {
       if (Object.keys(this.$store.state.articleHome.articles).length + Object.keys(this.$store.state.articleHome.bannerArticles).length === 0) {
@@ -104,7 +113,7 @@
       ...mapGetters({
         documentMeta: 'DOCUMENT_META'
       }),
-      categorysInfo: function() {
+      categorysInfo: function () {
         return this.allCategorysInfo.filter((category) => {
           return category.category_type === 'articles';
         });

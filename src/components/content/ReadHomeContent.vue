@@ -5,7 +5,7 @@
         <div class="layout-left">
           <book-reading-cell v-for="book in readingBooks" :key="book.id" :book="book"></book-reading-cell>
           <classify-menu :categorys="categorysInfo" @selectCategory="selectCategory"
-                         :defaultCategory="top_category"></classify-menu>
+                         :defaultCategory="selected_category"></classify-menu>
           <section-title :mainTitle="'图书列表'"
                          :subTitle="'Books'"
                          :menus="menus"
@@ -58,6 +58,7 @@
         books: [],
         bookNotes: [],
         readingBooks: [],
+        selected_category: undefined,
         categorys: undefined,
         timeSorted: false,
         mostComment: undefined,
@@ -71,6 +72,8 @@
       };
     },
     created() {
+      // 设置默认的分类id
+      this.selected_category = this.categorysInfo[0].id;
       this.getCategorys();
       this.getBookBaseInfo();
       this.getBookNoteBaseInfo();
@@ -78,7 +81,7 @@
     computed: {
       categorysInfo: function() {
         return this.allCategorysInfo.filter((category) => {
-          return category.category_type === 'articles';
+          return category.category_type === 'readings';
         });
       }
     },
@@ -166,6 +169,11 @@
             console.log(error);
           });
         }
+      },
+      selectCategory(categoryId) {
+        this.page = 0;
+        this.selected_category = categoryId;
+        this.updateArticlesInfo(true);
       },
       viewBookList() {
         alert('booklist');
