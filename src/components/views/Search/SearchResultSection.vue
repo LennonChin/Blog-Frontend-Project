@@ -50,7 +50,6 @@
       line-height 21px
       font-size 16px
       padding 12px 15px 8px
-      margin-bottom 5px
       border-bottom 1px solid $color-border-hover
       background-color $color-border
     .result-option

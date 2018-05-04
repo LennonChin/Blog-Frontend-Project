@@ -8,8 +8,8 @@
       <span class="view-more"><a @click="tipAction">{{tipText}} <i-icon type="arrow-right-b"></i-icon></a></span>
     </div>
     <div class="menu">
-      <ul class="list clearfix" v-if="menus.length > 0">
-        <li v-for="menu in menus" :key="menu.title">
+      <ul class="list clearfix" v-if="controlMenus.length > 0">
+        <li v-for="menu in controlMenus" :key="menu.title">
           <a :class="{ active: menu.selected }" @click="menusControl(menu)">{{ menuTitle(menu) }}</a>
         </li>
       </ul>
@@ -38,9 +38,7 @@
       },
       menus: {
         Type: Array,
-        default: function () {
-          return [];
-        }
+        default: []
       },
       withRefresh: {
         Type: Boolean,
@@ -54,17 +52,25 @@
     },
     data() {
       return {
+        copiedMenus: undefined,
         selectedDateRange: []
       };
+    },
+    computed: {
+      controlMenus: function () {
+        // 复制一份内部menus使用
+        if (this.copiedMenus === undefined) {
+          this.copiedMenus = [].concat(JSON.parse(JSON.stringify(this.menus)));
+        }
+        return this.copiedMenus;
+      }
     },
     methods: {
       menuTitle(menu) {
         return menu.selected ? (menu.selectedTitle !== undefined ? menu.selectedTitle : menu.title) : menu.title;
       },
       refresh() {
-        this.menus.map((menu) => {
-          menu.selected = false;
-        });
+        this.copiedMenus = undefined;
         this.$emit('refresh');
       },
       tipAction() {
@@ -89,8 +95,7 @@
 </script>
 
 <style lang="stylus" type="text/stylus" rel="stylesheet/stylus">
-  @import "../../common/stylus/theme.styl"
-  @import "../../common/stylus/index.styl"
+  @import "../../common/stylus/theme.styl";
 
   .section-title
     display flex

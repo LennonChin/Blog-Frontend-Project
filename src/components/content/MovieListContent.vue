@@ -3,7 +3,7 @@
     <i-row>
       <i-col :xs="24" :sm="24" :md="24" :lg="17">
         <div class="layout-left">
-          <classify-menu :categorys="categorys" @selectCategory="selectCategory" :defaultCategory="top_category"></classify-menu>
+          <classify-menu :categorys="categorysInfo" @selectCategory="selectCategory" :defaultCategory="selected_category"></classify-menu>
           <section-title :mainTitle="'电影列表'"
                          :subTitle="'Articles'"
                          :menus="menus"
@@ -21,7 +21,7 @@
               <movie-list-item :movie="movie"></movie-list-item>
             </i-col>
           </i-row>
-          <browse-more @browseMore="browseMore" ref="browseMore"></browse-more>
+          <browse-more @browseMore="browseMore" :noMoreData="noMoreData" ref="browseMore"></browse-more>
         </div>
       </i-col>
       <i-col :xs="0" :sm="0" :md="0" :lg="7">
@@ -35,6 +35,12 @@
 </template>
 
 <script type="text/ecmascript-6">
+  import {
+    mapState,
+    mapGetters,
+    mapMutations,
+    mapActions
+  } from 'vuex';
   import MovieListItem from '@/components/views/Movie/MovieListItem';
   import SectionTitle from '@/components/views/SectionTitle';
   import ClassifyMenu from '@/components/views/Classify/ClassifyMenu';
@@ -42,155 +48,138 @@
   import TagWall from '@/components/views/TagWall';
   import BrowseMore from '@/components/views/BrowseMore';
 
-  // API
-  import API from '@/api/client-api';
-
-  const DEFAULT_LIMIT_SIZE = 6;
-  const MAX_LIMIT_SIZE = 100;
+  import {
+    DefaultLimitSize,
+    MaxLimitSize,
+    SectionTitleDefaultMenus,
+    SectionTitleDefaultDatePickerOptions
+  } from '@/common/js/const';
 
   export default {
     name: 'movie-list-content',
     data() {
       return {
-        movies: [],
-        categorys: undefined,
-        top_category: undefined,
+        selected_category: undefined,
         timeSorted: false,
         mostComment: undefined,
         recommend: undefined,
-        limit_size: DEFAULT_LIMIT_SIZE,
+        limit_size: DefaultLimitSize,
         page: 0,
-        totalCount: 0,
-        noMoreData: false,
-        menus: [
-          {title: '顺序', selectedTitle: '逆序', selected: true, method: 'timeSorted'},
-          {title: '评论最多', selected: false, method: 'mostComment'},
-          {title: '推荐', selected: false, method: 'recommend'}
-        ],
-        datePickerOptions: {
-          disabledDate(date) {
-            return date && date.valueOf() > Date.now();
-          },
-          shortcuts: [
-            {
-              text: '近一周',
-              value() {
-                const end = new Date();
-                const start = new Date();
-                start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
-                return [start, end];
-              }
-            },
-            {
-              text: '近一个月',
-              value() {
-                const end = new Date();
-                const start = new Date();
-                start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
-                return [start, end];
-              }
-            },
-            {
-              text: '近三个月',
-              value() {
-                const end = new Date();
-                const start = new Date();
-                start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
-                return [start, end];
-              }
-            },
-            {
-              text: '近一年',
-              value() {
-                const end = new Date();
-                const start = new Date();
-                start.setTime(start.getTime() - 3600 * 1000 * 24 * 365);
-                return [start, end];
-              }
-            }
-          ]
-        },
+        menus: SectionTitleDefaultMenus,
+        datePickerOptions: SectionTitleDefaultDatePickerOptions,
         selectedDateRange: []
       };
     },
-    created() {
-      this.top_category = parseInt(this.$route.params.id);
-      this.getDatas();
-      this.getCategorys();
-    },
-    methods: {
-      browseMore() {
-        console.log('browseMore');
-        this.page++;
-        this.getMovieBaseInfo();
-      },
-      selectCategory(categoryId) {
-        this.top_category = categoryId;
-        this.noMoreData = false;
-        this.getMovieBaseInfo();
-      },
-      getDatas() {
-        this.getMovieBaseInfo();
-      },
-      getCategorys() {
-        API.getCategorys({
+    asyncData({store, route}) {
+      this.selected_category = route.params.id;
+      return Promise.all([
+        store.dispatch('movieList/GET_MOVIES_BASE_INFO', {
           params: {
-            'level_min': 1,
-            'level_max': 1,
-            'id': 40
-          }
-        }).then((response) => {
-          this.categorys = response.data.results;
-        }).catch((error) => {
-          console.log(error);
-        });
-      },
-      getMovieBaseInfo() {
-        if (!this.noMoreData) {
-          // 排序条件
-          let orderings = [];
-          if (this.timeSorted) {
-            orderings.push('add_time');
-          } else {
-            orderings.push('-add_time');
-          }
-          if (this.mostComment !== undefined) {
-            if (this.mostComment) {
-              orderings.push('comment_num');
-            } else {
-              orderings.push('-comment_num');
+            params: {
+              top_category: this.selected_category,
+              ordering: '-add_time',
+              limit: DefaultLimitSize
             }
           }
-          API.getMovieBaseInfo({
+        })
+      ]);
+    },
+    beforeRouteUpdate(to, from, next) {
+      next();
+      this.selected_category = this.$route.params.id;
+      this.refresh();
+    },
+    created() {
+      this.selected_category = this.$route.params.id;
+    },
+    mounted() {
+      if (this.$store.state.articleList.articles.length === 0) {
+        console.log('non ssr');
+        // 未SSR的情况
+        this.updateMoviesInfo({
+          params: {
             params: {
-              top_category: this.top_category,
+              top_category: this.selected_category,
+              ordering: '-add_time',
+              limit: DefaultLimitSize
+            }
+          }
+        }, false);
+      }
+    },
+    computed: {
+      ...mapState({
+        movies: state => state.movieList.movies,
+        noMoreData: state => state.movieList.noMoreData
+      }),
+      ...mapGetters({
+        documentMeta: 'DOCUMENT_META'
+      }),
+      categorysInfo: function () {
+        return this.allCategorysInfo.filter((category) => {
+          return category.category_type === 'movies';
+        });
+      }
+    },
+    methods: {
+      ...mapMutations({
+        clearMoviesBaseInfo: 'movieList/CLAER_MOVIES_BASE_INFO'
+      }),
+      ...mapActions({
+        getMoviesBaseInfo: 'movieList/GET_MOVIES_BASE_INFO'
+      }),
+      updateMoviesInfo(reset) {
+        // 排序条件
+        let orderings = [];
+        if (this.timeSorted) {
+          orderings.push('add_time');
+        } else {
+          orderings.push('-add_time');
+        }
+        if (this.mostComment !== undefined) {
+          if (this.mostComment) {
+            orderings.push('comment_num');
+          } else {
+            orderings.push('-comment_num');
+          }
+        }
+        this.getMoviesBaseInfo({
+          params: {
+            params: {
+              top_category: this.selected_category,
               ordering: orderings.toString(),
+              is_recommend: this.recommend,
               time_min: this.selectedDateRange[0],
               time_max: this.selectedDateRange[1],
               limit: this.limit_size,
               offset: this.page * this.limit_size
             }
-          }).then((response) => {
-            this.movies = this.movies.concat(response.data.results);
-            this.totalCount += response.data.results.length;
-            this.noMoreData = this.totalCount >= response.data.count;
-            this.$refs.browseMore.stopLoading(this.noMoreData);
-          }).catch((error) => {
-            console.log(error);
-          });
-        }
+          },
+          reset
+        }).then(response => {
+          this.$refs.browseMore.stopLoading();
+        }).catch(error => {
+          this.$refs.browseMore.stopLoading();
+          console.log(error);
+        });
+      },
+      browseMore() {
+        console.log('browseMore');
+        this.page++;
+        this.updateMoviesInfo();
+      },
+      selectCategory(categoryId) {
+        this.selected_category = categoryId;
+        this.page = 0;
+        this.updateMoviesInfo(true);
       },
       refresh() {
-        this.top_category = undefined;
         this.timeSorted = false;
         this.mostComment = undefined;
         this.recommend = undefined;
         this.page = 0;
-        this.movies = [];
-        this.totalCount = 0;
-        this.noMoreData = false;
         this.selectedDateRange = [];
-        this.getMovieBaseInfo();
+        this.updateMoviesInfo(true);
       },
       menusControl(params) {
         switch (params[0]) {
@@ -206,33 +195,19 @@
         }
         // 清空原数据
         this.page = 0;
-        this.movies = [];
-        this.totalCount = 0;
-        this.noMoreData = false;
-        this.getMovieBaseInfo();
+        this.updateMoviesInfo(true);
       },
       dateSelect(dateRange) {
         this.selectedDateRange = dateRange;
         this.page = 0;
-        this.limit_size = MAX_LIMIT_SIZE;
-        this.movies = [];
-        this.totalCount = 0;
-        this.noMoreData = false;
-        this.getMovieBaseInfo();
+        this.limit_size = MaxLimitSize;
+        this.updateMoviesInfo(true);
       },
       dateSelectClear() {
         this.selectedDateRange = [];
         this.page = 0;
-        this.limit_size = DEFAULT_LIMIT_SIZE;
-        this.movies = [];
-        this.totalCount = 0;
-        this.noMoreData = false;
-        this.getMovieBaseInfo();
-      }
-    },
-    watch: {
-      selectedCategory: function () {
-        this.getDatas();
+        this.limit_size = DefaultLimitSize;
+        this.updateMoviesInfo(true);
       }
     },
     components: {

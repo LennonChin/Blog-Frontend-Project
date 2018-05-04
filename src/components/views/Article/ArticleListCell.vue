@@ -122,9 +122,8 @@
   };
 </script>
 
-<style lang="stylus" type="text/stylus" rel="stylesheet/stylus" scoped>
-  @import "../../../common/stylus/base.styl";
-  @import "../../../common/stylus/index.styl";
+<style lang="stylus" type="text/stylus" rel="stylesheet/stylus">
+  @import "../../../common/stylus/theme.styl";
 
   .article-list-cell
     margin-bottom 10px

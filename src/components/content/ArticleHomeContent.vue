@@ -9,23 +9,21 @@
     <i-row style="margin-top:20px;">
       <i-col :xs="24" :sm="24" :md="24" :lg="17">
         <div class="layout-left">
-          <classify-menu :categorys="categorys" @selectCategory="selectCategory"
-                         :defaultCategory="top_category"></classify-menu>
-          <i-affix style="position: relative;z-index: 12;">
-            <section-title :mainTitle="'文章列表'"
-                           :subTitle="'Articles'"
-                           :menus="menus"
-                           :withRefresh="true"
-                           :withTimeSelect="true"
-                           :datePickerOptions="datePickerOptions"
-                           @refresh="refresh"
-                           @menusControl="menusControl"
-                           @comfirmDateSelect="dateSelect"
-                           @clearDateSelect="dateSelectClear">
-            </section-title>
-          </i-affix>
+          <classify-menu :categorys="categorysInfo" @selectCategory="selectCategory"
+                         :defaultCategory="selected_category"></classify-menu>
+          <section-title :mainTitle="categorysInfo[0].name + '列表'"
+                         :subTitle="categorysInfo[0].subname + ' List'"
+                         :menus="menus"
+                         :withRefresh="true"
+                         :withTimeSelect="true"
+                         :datePickerOptions="datePickerOptions"
+                         @refresh="refresh"
+                         @menusControl="menusControl"
+                         @comfirmDateSelect="dateSelect"
+                         @clearDateSelect="dateSelectClear">
+          </section-title>
           <article-list-cell v-for="article in articles" :article="article" :key="article.id"></article-list-cell>
-          <browse-more @browseMore="browseMore" ref="browseMore"></browse-more>
+          <browse-more @browseMore="browseMore" :noMoreData="noMoreData" ref="browseMore"></browse-more>
         </div>
       </i-col>
       <i-col :xs="0" :sm="0" :md="0" :lg="7">
@@ -39,6 +37,12 @@
 </template>
 
 <script type="text/ecmascript-6">
+  import {
+    mapState,
+    mapGetters,
+    mapMutations,
+    mapActions
+  } from 'vuex';
   import ArticleHomeBanner from '@/components/views/Article/ArticleHomeBanner';
   import ArticleListCell from '@/components/views/Article/ArticleListCell';
   import SectionTitle from '@/components/views/SectionTitle';
@@ -47,188 +51,135 @@
   import TagWall from '@/components/views/TagWall';
   import BrowseMore from '@/components/views/BrowseMore';
 
-  // API
-  import API from '@/api/client-api';
-
-  const DEFAULT_LIMIT_SIZE = 10;
-  const MAX_LIMIT_SIZE = 100;
+  import {
+    DefaultLimitSize,
+    MaxLimitSize,
+    SectionTitleDefaultMenus,
+    SectionTitleDefaultDatePickerOptions
+  } from '@/common/js/const';
 
   export default {
     name: 'article-home-content',
     data() {
       return {
-        articles: [],
-        bannerArticles: [],
-        categorys: undefined,
-        top_category: 1,
+        selected_category: undefined,
         timeSorted: false,
         mostComment: undefined,
         recommend: undefined,
-        limit_size: DEFAULT_LIMIT_SIZE,
+        limit_size: DefaultLimitSize,
         page: 0,
-        totalCount: 0,
-        noMoreData: false,
-        menus: [
-          {title: '顺序', selectedTitle: '逆序', selected: true, method: 'timeSorted'},
-          {title: '评论最多', selected: false, method: 'mostComment'},
-          {title: '推荐', selected: false, method: 'recommend'}
-        ],
-        datePickerOptions: {
-          disabledDate(date) {
-            return date && date.valueOf() > Date.now();
-          },
-          shortcuts: [
-            {
-              text: '近一周',
-              value() {
-                const end = new Date();
-                const start = new Date();
-                start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
-                return [start, end];
-              }
-            },
-            {
-              text: '近一个月',
-              value() {
-                const end = new Date();
-                const start = new Date();
-                start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
-                return [start, end];
-              }
-            },
-            {
-              text: '近三个月',
-              value() {
-                const end = new Date();
-                const start = new Date();
-                start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
-                return [start, end];
-              }
-            },
-            {
-              text: '近一年',
-              value() {
-                const end = new Date();
-                const start = new Date();
-                start.setTime(start.getTime() - 3600 * 1000 * 24 * 365);
-                return [start, end];
-              }
-            }
-          ]
-        },
+        menus: SectionTitleDefaultMenus,
+        datePickerOptions: SectionTitleDefaultDatePickerOptions,
         selectedDateRange: []
       };
     },
-    created() {
-      this.getDatas();
-      this.getCategorys();
-    },
-    mounted() {
-    },
-    methods: {
-      browseMore() {
-        this.page++;
-        this.getArticleBaseInfo();
-      },
-      selectCategory(categoryId) {
-        this.top_category = categoryId;
-        this.articles = [];
-        this.bannerArticles = [];
-        this.noMoreData = false;
-        this.getArticleBaseInfo();
-        this.getBannerArticleBaseInfo();
-      },
-      getDatas() {
-        this.getArticleBaseInfo();
-        this.getBannerArticleBaseInfo();
-      },
-      getCategorys() {
-        API.getCategorys({
+    asyncData({store}) {
+      this.selected_category = 1;
+      return Promise.all([
+        store.dispatch('articleHome/GET_ARTICLES_BASE_INFO', {
           params: {
-            'level_min': 1,
-            'level_max': 1,
-            'id': 1
-          }
-        }).then((response) => {
-          this.categorys = response.data.results;
-        }).catch((error) => {
-          console.log(error);
-        });
-      },
-      getBannerArticleBaseInfo() {
-        API.getArticleBaseInfo({
-          params: {
-            top_category: this.top_category,
-            is_banner: true
-          }
-        }).then((response) => {
-          this.bannerArticles = this.bannerArticles.concat(response.data.results);
-        }).catch((error) => {
-          console.log(error);
-        });
-      },
-      getArticleBaseInfo() {
-        if (!this.noMoreData) {
-          // 排序条件
-          let orderings = [];
-          if (this.timeSorted) {
-            orderings.push('add_time');
-          } else {
-            orderings.push('-add_time');
-          }
-          if (this.mostComment !== undefined) {
-            if (this.mostComment) {
-              orderings.push('comment_num');
-            } else {
-              orderings.push('-comment_num');
+            params: {
+              top_category: this.selected_category,
+              ordering: '-add_time',
+              limit: DefaultLimitSize
             }
           }
-          API.getArticleBaseInfo({
+        })
+      ]);
+    },
+    created() {
+      // 设置默认的分类id
+      this.selected_category = this.categorysInfo[0].id;
+    },
+    mounted() {
+      if (this.$store.state.articleHome.articles.length + this.$store.state.articleHome.bannerArticles.length === 0) {
+        console.log('non ssr');
+        // 未SSR的情况
+        this.updateArticlesInfo({
+          params: {
             params: {
-              top_category: this.top_category,
+              top_category: this.selected_category,
+              ordering: '-add_time',
+              limit: DefaultLimitSize
+            }
+          }
+        }, false);
+      }
+    },
+    computed: {
+      ...mapState({
+        articles: state => state.articleHome.articles,
+        bannerArticles: state => state.articleHome.bannerArticles,
+        noMoreData: state => state.articleHome.noMoreData
+      }),
+      ...mapGetters({
+        documentMeta: 'DOCUMENT_META'
+      }),
+      categorysInfo: function () {
+        return this.allCategorysInfo.filter((category) => {
+          return category.category_type === 'articles';
+        });
+      }
+    },
+    methods: {
+      ...mapMutations({
+        clearArticlesBaseInfo: 'articleHome/CLAER_ARTICLES_BASE_INFO'
+      }),
+      ...mapActions({
+        getArticlesBaseInfo: 'articleHome/GET_ARTICLES_BASE_INFO'
+      }),
+      updateArticlesInfo(reset) {
+        // 排序条件
+        let orderings = [];
+        if (this.timeSorted) {
+          orderings.push('add_time');
+        } else {
+          orderings.push('-add_time');
+        }
+        if (this.mostComment !== undefined) {
+          if (this.mostComment) {
+            orderings.push('comment_num');
+          } else {
+            orderings.push('-comment_num');
+          }
+        }
+        this.getArticlesBaseInfo({
+          params: {
+            params: {
+              top_category: this.selected_category,
               ordering: orderings.toString(),
               is_recommend: this.recommend,
               time_min: this.selectedDateRange[0],
               time_max: this.selectedDateRange[1],
-              is_banner: false,
               limit: this.limit_size,
               offset: this.page * this.limit_size
             }
-          }).then((response) => {
-            this.totalCount += response.data.results.length;
-            this.noMoreData = this.totalCount >= response.data.count;
-            this.articles = this.articles.concat(response.data.results);
-            this.$nextTick(() => {
-//              this.$refs.browseMore.stopLoading(this.noMoreData);
-            });
-          }).catch((error) => {
-            console.log(error);
-          });
-        }
-      },
-      reduceArticles(articles) {
-        articles.map((article) => {
-          if (article.is_banner) {
-            this.bannerArticles.push(article);
-          } else {
-            this.articles.push(article);
-          }
+          },
+          reset
+        }).then(response => {
+          this.$refs.browseMore.stopLoading();
+        }).catch(error => {
+          this.$refs.browseMore.stopLoading();
+          console.log(error);
         });
-        console.table(this.articles);
-        console.table(this.bannerArticles);
+      },
+      browseMore() {
+        this.page++;
+        this.updateArticlesInfo();
+      },
+      selectCategory(categoryId) {
+        this.page = 0;
+        this.selected_category = categoryId;
+        this.updateArticlesInfo(true);
       },
       refresh() {
-        this.top_category = undefined;
+        this.selected_category = undefined;
         this.timeSorted = false;
         this.mostComment = undefined;
         this.recommend = undefined;
         this.page = 0;
-        this.articles = [];
-        this.bannerArticles = [];
-        this.totalCount = 0;
-        this.noMoreData = false;
         this.selectedDateRange = [];
-        this.getArticleBaseInfo();
+        this.updateArticlesInfo(true);
       },
       menusControl(params) {
         switch (params[0]) {
@@ -244,31 +195,19 @@
         }
         // 清空原数据
         this.page = 0;
-        this.articles = [];
-        this.bannerArticles = [];
-        this.totalCount = 0;
-        this.noMoreData = false;
-        this.getArticleBaseInfo();
+        this.updateArticlesInfo(true);
       },
       dateSelect(dateRange) {
         this.selectedDateRange = dateRange;
         this.page = 0;
-        this.limit_size = MAX_LIMIT_SIZE;
-        this.articles = [];
-        this.bannerArticles = [];
-        this.totalCount = 0;
-        this.noMoreData = false;
-        this.getArticleBaseInfo();
+        this.limit_size = MaxLimitSize;
+        this.updateArticlesInfo(true);
       },
       dateSelectClear() {
         this.selectedDateRange = [];
         this.page = 0;
-        this.limit_size = DEFAULT_LIMIT_SIZE;
-        this.articles = [];
-        this.bannerArticles = [];
-        this.totalCount = 0;
-        this.noMoreData = false;
-        this.getArticleBaseInfo();
+        this.limit_size = DefaultLimitSize;
+        this.updateArticlesInfo(true);
       }
     },
     components: {
