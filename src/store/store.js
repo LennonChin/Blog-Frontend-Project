@@ -14,6 +14,7 @@ import bookNote from './modules/bookNote';
 import movie from './modules/movie';
 import timeline from './modules/timeline';
 import articleHome from './modules/articleHome';
+import articleList from './modules/articleList';
 
 const isDev = process.env.NODE_ENV === 'development';
 
@@ -33,7 +34,8 @@ export default () => {
       bookNote,
       movie,
       timeline,
-      articleHome
+      articleHome,
+      articleList
     }
   });
 
@@ -51,7 +53,8 @@ export default () => {
       './modules/bookNote',
       './modules/movie',
       './modules/timeline',
-      './modules/articleHome'
+      './modules/articleHome',
+      './modules/articleList'
     ], () => {
       const newState = require('./state/state').default;
       const newMutations = require('./mutations/mutations').default;
@@ -66,6 +69,7 @@ export default () => {
       const movie = require('./modules/movie').default;
       const timeline = require('./modules/timeline').default;
       const articleHome = require('./modules/articleHome').default;
+      const articleList = require('./modules/articleList').default;
 
       store.hotUpdate({
         state: newState,
@@ -81,7 +85,8 @@ export default () => {
           bookNote,
           movie,
           timeline,
-          articleHome
+          articleHome,
+          articleList
         }
       });
     });

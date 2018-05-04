@@ -6,7 +6,6 @@ export default {
   namespaced: true,
   state: {
     articles: [],
-    bannerArticles: [],
     totalCount: 0,
     noMoreData: false
   },
@@ -14,25 +13,19 @@ export default {
     UPDATE_ARTICLES_BASE_INFO(state, datas) {
       // 记录已有的post数量
       state.totalCount += datas.results.length;
-      state.articles = state.articles.concat(datas.results.filter((article) => {
-        return !article.is_banner;
-      }));
-      state.bannerArticles = state.bannerArticles.concat(datas.results.filter((article) => {
-        return article.is_banner;
-      }));
+      state.articles = datas.results;
       // 判断是否还有更多
       state.noMoreData = state.totalCount >= datas.count;
     },
     CLAER_ARTICLES_BASE_INFO(state) {
       console.log('clear articles');
       state.articles = [];
-      state.bannerArticles = [];
       state.totalCount = 0;
       state.noMoreData = false;
     }
   },
   actions: {
-    // 获取列表详细信息
+    // 获取文章列表信息
     GET_ARTICLES_BASE_INFO({state, commit}, {params, reset}) {
       return new Promise((resolve, reject) => {
         API.getArticleBaseInfo(params).then((response) => {

@@ -3,8 +3,8 @@
     <i-row>
       <i-col :xs="24" :sm="24" :md="24" :lg="17">
         <div class="layout-left">
-          <classify-menu :categorys="categorys" @selectCategory="selectCategory"
-                         :defaultCategory="top_category"></classify-menu>
+          <classify-menu :categorys="categorysInfo" @selectCategory="selectCategory"
+                         :defaultCategory="selected_category"></classify-menu>
           <section-title :mainTitle="'文章列表'"
                          :subTitle="'Articles'"
                          :menus="menus"
@@ -17,7 +17,7 @@
                          @clearDateSelect="dateSelectClear">
           </section-title>
           <article-list-cell v-for="article in articles" :article="article" :key="article.title"></article-list-cell>
-          <browse-more @browseMore="browseMore" ref="browseMore"></browse-more>
+          <browse-more @browseMore="browseMore" :noMoreData="noMoreData" ref="browseMore"></browse-more>
         </div>
       </i-col>
       <i-col :xs="0" :sm="0" :md="0" :lg="7">
@@ -31,6 +31,12 @@
 </template>
 
 <script type="text/ecmascript-6">
+  import {
+    mapState,
+    mapGetters,
+    mapMutations,
+    mapActions
+  } from 'vuex';
   import ArticlePageContent from '@/components/views/Article/ArticlePageContent';
   import ArticlePageFooter from '@/components/views/Article/ArticlePageFooter';
   import ArticleListCell from '@/components/views/Article/ArticleListCell';
@@ -40,156 +46,141 @@
   import TagWall from '@/components/views/TagWall';
   import BrowseMore from '@/components/views/BrowseMore';
 
-  // API
-  import API from '@/api/client-api';
-
-  const DEFAULT_LIMIT_SIZE = 10;
-  const MAX_LIMIT_SIZE = 100;
+  import {
+    DefaultLimitSize,
+    MaxLimitSize,
+    SectionTitleDefaultMenus,
+    SectionTitleDefaultDatePickerOptions
+  } from '@/common/js/const';
 
   export default {
     name: 'article-list-content',
     data() {
       return {
-        articles: [],
         categorys: undefined,
-        top_category: undefined,
+        selected_category: undefined,
         timeSorted: false,
         mostComment: undefined,
         recommend: undefined,
-        limit_size: DEFAULT_LIMIT_SIZE,
+        limit_size: DefaultLimitSize,
         page: 0,
-        totalCount: 0,
-        noMoreData: false,
-        menus: [
-          {title: '顺序', selectedTitle: '逆序', selected: true, method: 'timeSorted'},
-          {title: '评论最多', selected: false, method: 'mostComment'},
-          {title: '推荐', selected: false, method: 'recommend'}
-        ],
-        datePickerOptions: {
-          disabledDate(date) {
-            return date && date.valueOf() > Date.now();
-          },
-          shortcuts: [
-            {
-              text: '近一周',
-              value() {
-                const end = new Date();
-                const start = new Date();
-                start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
-                return [start, end];
-              }
-            },
-            {
-              text: '近一个月',
-              value() {
-                const end = new Date();
-                const start = new Date();
-                start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
-                return [start, end];
-              }
-            },
-            {
-              text: '近三个月',
-              value() {
-                const end = new Date();
-                const start = new Date();
-                start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
-                return [start, end];
-              }
-            },
-            {
-              text: '近一年',
-              value() {
-                const end = new Date();
-                const start = new Date();
-                start.setTime(start.getTime() - 3600 * 1000 * 24 * 365);
-                return [start, end];
-              }
-            }
-          ]
-        },
+        menus: SectionTitleDefaultMenus,
+        datePickerOptions: SectionTitleDefaultDatePickerOptions,
         selectedDateRange: []
       };
     },
+    asyncData({store, route}) {
+      this.selected_category = route.params.id;
+      return Promise.all([
+        store.dispatch('articleList/GET_ARTICLES_BASE_INFO', {
+          params: {
+            params: {
+              top_category: this.selected_category,
+              ordering: '-add_time',
+              limit: DefaultLimitSize
+            }
+          }
+        })
+      ]);
+    },
+
+    beforeRouteUpdate(to, from, next) {
+      next();
+      this.selected_category = parseInt(this.$route.params.id);
+      this.refresh();
+    },
     created() {
-      this.top_category = parseInt(this.$route.params.id);
-      this.getDatas();
-      this.getCategorys();
+      this.selected_category = parseInt(this.$route.params.id);
+    },
+    mounted() {
+      if (Object.keys(this.$store.state.articleHome.articles).length === 0) {
+        console.log('non ssr');
+        // 未SSR的情况
+        this.updateArticlesInfo({
+          params: {
+            params: {
+              top_category: this.selected_category,
+              ordering: '-add_time',
+              limit: DefaultLimitSize
+            }
+          }
+        }, false);
+      }
+    },
+    computed: {
+      ...mapState({
+        articles: state => state.articleList.articles,
+        bannerArticles: state => state.articleList.bannerArticles,
+        noMoreData: state => state.articleList.noMoreData
+      }),
+      ...mapGetters({
+        documentMeta: 'DOCUMENT_META'
+      }),
+      categorysInfo: function () {
+        return this.allCategorysInfo.filter((category) => {
+          return category.category_type === 'articles';
+        });
+      }
     },
     methods: {
+      ...mapMutations({
+        clearArticlesBaseInfo: 'articleList/CLAER_ARTICLES_BASE_INFO'
+      }),
+      ...mapActions({
+        getArticlesBaseInfo: 'articleList/GET_ARTICLES_BASE_INFO'
+      }),
       browseMore() {
         console.log('browseMore');
         this.page++;
-        this.getArticleBaseInfo();
+        this.updateArticlesInfo();
       },
-      selectCategory(categoryId) {
-        this.top_category = categoryId;
-        this.noMoreData = false;
-        this.getArticleBaseInfo();
-      },
-      getDatas() {
-        this.getArticleBaseInfo();
-      },
-      getCategorys() {
-        API.getCategorys({
-          params: {
-            'level_min': 1,
-            'level_max': 1,
-            'id': 1
-          }
-        }).then((response) => {
-          this.categorys = response.data.results;
-        }).catch((error) => {
-          console.log(error);
-        });
-      },
-      getArticleBaseInfo() {
-        if (!this.noMoreData) {
-          // 排序条件
-          let orderings = [];
-          if (this.timeSorted) {
-            orderings.push('add_time');
+      updateArticlesInfo(reset) {
+        // 排序条件
+        let orderings = [];
+        if (this.timeSorted) {
+          orderings.push('add_time');
+        } else {
+          orderings.push('-add_time');
+        }
+        if (this.mostComment !== undefined) {
+          if (this.mostComment) {
+            orderings.push('comment_num');
           } else {
-            orderings.push('-add_time');
+            orderings.push('-comment_num');
           }
-          if (this.mostComment !== undefined) {
-            if (this.mostComment) {
-              orderings.push('comment_num');
-            } else {
-              orderings.push('-comment_num');
-            }
-          }
-          API.getArticleBaseInfo({
+        }
+        this.getArticlesBaseInfo({
+          params: {
             params: {
-              top_category: this.top_category,
+              top_category: this.selected_category,
               ordering: orderings.toString(),
-              is_recommend: false,
+              is_recommend: this.recommend,
               time_min: this.selectedDateRange[0],
               time_max: this.selectedDateRange[1],
               limit: this.limit_size,
               offset: this.page * this.limit_size
             }
-          }).then((response) => {
-            this.articles = response.data.results;
-            this.totalCount += response.data.results.length;
-            this.noMoreData = this.totalCount >= response.data.count;
-            this.$refs.browseMore.stopLoading(this.noMoreData);
-          }).catch((error) => {
-            console.log(error);
-          });
-        }
+          },
+          reset
+        }).then(response => {
+          this.$refs.browseMore.stopLoading();
+        }).catch(error => {
+          this.$refs.browseMore.stopLoading();
+          console.log(error);
+        });
+      },
+      selectCategory(categoryId) {
+        this.selected_category = categoryId;
+        this.page = 0;
+        this.updateArticlesInfo(true);
       },
       refresh() {
-        this.top_category = undefined;
         this.timeSorted = false;
         this.mostComment = undefined;
         this.recommend = undefined;
-        this.page = 0;
-        this.posts = {};
-        this.totalCount = 0;
-        this.noMoreData = false;
         this.selectedDateRange = [];
-        this.getDatas();
+        this.page = 0;
+        this.updateArticlesInfo(true);
       },
       menusControl(params) {
         switch (params[0]) {
@@ -205,33 +196,19 @@
         }
         // 清空原数据
         this.page = 0;
-        this.posts = {};
-        this.totalCount = 0;
-        this.noMoreData = false;
-        this.getDatas();
+        this.updateArticlesInfo(true);
       },
       dateSelect(dateRange) {
         this.selectedDateRange = dateRange;
         this.page = 0;
-        this.limit_size = MAX_LIMIT_SIZE;
-        this.posts = {};
-        this.totalCount = 0;
-        this.noMoreData = false;
-        this.getDatas();
+        this.limit_size = MaxLimitSize;
+        this.updateArticlesInfo(true);
       },
       dateSelectClear() {
         this.selectedDateRange = [];
         this.page = 0;
-        this.limit_size = DEFAULT_LIMIT_SIZE;
-        this.posts = {};
-        this.totalCount = 0;
-        this.noMoreData = false;
-        this.getDatas();
-      }
-    },
-    watch: {
-      selectedCategory: function () {
-        this.getDatas();
+        this.limit_size = DefaultLimitSize;
+        this.updateArticlesInfo(true);
       }
     },
     components: {

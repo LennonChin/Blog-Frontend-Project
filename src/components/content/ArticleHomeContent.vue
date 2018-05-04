@@ -73,11 +73,13 @@
         selectedDateRange: []
       };
     },
-    asyncData({store}) {
+    asyncData({store, route}) {
+      this.selected_category = route.params.id;
       return Promise.all([
         store.dispatch('articleHome/GET_ARTICLES_BASE_INFO', {
           params: {
             params: {
+              top_category: this.selected_category,
               ordering: '-add_time',
               limit: DefaultLimitSize
             }
@@ -96,7 +98,7 @@
         this.updateArticlesInfo({
           params: {
             params: {
-              selected_category: this.selected_category,
+              top_category: this.selected_category,
               ordering: '-add_time',
               limit: DefaultLimitSize
             }
@@ -148,7 +150,7 @@
         this.getArticlesBaseInfo({
           params: {
             params: {
-              selected_category: this.selected_category,
+              top_category: this.selected_category,
               ordering: orderings.toString(),
               is_recommend: this.recommend,
               time_min: this.selectedDateRange[0],
