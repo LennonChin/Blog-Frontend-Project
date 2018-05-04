@@ -53,7 +53,7 @@
     },
     mounted() {
       this.$nextTick(() => {
-        this.setDefaultCategory(this.defaultCategory);
+        this.setDefaultCategory(parseInt(this.defaultCategory));
       });
     },
     methods: {
@@ -142,11 +142,11 @@
     watch: {
       categorys: function (newCategorys) {
         if (newCategorys) {
-          this.setDefaultCategory(this.defaultCategory);
+          this.setDefaultCategory(parseInt(this.defaultCategory));
         }
       },
       defaultCategory: function (newDefaultCategory) {
-        this.setDefaultCategory(newDefaultCategory);
+        this.setDefaultCategory(parseInt(newDefaultCategory));
       },
       selectedRecursiveCategorys: function (newSelectedRecursiveCategorys) {
         // 更新样式

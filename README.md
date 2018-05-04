@@ -63,11 +63,11 @@ At present, the development of ordinary pages basically completed the developmen
 
 ## The next will be achieved
 
-1. Will consider implementing SSR server rendering. Due to the current backend Django Rest Framework, SSR support may be postponed.
-2. Access GitHub, WeChat, Weibo, Facebook and other third-party login comments.
-3. front-end page Markdown editor access Qiniu Cloud Storage to store pictures. (Completed)
-4. Optimize the details of the gallery display.
-5. Optimize packaging volume.
+- [ ]  Will consider implementing SSR server rendering. ~~Due to the current backend Django Rest Framework, SSR support may be postponed.~~ SSR support for some necessary pages is developing now.
+- [ ]  Access GitHub, WeChat, Weibo, Facebook and other third-party login comments.
+- [x] front-end page Markdown editor access Qiniu Cloud Storage to store pictures. (Completed)
+- [ ]  Optimize the details of the gallery display.
+- [ ]  Optimize packaging volume.
 
 ## How to use
 

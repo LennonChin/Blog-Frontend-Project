@@ -83,17 +83,16 @@
         })
       ]);
     },
-
     beforeRouteUpdate(to, from, next) {
       next();
-      this.selected_category = parseInt(this.$route.params.id);
+      this.selected_category = this.$route.params.id;
       this.refresh();
     },
     created() {
-      this.selected_category = parseInt(this.$route.params.id);
+      this.selected_category = this.$route.params.id;
     },
     mounted() {
-      if (Object.keys(this.$store.state.articleHome.articles).length === 0) {
+      if (this.$store.state.articleList.articles.length === 0) {
         console.log('non ssr');
         // 未SSR的情况
         this.updateArticlesInfo({
@@ -110,7 +109,6 @@
     computed: {
       ...mapState({
         articles: state => state.articleList.articles,
-        bannerArticles: state => state.articleList.bannerArticles,
         noMoreData: state => state.articleList.noMoreData
       }),
       ...mapGetters({
@@ -129,11 +127,6 @@
       ...mapActions({
         getArticlesBaseInfo: 'articleList/GET_ARTICLES_BASE_INFO'
       }),
-      browseMore() {
-        console.log('browseMore');
-        this.page++;
-        this.updateArticlesInfo();
-      },
       updateArticlesInfo(reset) {
         // 排序条件
         let orderings = [];
@@ -168,6 +161,11 @@
           this.$refs.browseMore.stopLoading();
           console.log(error);
         });
+      },
+      browseMore() {
+        console.log('browseMore');
+        this.page++;
+        this.updateArticlesInfo();
       },
       selectCategory(categoryId) {
         this.selected_category = categoryId;

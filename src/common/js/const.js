@@ -15,7 +15,7 @@ export const ResponsivePoint = {
 };
 
 // 默认请求数据时的limit size
-export const DefaultLimitSize = 1;
+export const DefaultLimitSize = 10;
 
 // 请求数据时的最大limit size
 export const MaxLimitSize = 100;

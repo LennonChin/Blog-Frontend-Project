@@ -7,54 +7,79 @@
 </template>
 
 <script type="text/ecmascript-6">
+  import {
+    mapState,
+    mapGetters,
+    mapMutations,
+    mapActions
+  } from 'vuex';
   import MovieRecomendListCell from '@/components/views/Movie/MovieRecomendListCell';
   import MovieRecentListCell from '@/components/views/Movie/MovieRecentListCell';
   import MovieListCell from '@/components/views/Movie/MovieListCell';
 
-  // API
-  import API from '@/api/client-api';
+  import {
+    DefaultLimitSize
+  } from '@/common/js/const';
 
   export default {
     name: 'movie-home-content',
     data() {
       return {
-        movies: undefined,
-        recommendMovies: [],
-        hotMovies: [],
-        otherMovies: []
+        selected_category: undefined
       };
     },
-    created() {
-      this.getDatas();
+    asyncData({store}) {
+      this.selected_category = 9;
+      return Promise.all([
+        store.dispatch('movieHome/GET_MOVIES_BASE_INFO', {
+          params: {
+            params: {
+              top_category: this.selected_category,
+              ordering: '-add_time',
+              limit: DefaultLimitSize
+            }
+          }
+        })
+      ]);
+    },
+    computed: {
+      ...mapState({
+        recommendMovies: state => state.movieHome.recommendMovies,
+        hotMovies: state => state.movieHome.hotMovies,
+        otherMovies: state => state.movieHome.otherMovies,
+        noMoreData: state => state.movieHome.noMoreData
+      }),
+      ...mapGetters({
+        documentMeta: 'DOCUMENT_META'
+      }),
+      categorysInfo: function () {
+        return this.allCategorysInfo.filter((category) => {
+          return category.category_type === 'movies';
+        });
+      }
+    },
+    mounted() {
+      if (this.$store.state.movieHome.movies.length === 0) {
+        console.log('non ssr');
+        // 未SSR的情况
+        this.getMoviesBaseInfo({
+          params: {
+            params: {
+              top_category: this.selected_category,
+              ordering: '-add_time',
+              limit: DefaultLimitSize
+            }
+          }
+        });
+      }
     },
     methods: {
-      getDatas() {
-        API.getMovieBaseInfo({
-          params: {
-            limit: 20
-          }
-        }).then((response) => {
-          this.movies = response.data.results;
-        }).catch((error) => {
-          console.log(error);
-        });
-      }
-    },
-    watch: {
-      movies: function (newMovies) {
-        this.$nextTick(() => {
-          let that = this;
-          newMovies.map(movie => {
-            if (movie.is_recommend && that.recommendMovies.length < 5) {
-              that.recommendMovies.push(movie);
-            } else if (movie.is_hot && that.hotMovies.length < 4) {
-              that.hotMovies.push(movie);
-            } else {
-              that.otherMovies.push(movie);
-            }
-          });
-        });
-      }
+      ...mapMutations({
+        clearMoviesBaseInfo: 'movieHome/CLAER_MOVIES_BASE_INFO'
+      }),
+      ...mapActions({
+        getMoviesBaseInfo: 'movieHome/GET_MOVIES_BASE_INFO'
+      })
     },
     components: {
       'movie-recomend-list-cell': MovieRecomendListCell,

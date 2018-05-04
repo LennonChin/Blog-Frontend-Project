@@ -73,8 +73,8 @@
         selectedDateRange: []
       };
     },
-    asyncData({store, route}) {
-      this.selected_category = route.params.id;
+    asyncData({store}) {
+      this.selected_category = 1;
       return Promise.all([
         store.dispatch('articleHome/GET_ARTICLES_BASE_INFO', {
           params: {
@@ -92,7 +92,7 @@
       this.selected_category = this.categorysInfo[0].id;
     },
     mounted() {
-      if (Object.keys(this.$store.state.articleHome.articles).length + Object.keys(this.$store.state.articleHome.bannerArticles).length === 0) {
+      if (this.$store.state.articleHome.articles.length + this.$store.state.articleHome.bannerArticles.length === 0) {
         console.log('non ssr');
         // 未SSR的情况
         this.updateArticlesInfo({
@@ -128,10 +128,6 @@
       ...mapActions({
         getArticlesBaseInfo: 'articleHome/GET_ARTICLES_BASE_INFO'
       }),
-      browseMore() {
-        this.page++;
-        this.updateArticlesInfo();
-      },
       updateArticlesInfo(reset) {
         // 排序条件
         let orderings = [];
@@ -166,6 +162,10 @@
           this.$refs.browseMore.stopLoading();
           console.log(error);
         });
+      },
+      browseMore() {
+        this.page++;
+        this.updateArticlesInfo();
       },
       selectCategory(categoryId) {
         this.page = 0;

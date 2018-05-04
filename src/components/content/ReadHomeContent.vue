@@ -37,6 +37,12 @@
 </template>
 
 <script type="text/ecmascript-6">
+  import {
+    mapState,
+    mapGetters,
+    mapMutations,
+    mapActions
+  } from 'vuex';
   import BookReadingCell from '@/components/views/Book/BookReadingCell';
   import ClassifyMenu from '@/components/views/Classify/ClassifyMenu';
   import BookCell from '@/components/views/Book/BookCell';
@@ -45,40 +51,83 @@
   import Recommend from '@/components/views/Recommend';
   import TagWall from '@/components/views/TagWall';
 
-  // API
-  import API from '@/api/client-api';
-
-  const DEFAULT_LIMIT_SIZE = 10;
-  // const MAX_LIMIT_SIZE = 100;
+  import {
+    DefaultLimitSize,
+    SectionTitleDefaultMenus
+  } from '@/common/js/const';
 
   export default {
     name: 'read-home-content',
     data() {
       return {
-        books: [],
-        bookNotes: [],
-        readingBooks: [],
         selected_category: undefined,
-        categorys: undefined,
         timeSorted: false,
         mostComment: undefined,
         recommend: undefined,
-        limit_size: DEFAULT_LIMIT_SIZE,
-        menus: [
-          {title: '顺序', selectedTitle: '逆序', selected: true, method: 'timeSorted'},
-          {title: '评论最多', selected: false, method: 'mostComment'},
-          {title: '推荐', selected: false, method: 'recommend'}
-        ]
+        limit_size: DefaultLimitSize,
+        menus: SectionTitleDefaultMenus
       };
+    },
+    asyncData({store}) {
+      this.selected_category = 2;
+      return Promise.all([
+        store.dispatch('readHome/GET_BOOKS_BASE_INFO', {
+          params: {
+            params: {
+              top_category: this.selected_category,
+              ordering: '-add_time',
+              limit: DefaultLimitSize
+            }
+          }
+        }),
+        store.dispatch('readHome/GET_BOOKNOTES_BASE_INFO', {
+          params: {
+            params: {
+              top_category: this.selected_category,
+              ordering: '-add_time',
+              limit: DefaultLimitSize
+            }
+          }
+        })
+      ]);
     },
     created() {
       // 设置默认的分类id
       this.selected_category = this.categorysInfo[0].id;
-      this.getCategorys();
-      this.getBookBaseInfo();
-      this.getBookNoteBaseInfo();
+    },
+    mounted() {
+      if (this.$store.state.readHome.books.length + this.$store.state.readHome.bookNotes.length === 0) {
+        console.log('non ssr');
+        // 未SSR的情况
+        this.updateBooksInfo({
+          params: {
+            params: {
+              top_category: this.selected_category,
+              ordering: '-add_time',
+              limit: DefaultLimitSize
+            }
+          }
+        }, false);
+        this.updateBookNotesInfo({
+          params: {
+            params: {
+              top_category: this.selected_category,
+              ordering: '-add_time',
+              limit: DefaultLimitSize
+            }
+          }
+        }, false);
+      }
     },
     computed: {
+      ...mapState({
+        books: state => state.readHome.books,
+        bookNotes: state => state.readHome.bookNotes,
+        readingBooks: state => state.readHome.readingBooks
+      }),
+      ...mapGetters({
+        documentMeta: 'DOCUMENT_META'
+      }),
       categorysInfo: function() {
         return this.allCategorysInfo.filter((category) => {
           return category.category_type === 'readings';
@@ -86,94 +135,71 @@
       }
     },
     methods: {
-      getCategorys() {
-        API.getCategorys({
+      ...mapMutations({
+        clearReadInfo: 'readHome/CLAER_READ_INFO'
+      }),
+      ...mapActions({
+        getBooksBaseInfo: 'readHome/GET_BOOKS_BASE_INFO',
+        getBookNotesBaseInfo: 'readHome/GET_BOOKNOTES_BASE_INFO'
+      }),
+      updateBooksInfo(reset) {
+        // 排序条件
+        let orderings = [];
+        if (this.timeSorted) {
+          orderings.push('add_time');
+        } else {
+          orderings.push('-add_time');
+        }
+        if (this.mostComment !== undefined) {
+          if (this.mostComment) {
+            orderings.push('comment_num');
+          } else {
+            orderings.push('-comment_num');
+          }
+        }
+        this.getBooksBaseInfo({
           params: {
-            'level_min': 1,
-            'level_max': 1,
-            'id': this.allCategorysInfo.filter(category => {
-              return category.category_type === 'readings';
-            })[0].id
-          }
-        }).then((response) => {
-          this.categorys = response.data.results;
-        }).catch((error) => {
-          console.log(error);
-        });
-      },
-      getBookBaseInfo() {
-        if (!this.noMoreData) {
-          // 排序条件
-          let orderings = [];
-          if (this.timeSorted) {
-            orderings.push('add_time');
-          } else {
-            orderings.push('-add_time');
-          }
-          if (this.mostComment !== undefined) {
-            if (this.mostComment) {
-              orderings.push('comment_num');
-            } else {
-              orderings.push('-comment_num');
-            }
-          }
-          API.getBookBaseInfo({
             params: {
               ordering: orderings.toString(),
               is_recommend: this.recommend,
               is_banner: false,
               limit: this.limit_size
             }
-          }).then((response) => {
-            this.reduceBooks(response.data.results);
-          }).catch((error) => {
-            console.log(error);
-          });
-        }
-      },
-      reduceBooks(books) {
-        books.map((book) => {
-          if (book.is_reading) {
-            this.readingBooks.push(book);
-          } else {
-            this.books.push(book);
-          }
+          },
+          reset
         });
       },
-      getBookNoteBaseInfo() {
-        if (!this.noMoreData) {
-          // 排序条件
-          let orderings = [];
-          if (this.timeSorted) {
-            orderings.push('add_time');
+      updateBookNotesInfo(reset) {
+        // 排序条件
+        let orderings = [];
+        if (this.timeSorted) {
+          orderings.push('add_time');
+        } else {
+          orderings.push('-add_time');
+        }
+        if (this.mostComment !== undefined) {
+          if (this.mostComment) {
+            orderings.push('comment_num');
           } else {
-            orderings.push('-add_time');
+            orderings.push('-comment_num');
           }
-          if (this.mostComment !== undefined) {
-            if (this.mostComment) {
-              orderings.push('comment_num');
-            } else {
-              orderings.push('-comment_num');
-            }
-          }
-          API.getBookNoteBaseInfo({
+        }
+        this.getBookNotesBaseInfo({
+          params: {
             params: {
               ordering: orderings.toString(),
               is_recommend: this.recommend,
               is_banner: false,
               limit: this.limit_size
             }
-          }).then((response) => {
-            this.bookNotes = this.bookNotes.concat(response.data.results);
-          }).catch((error) => {
-            console.log(error);
-          });
-        }
+          },
+          reset
+        });
       },
       selectCategory(categoryId) {
-        this.page = 0;
         this.selected_category = categoryId;
-        this.updateArticlesInfo(true);
+        this.updateBooksInfo(true);
+        this.updateBookNotesInfo(true);
       },
       viewBookList() {
         alert('booklist');
@@ -185,9 +211,8 @@
         this.timeSorted = false;
         this.mostComment = undefined;
         this.recommend = undefined;
-        this.books = [];
-        this.readingBook = [];
-        this.getBookBaseInfo();
+        this.updateBooksInfo(true);
+        this.updateBookNotesInfo(true);
       },
       menusControl(params) {
         switch (params[0]) {
@@ -202,9 +227,8 @@
             break;
         }
         // 清空原数据
-        this.books = [];
-        this.readingBook = [];
-        this.getBookBaseInfo();
+        this.updateBooksInfo(true);
+        this.updateBookNotesInfo(true);
       }
     },
     components: {
