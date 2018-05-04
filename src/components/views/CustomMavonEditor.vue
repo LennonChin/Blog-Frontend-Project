@@ -34,17 +34,22 @@
         <!--</i-col>-->
       </i-row>
     </div>
-    <mavon-editor v-model="origin_content"
-                  v-if="showEditor"
-                  class="editor-area" style="height: 100%; min-height: 50px; min-width: 200px; z-index: 1000;"
-                  :editable="post.is_commentable"
-                  :toolbarsFlag="toolbarsFlag"
-                  :subfield="subfield"
-                  :placeholder="placeholderText"
-                  :toolbars="toolbars"
-                  @change="change"
-                  @imgAdd="addImage"
-                  ref="mavonEditor"></mavon-editor>
+    <div class="editor-area">
+      <i-spin size="large" v-if="!post.is_commentable" fix style="z-index: 1001;">
+        {{ post.is_commentable ? '' : '本文章已经关闭了评论功能' }}
+      </i-spin>
+      <mavon-editor v-model="origin_content"
+                    v-if="showEditor"
+                    style="height: 100%; min-height: 50px; min-width: 200px; z-index: 1000;"
+                    :editable="post.is_commentable"
+                    :toolbarsFlag="toolbarsFlag"
+                    :subfield="subfield"
+                    :placeholder="placeholder"
+                    :toolbars="toolbars"
+                    @change="change"
+                    @imgAdd="addImage"
+                    ref="mavonEditor"></mavon-editor>
+    </div>
     <div class="bottom-area">
       <div class="comment-tip">
         <a href="https://guides.github.com/features/mastering-markdown/" target="_blank">
@@ -56,7 +61,7 @@
         <!--<img src="../../assets/captcha.png" style="height: 32px; padding-right: 5px">-->
         <!--<i-input style="padding-right: 5px" placeholder="请输入验证码"></i-input>-->
         <!--<i-button size="default" @click="send" :type="buttonType">发布</i-button>-->
-        <i-button size="default" :type="buttonType" :loading="publishing" @click="send">
+        <i-button size="default" :type="buttonType" :loading="publishing" @click="send" :disabled="!post.is_commentable">
           <span v-if="!publishing">发布</span>
           <span v-else>发布中</span>
         </i-button>
@@ -147,9 +152,6 @@
     computed: {
       buttonType: function () {
         return this.theme === 'dark-theme' ? 'warning' : 'primary';
-      },
-      placeholderText: function () {
-        return this.post.is_commentable ? this.placeholder : '本文章已经关闭了评论功能';
       }
     },
     methods: {
@@ -435,10 +437,9 @@
 </script>
 
 <style lang="stylus" type="text/stylus" rel="stylesheet/stylus">
-  @import "../../common/stylus/base.styl";
-  @import "../../common/stylus/theme.styl";
 
   #mavon-editor
+    position relative
     height 100%
     width 100%
     display flex
@@ -455,8 +456,12 @@
         &:hover
           cursor pointer
     .editor-area
+      position relative
       flex 1
-      padding 0 2px
+      padding 2px
+      height 100%
+      min-height 50px
+      min-width 200px
     .bottom-area
       display flex
       padding-top 15px

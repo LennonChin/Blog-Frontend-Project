@@ -139,7 +139,9 @@
           params: {
             'level_min': 1,
             'level_max': 1,
-            'id': this.$Window.__category_info__.reading
+            'id': this.allCategorysInfo.filter(category => {
+              return category.category_type === 'readings';
+            })[0].id
           }
         }).then((response) => {
           this.categorys = response.data.results;

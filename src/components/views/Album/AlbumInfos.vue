@@ -80,7 +80,6 @@
 </script>
 
 <style lang="stylus" type="text/stylus" rel="stylesheet/stylus">
-  @import "../../../common/stylus/index.styl";
   @import "../../../common/stylus/theme.styl";
 
   .album-infos

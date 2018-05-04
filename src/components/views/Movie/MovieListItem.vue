@@ -58,6 +58,7 @@
       width: 100%
       height: 0
       overflow hidden
+      border 1px solid $color-border
       img
         width 100%
         transition: All 0.4s ease-in-out

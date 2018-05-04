@@ -50,7 +50,6 @@
 </script>
 
 <style lang="stylus" type="text/stylus" rel="stylesheet/stylus">
-  @import "../../../common/stylus/index.styl";
 
   .article-page-header
     text-align left

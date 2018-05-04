@@ -51,6 +51,11 @@
         selectedRecursiveCategorys: []
       };
     },
+    mounted() {
+      this.$nextTick(() => {
+        this.setDefaultCategory(parseInt(this.defaultCategory));
+      });
+    },
     methods: {
       choseLevel(category, event) {
         // 更新子菜单
@@ -137,11 +142,11 @@
     watch: {
       categorys: function (newCategorys) {
         if (newCategorys) {
-          this.setDefaultCategory(this.defaultCategory);
+          this.setDefaultCategory(parseInt(this.defaultCategory));
         }
       },
       defaultCategory: function (newDefaultCategory) {
-        this.setDefaultCategory(newDefaultCategory);
+        this.setDefaultCategory(parseInt(newDefaultCategory));
       },
       selectedRecursiveCategorys: function (newSelectedRecursiveCategorys) {
         // 更新样式
@@ -176,13 +181,12 @@
 </script>
 
 <style lang="stylus" type="text/stylus" rel="stylesheet/stylus">
-  @import "../../../common/stylus/index.styl";
   @import "../../../common/stylus/theme.styl";
 
   .classify-bar
     .level
       display flex
-      padding 10px
+      padding 10px 0
       font-size 15px
       line-height 22px
       border-bottom 1px solid $color-border

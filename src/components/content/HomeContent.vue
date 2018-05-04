@@ -3,9 +3,10 @@
     <i-row>
       <i-col :xs="24" :sm="24" :md="24" :lg="17">
         <div class="layout-left">
-          <section-title v-if="this.specialCategory(1) !== undefined && articles.length > 0"
-                         :mainTitle="this.specialCategory(1).name"
-                         :subTitle="this.specialCategory(1).subname"
+          <!-- 文章 -->
+          <section-title v-if="this.specialCategory('articles') !== undefined && articles.length > 0"
+                         :mainTitle="this.specialCategory('articles').name"
+                         :subTitle="this.specialCategory('articles').subname"
                          :menus="articlesTitleMenus"
                          :withRefresh="true"
                          :withTimeSelect="false"
@@ -13,9 +14,10 @@
                          @menusControl="artclesMenusControl">
           </section-title>
           <article-list-cell v-for="article in articles" :article="article" :key="article.id"></article-list-cell>
-          <section-title v-if="this.specialCategory(3) !== undefined && albums.length > 0"
-                         :mainTitle="this.specialCategory(3).name"
-                         :subTitle="this.specialCategory(3).subname"
+          <!-- 图集 -->
+          <section-title v-if="this.specialCategory('albums') !== undefined && albums.length > 0"
+                         :mainTitle="this.specialCategory('albums').name"
+                         :subTitle="this.specialCategory('albums').subname"
                          :menus="albumsTitleMenus"
                          :withRefresh="true"
                          :withTimeSelect="false"
@@ -29,9 +31,10 @@
               </i-col>
             </i-row>
           </div>
-          <section-title v-if="this.specialCategory(2) !== undefined && books.length > 0"
-                         :mainTitle="this.specialCategory(2).name"
-                         :subTitle="this.specialCategory(2).subname"
+          <!-- 图书 -->
+          <section-title v-if="this.specialCategory('readings') !== undefined && books.length > 0"
+                         :mainTitle="this.specialCategory('readings').name"
+                         :subTitle="this.specialCategory('readings').subname"
                          :menus="booksTitleMenus"
                          :withRefresh="true"
                          :withTimeSelect="false"
@@ -41,9 +44,10 @@
           <div class="books">
             <book-cell :book="book" v-for="book in books" :key="book.id"></book-cell>
           </div>
-          <section-title v-if="this.specialCategory(2) !== undefined && bookNotes.length > 0"
-                         :mainTitle="this.specialCategory(2).name + '笔记'"
-                         :subTitle="this.specialCategory(2).subname"
+          <!-- 阅读笔记 -->
+          <section-title v-if="this.specialCategory('readings') !== undefined && bookNotes.length > 0"
+                         :mainTitle="this.specialCategory('readings').name + '笔记'"
+                         :subTitle="this.specialCategory('readings').subname + ' Note'"
                          :menus="bookNotesTitleMenus"
                          :withRefresh="true"
                          :withTimeSelect="false"
@@ -53,9 +57,10 @@
           <div class="bookNotes">
             <book-note-cell :bookNote="bookNote" v-for="bookNote in bookNotes" :key="bookNote.id"></book-note-cell>
           </div>
-          <section-title v-if="this.specialCategory(9) !== undefined && movies.length > 0"
-                         :mainTitle="this.specialCategory(9).name"
-                         :subTitle="this.specialCategory(9).subname"
+          <!-- 电影 -->
+          <section-title v-if="this.specialCategory('movies') !== undefined && movies.length > 0"
+                         :mainTitle="this.specialCategory('movies').name"
+                         :subTitle="this.specialCategory('movies').subname"
                          :menus="moviesTitleMenus"
                          :withRefresh="true"
                          :withTimeSelect="false"
@@ -380,10 +385,9 @@
           }
         });
       },
-      specialCategory(id) {
-        if (this.categorys.length === 0) return undefined;
-        return this.categorys.filter((category) => {
-          return category.id === id;
+      specialCategory(name) {
+        return this.allCategorysInfo.filter((category) => {
+          return category.category_type === name;
         })[0];
       },
       artclesMenusControl(params) {

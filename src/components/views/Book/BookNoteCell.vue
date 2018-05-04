@@ -38,7 +38,7 @@
         </i-col>
       </i-row>
       <a class="toggle-arrow" @click="toggleBookInfo" :class="{show: showBookInfo}">
-        {{ this.showBookInfo ? '隐藏书籍信息' : '查看书籍信息' }}：《{{ bookNote.book.book_name }}》 &nbsp;<i-icon type="chevron-up" :class="{show: showBookInfo}"></i-icon>
+        {{ this.showBookInfo ? '隐藏' : '查看' }}书籍《{{ bookNote.book.book_name }}》信息 &nbsp;<i-icon type="chevron-up" :class="{show: showBookInfo}"></i-icon>
       </a>
       <a class="book-infos" :class="{show: showBookInfo}" @click="gotoPostDetail(bookNote.book)">
         <div class="img">
@@ -166,8 +166,7 @@
 </script>
 
 <style lang="stylus" type="text/stylus" rel="stylesheet/stylus">
-  @import "../../../common/stylus/base.styl";
-  @import "../../../common/stylus/index.styl";
+  @import "../../../common/stylus/theme.styl";
 
   .book-note-cell
     margin-bottom 10px
@@ -243,8 +242,8 @@
       .toggle-arrow
         display block
         text-align center
-        background-color rgba(240, 240, 240, 0.3)
-        padding 5px 0
+        background-color rgba(240, 240, 240, 0.7)
+        padding 10px 0
         > i
           transition: All 0.4s ease-in-out
           transform rotateX(180deg)

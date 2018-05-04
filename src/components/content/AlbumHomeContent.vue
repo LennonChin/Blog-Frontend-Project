@@ -3,17 +3,19 @@
     <div class="banner">
       <div class="bracket"></div>
       <div class="target">
-        <swiper :options="swiperOption" class="gallery" ref="swiperTop">
-          <swiper-slide class="row" v-for="banner in banners" :key="banner.id">
-            <a :href="banner.url">
-              <img width="100%" :data-src="banner.image" alt="" class="swiper-lazy">
-              <div class="swiper-lazy-preloader swiper-lazy-preloader-white"></div>
-            </a>
-          </swiper-slide>
+        <div v-swiper="swiperOption" :instanceName="'swiper'" class="gallery">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide row" v-for="banner in banners" :key="banner.id">
+              <a :href="banner.url">
+                <img width="100%" :data-src="banner.image" alt="" class="swiper-lazy">
+                <div class="swiper-lazy-preloader swiper-lazy-preloader-white"></div>
+              </a>
+            </div>
+          </div>
           <div class="swiper-pagination" slot="pagination"></div>
           <div class="swiper-button-prev" slot="button-prev"></div>
           <div class="swiper-button-next" slot="button-next"></div>
-        </swiper>
+        </div>
       </div>
     </div>
     <classify-wall @selectCategory="selectCategory" :categorys="categorys"></classify-wall>
@@ -30,17 +32,21 @@
 </template>
 
 <script type="text/ecmascript-6">
+  import Vue from 'vue';
   import ClassifyWall from '@/components/views/Classify/ClassifyWall';
   import SectionTitle from '@/components/views/SectionTitle';
   import ThumbCard from '@/components/views/ThumbCard';
   import BrowseMore from '@/components/views/BrowseMore';
-  // swiper
-  import 'swiper/dist/css/swiper.css';
-  import {swiper, swiperSlide} from 'vue-awesome-swiper';
   import {checkPostAuth} from '@/common/js/utils';
 
   // API
   import API from '@/api/client-api';
+
+  // swiper
+  if (process.browser) {
+    require('swiper/dist/css/swiper.css');
+    Vue.use(require('vue-awesome-swiper/dist/ssr'));
+  }
 
   const DEFAULT_LIMIT_SIZE = 6;
 
@@ -167,9 +173,7 @@
       'classify-wall': ClassifyWall,
       'section-title': SectionTitle,
       'thumb-card': ThumbCard,
-      'browse-more': BrowseMore,
-      'swiper': swiper,
-      'swiperSlide': swiperSlide
+      'browse-more': BrowseMore
     }
   };
 </script>

@@ -12,7 +12,7 @@
     "build:server": "cross-env NODE_ENV=production && webpack --config build/webpack.server.conf.js",
     "build": "npm run clean && npm run build:client && npm run build:server",
     "start": "cross-env NODE_ENV=production && node server/server.js",
-    "clean": "rimraf public && rimraf server-build",
+    "clean": "rimraf dist && rimraf server-build",
     "lint": "eslint --ext .js,.vue src",
     "analyz": "cross-env NODE_ENV=production && cross-env npm_config_report=true && npm run build"
   },
