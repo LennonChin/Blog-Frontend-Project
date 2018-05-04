@@ -60,19 +60,6 @@ export default {
           reject(error);
         });
       });
-    },
-    RESET_TIMELINE_INFO({state, commit}, params) {
-      return new Promise((resolve, reject) => {
-        API.getPostBaseInfo(params).then((response) => {
-          // 重置timeline，先删除原有数据
-          commit('CLAER_TIMELINE_INFO');
-          commit('UPDATE_TIMELINE_INFO', response.data);
-          resolve(response);
-        }).catch((error) => {
-          handleError(error);
-          reject(error);
-        });
-      });
     }
   }
 };

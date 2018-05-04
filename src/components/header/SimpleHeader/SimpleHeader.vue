@@ -74,8 +74,7 @@
     },
     computed: {
       ...mapState({
-        siteInfo: state => state.base.siteInfo,
-        allCategorysInfo: state => state.base.allCategorysInfo
+        siteInfo: state => state.base.siteInfo
       })
     },
     methods: {

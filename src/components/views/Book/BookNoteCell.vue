@@ -166,8 +166,7 @@
 </script>
 
 <style lang="stylus" type="text/stylus" rel="stylesheet/stylus">
-  @import "../../../common/stylus/base.styl";
-  @import "../../../common/stylus/index.styl";
+  @import "../../../common/stylus/theme.styl";
 
   .book-note-cell
     margin-bottom 10px

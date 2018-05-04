@@ -72,7 +72,6 @@
 </script>
 
 <style lang="stylus" type="text/stylus" rel="stylesheet/stylus">
-  @import "../../common/stylus/index.styl";
 
   .thumb-card
     margin 0 20px 40px 20px

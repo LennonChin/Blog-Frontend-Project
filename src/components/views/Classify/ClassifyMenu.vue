@@ -51,6 +51,11 @@
         selectedRecursiveCategorys: []
       };
     },
+    mounted() {
+      this.$nextTick(() => {
+        this.setDefaultCategory(this.defaultCategory);
+      });
+    },
     methods: {
       choseLevel(category, event) {
         // 更新子菜单
@@ -176,7 +181,6 @@
 </script>
 
 <style lang="stylus" type="text/stylus" rel="stylesheet/stylus">
-  @import "../../../common/stylus/index.styl";
   @import "../../../common/stylus/theme.styl";
 
   .classify-bar

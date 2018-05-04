@@ -149,8 +149,7 @@
     computed: {
       ...mapState({
         timeline: state => state.timeline.timeline,
-        noMoreData: state => state.timeline.noMoreData,
-        allCategorysInfo: state => state.base.allCategorysInfo
+        noMoreData: state => state.timeline.noMoreData
       }),
       ...mapGetters({
         documentMeta: 'DOCUMENT_META'

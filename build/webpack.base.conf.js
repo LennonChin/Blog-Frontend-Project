@@ -50,7 +50,7 @@ module.exports = {
         loader: 'babel-loader',
         include: [resolve('src'), resolve('test')],
         query: {
-          "presets": ["es2015"]
+          "presets": ["env"]
         }
       },
       {

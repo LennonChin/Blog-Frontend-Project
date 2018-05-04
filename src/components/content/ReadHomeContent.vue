@@ -4,6 +4,8 @@
       <i-col :xs="24" :sm="24" :md="24" :lg="17">
         <div class="layout-left">
           <book-reading-cell v-for="book in readingBooks" :key="book.id" :book="book"></book-reading-cell>
+          <classify-menu :categorys="categorysInfo" @selectCategory="selectCategory"
+                         :defaultCategory="top_category"></classify-menu>
           <section-title :mainTitle="'图书列表'"
                          :subTitle="'Books'"
                          :menus="menus"
@@ -36,6 +38,7 @@
 
 <script type="text/ecmascript-6">
   import BookReadingCell from '@/components/views/Book/BookReadingCell';
+  import ClassifyMenu from '@/components/views/Classify/ClassifyMenu';
   import BookCell from '@/components/views/Book/BookCell';
   import BookNoteCell from '@/components/views/Book/BookNoteCell';
   import SectionTitle from '@/components/views/SectionTitle';
@@ -71,6 +74,13 @@
       this.getCategorys();
       this.getBookBaseInfo();
       this.getBookNoteBaseInfo();
+    },
+    computed: {
+      categorysInfo: function() {
+        return this.allCategorysInfo.filter((category) => {
+          return category.category_type === 'articles';
+        });
+      }
     },
     methods: {
       getCategorys() {
@@ -191,6 +201,7 @@
     },
     components: {
       'book-reading-cell': BookReadingCell,
+      'classify-menu': ClassifyMenu,
       'book-cell': BookCell,
       'book-note-cell': BookNoteCell,
       'section-title': SectionTitle,
