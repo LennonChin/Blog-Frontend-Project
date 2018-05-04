@@ -12,8 +12,12 @@
             </div>
           </div>
           <div class="swiper-pagination" slot="pagination"></div>
-          <div class="swiper-button-prev" slot="button-prev"></div>
-          <div class="swiper-button-next" slot="button-next"></div>
+          <div class="swiper-button-prev" slot="button-prev">
+            <i-icon type="ios-arrow-left"></i-icon>
+          </div>
+          <div class="swiper-button-next" slot="button-next">
+            <i-icon type="ios-arrow-right"></i-icon>
+          </div>
         </div>
       </i-col>
       <i-col :xs="0" :sm="0" :md="0" :lg="7" class="col">
@@ -135,4 +139,14 @@
           font-weight 300
           line-height 20px
           margin-bottom 10px
+      .swiper-pagination-bullet
+        background $color-gradually-gray-91
+      .swiper-pagination-bullet-active
+        background white
+      .swiper-button-prev, .swiper-button-next
+        text-align center
+        background-image none
+        color white
+        > i
+          font-size 45px
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div class="about" v-if="bloggerInfo != undefined">
+  <div class="about" v-if="Object.keys(bloggerInfo).length !== 0">
     <img class="background" :src="bloggerInfo.background" alt="">
     <img class="avatar" :src="bloggerInfo.avatar" alt="">
     <p class="name">{{ bloggerInfo.name_en }}</p>
@@ -36,7 +36,7 @@
       ]);
     },
     mounted() {
-      if (!this.$store.state.base.bloggerInfo) this.getBloggerInfo();
+      if (Object.keys(this.$store.state.base.bloggerInfo).length === 0) this.getBloggerInfo();
     },
     computed: {
       ...mapState({
