@@ -1,5 +1,5 @@
 <template>
-  <div class="side-toc">
+  <div class="side-toc hide-scrollbar">
     <panel :title="'目录'">
       <div class="list" slot="content" ref="list" id="side-toc">
       </div>
