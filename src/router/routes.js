@@ -1,26 +1,26 @@
-const Index = () => System.import('@/components/index/Index');
+const Index = () => System.import(/* webpackChunkName: "Index" */ '@/components/index/Index');
 // 公共区域
-const SimpleHeader = () => System.import('@/components/header/SimpleHeader/SimpleHeader');
-const CommonFooter = () => System.import('@/components/footer/CommonFooter');
+const SimpleHeader = () => System.import(/* webpackChunkName: "SimpleHeader" */ '@/components/header/SimpleHeader/SimpleHeader');
+const CommonFooter = () => System.import(/* webpackChunkName: "CommonFooter" */ '@/components/footer/CommonFooter');
 
 // 首页
-const HomeContent = () => System.import('@/components/content/HomeContent');
-const ArticleContent = () => System.import('@/components/content/ArticleContent');
-const ArticleHomeContent = () => System.import('@/components/content/ArticleHomeContent');
-const ArticleListContent = () => System.import('@/components/content/ArticleListContent');
-const AlbumHomeContent = () => System.import('@/components/content/AlbumHomeContent');
-const AlbumListContent = () => System.import('@/components/content/AlbumListContent');
-const MovieContent = () => System.import('@/components/content/MovieContent');
-const MovieHomeContent = () => System.import('@/components/content/MovieHomeContent');
-const MovieListContent = () => System.import('@/components/content/MovieListContent');
-const AlbumPreviewContent = () => System.import('@/components/content/AlbumPreviewContent');
-const TimeLineContent = () => System.import('@/components/content/TimeLineContent');
-const ReadHomeContent = () => System.import('@/components/content/ReadHomeContent');
-const ReadListContent = () => System.import('@/components/content/ReadListContent');
-const BookContent = () => System.import('@/components/content/BookContent');
-const BookListContent = () => System.import('@/components/content/BookListContent');
-const BookNoteContent = () => System.import('@/components/content/BookNoteContent');
-const BookNoteListContent = () => System.import('@/components/content/BookNoteListContent');
+const HomeContent = () => System.import(/* webpackChunkName: "HomeContent" */ '@/components/content/HomeContent');
+const ArticleContent = () => System.import(/* webpackChunkName: "ArticleContent" */ '@/components/content/ArticleContent');
+const ArticleHomeContent = () => System.import(/* webpackChunkName: "ArticleHomeContent" */ '@/components/content/ArticleHomeContent');
+const ArticleListContent = () => System.import(/* webpackChunkName: "ArticleListContent" */ '@/components/content/ArticleListContent');
+const AlbumHomeContent = () => System.import(/* webpackChunkName: "AlbumHomeContent" */ '@/components/content/AlbumHomeContent');
+const AlbumListContent = () => System.import(/* webpackChunkName: "AlbumListContent" */ '@/components/content/AlbumListContent');
+const MovieContent = () => System.import(/* webpackChunkName: "MovieContent" */ '@/components/content/MovieContent');
+const MovieHomeContent = () => System.import(/* webpackChunkName: "MovieHomeContent" */ '@/components/content/MovieHomeContent');
+const MovieListContent = () => System.import(/* webpackChunkName: "MovieListContent" */ '@/components/content/MovieListContent');
+const AlbumPreviewContent = () => System.import(/* webpackChunkName: "AlbumPreviewContent" */ '@/components/content/AlbumPreviewContent');
+const TimeLineContent = () => System.import(/* webpackChunkName: "TimeLineContent" */ '@/components/content/TimeLineContent');
+const ReadHomeContent = () => System.import(/* webpackChunkName: "ReadHomeContent" */ '@/components/content/ReadHomeContent');
+const ReadListContent = () => System.import(/* webpackChunkName: "ReadListContent" */ '@/components/content/ReadListContent');
+const BookContent = () => System.import(/* webpackChunkName: "BookContent" */ '@/components/content/BookContent');
+const BookListContent = () => System.import(/* webpackChunkName: "BookListContent" */ '@/components/content/BookListContent');
+const BookNoteContent = () => System.import(/* webpackChunkName: "BookNoteContent" */ '@/components/content/BookNoteContent');
+const BookNoteListContent = () => System.import(/* webpackChunkName: "BookNoteListContent" */ '@/components/content/BookNoteListContent');
 
 export default [
   {

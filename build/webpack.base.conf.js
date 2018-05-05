@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 const path = require('path');
 const utils = require('./utils');
 const config = require('../config');
@@ -43,7 +43,7 @@ module.exports = {
       {
         test: /\.vue$/,
         loader: 'vue-loader',
-        options: vueLoaderConfig // vue-loader中已经处理了CSS相关的loader
+        options: vueLoaderConfig
       },
       {
         test: /\.js$/,

@@ -25,7 +25,7 @@ const webpackConfig = merge(baseWebpackConfig, {
     path: config.build.assetsRoot,
     filename: utils.assetsPath('js/[name].[chunkhash].js'),
     chunkFilename: utils.assetsPath('js/[id].[chunkhash].js'),
-    publicPath: '/dist/'
+    publicPath: `${config.build.qiniuConfigs.host}/${config.build.qiniuConfigs.assetsPrefix}/`
   },
   // externals: [
   //   {
@@ -99,7 +99,8 @@ const webpackConfig = merge(baseWebpackConfig, {
         drop_console: true
       },
       sourceMap: false
-    })
+    }),
+    new webpack.NamedChunksPlugin()
   ],
   resolve: {
     alias: {
