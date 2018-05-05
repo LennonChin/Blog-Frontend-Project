@@ -1,0 +1,7 @@
+apps:
+  - script: ./server/server.js
+    name: Blog-Fronted
+    env_production:
+      NODE_ENV: production
+      HOST: localhost
+      PORT: 8001
