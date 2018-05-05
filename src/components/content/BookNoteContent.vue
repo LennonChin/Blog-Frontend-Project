@@ -44,7 +44,7 @@
   import About from '@/components/views/About';
   import SideToc from '@/components/views/SideToc';
   import Recommend from '@/components/views/Recommend';
-  import BookInfo from '@/components/views/book/BookInfo';
+  import BookInfo from '@/components/views/Book/BookInfo';
   // highlight.js引入
   import hljs from '@/common/js/highlight.pack';
   // 样式文件
