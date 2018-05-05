@@ -13,7 +13,9 @@
                 <div class="detail" v-if="movie !== undefined" v-for="detail in movie.details">
                   <article class="typo container article-main-content" v-html="detail.formatted_content">
                   </article>
-                  <div class="detail-footer">Append At / {{ detail.add_time | socialDate }} &nbsp;&nbsp;&nbsp; Update At / {{ detail.update_time | socialDate }}</div>
+                  <div class="detail-footer">Append At / {{ detail.add_time | socialDate
+                    }} &nbsp;&nbsp;&nbsp; Update At / {{ detail.update_time | socialDate }}
+                  </div>
                 </div>
               </div>
             </movie-page-content>

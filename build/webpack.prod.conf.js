@@ -1,5 +1,6 @@
 'use strict';
 const path = require('path');
+const chalk = require('chalk');
 const utils = require('./utils');
 const webpack = require('webpack');
 const config = require('../config');
@@ -124,7 +125,9 @@ if (config.build.productionGzip) {
   )
 }
 
+// 打包分析插件
 if (config.build.bundleAnalyzerReport) {
+  console.log(chalk.yellow('Loading and Opened Bundle Analyzer'));
   const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
   webpackConfig.plugins.push(new BundleAnalyzerPlugin())
 }

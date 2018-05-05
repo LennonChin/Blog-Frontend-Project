@@ -49,7 +49,11 @@ export default {
 
   // 获取友情链接
   getFriendLinks(params) {
-    return handleRequest(request.get(`/friendlinks/`));
+    if ('id' in params) {
+      return handleRequest(request.get(`/friendlinks/${params.id}/`, params));
+    } else {
+      return handleRequest(request.get(`/friendlinks/`, params));
+    }
   },
 
   // 获取多级类别信息

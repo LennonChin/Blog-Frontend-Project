@@ -38,7 +38,7 @@
       },
       menus: {
         Type: Array,
-        default: []
+        default: undefined
       },
       withRefresh: {
         Type: Boolean,
@@ -59,10 +59,12 @@
     computed: {
       controlMenus: function () {
         // 复制一份内部menus使用
-        if (this.copiedMenus === undefined) {
+        if (this.copiedMenus === undefined || this.menus !== undefined) {
           this.copiedMenus = [].concat(JSON.parse(JSON.stringify(this.menus)));
+          return this.copiedMenus;
+        } else {
+          return [];
         }
-        return this.copiedMenus;
       }
     },
     methods: {

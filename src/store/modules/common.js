@@ -6,7 +6,9 @@ export default {
   namespaced: true,
   state: {
     recommends: [],
-    hots: []
+    hots: [],
+    friendLinks: [],
+    tags: []
   },
   mutations: {
     UPDATE_RECOMMENDS(state, recommends) {
@@ -14,6 +16,12 @@ export default {
     },
     UPDATE_HOTS(state, hots) {
       state.hots = hots;
+    },
+    UPDATE_FRIENDLINKS(state, friendLinks) {
+      state.friendLinks = friendLinks;
+    },
+    UPDATE_TAGS(state, tags) {
+      state.tags = tags;
     }
   },
   actions: {
@@ -46,6 +54,34 @@ export default {
           }
         }).then((response) => {
           store.commit('UPDATE_HOTS', response.data.results);
+          resolve(response);
+        }).catch((error) => {
+          handleError(error);
+          reject(error);
+        });
+      });
+    },
+    // 获取友情链接
+    GET_FRIENDLINKS(store, params) {
+      return new Promise((resolve, reject) => {
+        API.getFriendLinks({
+          params: {}
+        }).then((response) => {
+          store.commit('UPDATE_FRIENDLINKS', response.data);
+          resolve(response);
+        }).catch((error) => {
+          handleError(error);
+          reject(error);
+        });
+      });
+    },
+    // 获取标签墙
+    GET_TAGS(store, params) {
+      return new Promise((resolve, reject) => {
+        API.getTags({
+          params: {}
+        }).then((response) => {
+          store.commit('UPDATE_TAGS', response.data);
           resolve(response);
         }).catch((error) => {
           handleError(error);

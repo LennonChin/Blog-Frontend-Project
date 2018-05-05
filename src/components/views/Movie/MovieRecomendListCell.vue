@@ -40,7 +40,7 @@
           <i-col :xs="24" :sm="24" :md="12" :lg="12">
             <div class="comment">
               <a href="">
-                <img src="../../../assets/avatar.png" alt="">
+                <img src="" alt="">
                 <div class="user">
                   <p class="title">东方快车谋杀案</p>
                   <p class="time">2017-11-21 12:00:09</p>
@@ -52,7 +52,7 @@
           <i-col :xs="24" :sm="24" :md="12" :lg="12">
             <div class="comment">
               <a href="">
-                <img src="../../../assets/avatar.png" alt="">
+                <img src="" alt="">
                 <div class="user">
                   <p class="title">东方快车谋杀案</p>
                   <p class="time">2017-11-21 12:00:09</p>

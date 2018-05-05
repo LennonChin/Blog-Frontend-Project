@@ -7,7 +7,7 @@
             <i-col :xs="cellLeftSpan('xs')" :sm="cellLeftSpan('sm')" :md="cellLeftSpan('md')"
                     :lg="cellLeftSpan('lg')" :xl="cellLeftSpan('xl')">
               <div class="avatar">
-                <img :src="postImageBaseUrl + '/comment/avatar/' + avatarImage(comment.author)" alt="">
+                <img :src="siteImageBaseUrl + '/comment/avatar/' + avatarImage(comment.author)" alt="">
               </div>
             </i-col>
             <i-col :xs="cellRightSpan('xs')" :sm="cellRightSpan('sm')" :md="cellRightSpan('md')"

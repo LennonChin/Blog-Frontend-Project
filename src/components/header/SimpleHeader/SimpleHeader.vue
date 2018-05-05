@@ -8,6 +8,7 @@
       <router-link id="logo" to="/">
         <img :src="siteInfo.icon">
         <span>{{ siteInfo.name }}</span>
+        <span class="desc">{{ siteInfo.desc }}</span>
       </router-link>
       <ul id="nav">
         <!-- 搜索框 -->
@@ -36,9 +37,9 @@
         </li>
         <!-- 自定义的导航 -->
         <li class="nav-dropdown-container" v-for="navigation in siteInfo.navigations">
-          <a class="nav-link" :href="navigation.url">
+          <router-link class="nav-link" :to="navigation.url" :target="navigation.target">
             {{ navigation.name }}
-          </a>
+          </router-link>
         </li>
       </ul>
     </div>

@@ -3,23 +3,21 @@
     <i-row>
       <i-col :xs="24" :sm="24" :md="24" :lg="17">
         <div class="layout-left">
-          <classify-menu :categorys="categorys" @selectCategory="selectCategory"
-                         :defaultCategory="top_category"></classify-menu>
-          <i-affix style="position: relative;z-index: 12;">
-            <section-title :mainTitle="'笔记列表'"
-                           :subTitle="'Book Notes'"
-                           :menus="bookNotesMenus"
-                           :withRefresh="true"
-                           :withTimeSelect="true"
-                           :datePickerOptions="bookNotesDatePickerOptions"
-                           @refresh="refreshBookNotes"
-                           @menusControl="bookNotesMenusControl"
-                           @comfirmDateSelect="bookNotesDateSelect"
-                           @clearDateSelect="bookNotesDateSelectClear">
-            </section-title>
-          </i-affix>
+          <classify-menu :categorys="categorysInfo" @selectCategory="selectCategory"
+                         :defaultCategory="selected_category"></classify-menu>
+          <section-title :mainTitle="'笔记列表'"
+                         :subTitle="'Book Notes'"
+                         :menus="menus"
+                         :withRefresh="true"
+                         :withTimeSelect="true"
+                         :datePickerOptions="datePickerOptions"
+                         @refresh="refresh"
+                         @menusControl="menusControl"
+                         @comfirmDateSelect="dateSelect"
+                         @clearDateSelect="dateSelectClear">
+          </section-title>
           <book-note-cell v-for="bookNote in bookNotes" :bookNote="bookNote" :key="bookNote.id"></book-note-cell>
-          <browse-more @browseMore="browseMoreBookNotes" ref="browseMoreBookNotes"></browse-more>
+          <browse-more @browseMore="browseMore" :noMoreData="noMoreData" ref="browseMore"></browse-more>
         </div>
       </i-col>
       <i-col :xs="0" :sm="0" :md="0" :lg="7">
@@ -33,6 +31,12 @@
 </template>
 
 <script type="text/ecmascript-6">
+  import {
+    mapState,
+    mapGetters,
+    mapMutations,
+    mapActions
+  } from 'vuex';
   import BookNoteCell from '@/components/views/Book/BookNoteCell';
   import ClassifyMenu from '@/components/views/Classify/ClassifyMenu';
   import SectionTitle from '@/components/views/SectionTitle';
@@ -40,205 +44,179 @@
   import TagWall from '@/components/views/TagWall';
   import BrowseMore from '@/components/views/BrowseMore';
 
-  // API
-  import API from '@/api/client-api';
-
-  const DEFAULT_LIMIT_SIZE = 10;
-//  const MAX_LIMIT_SIZE = 100;
+  import {
+    DefaultLimitSize,
+    SectionTitleDefaultMenus,
+    SectionTitleDefaultDatePickerOptions
+  } from '@/common/js/const';
 
   export default {
     name: 'book-note-list-content',
     data() {
       return {
-        bookNotes: [],
-        categorys: undefined,
-        top_category: undefined,
-        limit_size: DEFAULT_LIMIT_SIZE,
-        // 读书笔记相关
-        bookNotesTimeSorted: false,
-        bookNotesMostComment: undefined,
-        bookNotesRecommend: undefined,
-        bookNotesPage: 0,
-        bookNotesTotalCount: 0,
-        noMorebookNotesData: false,
-        bookNotesMenus: [
-          {title: '顺序', selectedTitle: '逆序', selected: true, method: 'timeSorted'},
-          {title: '评论最多', selected: false, method: 'mostComment'},
-          {title: '推荐', selected: false, method: 'recommend'}
-        ],
-        bookNotesDatePickerOptions: {
-          disabledDate(date) {
-            return date && date.valueOf() > Date.now();
-          },
-          shortcuts: [
-            {
-              text: '近一周',
-              value() {
-                const end = new Date();
-                const start = new Date();
-                start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
-                return [start, end];
-              }
-            },
-            {
-              text: '近一个月',
-              value() {
-                const end = new Date();
-                const start = new Date();
-                start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
-                return [start, end];
-              }
-            },
-            {
-              text: '近三个月',
-              value() {
-                const end = new Date();
-                const start = new Date();
-                start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
-                return [start, end];
-              }
-            },
-            {
-              text: '近一年',
-              value() {
-                const end = new Date();
-                const start = new Date();
-                start.setTime(start.getTime() - 3600 * 1000 * 24 * 365);
-                return [start, end];
-              }
-            }
-          ]
-        },
-        bookNotesSelectedDateRange: []
+        selected_category: undefined,
+        // 图书笔记相关
+        timeSorted: false,
+        mostComment: undefined,
+        recommend: undefined,
+        page: 0,
+        menus: SectionTitleDefaultMenus,
+        datePickerOptions: SectionTitleDefaultDatePickerOptions,
+        selectedDateRange: []
       };
     },
+    metaInfo() {
+      return {
+        title: this.documentMeta.title,
+        meta: [
+          {name: 'description', content: this.documentMeta.description},
+          {name: 'keywords', content: this.documentMeta.keywords}
+        ]
+      };
+    },
+    asyncData({store, route}) {
+      this.selected_category = route.params.id;
+      return Promise.all([
+        store.dispatch('bookNoteList/GET_BOOKNOTES_BASE_INFO', {
+          params: {
+            params: {
+              top_category: this.selected_category,
+              ordering: '-add_time',
+              limit: DefaultLimitSize
+            }
+          }
+        })
+      ]);
+    },
+    beforeRouteUpdate(to, from, next) {
+      next();
+      this.selected_category = this.$route.params.id;
+      this.refresh();
+    },
     created() {
-      this.top_category = parseInt(this.$route.params.id);
-      this.getDatas();
+      this.selected_category = this.$route.params.id;
+    },
+    mounted() {
+      if (this.$store.state.bookNoteList.bookNotes.length === 0) {
+        console.log('non ssr');
+        // 未SSR的情况
+        this.updateBookNotesInfo({
+          params: {
+            params: {
+              top_category: this.selected_category,
+              ordering: '-add_time',
+              limit: DefaultLimitSize
+            }
+          }
+        }, false);
+      }
+    },
+    computed: {
+      ...mapState({
+        bookNotes: state => state.bookNoteList.bookNotes,
+        noMoreData: state => state.bookNoteList.noMoreData
+      }),
+      ...mapGetters({
+        documentMeta: 'DOCUMENT_META'
+      }),
+      categorysInfo: function () {
+        return this.allCategorysInfo.filter((category) => {
+          return category.category_type === 'readings';
+        });
+      }
     },
     methods: {
-      selectCategory(categoryId) {
-        this.top_category = categoryId;
-        // 清空笔记原数据
-        this.bookNotesTimeSorted = false;
-        this.bookNotesMostComment = undefined;
-        this.bookNotesRecommend = undefined;
-        this.bookNotesPage = 0;
-        this.bookNotes = [];
-        this.bookNotesTotalCount = 0;
-        this.noMoreBookNotesData = false;
-        this.bookNotesSelectedDateRange = [];
-        this.getBookNoteBaseInfo();
-      },
-      getDatas() {
-        this.getCategorys();
-        this.getBookNoteBaseInfo();
-      },
-      getCategorys() {
-        API.getCategorys({
-          params: {
-            'level_min': 1,
-            'level_max': 1,
-            'id': this.allCategorysInfo.filter(category => {
-              return category.category_type === 'readings';
-            })[0].id
+      ...mapMutations({
+        clearBookNotesBaseInfo: 'bookNoteList/CLAER_BOOKNOTES_BASE_INFO'
+      }),
+      ...mapActions({
+        getBookNotesBaseInfo: 'bookNoteList/GET_BOOKNOTES_BASE_INFO'
+      }),
+      updateBookNotesInfo(reset) {
+        // 排序条件
+        let orderings = [];
+        if (this.timeSorted) {
+          orderings.push('add_time');
+        } else {
+          orderings.push('-add_time');
+        }
+        if (this.mostComment !== undefined) {
+          if (this.mostComment) {
+            orderings.push('comment_num');
+          } else {
+            orderings.push('-comment_num');
           }
-        }).then((response) => {
-          this.categorys = response.data.results;
-        }).catch((error) => {
+        }
+        this.getBookNotesBaseInfo({
+          params: {
+            params: {
+              top_category: this.selected_category,
+              ordering: orderings.toString(),
+              is_recommend: this.recommend,
+              time_min: this.selectedDateRange[0],
+              time_max: this.selectedDateRange[1],
+              limit: DefaultLimitSize,
+              offset: this.page * DefaultLimitSize
+            }
+          },
+          reset
+        }).then(response => {
+          this.$refs.browseMore.stopLoading();
+        }).catch(error => {
+          this.$refs.browseMore.stopLoading();
           console.log(error);
         });
       },
-      getBookNoteBaseInfo() {
-        if (!this.noMoreBookNotesData) {
-          // 排序条件
-          let orderings = [];
-          if (this.bookNotesTimeSorted) {
-            orderings.push('add_time');
-          } else {
-            orderings.push('-add_time');
-          }
-          if (this.bookNotesMostComment !== undefined) {
-            if (this.bookNotesMostComment) {
-              orderings.push('comment_num');
-            } else {
-              orderings.push('-comment_num');
-            }
-          }
-          API.getBookNoteBaseInfo({
-            params: {
-              top_category: this.top_category,
-              ordering: orderings.toString(),
-              is_recommend: false,
-              time_min: this.bookNotesSelectedDateRange[0],
-              time_max: this.bookNotesSelectedDateRange[1],
-              limit: this.limit_size,
-              offset: this.bookNotesPage * this.limit_size
-            }
-          }).then((response) => {
-            this.bookNotes = this.bookNotes.concat(response.data.results);
-            this.bookNotesTotalCount += response.data.results.length;
-            this.noMoreBookNotesData = this.bookNotesTotalCount >= response.data.count;
-            this.$refs.browseMoreBookNotes.stopLoading(this.noMoreBookNotesData);
-          }).catch((error) => {
-            console.log(error);
-          });
-        }
+      browseMore() {
+        console.log('browseMoreBooks');
+        this.page++;
+        this.updateBookNotesInfo();
       },
-      browseMoreBookNotes() {
-        console.log('getBookNoteBaseInfo');
-        this.bookNotesPage++;
-        this.getBookNoteBaseInfo();
+      selectCategory(categoryId) {
+        console.log(categoryId);
+        this.selected_category = categoryId;
+        // 清空图书原数据
+        this.timeSorted = false;
+        this.mostComment = undefined;
+        this.recommend = undefined;
+        this.selectedDateRange = [];
+        this.page = 0;
+        this.updateBookNotesInfo(true);
       },
-      refreshBookNotes() {
-        this.top_category = parseInt(this.$route.params.id);
-        this.bookNotesTimeSorted = false;
-        this.bookNotesMostComment = undefined;
-        this.bookNotesRecommend = undefined;
-        this.bookNotesPage = 0;
-        this.bookNotes = [];
-        this.bookNotesTotalCount = 0;
-        this.noMoreBookNotesData = false;
-        this.bookNotesSelectedDateRange = [];
-        this.getCategorys();
-        this.getBookNoteBaseInfo();
+      refresh() {
+        this.selected_category = parseInt(this.$route.params.id);
+        this.timeSorted = false;
+        this.mostComment = undefined;
+        this.recommend = undefined;
+        this.selectedDateRange = [];
+        this.page = 0;
+        this.updateBookNotesInfo(true);
       },
-      bookNotesMenusControl(params) {
+      menusControl(params) {
         switch (params[0]) {
           case 'timeSorted':
-            this.bookNotesTimeSorted = !params[1];
+            this.timeSorted = !params[1];
             break;
           case 'mostComment':
-            this.bookNotesMostComment = params[1];
+            this.mostComment = params[1];
             break;
           case 'recommend':
-            this.bookNotesRecommend = params[1];
+            this.recommend = params[1];
             break;
         }
         // 清空原数据
-        this.bookNotesPage = 0;
-        this.bookNotes = [];
-        this.bookNotesTotalCount = 0;
-        this.noMoreBookNotesData = false;
-        this.getBookNoteBaseInfo();
+        this.page = 0;
+        this.updateBookNotesInfo(true);
       },
-      bookNotesDateSelect(dateRange) {
-        this.bookNotesSelectedDateRange = dateRange;
-        this.bookNotesPage = 0;
-        this.limit_size = DEFAULT_LIMIT_SIZE;
-        this.bookNotes = [];
-        this.bookNotesTotalCount = 0;
-        this.noMoreBooksData = false;
-        this.getBookNoteBaseInfo();
+      dateSelect(dateRange) {
+        this.selectedDateRange = dateRange;
+        this.page = 0;
+        this.updateBookNotesInfo(true);
       },
-      bookNotesDateSelectClear() {
-        this.bookNotesSelectedDateRange = [];
-        this.bookNotesPage = 0;
-        this.limit_size = DEFAULT_LIMIT_SIZE;
-        this.bookNotes = [];
-        this.bookNotesTotalCount = 0;
-        this.noMoreBookNotesData = false;
-        this.getBookNoteBaseInfo();
+      dateSelectClear() {
+        this.selectedDateRange = [];
+        this.page = 0;
+        this.updateBookNotesInfo(true);
       }
     },
     components: {

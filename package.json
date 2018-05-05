@@ -14,7 +14,7 @@
     "start": "cross-env NODE_ENV=production && node server/server.js",
     "clean": "rimraf dist && rimraf server-build",
     "lint": "eslint --ext .js,.vue src",
-    "analyz": "cross-env NODE_ENV=production && cross-env npm_config_report=true && npm run build"
+    "analyze": "cross-env npm_config_report=true npm run build"
   },
   "dependencies": {
     "axios": "^0.17.1",

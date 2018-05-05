@@ -18,6 +18,9 @@ import articleList from './modules/articleList';
 import movieHome from './modules/movieHome';
 import movieList from './modules/movieList';
 import readHome from './modules/readHome';
+import readList from './modules/readList';
+import bookList from './modules/bookList';
+import bookNoteList from './modules/bookNoteList';
 
 const isDev = process.env.NODE_ENV === 'development';
 
@@ -41,7 +44,10 @@ export default () => {
       articleList,
       movieHome,
       movieList,
-      readHome
+      readHome,
+      readList,
+      bookList,
+      bookNoteList
     }
   });
 
@@ -63,7 +69,10 @@ export default () => {
       './modules/articleList',
       './modules/movieHome',
       './modules/movieList',
-      './modules/readHome'
+      './modules/readHome',
+      './modules/readList',
+      './modules/bookList',
+      './modules/bookNoteList'
     ], () => {
       const newState = require('./state/state').default;
       const newMutations = require('./mutations/mutations').default;
@@ -82,6 +91,9 @@ export default () => {
       const movieHome = require('./modules/movieHome').default;
       const movieList = require('./modules/movieList').default;
       const readHome = require('./modules/readHome').default;
+      const readList = require('./modules/readList').default;
+      const bookList = require('./modules/bookList').default;
+      const bookNoteList = require('./modules/bookNoteList').default;
 
       store.hotUpdate({
         state: newState,
@@ -101,7 +113,10 @@ export default () => {
           articleList,
           movieHome,
           movieList,
-          readHome
+          readHome,
+          readList,
+          bookList,
+          bookNoteList
         }
       });
     });

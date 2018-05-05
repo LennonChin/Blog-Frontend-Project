@@ -1,11 +1,11 @@
 <template>
-  <div class="about" v-if="bloggerInfo != undefined">
+  <div class="about" v-if="Object.keys(bloggerInfo).length !== 0">
     <img class="background" :src="bloggerInfo.background" alt="">
     <img class="avatar" :src="bloggerInfo.avatar" alt="">
     <p class="name">{{ bloggerInfo.name_en }}</p>
     <p class="desc">{{ bloggerInfo.desc }}</p>
     <ul class="social">
-      <li v-for="social in bloggerInfo.socials"><a :href="social.url" :target="social.url.indexOf(postImageBaseUrl) === 0 ? '_self' : '_blank'"><img :src="social.image" alt=""></a></li>
+      <li v-for="social in bloggerInfo.socials"><a :href="social.url" :target="social.url.indexOf(siteImageBaseUrl) === 0 ? '_self' : '_blank'"><img :src="social.image" alt=""></a></li>
     </ul>
     <div class="line"></div>
     <h4>技能值</h4>
@@ -36,7 +36,7 @@
       ]);
     },
     mounted() {
-      if (!this.$store.state.base.bloggerInfo) this.getBloggerInfo();
+      if (Object.keys(this.$store.state.base.bloggerInfo).length === 0) this.getBloggerInfo();
     },
     computed: {
       ...mapState({
