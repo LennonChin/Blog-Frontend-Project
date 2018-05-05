@@ -67,7 +67,7 @@
   // highlight.js引入
   import hljs from '@/common/js/highlight.pack';
   // Api
-  import API from '@/api/client-api';
+  import API from 'API';
   // utils
   import {hexMd5} from '@/common/js/md5';
 

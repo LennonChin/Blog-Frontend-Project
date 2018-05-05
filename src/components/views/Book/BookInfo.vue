@@ -31,7 +31,7 @@
 
 <script type="text/ecmascript-6">
   import Panel from '@/components/views/Panel';
-  import API from '@/api/client-api';
+  import API from 'API';
 
   export default {
     name: 'book-info',

@@ -75,7 +75,7 @@
   import 'mavon-editor/dist/css/index.css';
   import {loadFromLocal, saveToLocal, uploadFile} from '@/common/js/utils';
   // API
-  import API from '@/api/client-api';
+  import API from 'API';
 
   export default {
     name: 'custom-mavon-editor',

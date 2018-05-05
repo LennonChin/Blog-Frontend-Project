@@ -17,7 +17,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import API from '@/api/client-api';
+  import API from 'API';
   import SearchResultSection from '@/components/views/Search/SearchResultSection';
 
   export default {

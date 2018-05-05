@@ -70,7 +70,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import API from '@/api/client-api';
+  import API from 'API';
   import {checkPostAuth} from '@/common/js/utils';
 
   const ARTICLE_TYPE_NO_IMAGE = 0;

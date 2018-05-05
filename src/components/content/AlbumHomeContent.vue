@@ -40,7 +40,7 @@
   import {checkPostAuth} from '@/common/js/utils';
 
   // API
-  import API from '@/api/client-api';
+  import API from 'API';
 
   // swiper
   if (process.browser) {

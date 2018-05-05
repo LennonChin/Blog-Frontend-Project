@@ -1,5 +1,5 @@
 import {hexMd5} from '@/common/js/md5';
-import API from '@/api/client-api';
+import API from 'API';
 
 // 按社交方式格式化时间
 export function socialDateFormat(formateDate) {

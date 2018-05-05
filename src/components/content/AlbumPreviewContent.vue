@@ -22,7 +22,7 @@
   // 加密
   import {hexMd5} from '@/common/js/md5';
   // API
-  import API from '@/api/client-api';
+  import API from 'API';
 
   export default {
     name: 'album-preview-content',

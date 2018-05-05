@@ -59,7 +59,7 @@
     mapActions
   } from 'vuex';
   import Panel from '@/components/views/Panel';
-  import API from '@/api/client-api';
+  import API from 'API';
   import {checkPostAuth} from '@/common/js/utils';
 
   export default {

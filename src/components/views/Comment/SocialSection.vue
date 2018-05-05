@@ -37,7 +37,7 @@
   import CommentListCell from '@/components/views/Comment/CommentListCell';
   import BrowseMore from '@/components/views/BrowseMore';
   // API
-  import API from '@/api/client-api';
+  import API from 'API';
 
   const COMMENT_DEFAULT_LIMIT = 10;
 

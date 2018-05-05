@@ -42,7 +42,7 @@
   import BrowseMore from '@/components/views/BrowseMore';
 
   // API
-  import API from '@/api/client-api';
+  import API from 'API';
 
   const DEFAULT_LIMIT_SIZE = 6;
   const MAX_LIMIT_SIZE = 100;

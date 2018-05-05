@@ -24,7 +24,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import API from '@/api/client-api';
+  import API from 'API';
 
   export default {
     name: 'article-page-header',

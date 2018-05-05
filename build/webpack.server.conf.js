@@ -68,7 +68,7 @@ config = merge(baseConfig, {
   ],
   resolve: {
     alias: {
-      'API': path.join(__dirname, '../src/api/client-api.js')
+      'API': path.join(__dirname, '../src/api/server-api.js')
     }
   }
 });
