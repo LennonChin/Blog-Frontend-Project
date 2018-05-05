@@ -40,7 +40,8 @@ import {
   Tooltip,
   BackTop,
   Rate,
-  AutoComplete
+  AutoComplete,
+  Spin
 } from 'iview';
 
 Vue.use(VueRouter);
@@ -90,7 +91,7 @@ Vue.component('i-auto-complete', AutoComplete);
 Vue.mixin({
   data() {
     return {
-      postImageBaseUrl: 'https://material.coderap.com'
+      siteImageBaseUrl: 'https://material.coderap.com'
     };
   },
   methods: {
@@ -116,7 +117,7 @@ Vue.mixin({
             // 去掉前面的反斜杠
             imageSrc = imageSrc.substr(1);
           }
-          image.src = `${this.postImageBaseUrl}/${imageSrc}`;
+          image.src = `${this.siteImageBaseUrl}/${imageSrc}`;
         } else {
           image.src = imageSrc;
         }

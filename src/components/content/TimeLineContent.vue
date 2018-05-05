@@ -55,8 +55,12 @@
   import TagWall from '@/components/views/TagWall';
   import BrowseMore from '@/components/views/BrowseMore';
 
-  const DEFAULT_LIMIT_SIZE = 20;
-  const MAX_LIMIT_SIZE = 100;
+  import {
+    DefaultLimitSize,
+    MaxLimitSize,
+    SectionTitleDefaultMenus,
+    SectionTitleDefaultDatePickerOptions
+  } from '@/common/js/const';
 
   export default {
     name: 'read-list-content',
@@ -67,57 +71,20 @@
         timeSorted: false,
         mostComment: undefined,
         recommend: undefined,
-        limit_size: DEFAULT_LIMIT_SIZE,
+        limit_size: DefaultLimitSize * 2,
         page: 0,
-        menus: [
-          {title: '顺序', selectedTitle: '逆序', selected: true, method: 'timeSorted'},
-          {title: '评论最多', selected: false, method: 'mostComment'},
-          {title: '推荐', selected: false, method: 'recommend'}
-        ],
-        datePickerOptions: {
-          disabledDate(date) {
-            return date && date.valueOf() > Date.now();
-          },
-          shortcuts: [
-            {
-              text: '近一周',
-              value() {
-                const end = new Date();
-                const start = new Date();
-                start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
-                return [start, end];
-              }
-            },
-            {
-              text: '近一个月',
-              value() {
-                const end = new Date();
-                const start = new Date();
-                start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
-                return [start, end];
-              }
-            },
-            {
-              text: '近三个月',
-              value() {
-                const end = new Date();
-                const start = new Date();
-                start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
-                return [start, end];
-              }
-            },
-            {
-              text: '近一年',
-              value() {
-                const end = new Date();
-                const start = new Date();
-                start.setTime(start.getTime() - 3600 * 1000 * 24 * 365);
-                return [start, end];
-              }
-            }
-          ]
-        },
+        menus: SectionTitleDefaultMenus,
+        datePickerOptions: SectionTitleDefaultDatePickerOptions,
         selectedDateRange: []
+      };
+    },
+    metaInfo() {
+      return {
+        title: this.documentMeta.title,
+        meta: [
+          {name: 'description', content: this.documentMeta.description},
+          {name: 'keywords', content: this.documentMeta.keywords}
+        ]
       };
     },
     asyncData({store}) {
@@ -126,7 +93,7 @@
           params: {
             params: {
               ordering: '-add_time',
-              limit: DEFAULT_LIMIT_SIZE
+              limit: DefaultLimitSize * 2
             }
           }
         })
@@ -140,7 +107,7 @@
           params: {
             params: {
               ordering: '-add_time',
-              limit: DEFAULT_LIMIT_SIZE
+              limit: DefaultLimitSize * 2
             }
           }
         }, false);
@@ -246,13 +213,13 @@
       dateSelect(dateRange) {
         this.selectedDateRange = dateRange;
         this.page = 0;
-        this.limit_size = MAX_LIMIT_SIZE;
+        this.limit_size = MaxLimitSize;
         this.updateTimeLineInfo(true);
       },
       dateSelectClear() {
         this.selectedDateRange = [];
         this.page = 0;
-        this.limit_size = DEFAULT_LIMIT_SIZE;
+        this.limit_size = DefaultLimitSize * 2;
         this.updateTimeLineInfo(true);
       }
     },

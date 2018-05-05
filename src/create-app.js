@@ -42,8 +42,7 @@ import {
   Spin,
   Tooltip,
   BackTop,
-  Rate,
-  AutoComplete
+  Rate
 } from 'iview';
 
 Vue.use(VueRouter);
@@ -54,7 +53,6 @@ Vue.use(Meta);
 Vue.prototype.$Modal = Modal;
 Vue.prototype.$Message = Message;
 Vue.prototype.$Notice = Notice;
-Vue.prototype.$Spin = Spin;
 
 Vue.prototype.$Notice.config({
   top: 70,
@@ -85,13 +83,12 @@ Vue.component('i-backtop', BackTop);
 Vue.component('i-spin', Spin);
 Vue.component('i-tool-tip', Tooltip);
 Vue.component('i-rate', Rate);
-Vue.component('i-auto-complete', AutoComplete);
 
 // 全局混合
 Vue.mixin({
   data() {
     return {
-      postImageBaseUrl: 'https://material.coderap.com'
+      siteImageBaseUrl: 'https://material.coderap.com'
     };
   },
   computed: {
@@ -108,12 +105,13 @@ Vue.mixin({
       });
     },
     resolveImageUrl(url) {
+      if (url === null || url === undefined) return;
       if (url.length > 0 && url.indexOf('http') !== 0) {
         while (url.indexOf('/') === 0) {
           // 去掉前面的反斜杠
           url = url.substr(1);
         }
-        return `${this.postImageBaseUrl}/${url}`;
+        return `${this.siteImageBaseUrl}/${url}`;
       } else {
         return url;
       }

@@ -28,6 +28,15 @@
         selected_category: undefined
       };
     },
+    metaInfo() {
+      return {
+        title: this.documentMeta.title,
+        meta: [
+          {name: 'description', content: this.documentMeta.description},
+          {name: 'keywords', content: this.documentMeta.keywords}
+        ]
+      };
+    },
     asyncData({store}) {
       this.selected_category = 9;
       return Promise.all([

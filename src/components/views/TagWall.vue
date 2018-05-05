@@ -10,29 +10,27 @@
 </template>
 
 <script type="text/ecmascript-6">
+  import {
+    mapState,
+    mapActions
+  } from 'vuex';
   import Panel from '@/components/views/Panel';
-  import API from '@/api/client-api';
 
   export default {
     name: 'tag-wall',
-    data() {
-      return {
-        tags: []
-      };
+    mounted() {
+      if (this.$store.state.common.tags.length === 0) {
+        console.log('tags');
+        this['common/GET_TAGS']();
+      }
     },
-    created() {
-      this.getDatas();
+    computed: {
+      ...mapState({
+        tags: state => state.common.tags
+      })
     },
     methods: {
-      getDatas() {
-        API.getTags({
-          params: {}
-        }).then((response) => {
-          this.tags = response.data;
-        }).catch((error) => {
-          console.log(error);
-        });
-      }
+      ...mapActions(['common/GET_TAGS'])
     },
     components: {
       'panel': Panel

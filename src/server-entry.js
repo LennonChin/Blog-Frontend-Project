@@ -2,6 +2,7 @@
  * 服务端渲染入口文件
  * */
 import createApp from './create-app';
+import chalk from 'chalk';
 
 export default context => {
   /**
@@ -59,6 +60,8 @@ export default context => {
         context.state = store.state;
         resolve(app);
       }).catch(error => {
+        console.log(chalk.red('AsyncData Error Caused URL '), context.url);
+        console.log(chalk.red('AsyncData Error Caused '), error);
         // 这里需要处理请求失败的情况，可能是文章加密了
         if (error.code === 401) {
           // 文章加密了

@@ -4,7 +4,7 @@
       <ul class="link-list" slot="content">
         <li v-for="friendLink in friendLinks">
           <a :href="friendLink.url" target="_blank">
-            <img :src="friendLink.image" alt="">
+            <img :src="resolveImageUrl(friendLink.image)" :class="{'no-pic': friendLink.image === null || friendLink.image.length === 0}" alt="">
             <div class="right">
               <p class="title">{{ friendLink.name }}</p>
               <p class="link">{{ friendLink.url }}</p>
@@ -17,29 +17,27 @@
 </template>
 
 <script type="text/ecmascript-6">
+  import {
+    mapState,
+    mapActions
+  } from 'vuex';
   import Panel from '@/components/views/Panel';
-  import API from '@/api/client-api';
 
   export default {
     name: 'friend-links',
-    data() {
-      return {
-        friendLinks: []
-      };
+    mounted() {
+      if (this.$store.state.common.friendLinks.length === 0) {
+        console.log('friendLinks');
+        this['common/GET_FRIENDLINKS']();
+      }
     },
-    created() {
-      this.getDatas();
+    computed: {
+      ...mapState({
+        friendLinks: state => state.common.friendLinks
+      })
     },
     methods: {
-      getDatas() {
-        API.getFriendLinks({
-          params: {}
-        }).then((response) => {
-          this.friendLinks = response.data;
-        }).catch((error) => {
-          console.log(error);
-        });
-      }
+      ...mapActions(['common/GET_FRIENDLINKS'])
     },
     components: {
       'panel': Panel
@@ -71,10 +69,16 @@
             width 50px
             height 50px
             margin 5px 0
+            margin-right 12px
+            border 1px solid $color-gradually-gray-91
+            &.no-pic
+              flex 0 0 0
+              width 0
+              margin-right 0
+              border none
           .right
             display flex
             flex-direction column
-            padding-left 12px
             height 60px
             line-height 60px
             p
@@ -89,5 +93,6 @@
                 height 15px
                 line-height 15px
                 font-weight 100
+                color $color-gradually-gray-71
 
 </style>

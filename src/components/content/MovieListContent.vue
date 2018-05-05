@@ -70,6 +70,15 @@
         selectedDateRange: []
       };
     },
+    metaInfo() {
+      return {
+        title: this.documentMeta.title,
+        meta: [
+          {name: 'description', content: this.documentMeta.description},
+          {name: 'keywords', content: this.documentMeta.keywords}
+        ]
+      };
+    },
     asyncData({store, route}) {
       this.selected_category = route.params.id;
       return Promise.all([
