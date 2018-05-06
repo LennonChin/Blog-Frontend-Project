@@ -29,7 +29,7 @@ export default context => {
       // 这个缓存用于记录已经处理的组件的key，防止循环递归导致爆栈
       let keyCache = [];
       // 包装请求数据
-      let doAsyncData = (component) => {
+      const doAsyncData = (component) => {
         if (component.asyncData) {
           targetPromises.push(component.asyncData({
             route: router.currentRoute,
@@ -38,7 +38,7 @@ export default context => {
         }
       };
       // 递归查询子组件
-      let recursive = (component, key) => {
+      const recursive = (component, key) => {
         // 判断是否有name的缓存，如果有说明已经递归过
         if (keyCache.indexOf(key) !== -1) return;
         // 缓存key
@@ -59,9 +59,13 @@ export default context => {
         context.meta = app.$meta();
         context.state = store.state;
         resolve(app);
+        targetPromises = [];
+        keyCache = [];
       }).catch(error => {
         console.log(chalk.red('AsyncData Error Caused URL '), context.url);
         console.log(chalk.red('AsyncData Error Caused '), error);
+        targetPromises = [];
+        keyCache = [];
         // 这里需要处理请求失败的情况，可能是文章加密了
         if (error.code === 401) {
           // 文章加密了
