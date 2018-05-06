@@ -103,6 +103,7 @@ Vue.mixin({
         let imageSrc = image.getAttribute('data-src');
         image.src = this.resolveImageUrl(imageSrc);
       });
+      images = null;
     },
     resolveImageUrl(url) {
       if (url === null || url === undefined) return;
