@@ -27,14 +27,14 @@ const webpackConfig = merge(baseWebpackConfig, {
     chunkFilename: utils.assetsPath('js/[id].[chunkhash].js'),
     publicPath: `${config.build.qiniuConfigs.host}/${config.build.qiniuConfigs.assetsPrefix}/`
   },
-  externals: [
-    {
-      'vue': 'vue',
-      'vuex': 'vuex',
-      'vue-router': 'vue-router',
-      'iview': 'iview'
-    }
-  ],
+  // externals: [
+  //   {
+  //     'vue': 'vue',
+  //     'vuex': 'vuex',
+  //     'vue-router': 'vue-router',
+  //     'iview': 'iview'
+  //   }
+  // ],
   plugins: [
     new webpack.DefinePlugin({
       'process.env': env
