@@ -2,7 +2,7 @@
   "apps": {
     "name"   : "Blog-Fronted",
     "script" : "./server/server.js",
-    "max_memory_restart" : "100M",
+    "max_memory_restart" : "250M",
     "env_production": {
       "NODE_ENV": "production"
     }
