@@ -5,17 +5,6 @@ const request = axios.create({
   baseURL: process.env.NODE_ENV === 'development' ? 'https://blog.coderap.com/api/' : 'https://blog.coderap.com/api/'
 });
 
-// http request 拦截器
-axios.interceptors.request.use(
-  config => {
-    console.log(`request url is ${config.url}`);
-    return config;
-  },
-  error => {
-    return Promise.reject(error);
-  }
-);
-
 const handleRequest = (request) => {
   return new Promise((resolve, reject) => {
     request.then(response => {

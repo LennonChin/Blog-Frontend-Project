@@ -12,6 +12,7 @@ const clientManifest = require('../../dist/vue-ssr-client-manifest.json');
 const renderer = VueServerRender.createBundleRenderer(
   path.join(__dirname, '../../server-build/vue-ssr-server-bundle.json'),
   {
+  	runInNewContext: 'once',
     inject: false,
     clientManifest
   }

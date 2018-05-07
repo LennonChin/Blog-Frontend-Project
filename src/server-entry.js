@@ -56,11 +56,11 @@ export default context => {
         recursive(component, component.name);
       });
       Promise.all(targetPromises).then(data => {
+        targetPromises = [];
+        keyCache = [];
         context.meta = app.$meta();
         context.state = store.state;
         resolve(app);
-        targetPromises = [];
-        keyCache = [];
       }).catch(error => {
         console.log(chalk.red('AsyncData Error Caused URL '), context.url);
         console.log(chalk.red('AsyncData Error Caused '), error);
@@ -72,9 +72,9 @@ export default context => {
           console.log('server-entry auth', error.code);
           context.meta = app.$meta();
           context.state = store.state;
-          resolve(app);
+          reject(app);
         }
       });
-    });
+    }, reject);
   });
 };
