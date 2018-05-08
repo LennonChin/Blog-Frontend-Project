@@ -1,14 +1,17 @@
 <template>
   <div class="simple-header" v-if="siteInfo">
-    <div id="mobile-bar" v-if="false">
+    <div id="mobile-bar">
       <a class="menu-button" @click="showMobileMenu"></a>
       <router-link class="logo" to="/"></router-link>
+      <a class="search-button"></a>
     </div>
     <div id="header">
       <router-link id="logo" to="/">
         <img :src="siteInfo.icon">
-        <span>{{ siteInfo.name }}</span>
-        <span class="desc">{{ siteInfo.desc }}</span>
+        <div class="info">
+          <span class="name">{{ siteInfo.name }}</span>
+          <span class="desc">{{ siteInfo.desc }}</span>
+        </div>
       </router-link>
       <ul id="nav">
         <!-- 搜索框 -->
@@ -43,7 +46,7 @@
         </li>
       </ul>
     </div>
-    <!--<side-bar :categorys="allCategorysInfo" ref="sidebar"></side-bar>-->
+    <side-bar :categorys="allCategorysInfo" ref="sidebar"></side-bar>
   </div>
 </template>
 
@@ -110,35 +113,4 @@
 
 <style lang="stylus" type="text/stylus" rel="stylesheet/stylus">
   @import "stylus/header.styl";
-  .demo-auto-complete-item {
-    padding: 4px 0;
-    border-bottom: 1px solid #F6F6F6;
-  }
-
-  .demo-auto-complete-group {
-    font-size: 12px;
-    padding: 4px 6px;
-  }
-
-  .demo-auto-complete-group span {
-    color: #666;
-    font-weight: bold;
-  }
-
-  .demo-auto-complete-group a {
-    float: right;
-  }
-
-  .demo-auto-complete-count {
-    float: right;
-    color: #999;
-  }
-
-  .demo-auto-complete-more {
-    display: block;
-    margin: 0 auto;
-    padding: 4px;
-    text-align: center;
-    font-size: 12px;
-  }
 </style>

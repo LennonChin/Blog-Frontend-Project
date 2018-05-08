@@ -110,7 +110,7 @@
               limit: DefaultLimitSize * 2
             }
           }
-        }, false);
+        }, true);
       }
     },
     computed: {

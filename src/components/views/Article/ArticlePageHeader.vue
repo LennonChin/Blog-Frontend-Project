@@ -50,6 +50,7 @@
 </script>
 
 <style lang="stylus" type="text/stylus" rel="stylesheet/stylus">
+  @import "../../../common/stylus/theme.styl";
 
   .article-page-header
     text-align left
@@ -99,7 +100,7 @@
     .abstract
       font-size 16px
       line-height 28px
-      background $color-border
+      border 1px dashed $color-gradually-gray-91
       @media only screen and (max-width: 768px)
         padding 10px
         margin 5px 0

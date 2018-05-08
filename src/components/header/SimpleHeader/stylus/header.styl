@@ -17,7 +17,9 @@ body
 
 #header
 	position fixed
-	padding 0 50px
+	display flex
+	justify-content space-between
+	padding 0 30px
 	width 100%
 	top 0
 	border-bottom 1px solid rgba(240, 240, 240, 1.0)
@@ -25,22 +27,25 @@ body
 	transition background-color .3s ease-in-out
 	z-index 11
 	#logo
-		display inline-block
-		font-size 1.5em
+		display flex
+		align-items center
 		height $header-height
-		line-height $header-height
 		color $dark
 		font-weight 500
 		img
-			vertical-align middle
 			margin-right 6px
 			width $header-inner-height
 			height $header-inner-height
-		.desc
-			font-size 0.6em
-			margin-left 15px
-			font-weight 100
-			color $color-main-primary
+		.info
+			display flex
+			flex-direction column
+			justify-content space-around
+			.name
+				font-size 20px
+			.desc
+				font-size 12px
+				font-weight 100
+				color $color-main-primary
 	#nav
 		float right
 		height $header-height
@@ -172,6 +177,15 @@ body
 		left 50%
 		margin-left -15px
 		background-size $mobile-header-inner-height
+	.search-button
+		position absolute
+		cursor pointer
+		width $mobile-header-inner-height
+		height $mobile-header-inner-height
+		top "calc((%s - %s) / 2)" % ($mobile-header-height $mobile-header-inner-height)
+		right 12px
+		background url(./../../../assets/search.png) center center no-repeat
+		background-size 24px
 
 @media screen and (max-width $responsive-lg)
 	body

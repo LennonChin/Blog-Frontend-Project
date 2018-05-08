@@ -2,14 +2,6 @@
   <div class="side-bar" :class="{ open: show }">
     <p class="site-name">Diomedes</p>
     <div class="sidebar-inner" id="sidebar-toc">
-      <form id="search-form">
-            <span class="autocomplete" style="position: relative; display: inline-block; direction: ltr;">
-              <input type="text"
-                     id="search-query-sidebar"
-                     class="search-query st-default-search-input aa-input"
-                     style="position: relative; vertical-align: top;">
-            </span>
-      </form>
       <p class="site-nav">网站导航
         <i-switch v-model="showNav">
           <span slot="open">开</span>

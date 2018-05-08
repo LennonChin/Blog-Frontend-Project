@@ -23,8 +23,8 @@
                   <span class="name-tag" v-if="comment.reply_to_author !== null && comment.reply_to_author.is_blogger">博主</span>
                   <span class="time">{{ comment.add_time | socialDate }}</span>
                 </p>
-                <p class="comment-main-content" :class="theme" v-if="comment.detail" v-html="comment.detail.formatted_content"
-                   ref="content"></p>
+                <div class="comment-main-content" :class="theme" v-if="comment.detail" v-html="comment.detail.formatted_content"
+                   ref="content"></div>
                 <div class="operate-area" :class="theme">
                   <span class="like" @click="likeComment(comment)"><i-icon type="thumbsup"></i-icon> {{ comment.like_num }}</span>
                   <span class="unlike" @click="unlikeComment(comment)"><i-icon type="thumbsdown"></i-icon> {{ comment.unlike_num }}</span>
@@ -249,6 +249,8 @@
         font-size 16px
         line-height 24px
         margin 10px 0 15px
+        word-wrap break-word
+        word-break break-all
         &.dark-theme
           color $color-gradually-gray-71
     .operate-area
