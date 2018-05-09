@@ -44,6 +44,12 @@
             {{ navigation.name }}
           </router-link>
         </li>
+        <li>
+          <i-switch @on-change="toggleTheme">
+            <span slot="open">夜</span>
+            <span slot="close">日</span>
+          </i-switch>
+        </li>
       </ul>
     </div>
     <side-bar :categorys="allCategorysInfo" ref="sidebar"></side-bar>
@@ -102,6 +108,13 @@
         // 显示手机端的菜单
         let sidebar = this.$refs.sidebar;
         sidebar.toggleSideBar();
+      },
+      toggleTheme(isDark) {
+        if (isDark) {
+          document.body.classList.add('dark');
+        } else {
+          document.body.classList.remove('dark');
+        }
       }
     },
     components: {
