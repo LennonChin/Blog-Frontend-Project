@@ -15,7 +15,6 @@
 <style lang="stylus" type="text/stylus" rel="stylesheet/stylus">
 
   .main-wrapper
-    background-color #fafafa
     width 100%
     min-height 100vh
     margin 0 auto

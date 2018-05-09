@@ -1,40 +1,38 @@
 <template>
-  <div class="book-cell">
-    <a>
-      <i-row type="flex">
-        <i-col :xs="24" :sm="24" :md="textSpan" :lg="textSpan" :order="textOrderType"
-                style="padding-left: 0;padding-right: 0;">
-          <div class="text-wrapper">
-            <h4 class="title">
-              <i-tool-tip placement="right" content="该文章已图集，您需要输入阅读密码" v-if="book.browse_password_encrypt">
-                <i-icon type="android-lock" color="#FA5555" v-if="book.browse_password_encrypt"></i-icon>
-              </i-tool-tip>
-              <a @click="gotoPostDetail(book)">{{book.title}}</a>
-            </h4>
-            <div class="tags">
-              <i-tag :color="tag.color" type="border" v-for="tag in book.tags" :key="tag.id">{{ tag.name }}</i-tag>
-            </div>
-            <p class="desc">{{book.desc | textLineBreak(70) }}
-              <a @click="gotoPostDetail(book)"> View More
-                <i-icon type="arrow-right-b"></i-icon>
-              </a>
-            </p>
-            <p class="operate_info">
-              <span class="publish-time"><a>{{ book.add_time | socialDate }}</a></span>
-              <span class="readings"><a><i-icon type="eye"></i-icon> {{book.click_num}} 阅</a></span>
-              <span class="comments"><a><i-icon type="compose"></i-icon> {{book.comment_num}} 评</a></span>
-              <span class="likes"><a @click="likePost(book)"><i-icon type="heart"></i-icon> {{book.like_num}} 赞</a></span>
-            </p>
+  <div class="book-cell cell-theme">
+    <i-row type="flex">
+      <i-col :xs="24" :sm="24" :md="textSpan" :lg="textSpan" :order="textOrderType"
+             style="padding-left: 0;padding-right: 0;">
+        <div class="text-wrapper">
+          <h4 class="title">
+            <i-tool-tip placement="right" content="该文章已图集，您需要输入阅读密码" v-if="book.browse_password_encrypt">
+              <i-icon type="android-lock" color="#FA5555" v-if="book.browse_password_encrypt"></i-icon>
+            </i-tool-tip>
+            <a @click="gotoPostDetail(book)">{{book.title}}</a>
+          </h4>
+          <div class="tags">
+            <i-tag :color="tag.color" type="border" v-for="tag in book.tags" :key="tag.id" class="tag">{{ tag.name }}</i-tag>
           </div>
-        </i-col>
-        <i-col :xs="0" :sm="0" :md="imgSpan" :lg="imgSpan" :order="imgOrderType"
-                style="padding-left: 0;padding-right: 0">
-          <div class="img-wrapper" :class="themeClass">
-            <img :src="book.front_image" alt="">
-          </div>
-        </i-col>
-      </i-row>
-    </a>
+          <p class="desc">{{book.desc | textLineBreak(70) }}
+            <a @click="gotoPostDetail(book)"> View More
+              <i-icon type="arrow-right-b"></i-icon>
+            </a>
+          </p>
+          <p class="operate_info">
+            <span class="publish-time"><a>{{ book.add_time | socialDate }}</a></span>
+            <span class="readings"><a><i-icon type="eye"></i-icon> {{book.click_num}} 阅</a></span>
+            <span class="comments"><a><i-icon type="compose"></i-icon> {{book.comment_num}} 评</a></span>
+            <span class="likes"><a @click="likePost(book)"><i-icon type="heart"></i-icon> {{book.like_num}} 赞</a></span>
+          </p>
+        </div>
+      </i-col>
+      <i-col :xs="0" :sm="0" :md="imgSpan" :lg="imgSpan" :order="imgOrderType"
+             style="padding-left: 0;padding-right: 0">
+        <div class="img-wrapper" :class="themeClass">
+          <img :src="book.front_image" alt="">
+        </div>
+      </i-col>
+    </i-row>
   </div>
 </template>
 
@@ -127,84 +125,77 @@
 
   .book-cell
     margin-bottom 10px
-    background-color white
-    > a
-      display block
-      cursor default
-      border 1px solid $color-border
+    background-color $default-cell-background-color
+    border 1px solid $default-border-color
+    img
+      width 100%
+      transition: All 0.4s ease-in-out
+      transform: scale(1.0)
+      zoom: 1.0
+    &:hover
+      border 1px solid $default-border-hover-color
       img
-        width 100%
-        transition: All 0.4s ease-in-out
-        transform: scale(1.0)
-        zoom: 1.0
-      &:hover
-        border 1px solid $color-border-hover
-        img
-          transform: scale(1.05)
-          zoom: 1.02
-      .text-wrapper
-        padding 20px 20px 0 20px
-        text-align left
+        transform: scale(1.05)
+        zoom: 1.02
+    .text-wrapper
+      padding 20px 20px 0 20px
+      text-align left
+      @media only screen and (max-width: 768px)
+        padding 10px 10px 0 10px
+      .title
+        font-size 23px
+        font-weight 100
+        line-height 27px
         @media only screen and (max-width: 768px)
-          padding 10px 10px 0 10px
-        .title
-          font-size 23px
-          font-weight 100
-          line-height 27px
+          font-size 18px
+          line-height 21px
           word-wrap break-word
-          @media only screen and (max-width: 768px)
-            font-size 18px
+        a
+          color $default-title-color
+          cursor pointer
+          &:hover
+            color $default-title-hover-color
+            text-decoration underline
+      .tags
+        margin 8px 0
+      .desc
+        font-size 14px
+        line-height 20px
+        font-weight 200
+        color $default-desc-color
+        @media only screen and (max-width: 768px)
+          font-size 13px
+        a
+          font-weight 500
+          color $default-desc-hover-color
+          cursor pointer
+          &:hover
+            text-decoration underline
+      .operate_info
+        font-size 14px
+        margin 15px 0 20px
+        span
+          margin-right 8px
           a
-            color $color-typegraphy-title
+            color $default-info-color
             cursor pointer
             &:hover
-              color $color-typegraphy-title-hover
-              text-decoration underline
-        .info
-          margin-top 10px
-          font-size 14px
-          line-height 18px
-          font-weight 200
-          a
-            color: #777
-            cursor pointer
-            &:hover
-              color $color-main-primary
-              text-decoration underline
-          .publish-time
-            margin-left 20px
-        .tags
-          margin: 8px 0
-        .desc
-          color $color-typegraphy-subtitle
-          font-size 14px
-          line-height 20px
-          font-weight 200
-          @media only screen and (max-width: 768px)
-            font-size 12px
-          a
-            color $color-main-primary
-            font-weight 500
-            cursor pointer
-            &:hover
-              text-decoration underline
-        .operate_info
-          font-size 14px
-          margin 15px 0 20px
+              color $default-info-color-hover
+          + span
+            margin-left 8px
+        @media only screen and (max-width: 768px)
+          font-size 13px
+          margin 10px 0
           span
-            margin-right 8px
+            margin-right 4px
             + span
-              margin-left 8px
-            a
-              color $color-typegraphy-subtitle
-              cursor pointer
-              &:hover
-                color $color-main-primary
-      .img-wrapper
-        padding-bottom: 85%
-        width: 100%
-        height: 0
-        overflow hidden
-        &.big-image
-          padding-bottom 26%
+              margin-left 4px
+    .img-wrapper
+      padding-bottom: 85%
+      width 100%
+      height 0
+      overflow hidden
+      &.big-image
+        padding-bottom 26%
+        box-shadow 1px 1px 1px $default-border-color
 </style>

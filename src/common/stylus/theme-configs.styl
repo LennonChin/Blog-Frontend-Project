@@ -1,0 +1,76 @@
+@import "theme.styl";
+
+// ======================== 默认主题 ==========================
+body
+	position relative
+	font-family $body-font
+	font-size $body-font-size
+	padding-top $mobile-header-height
+	min-height 100vh
+	-webkit-font-smoothing antialiased
+	-moz-osx-font-smoothing grayscale
+	background-color #fafafa
+	@media screen and (min-width $responsive-lg)
+		padding-top $header-height
+
+body.dark
+	background-color #4f4f4f
+	// cell的主题
+	.article-list-cell, .book-cell, .book-note-cell
+		background-color $dark-cell-background-color
+		border 1px solid $dark-border-color
+		.text-wrapper
+			.title
+				a
+					color $dark-title-color
+					&:hover
+						color $dark-title-hover-color
+			.desc
+				color $dark-desc-color
+				a
+					color $dark-desc-hover-color
+			.operate_info
+				a
+					color $dark-info-color
+					&:hover
+						color $dark-info-color-hover
+		.img-wrapper
+			&.big-image
+				box-shadow 1px 1px 1px $dark-border-color
+	.book-note-cell
+		.toggle-arrow
+			background-color $dark-cell-toggle-background-color
+			&:hover
+				color $dark-info-color-hover
+		.book-infos
+			.book-infos-wrapper
+				.img
+					border 1px solid $dark-border-color
+					box-shadow 1px 1px 1px $dark-border-color
+				.book-info
+					.title
+						color $dark-title-color
+					.desc
+						color $dark-desc-color
+					.progress
+						color $dark-desc-color
+	// section-title的主题
+	.section-title
+		.title
+			.square
+				background $dark-sectionTitle-square-color
+			.main-title
+				color $dark-sectionTitle-title-color
+			.vertical-line
+				background-color $dark-sectionTitle-line-color
+			.sub-title
+				color $dark-sectionTitle-subtitle-color
+			.view-more
+				a
+					color $dark-sectionTitle-title-color
+	// tag的主题
+	.tag
+		background-color transparent!important
+		border-color $dark-border-color!important
+		span
+			color $dark-info-color!important
