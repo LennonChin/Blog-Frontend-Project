@@ -13,6 +13,7 @@
 </script>
 
 <style lang="stylus" type="text/stylus" rel="stylesheet/stylus">
+  @import "../../common/stylus/theme-configs.styl";
 
   .main-wrapper
     width 100%

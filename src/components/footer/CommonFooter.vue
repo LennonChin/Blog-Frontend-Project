@@ -33,11 +33,11 @@
   @import "../../common/stylus/theme.styl";
 
   .common-footer
-    background #fff
-    border-top 1px solid $color-border
     padding 15px 5px
     margin-top 50px
     text-align center
+    background $default-background-color
+    border-top 1px solid $default-border-color
     z-index 99
     .side-menu
       right 20px
@@ -48,13 +48,11 @@
       font-weight 100
       span
         padding 0 10px
-    .copyright
-      margin-top 10px
-      color $color-gradually-gray-61
+    .copyright, .copyright-english
+      margin 10px
+      color $default-title-color
       a
-        color $color-gradually-gray-61
+        color $default-link-color
         &:hover
-          color $color-main-primary
-    .copyright-english
-      color $color-gradually-gray-41
+          color $default-link-color-hover
 </style>

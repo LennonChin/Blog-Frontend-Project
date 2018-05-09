@@ -57,9 +57,9 @@
   .about
     position relative
     text-align center
-    border 1px solid $color-border
     padding-bottom 20px
-    background-color white
+    background-color $default-background-color
+    border 1px solid $default-border-color
     img.background
       position absolute
       top 0
@@ -73,17 +73,17 @@
       margin 75px auto 15px
       width 100px
       height 100px
-      border 5px solid $color-gradually-gray-91
       border-radius 50%
+      border 5px solid $default-border-color
       z-index 9
     .name
       font-size 22px
-      color $color-typegraphy-title
+      color $default-title-color
       line-height 30px
       font-weight 700
     .desc
       font-size 15px
-      color $color-secondary-info
+      color $default-desc-color
       line-height 30px
       font-weight 100
     .social
@@ -100,7 +100,7 @@
             width 100%
     .line
       height 1px
-      background-color $color-gradually-gray-91
+      background-color $default-border-color
       margin 10px 20px
     h4
       font-size 19px

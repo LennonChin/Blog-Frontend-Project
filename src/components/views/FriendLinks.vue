@@ -52,7 +52,7 @@
     position relative
     ul.link-list
       padding 15px 0
-      border-left 1px solid $color-border
+      border-left 1px solid $default-border-color
       li
         padding 2px 25px
         a
@@ -63,14 +63,14 @@
             transform: translate(30px, 0)
             transition: all 0.2s ease-in-out
             .link
-              color $dark
+              color $default-link-color
           img
             flex 0 0 50px
             width 50px
             height 50px
             margin 5px 0
             margin-right 12px
-            border 1px solid $color-gradually-gray-91
+            border 1px solid $default-border-color
             &.no-pic
               flex 0 0 0
               width 0
@@ -88,11 +88,11 @@
                 height 35px
                 line-height 45px
                 font-size 17px
-                color $color-main-primary
+                color $default-title-hover-color
               &.link
                 height 15px
                 line-height 15px
                 font-weight 100
-                color $color-gradually-gray-71
+                color $default-link-color
 
 </style>

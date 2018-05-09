@@ -13,12 +13,12 @@
               </a>
             </p>
             <div class="tags">
-              <i-tag :color="tag.color" type="border" v-for="tag in articleSlice(0, 1)[0].tags" :key="tag.id">{{
+              <i-tag :color="tag.color" type="border" v-for="tag in articleSlice(0, 1)[0].tags" :key="tag.id" class="tag">{{
                 tag.name }}
               </i-tag>
             </div>
             <p class="info">
-              <span class="time">{{ articleSlice(0, 1)[0].add_time | socialDate }}</span>
+              <span class="time"><a>{{ articleSlice(0, 1)[0].add_time | socialDate }}</a></span>
               <span class="likes"><a @click="likePost(articleSlice(0, 1)[0])"><i-icon
                 type="heart"></i-icon> {{ articleSlice(0, 1)[0].like_num }} </a></span>
               <span class="comments"><a><i-icon type="compose"></i-icon> {{ articleSlice(0, 1)[0].comment_num }} </a></span>
@@ -136,72 +136,71 @@
 </script>
 
 <style lang="stylus" type="text/stylus" rel="stylesheet/stylus">
+  @import "../../common/stylus/theme.styl";
 
   .recommend
+    background $default-background-color
     .content
       padding 5px 20px
-      border-left 1px solid $color-border
+      border-left 1px solid $default-border-color
     .top, .others
-      a
-        display block
-        overflow hidden
-        .tags
-          margin-bottom 10px
-        .title
-          text-align justify
-          font-size 16px
-          line-height 23px
-          margin-bottom 5px
-          > a
-            display inline
-            color $color-gradually-gray-41
-            &:hover
-              text-decoration underline
-              color $color-main-primary
-        .info
-          margin 5px 0 0px
-          span
-            font-size 13px
-            line-height 18px
-            font-weight 100
-            color $color-secondary-info
-            + span
-              float right
-              margin-left 10px
-          a
-            display inline-block
-            color: #777
-            cursor pointer
-            &:hover
-              color $color-main-primary
-        .img
-          padding-bottom: 30%
-          width: 100%
-          height: 0
-          margin 5px 0
-          overflow hidden
-          img
-            width 100%
-            transition: All 0.4s ease-in-out
-            transform: scale(1.0)
-            zoom: 1.0
-        .desc
-          text-align justify
-          color $color-secondary-info
+      display block
+      overflow hidden
+      .tags
+        margin-bottom 10px
+      .title
+        text-align justify
+        font-size 16px
+        line-height 23px
+        margin-bottom 5px
+        > a
+          display inline
+          color $default-link-color
+          &:hover
+            text-decoration underline
+            color $default-link-color-hover
+      .info
+        margin 5px 0 0
+        span
           font-size 13px
-          line-height 20px
-          margin 5px 0 0
-        &:hover
-          .title
-            color $color-main-primary
-          img
-            transition: All 0.4s ease-in-out
-            transform: scale(1.05)
-            zoom: 1.05
+          line-height 18px
+          font-weight 100
+          color $default-info-color
+          + span
+            float right
+            margin-left 10px
+        a
+          display inline-block
+          color: #777
+          cursor pointer
+          &:hover
+            color $default-link-color-hover
+      .img
+        padding-bottom: 30%
+        width: 100%
+        height: 0
+        margin 5px 0
+        overflow hidden
+        img
+          width 100%
+          transition: All 0.4s ease-in-out
+          transform: scale(1.0)
+          zoom: 1.0
+      .desc
+        text-align justify
+        color $default-desc-color
+        font-size 13px
+        line-height 20px
+        margin 5px 0 0
+      &:hover
+        img
+          transition: All 0.4s ease-in-out
+          transform: scale(1.05)
+          zoom: 1.05
     .others
       li
         margin-top 10px
         padding-top 10px
-        border-top 1px solid $color-border
+        border-top 1px solid $default-border-color
 
 </style>

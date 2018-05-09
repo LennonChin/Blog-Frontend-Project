@@ -24,22 +24,23 @@
 
   .panel
     position relative
-    background #fff
+    background $default-background-color
     h4
       font-size 18px
       padding 13px 20px 13px
       line-height 18px
       text-align left
-      border-left 5px solid $color-main-primary
+      color $default-title-color
+      border-left 5px solid $default-link-color-hover
       &.center
         text-align center
-        border 1px solid $color-border
+        border 1px solid $default-border-color
       &.left
         text-align left
-        border-left 5px solid $color-main-primary
+        border-left 5px solid $default-link-color-hover
         border-right none
       &.right
         text-align right
-        border-right 5px solid $color-main-primary
+        border-right 5px solid $default-link-color-hover
         border-left none
 </style>

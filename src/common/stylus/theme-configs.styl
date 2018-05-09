@@ -14,7 +14,7 @@ body
 		padding-top $header-height
 
 body.dark
-	background-color #4f4f4f
+	background-color $dark-background-color
 	// cell的主题
 	.article-list-cell, .book-cell, .book-note-cell
 		background-color $dark-cell-background-color
@@ -68,6 +68,87 @@ body.dark
 			.view-more
 				a
 					color $dark-sectionTitle-title-color
+	// about主题
+	.about
+		background-color $dark-background-color
+		border 1px solid $dark-border-color
+		img.avatar
+			border 5px solid $dark-border-color
+		.name
+			color $dark-title-color
+		.desc
+			color $dark-desc-color
+		.line
+			background-color $dark-border-color
+		h4
+			color $dark-title-color
+		.progresses
+			p.title
+				color $dark-title-color
+	// recommend hot 主题
+	.recommend, .hot
+		background $dark-background-color
+		.content
+			border-left 1px solid $dark-border-color
+		.top, .others
+			.tags
+			.title
+				> a
+					color $dark-link-color
+					&:hover
+						color $dark-link-color-hover
+			.info
+				span
+					color $dark-info-color
+				a
+					&:hover
+						color $dark-link-color-hover
+			.desc
+				color $dark-desc-color
+		.others
+			li
+				border-top 1px solid $dark-border-color
+	// friendlinks主题
+	.friend-links
+		ul.link-list
+			border-left 1px solid $dark-border-color
+			li
+				a
+					&:hover
+						.link
+							color $dark-link-color
+					img
+						border 1px solid $dark-border-color
+						&.no-pic
+							border none
+					.right
+						p
+							&.title
+								color $dark-title-hover-color
+							&.link
+								color $dark-link-color-hover
+	// panel主题
+	.panel
+		background $dark-background-color
+		h4
+			color $dark-title-color
+			border-left 5px solid $dark-link-color-hover
+			&.center
+				border 1px solid $dark-border-color
+			&.left
+				border-left 5px solid $dark-link-color-hover
+			&.right
+				border-right 5px solid $dark-link-color-hover
+	// footer主题
+	.common-footer
+		background $dark-header-background-color
+		border-top 1px solid $dark-border-color
+		.copyright, .copyright-english
+			color $dark-title-color
+			a
+				color $dark-link-color
+				&:hover
+					color $dark-link-color-hover
 	// tag的主题
 	.tag
 		background-color transparent!important
