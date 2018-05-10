@@ -1,18 +1,16 @@
 <template>
-  <div class="movie-list-item" v-if="movie != undefined">
-    <a @click="gotoPostDetail(movie)">
-      <img :src="movie.front_image" alt="">
-      <div class="movie-info">
-        <p class="title">
-          <i-tool-tip placement="right" content="该文章已加密，您需要输入阅读密码" v-if="movie.browse_password_encrypt">
-            <i-icon type="android-lock" color="#FA5555" v-if="movie.browse_password_encrypt"></i-icon>
-          </i-tool-tip>
-          {{ movie.title }}
-        </p>
-        <p class="desc">
-          {{ movie.desc | textLineBreak(50) }}</p>
-      </div>
-    </a>
+  <div class="movie-list-item" v-if="movie != undefined" @click="gotoPostDetail(movie)">
+    <img :src="movie.front_image" alt="">
+    <div class="movie-info">
+      <p class="title">
+        <i-tool-tip placement="right" content="该文章已加密，您需要输入阅读密码" v-if="movie.browse_password_encrypt">
+          <i-icon type="android-lock" color="#FA5555" v-if="movie.browse_password_encrypt"></i-icon>
+        </i-tool-tip>
+        {{ movie.title }}
+      </p>
+      <p class="desc">
+        {{ movie.desc | textLineBreak(50) }}</p>
+    </div>
   </div>
 </template>
 
@@ -51,48 +49,43 @@
   @import "../../../common/stylus/theme.styl";
 
   .movie-list-item
-    > a
-      position relative
-      display block
-      padding-bottom: 135%
-      width: 100%
-      height: 0
-      overflow hidden
-      border 1px solid $color-border
+    position relative
+    display block
+    padding-bottom 135%
+    width: 100%
+    height 0
+    overflow hidden
+    border 1px solid $default-border-color
+    img
+      width 100%
+      transition All 0.4s ease-in-out
+      transform scale(1.0)
+      zoom 1.0
+    .movie-info
+      position absolute
+      bottom 0
+      left 0
+      width 100%
+      height 28%
+      padding 10px
+      background rgba($color-secondary-warning, 0.9)
+      transition All 0.4s ease-in-out
+      opacity 1.0
+      .title
+        font-size 20px
+        line-height 24px
+        color $default-title-color
+        margin-bottom 7px
+      .desc
+        font-size 14px
+        line-height 18px
+        color $default-desc-color
+    &:hover
       img
-        width 100%
-        transition: All 0.4s ease-in-out
-        transform: scale(1.0)
-        zoom: 1.0
+        transition All 0.4s ease-in-out
+        transform scale(1.05)
+        zoom 1.05
       .movie-info
-        position absolute
-        bottom 0
-        left 0
-        width 100%
-        height 28%
-        padding 10px
-        background rgba($color-secondary-warning, 0.9)
-        transition: All 0.4s ease-in-out
-        opacity 1.0
-        .title
-          font-size 20px
-          line-height 24px
-          color $color-typegraphy-title
-          margin-bottom 7px
-        .desc
-          font-size 14px
-          line-height 18px
-          color $color-gradually-gray-31
-      &:hover
-        img
-          transition: All 0.4s ease-in-out
-          transform: scale(1.05)
-          zoom: 1.05
-        .movie-info
-          height 30%
-          background rgba($color-gradually-gray-101, 1.0)
-          .title
-            color $color-gradually-gray-11
-          .desc
-            color $color-gradually-gray-11
+        height 30%
+        background rgba($default-background-hover-color, 1.0)
 </style>

@@ -50,29 +50,35 @@
       line-height 21px
       font-size 16px
       padding 12px 15px 8px
-      border-bottom 1px solid $color-border-hover
-      background-color $color-border
+      color $default-title-color
+      font-weight 700
+      border-bottom 1px solid $default-border-hover-color
+      background-color $default-border-color
+      box-shadow 1px 1px 1px $default-box-shadow-color
     .result-option
       display block
       padding 5px 20px
-      background-color white
-      border-bottom 1px solid $color-border
+      background-color $default-background-color
+      border-bottom 1px solid $default-border-color
       &:hover, &.select-option
-        background-color $color-gradually-gray-101
-      .title, .infos
+        background-color $default-background-hover-color
+      .title
         font-size 14px
         line-height 22px
+        color $default-title-color
       .infos
-        color $color-gradually-gray-71
-        > span
+        font-size 12px
+        line-height 22px
+        span
+          color $default-info-color
           margin-right 20px
       .highlighted
         padding-top 5px
         font-size 13px
         line-height 16px
-        color $color-gradually-gray-61
+        color $default-desc-color
         word-wrap break-word
         word-break break-all
         em
-          color $color-main-primary
+          color $default-desc-hover-color
 </style>

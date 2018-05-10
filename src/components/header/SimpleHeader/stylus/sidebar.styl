@@ -1,65 +1,161 @@
 @import "../../../../common/stylus/theme.styl";
 
-.side-bar
-  position fixed
-  top $mobile-header-height
-  left 0
-  bottom 0
-  width 300px
-  padding 20px 10px 20px 20px
-  background-color #f9f9f9
-  transition all .4s cubic-bezier(0.4, 0, 0, 1)
-  transform translate(-300px, 0)
-  overscroll-behavior contain
-  overflow-x hidden
-  overflow-y auto
-  -webkit-overflow-scrolling touch
-  -ms-overflow-style none
-  z-index 13
-  &.open
-    transform translate(0, 0)
-  .site-name
-    font-size 1.5em
-    margin-bottom 20px
-  .sidebar-inner
-    .site-nav
-      display inline-block
-      font-size 16px
-      height 52px
-      line-height 32px
-    .nav-menu
-      display block
-      margin-bottom 20px
-      padding-left 10px
-      transition height 0.7s
-      height auto
-      overflow hidden
-      &.hide
-        max-height 0
-  ul
-    list-style-type none
-    margin 0
-    line-height 1.5em
-    padding-left 0.7em
-  li
-    margin .5em 0
-    > a
-      font-size 16px
-      color $color-gradually-gray-21
-      &:hover, &.active
-        color $color-main-primary
-    > ul > li > a
-      font-size 14px
-      color $color-gradually-gray-51
-  .nav-link
-    text-decoration none
-    &:hover, &.active
-      text-decoration underline
-      color $color-main-primary
+body
+  .side-bar
+    position fixed
+    top $mobile-header-height
+    left 0
+    right 0
+    bottom 0
+    padding-bottom 44px
+    background none
+    border-left none
+    box-shadow none
+    transition all .4s cubic-bezier(0.4, 0, 0, 1)
+    transform translate(-100%, 0)
+    overflow hidden
+    overscroll-behavior contain
+    -webkit-overflow-scrolling touch
+    -ms-overflow-style none
+    z-index 1003
+    &.open
+      background rgba($default-select-background-hover-color, 0.5)
+      transform translate(0, 0)
+      border-left 1px solid $default-border-color
+      box-shadow 1px 1px 1px $default-border-color
+    .top-wrapper
+      position absolute
+      left 0
+      right 0
+      top 0
+      width 290px
+      bottom 44px
+      background $default-background-color
+      overscroll-behavior contain
+      -webkit-overflow-scrolling touch
+      -ms-overflow-style none
+      overflow-x hidden
+      overflow-y auto
+      .site-name
+        font-size 1.6em
+        line-height 2em
+        padding-left 15px
+        font-weight 700
+        color $default-title-color
+      .sidebar-search
+        padding 5px 15px
+        margin-bottom 10px
+        .search-view, .result-area
+          width 100%
+      .sidebar-menus
+        .site-nav
+          display flex
+          justify-content space-between
+          align-items center
+          height 42px
+          padding 8px 15px
+          border-bottom 1px solid $default-border-color
+          background $default-border-hover-color
+          > p
+            font-size 16px
+            color $default-info-color
+        // 站点导航
+        ul
+          list-style-type none
+          padding-left 1.0em
+        ul.nav-menu
+          display block
+          padding 8px 15px
+          transition all 0.7s
+          max-height 300px
+          overflow hidden
+          &.hide
+            padding 0 15px
+            max-height 0
+          li
+            line-height 1.8em
+            > a
+              font-size 17px
+              color $default-link-color
+              &:hover, &.active
+                color $default-link-hover-color
+            > ul > li > a
+              font-size 15px
+              color $default-link-color
+          .nav-link
+            text-decoration none
+            &:hover, &.active
+              text-decoration underline
+              color $default-link-hover-color
+        // 生成Toc目录css
+        .sidebar-toc-list
+          #side-toc
+            padding 15px
+            > .toc-list
+              padding-left 0
+            .toc-link
+              &::before
+                background transparent
+            .is-active-link
+              &::before
+                background-color $default-link-hover-color
+    // 配置操作区域
+    .sidebar-operate-area
+      position absolute
+      display flex
+      justify-content flex-end
+      align-items center
+      left 0
+      bottom 0
+      width 290px
+      height 44px
+      padding 8px 15px
+      border-top 1px solid $default-border-color
+      background $default-border-hover-color
 
-  // 生成Toc目录css
-  .menu-root
-    margin-top 30px
+body.dark
+  .side-bar
+    &.open
+      border-left 1px solid $dark-border-color
+      box-shadow 1px 1px 1px $dark-border-color
+    .top-wrapper
+      background $dark-background-color
+      .site-name
+        color $dark-title-color
+      .sidebar-menus
+        .site-nav
+          border-bottom 1px solid $dark-border-color
+          background $dark-border-hover-color
+          > p
+            color $dark-info-color
+        // 站点导航
+        ul.nav-menu
+          li
+            > a
+              color $dark-link-color
+              &:hover, &.active
+                color $dark-link-hover-color
+            > ul > li > a
+              color $dark-link-color
+          .nav-link
+            &:hover, &.active
+              color $dark-link-hover-color
+        // 生成Toc目录css
+        .sidebar-toc-list
+          #side-toc
+            padding 15px
+            > .toc-list
+              padding-left 0
+            .toc-link
+              &::before
+                background transparent
+            .is-active-link
+              &::before
+                background-color $dark-link-hover-color
+    // 配置操作区域
+    .sidebar-operate-area
+      border-top 1px solid $dark-border-color
+      background $dark-border-hover-color
 
 
 

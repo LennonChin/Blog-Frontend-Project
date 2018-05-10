@@ -250,7 +250,6 @@
           reset
         }).then(response => {
           this.$nextTick(function () {
-            console.log('=====>', this);
             this.$refs.browseMoreBookNotes.stopLoading(this.noMoreBookNotesData);
           });
         }).catch(error => {

@@ -64,13 +64,35 @@
   @import "../../../common/stylus/theme.styl";
 
   .book-reading-cell
-    border 1px solid $color-border
-    padding 20px 20px
-    background-color white
+    border 1px solid $default-border-color
+    padding 20px
+    background-color $default-background-color
+    @media only screen and (max-width: $responsive-sm)
+      padding 10px 10px 15px
+    @media screen and (min-width: $responsive-sm)
+      padding 14px
+    @media screen and (min-width: $responsive-md)
+      padding 16px
+    @media screen and (min-width: $responsive-lg)
+      padding 20px
     h4
-      font-size 23px
-      line-height 30px
-      margin-bottom 20px
+      color $default-title-color
+      @media only screen and (max-width: $responsive-sm)
+        font-size 22px
+        line-height 24px
+        margin-bottom 10px
+      @media screen and (min-width: $responsive-sm)
+        font-size 23px
+        line-height 30px
+        margin-bottom 15px
+      @media screen and (min-width: $responsive-md)
+        font-size 23px
+        line-height 30px
+        margin-bottom 18px
+      @media screen and (min-width: $responsive-lg)
+        font-size 23px
+        line-height 30px
+        margin-bottom 20px
     > a
       display flex
       .img
@@ -79,8 +101,14 @@
         width 140px
         overflow hidden
         margin 0 30px 10px 0
-        border 1px solid $color-border-hover
-        box-shadow 1px 1px 1px $color-border
+        border 1px solid $default-border-hover-color
+        box-shadow 1px 1px 1px $default-border-color
+        @media only screen and (max-width: $responsive-sm)
+          display none
+        @media screen and (min-width: $responsive-sm)
+          display none
+        @media screen and (min-width: $responsive-lg)
+          display block
         .container
           width 100%
           position relative
@@ -101,6 +129,7 @@
               zoom: 1.0
       .book-info
         flex-grow 1
+        margin-bottom 8px
         .title
           font-size 20px
           line-height 28px
@@ -108,17 +137,17 @@
           margin-bottom 5px
           text-align justify
           a
-            color $color-typegraphy-title
+            color $default-title-color
             &:hover
-              color $color-main-primary
+              color $default-title-hover-color
         .desc
           font-size 13px
           font-weight 100
           line-height 20px
-          color $color-gradually-gray-61
+          color $default-desc-color
           text-align justify
           margin 10px 0 5px
           > span
-            color $color-gradually-gray-41
+            color $default-info-color
             font-weight 300
 </style>

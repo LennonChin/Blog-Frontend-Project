@@ -1,9 +1,14 @@
 <template>
   <div class="simple-header" v-if="siteInfo">
     <div id="mobile-bar">
-      <a class="menu-button" @click="showMobileMenu"></a>
       <router-link class="logo" to="/"></router-link>
-      <a class="search-button"></a>
+      <transition name="fade">
+        <div class="search-area" v-show="showSearchInput">
+          <search-view></search-view>
+        </div>
+      </transition>
+      <a class="menu-button" @click="showMobileMenu"></a>
+      <a class="search-button" @click="showSearchView"></a>
     </div>
     <div id="header">
       <router-link id="logo" to="/">
@@ -52,7 +57,7 @@
         </li>
       </ul>
     </div>
-    <!--<side-bar :categorys="allCategorysInfo" ref="sidebar"></side-bar>-->
+    <side-bar :categorys="allCategorysInfo" ref="sidebar"></side-bar>
   </div>
 </template>
 
@@ -69,7 +74,8 @@
     data() {
       return {
         searchKeyWords: '',
-        searchResult: []
+        searchResult: [],
+        showSearchInput: true
       };
     },
     asyncData({store}) {
@@ -108,6 +114,9 @@
         // 显示手机端的菜单
         let sidebar = this.$refs.sidebar;
         sidebar.toggleSideBar();
+      },
+      showSearchView() {
+        this.showSearchInput = !this.showSearchInput;
       },
       toggleTheme(isDark) {
         if (isDark) {

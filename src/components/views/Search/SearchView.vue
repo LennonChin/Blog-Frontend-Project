@@ -208,18 +208,18 @@
     max-width 100vw
     max-height 60px
     .result-area
-      overflow-y scroll
       position absolute
       display block
       left 0
       top 100%
       width 180%
       max-width 100vw
-      max-height 70vh
+      max-height 85vh
       background-color white
+      overflow-y scroll
       z-index 1000
-      border 1px solid $color-border
-      box-shadow 1px 1px 1px $color-border
+      border 1px solid $default-border-color
+      box-shadow 1px 1px 1px $default-box-shadow-color
       &.hide
         display none
 </style>

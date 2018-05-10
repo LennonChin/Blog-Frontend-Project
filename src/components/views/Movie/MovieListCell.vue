@@ -31,7 +31,7 @@
   @import "../../../common/stylus/theme.styl";
 
   .movie-list-cell
-    border 1px solid $color-border
+    border 1px solid $default-border-color
     padding 10px
     h4
       font-size 26px

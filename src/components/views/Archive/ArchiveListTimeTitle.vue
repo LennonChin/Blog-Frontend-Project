@@ -74,17 +74,19 @@
         vertical-align middle
         font-size 22px
         padding 0 10px
+        color $default-title-color
       .vertical-line
         display inline-block
         height 20px
         width 1px
-        background-color #333
+        background-color $default-desc-color
         vertical-align middle
       .sub-title
         display inline-block
         vertical-align middle
         font-size 18px
         padding-left 10px
+        color $default-desc-color
       .view-more
         display inline-block
         vertical-align middle
@@ -130,6 +132,7 @@
         vertical-align middle
         font-size 18px
         padding 0 10px
+        color $default-title-color
       .vertical-line
         display inline-block
         height 20px
@@ -141,6 +144,7 @@
         vertical-align middle
         font-size 14px
         padding-left 10px
+        color $default-desc-color
       .view-more
         display inline-block
         vertical-align middle

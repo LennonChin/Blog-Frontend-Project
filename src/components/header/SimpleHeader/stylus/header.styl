@@ -14,7 +14,7 @@ body
 		background-color $default-header-background-color
 		border-bottom 1px solid $default-header-border-color
 		transition background-color .3s ease-in-out
-		z-index 11
+		z-index 1003
 		#logo
 			display flex
 			align-items center
@@ -118,6 +118,52 @@ body
 						top 50%
 						margin-top -4px
 						left 8px
+	// 小屏模式下的导航栏
+	#mobile-bar
+		position fixed
+		top 0
+		left 0
+		width 100%
+		height $mobile-header-height
+		line-height $mobile-header-height
+		background-color $default-background-color
+		border-bottom 1px solid $default-border-color
+		box-shadow 0 0 2px $default-box-shadow-color
+		z-index 1003
+		display none
+		.menu-button
+			position absolute
+			cursor pointer
+			width $mobile-header-inner-height
+			height $mobile-header-inner-height
+			top "calc((%s - %s) / 2)" % ($mobile-header-height $mobile-header-inner-height)
+			left 12px
+			background url(./../../../assets/menu.png) center center no-repeat
+			background-size 24px
+		.logo
+			position absolute
+			width $mobile-header-inner-height
+			height $mobile-header-inner-height
+			background url(./../../../assets/logo.png) center center no-repeat
+			top "calc((%s - %s) / 2)" % ($mobile-header-height $mobile-header-inner-height)
+			left 50%
+			margin-left -15px
+			background-size $mobile-header-inner-height
+		.search-area
+			> .search-view
+				padding 0 50px
+				width auto
+				.result-area
+					border none
+		.search-button
+			position absolute
+			cursor pointer
+			width $mobile-header-inner-height
+			height $mobile-header-inner-height
+			top "calc((%s - %s) / 2)" % ($mobile-header-height $mobile-header-inner-height)
+			right 12px
+			background url(./../../../assets/search.png) center center no-repeat
+			background-size 24px
 
 body.dark
 	#header
@@ -145,47 +191,10 @@ body.dark
 					color $dark-link-hover-color
 					&::after
 						border-left 5px solid $dark-link-hover-color
-
-// 小屏模式下的导航栏
-#mobile-bar
-	position fixed
-	top 0
-	left 0
-	width 100%
-	height $mobile-header-height
-	line-height $mobile-header-height
-	background-color #fff
-	z-index 11
-	display none
-	box-shadow 0 0 2px rgba(0, 0, 0, .25)
-	.menu-button
-		position absolute
-		cursor pointer
-		width $mobile-header-inner-height
-		height $mobile-header-inner-height
-		top "calc((%s - %s) / 2)" % ($mobile-header-height $mobile-header-inner-height)
-		left 12px
-		background url(./../../../assets/menu.png) center center no-repeat
-		background-size 24px
-	.logo
-		position absolute
-		width $mobile-header-inner-height
-		height $mobile-header-inner-height
-		background url(./../../../assets/logo.png) center center no-repeat
-		top "calc((%s - %s) / 2)" % ($mobile-header-height $mobile-header-inner-height)
-		left 50%
-		margin-left -15px
-		background-size $mobile-header-inner-height
-	.search-button
-		position absolute
-		cursor pointer
-		width $mobile-header-inner-height
-		height $mobile-header-inner-height
-		top "calc((%s - %s) / 2)" % ($mobile-header-height $mobile-header-inner-height)
-		right 12px
-		background url(./../../../assets/search.png) center center no-repeat
-		background-size 24px
-
+	#mobile-bar
+		background-color $dark-background-color
+		border-bottom 1px solid $dark-border-color
+		box-shadow 0 0 2px $dark-box-shadow-color
 
 body
 	@media screen and (max-width $responsive-lg)

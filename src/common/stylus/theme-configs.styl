@@ -83,6 +83,38 @@ body.dark
 					color $dark-title-color
 				.desc
 					color $dark-desc-color
+	// movie-list-item
+	.movie-list-item
+		border 1px solid $dark-border-color
+		.movie-info
+			background rgba($color-secondary-info, 0.9)
+			.title
+				color $dark-title-color
+			.desc
+				color $dark-title-color
+		&:hover
+			.movie-info
+				background rgba($dark-background-hover-color, 1.0)
+	// book-reading-cell
+	.book-reading-cell
+		border 1px solid $dark-border-color
+		background-color $dark-background-color
+		h4
+			color $dark-title-color
+		> a
+			.img
+				border 1px solid $dark-border-hover-color
+				box-shadow 1px 1px 1px $dark-border-color
+			.book-info
+				.title
+					a
+						color $dark-title-color
+						&:hover
+							color $dark-title-hover-color
+				.desc
+					color $dark-desc-color
+					> span
+						color $dark-info-color
 	// archive-list-cell
 	.archive-list-cell
 		&::after
@@ -108,6 +140,12 @@ body.dark
 					background-color: $dark-link-hover-color
 				&::after
 					background-color: $dark-link-hover-color
+			.main-title
+				color $dark-title-color
+			.vertical-line
+				background-color $dark-desc-color
+			.sub-title
+				color $dark-desc-color
 			.view-more
 				a
 					color $dark-link-hover-color
@@ -118,6 +156,12 @@ body.dark
 					background $dark-link-hover-color
 				&::after
 					background $dark-link-hover-color
+			.main-title
+				color $dark-title-color
+			.vertical-line
+				background-color $dark-desc-color
+			.sub-title
+				color $dark-desc-color
 			.view-more
 				a
 					color $dark-link-hover-color
@@ -148,6 +192,32 @@ body.dark
 					color $dark-link-color
 					&:hover
 						color $dark-link-hover-color
+	// search-view
+	.search-view
+		.result-area
+			border 1px solid $dark-border-color
+			box-shadow 1px 1px 1px $dark-box-shadow-color
+	// search-result-section
+	.search-result-section
+		.type
+			color $dark-title-color
+			border-bottom 1px solid $dark-border-hover-color
+			background-color $dark-border-color
+			box-shadow 1px 1px 1px $dark-box-shadow-color
+		.result-option
+			background-color $dark-background-color
+			border-bottom 1px solid $dark-border-color
+			&:hover, &.select-option
+				background-color $dark-background-hover-color
+			.title
+				color $dark-title-color
+			.infos
+				span
+					color $dark-info-color
+			.highlighted
+				color $dark-desc-color
+				em
+					color $dark-desc-hover-color
 	// classifyMenu
 	.classify-bar
 		.level

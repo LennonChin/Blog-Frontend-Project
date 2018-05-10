@@ -3,7 +3,14 @@
     <i-row>
       <i-col :xs="24" :sm="24" :md="24" :lg="17">
         <div class="layout-left">
-          <book-reading-cell v-for="book in readingBooks" :key="book.id" :book="book"></book-reading-cell>
+          <div v-swiper="swiperOption" :instanceName="'swiper'" class="book-gallery">
+            <div class="swiper-wrapper">
+              <div class="swiper-slide" v-for="book in readingBooks" :key="book.id">
+                <book-reading-cell :book="book"></book-reading-cell>
+              </div>
+            </div>
+            <div class="swiper-pagination" slot="pagination"></div>
+          </div>
           <classify-menu :categorys="categorysInfo" @selectCategory="selectCategory"
                          :defaultCategory="selected_category"></classify-menu>
           <section-title :mainTitle="'图书列表'"
@@ -37,6 +44,7 @@
 </template>
 
 <script type="text/ecmascript-6">
+  import Vue from 'vue';
   import {
     mapState,
     mapGetters,
@@ -56,6 +64,11 @@
     SectionTitleDefaultMenus
   } from '@/common/js/const';
 
+  if (process.browser) {
+    require('swiper/dist/css/swiper.css');
+    Vue.use(require('vue-awesome-swiper/dist/ssr'));
+  }
+
   export default {
     name: 'read-home-content',
     data() {
@@ -65,7 +78,21 @@
         mostComment: undefined,
         recommend: undefined,
         limit_size: DefaultLimitSize,
-        menus: SectionTitleDefaultMenus
+        menus: SectionTitleDefaultMenus,
+        swiperOption: {
+          lazy: true,
+          centeredSlides: true,
+          loop: true,
+          effect: 'fade',
+          autoplay: {
+            delay: 5000,
+            disableOnInteraction: false
+          },
+          pagination: {
+            el: '.swiper-pagination',
+            clickable: true
+          }
+        }
       };
     },
     metaInfo() {
@@ -252,6 +279,14 @@
   };
 </script>
 
-<style lang="stylus" rel="stylesheet/stylus">
+<style lang="stylus" type="text/stylus" rel="stylesheet/stylus">
+  @import "../../common/stylus/theme.styl";
 
+  .read-home-content
+    .book-gallery
+      margin-bottom 8px
+      .swiper-pagination-bullet
+        background $default-background-color
+      .swiper-pagination-bullet-active
+        background $default-background-color
 </style>
