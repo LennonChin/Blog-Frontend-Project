@@ -216,5 +216,8 @@
           height 450px
     > .ivu-menu
       z-index 0
+    .comment-list
+      padding 15px
+      background $default-background-color
 
 </style>

@@ -210,7 +210,7 @@
         .name
           a
             font-size 15px
-            color $color-main-primary
+            color $default-title-hover-color
             font-weight 700
             &:hover
               text-decoration underline
@@ -219,22 +219,21 @@
               color $color-secondary-warning
         .name-tag
           font-size 10px
-          background-color $color-secondary-info
+          background-color $default-info-color
           padding 2px 5px
           margin 0 5px
           color #fff
           border-radius $border-radius
         .reply-icon
           font-size 15px
-          color $light
+          color $default-info-color
         .reply-name
           font-size 15px
           margin 0 5px
           a
-            color $dark
+            color $default-link-color
             &:hover
-              color $color-main-primary
-              text-decoration underline
+              color $default-link-hover-color
           &.dark-theme
             a
               color $color-gradually-gray-71
@@ -243,7 +242,7 @@
                 text-decoration underline
         .time
           font-size 13px
-          color $light
+          color $default-info-color
           margin-left 8px
       .comment-main-content
         font-size 16px
@@ -261,7 +260,7 @@
       .i-dropdown-link
         cursor pointer
       .like, .unlike
-        color $light
+        color $default-info-color
         font-weight 300
         cursor pointer
       .reply
@@ -285,5 +284,5 @@
         a
           font-size 14px
           &:hover
-            color $color-main-primary
+            color $default-link-hover-color
 </style>

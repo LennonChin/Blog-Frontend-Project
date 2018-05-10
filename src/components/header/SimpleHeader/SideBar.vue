@@ -32,7 +32,7 @@
           <div class="site-nav">
             <p>文章目录</p>
           </div>
-          <div id="side-toc"></div>
+          <div id="sidebar-toc"></div>
         </div>
       </div>
     </div>
