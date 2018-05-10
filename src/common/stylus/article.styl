@@ -5,45 +5,106 @@
     .detail-footer
       text-align right
       font-size 12px
-      color $color-gradually-gray-81
-      border-bottom 1px dashed $color-border
+      color $default-desc-color
+      border-bottom 1px dashed $default-border-color
       padding-bottom 10px
       margin-bottom 15px
 
 article.article-main-content
   text-align left
-  h1, h2, h3, h4, h5, h6, h7
+  h1, h2, h3, h4, h5, h6
     padding-bottom 15px
-    padding-top 90px;
-    margin-top -70px;
+    padding-top 90px
+    margin-top -70px
     font-weight 700
     text-align justify
+    color $default-title-color
     &:focus
       outline none
+    @media only screen and (max-width: $responsive-sm)
+      padding-top 35px
+      margin-top -28px
+    @media screen and (min-width: $responsive-sm)
+      padding-top 50px
+      margin-top -40px
+    @media screen and (min-width: $responsive-md)
+      padding-top 70px
+      margin-top -50px
+    @media screen and (min-width: $responsive-lg)
+      padding-top 90px
+      margin-top -70px
   h1
     font-size 27px
+    @media only screen and (max-width: $responsive-sm)
+      font-size 20px
+    @media screen and (min-width: $responsive-sm)
+      font-size 22px
+    @media screen and (min-width: $responsive-md)
+      font-size 24px
+    @media screen and (min-width: $responsive-lg)
+      font-size 27px
   h2
     font-size 25px
+    @media only screen and (max-width: $responsive-sm)
+      font-size 18px
+    @media screen and (min-width: $responsive-sm)
+      font-size 20px
+    @media screen and (min-width: $responsive-md)
+      font-size 22px
+    @media screen and (min-width: $responsive-lg)
+      font-size 25px
   h3
     font-size 22px
-  h4, h5, h6, h7
+    @media only screen and (max-width: $responsive-sm)
+      font-size 16px
+    @media screen and (min-width: $responsive-sm)
+      font-size 18px
+    @media screen and (min-width: $responsive-md)
+      font-size 20px
+    @media screen and (min-width: $responsive-lg)
+      font-size 22px
+  h4, h5, h6
     font-size 20px
+    @media only screen and (max-width: $responsive-sm)
+      font-size 14px
+    @media screen and (min-width: $responsive-sm)
+      font-size 16px
+    @media screen and (min-width: $responsive-md)
+      font-size 18px
+    @media screen and (min-width: $responsive-lg)
+      font-size 20px
   ul, ol
     list-style-type square
     line-height 1.5em
-    padding-left 2.5em
+    padding-left 2em
+    margin-bottom 1.5em
   li
     list-style-type square
     margin .5em 0
-    color $color-typegraphy-title
     font-weight 200
+    color $default-title-color
   p
     font-size 17px
     line-height 25px
-    color $color-typegraphy-title
-    font-weight 200
     margin 15px 0
+    color $default-info-color
     word-wrap break-word
+    @media only screen and (max-width: $responsive-sm)
+      font-size 14px
+      line-height 20px
+      margin 5px 0
+    @media screen and (min-width: $responsive-sm)
+      font-size 14px
+      line-height 20px
+      margin 8px 0
+    @media screen and (min-width: $responsive-md)
+      font-size 15px
+      line-height 22px
+      margin 10px 0
+    @media screen and (min-width: $responsive-lg)
+      font-size 17px
+      line-height 25px
+      margin 15px 0
   img
     display block
     width 80%
@@ -51,47 +112,120 @@ article.article-main-content
     cursor pointer
   blockquote
     padding-left 12px
-    font-size 10px
     margin 15px 0
     word-wrap break-word
-    border-left 5px solid $color-gradually-gray-81
+    border-left 5px solid $default-desc-hover-color
+    @media only screen and (max-width: $responsive-sm)
+      padding-left 5px
+      margin 8px 0
+      border-left 2px solid $default-desc-hover-color
+    @media screen and (min-width: $responsive-sm)
+      padding-left 8px
+      margin 10px 0
+      border-left 3px solid $default-desc-hover-color
+    @media screen and (min-width: $responsive-md)
+      padding-left 10px
+      margin 12px 0
+      border-left 4px solid $default-desc-hover-color
+    @media screen and (min-width: $responsive-lg)
+      padding-left 12px
+      margin 15px 0
+      border-left 5px solid $default-desc-hover-color
     > p
-      font-size 15px
-      line-height 22px
-      color $color-gradually-gray-51
-      font-weight 200
+      font-weight 100
       margin 5px 0
-
-// 代码相关
-pre
-  margin-bottom 18px
-code.hljs
-  display block
-  padding 0
-  border 0
-  margin 0
-  width 100%
-  font-size 14px
-  font-weight 100
-  background #eee !important
-  color #333
-  white-space pre-wrap
-  > ul
-    list-style decimal
-    margin 30px 0 0 45px !important
+      color $default-info-color
+      @media screen and (min-width: $responsive-sm)
+        font-size 13px
+        line-height 20px
+      @media screen and (min-width: $responsive-md)
+        font-size 14px
+        line-height 21px
+      @media screen and (min-width: $responsive-lg)
+        font-size 15px
+        line-height 22px
+  // 代码相关
+  pre
+    margin-bottom 18px
+    @media only screen and (max-width: $responsive-sm)
+      margin-bottom 5px
+    @media screen and (min-width: $responsive-sm)
+      margin-bottom 8px
+    @media screen and (min-width: $responsive-md)
+      margin-bottom 15px
+    @media screen and (min-width: $responsive-lg)
+      margin-bottom 18px
+  code.hljs
+    display block
     padding 0
-    background-color #fff
-    > li
-      list-style decimal-leading-zero
-      padding 5px
-      margin 0
-      line-height 16px
-      background #fcfcfc
-      border-left 1px solid #ddd
-      word-break break-all
-      word-wrap break-word
-      &:nth-of-type(even)
-        background-color #fafafa
-        color inherit
+    border 0
+    margin 0
+    width 100%
+    font-size 14px
+    font-weight 100
+    background $default-border-color !important
+    color $default-info-color
+    white-space pre-wrap
+    > ul
+      list-style decimal
+      margin-left 30px 0 0 45px !important
+      padding 0
+      border-top 1px solid $default-border-hover-color
+      @media only screen and (max-width: $responsive-sm)
+        margin 21px 0 0 35px !important
+      @media screen and (min-width: $responsive-sm)
+        margin 25px 0 0 40px !important
+      @media screen and (min-width: $responsive-md)
+        margin 25px 0 0 40px !important
+      @media screen and (min-width: $responsive-lg)
+        margin 30px 0 0 45px !important
+      > li
+        list-style decimal-leading-zero
+        padding 5px
+        margin 0
+        line-height 16px
+        font-size 14px
+        background $default-codeLine-light
+        border-left 1px solid $default-border-hover-color
+        word-break break-all
+        word-wrap break-word
+        @media only screen and (max-width: $responsive-sm)
+          padding 2px
+          font-size 12px
+        @media screen and (min-width: $responsive-sm)
+          padding 3px
+          font-size 13px
+        @media screen and (min-width: $responsive-md)
+          padding 4px
+          font-size 14px
+        @media screen and (min-width: $responsive-lg)
+          padding 5px
+          font-size 14px
+        &:nth-of-type(even)
+          background $default-codeLine-dark
+          color inherit
 
+body.dark
+  article.article-main-content
+    h1, h2, h3, h4, h5, h6, h7
+      color $dark-title-color
+    li
+      color $dark-title-color
+    p
+      color $dark-info-color
+    blockquote
+      border-left 5px solid $dark-desc-hover-color
+      > p
+        color $dark-info-color
+    // 代码相关
+    code.hljs
+      background $dark-border-color !important
+      color $dark-info-color
+      > ul
+        border-top 1px solid $dark-border-hover-color
+        > li
+          background $dark-codeLine-light
+          border-left 1px solid $dark-border-hover-color
+          &:nth-of-type(even)
+            background $dark-codeLine-dark
 

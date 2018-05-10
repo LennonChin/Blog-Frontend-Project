@@ -11,7 +11,7 @@
             <a @click="gotoPostDetail(article)"> {{article.title}}</a>
           </h4>
           <div class="tags">
-            <i-tag :color="tag.color" type="border" v-for="tag in article.tags" :key="tag.id" class="tag">{{ tag.name }}</i-tag>
+            <i-tag :color="tag.color" type="border" v-for="tag in article.tags" :key="tag.id" class="border-tag">{{ tag.name }}</i-tag>
           </div>
           <p class="desc">{{article.desc | textLineBreak(70) }}
             <a @click="gotoPostDetail(article)"> View More

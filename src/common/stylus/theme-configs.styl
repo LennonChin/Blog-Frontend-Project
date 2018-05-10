@@ -54,6 +54,25 @@ body.dark
 						color $dark-desc-color
 					.progress
 						color $dark-desc-color
+	// article header
+	.article-page-header
+		.title
+			color $dark-title-color
+		.info, .operate_info
+			color $dark-desc-color
+			a
+				color $dark-link-color
+				&:hover
+					color $dark-link-color-hover
+		.operate_info
+			span
+				a
+					&:hover
+						color $dark-link-color-hover
+		.abstract
+			border 1px dashed $dark-border-color
+			background $dark-border-hover-color
+			color $dark-desc-color
 	// section-title的主题
 	.section-title
 		.title
@@ -150,8 +169,11 @@ body.dark
 				&:hover
 					color $dark-link-color-hover
 	// tag的主题
-	.tag
+	.border-tag
 		background-color transparent!important
 		border-color $dark-border-color!important
 		span
 			color $dark-info-color!important
+	.dot-tag
+		background $dark-desc-color
+		border-color transparent

@@ -52,7 +52,7 @@
         </li>
       </ul>
     </div>
-    <side-bar :categorys="allCategorysInfo" ref="sidebar"></side-bar>
+    <!--<side-bar :categorys="allCategorysInfo" ref="sidebar"></side-bar>-->
   </div>
 </template>
 

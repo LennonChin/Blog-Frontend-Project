@@ -1,13 +1,15 @@
 <template>
   <div class="article-page-header" v-if="article !== undefined">
     <div class="tags">
-      <i-tag color="blue" v-for="tag in article.tags" :key="tag.id">{{ tag.name }}</i-tag>
+      <i-tag color="blue" v-for="tag in article.tags" :key="tag.id" class="dot-tag">{{ tag.name }}</i-tag>
     </div>
     <p class="title">{{ article.title }}</p>
     <i-row>
       <i-col :xs="24" :sm="10" :md="10" :lg="10" style="padding-left: 0;padding-right: 0;">
-        <p class="info"><span class="author">By / <a href="">{{article.author}}</a></span><span
-                class="publish-time">  At time / <a href="">{{ article.add_time | socialDate }}</a></span></p>
+        <p class="info">
+          <span class="author">By / <a href="">{{article.author}}</a></span>
+          <span class="publish-time">  At time / <a href="">{{ article.add_time | socialDate }}</a></span>
+        </p>
       </i-col>
       <i-col :xs="24" :sm="14" :md="14" :lg="14" style="padding-left: 0;padding-right: 0;">
         <p class="operate_info">
@@ -54,38 +56,39 @@
 
   .article-page-header
     text-align left
-    margin-bottom 30px
-    border-bottom 1px solid $color-border
-    @media only screen and (max-width: 768px)
-      padding 10px 0 10px
     @media screen and (min-width: 768px)
       padding 10px 0 10px
     @media screen and (min-width: 992px)
-      padding 25px 0 10px
+      padding 15px 0 10px
     .tags
-      margin-bottom 18px
+      margin-bottom 10px
     .title
       font-size 27px
       line-height 35px
       font-weight 500
-      color $color-typegraphy-title
-    .info
+      color $default-title-color
+      @media only screen and (max-width: 768px)
+        font-size 20px
+        line-height 23px
+    .info, .operate_info
       margin-top 10px
       font-size 14px
-      line-height 18px
       font-weight 200
+      line-height 18px
+      color $default-desc-color
+      @media only screen and (max-width: 768px)
+        margin-top 7px
+        font-size 12px
+        line-height 15px
       a
-        color: #777
+        color: $default-link-color
         cursor pointer
         &:hover
-          color $color-main-primary
-          text-decoration underline
+          color $default-link-color-hover
       .publish-time
         margin-left 20px
     .operate_info
       text-align right
-      font-size 14px
-      margin 15px 0
       @media only screen and (max-width: 768px)
         text-align left
       span
@@ -95,20 +98,21 @@
         a
           cursor pointer
           &:hover
-            color $color-main-primary
-            text-decoration underline
+            color $default-link-color-hover
     .abstract
       font-size 16px
       line-height 28px
-      border 1px dashed $color-gradually-gray-91
+      color $default-desc-color
+      border 1px dashed $default-border-color
+      background $default-border-color
       @media only screen and (max-width: 768px)
         padding 10px
-        margin 5px 0
+        margin-top 8px
       @media screen and (min-width: 768px)
         padding 15px
-        margin 8px 0
+        margin-top 8px
       @media screen and (min-width: 992px)
         padding 20px
-        margin 10px 0
+        margin-top 15px
 
 </style>

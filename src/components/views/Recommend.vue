@@ -13,7 +13,7 @@
               </a>
             </p>
             <div class="tags">
-              <i-tag :color="tag.color" type="border" v-for="tag in articleSlice(0, 1)[0].tags" :key="tag.id" class="tag">{{
+              <i-tag :color="tag.color" type="border" v-for="tag in articleSlice(0, 1)[0].tags" :key="tag.id" class="border-tag">{{
                 tag.name }}
               </i-tag>
             </div>

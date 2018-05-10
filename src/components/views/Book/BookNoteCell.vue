@@ -14,7 +14,7 @@
             &nbsp;<i-icon type="ios-book"></i-icon>&nbsp;Book：《{{bookNote.book.book_name }}》 &nbsp;&nbsp;&nbsp;
             <i-icon type="document-text"></i-icon>&nbsp;Chapter：{{bookNote.abstract | textLineBreak(70) }}</p>
           <div class="tags">
-            <i-tag :color="tag.color" type="border" v-for="tag in bookNote.tags" :key="tag.id" class="tag">{{ tag.name }}</i-tag>
+            <i-tag :color="tag.color" type="border" v-for="tag in bookNote.tags" :key="tag.id" class="border-tag">{{ tag.name }}</i-tag>
           </div>
           <p class="desc">{{bookNote.abstract | textLineBreak(70) }}
             <a @click="gotoPostDetail(bookNote)"> View More
@@ -62,7 +62,7 @@
             <span class="progress">{{bookNote.book.read_precentage}}%</span>
           </i-progress>
           <p class="desc">{{ bookNote.book.desc | textLineBreak(140) }}</p>
-          <i-tag type="border" v-for="tag in bookTags" :key="tag.name" class="tag">{{ tag.name }}</i-tag>
+          <i-tag type="border" v-for="tag in bookTags" :key="tag.name" class="border-tag">{{ tag.name }}</i-tag>
         </div>
       </div>
     </div>
