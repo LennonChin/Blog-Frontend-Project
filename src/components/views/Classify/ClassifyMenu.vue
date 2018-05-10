@@ -189,7 +189,7 @@
       padding 10px 0
       font-size 15px
       line-height 22px
-      border-bottom 1px solid $color-border
+      border-bottom 1px solid $default-border-color
       .title
         display inline-block
         flex 0 0 60px
@@ -198,21 +198,22 @@
         line-height 22px
         padding 4px 0
         font-weight 700
+        color $default-title-color
       .class
         a
           display inline-block
           margin-right 4px
           padding 3px 8px
           margin-bottom 2px
-          font-weight 100
+          font-weight 300
           border-radius $border-radius
-          color $color-gradually-gray-31
+          color $default-link-color
           &.name
             &:hover
-              color $color-main-primary
+              color $default-link-hover-color
           &.active
-            color $color-gradually-gray-101
-            background $color-gradually-gray-31
+            color $default-select-color
+            background $default-select-background-hover-color
 
 
 </style>

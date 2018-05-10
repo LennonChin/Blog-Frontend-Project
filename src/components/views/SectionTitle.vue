@@ -160,11 +160,11 @@
           float left
           margin 0 6px
           a
-            color $color-secondary-info
+            color $default-link-color
             padding 6px 0
             &:hover, &.active
-              color $default-title-hover-color
-              border-bottom 2px solid $default-title-hover-color
+              color $default-link-hover-color
+              border-bottom 2px solid $default-link-hover-color
       .date-picker
         width 180px
         margin-left 15px
@@ -174,9 +174,9 @@
         line-height inherit
         a
           font-size 20px
-          color $color-gradually-gray-41
+          color $default-link-color
           cursor pointer
           &:hover
-            color $color-main-primary
+            color $default-link-hover-color
 
 </style>

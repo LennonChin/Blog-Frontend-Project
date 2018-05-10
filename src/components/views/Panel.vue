@@ -31,16 +31,16 @@
       line-height 18px
       text-align left
       color $default-title-color
-      border-left 5px solid $default-link-color-hover
+      border-left 5px solid $default-link-hover-color
       &.center
         text-align center
         border 1px solid $default-border-color
       &.left
         text-align left
-        border-left 5px solid $default-link-color-hover
+        border-left 5px solid $default-link-hover-color
         border-right none
       &.right
         text-align right
-        border-right 5px solid $default-link-color-hover
+        border-right 5px solid $default-link-hover-color
         border-left none
 </style>

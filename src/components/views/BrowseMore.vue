@@ -64,7 +64,7 @@
     width 110px
     padding 5px
     margin 10px auto
-    border 1px solid $color-main-primary
+    border 1px solid $default-link-hover-color
     border-radius $border-radius
     &.loading
       border none
@@ -84,7 +84,7 @@
         left 0
         text-align center
         font-size 18px
-        color $color-main-primary
+        color $default-link-hover-color
       .spinner
         width 100px
         height 30px
@@ -94,7 +94,7 @@
           display inline-block
           width 6px
           height 100%
-          background $color-main-primary
+          background $default-link-hover-color
           animation strechdelay 1.2s infinite ease-in-out
         .line2
           animation-delay -1.1s

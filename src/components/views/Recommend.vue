@@ -158,7 +158,7 @@
           color $default-link-color
           &:hover
             text-decoration underline
-            color $default-link-color-hover
+            color $default-link-hover-color
       .info
         margin 5px 0 0
         span
@@ -174,7 +174,7 @@
           color: #777
           cursor pointer
           &:hover
-            color $default-link-color-hover
+            color $default-link-hover-color
       .img
         padding-bottom: 30%
         width: 100%

@@ -2,7 +2,7 @@
   <div class="tag-wall">
     <panel :title="'相关标签'">
       <div slot="content" class="content">
-        <i-tag :color="tag.color" type="dot" v-for="tag in tags" :key="tag.id" style="margin: 0 5px 5px 0;">{{ tag.name }} [{{ tag.related_post_num }}]
+        <i-tag :color="tag.color" type="dot" v-for="tag in tags" :key="tag.id" style="margin: 0 5px 5px 0;" class="dot-tag">{{ tag.name }} [{{ tag.related_post_num }}]
         </i-tag>
       </div>
     </panel>
@@ -43,6 +43,6 @@
   .tag-wall
     .content
       padding 5px 20px
-      border-left 1px solid $color-border
+      border-left 1px solid $default-border-color
 
 </style>

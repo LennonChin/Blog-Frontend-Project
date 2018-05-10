@@ -101,17 +101,17 @@ body
 					border-right 4px solid transparent
 					border-top 5px solid #ccc
 				&:hover
-					color $default-link-color-hover
+					color $default-link-hover-color
 				&:hover:not(.current)
 					border-bottom none
 				&.active-link, &.exact-active-link
 					border-bottom none
-					color $default-link-color-hover
+					color $default-link-hover-color
 					&::after
 						content ""
 						width 0
 						height 0
-						border-left 5px solid $default-link-color-hover
+						border-left 5px solid $default-link-hover-color
 						border-top 3px solid transparent
 						border-bottom 2px solid transparent
 						position absolute
@@ -140,11 +140,11 @@ body.dark
 				.arrow
 					border-top 5px solid #ccc
 				&:hover
-					color $dark-link-color-hover
+					color $dark-link-hover-color
 				&.active-link, &.exact-active-link
-					color $dark-link-color-hover
+					color $dark-link-hover-color
 					&::after
-						border-left 5px solid $dark-link-color-hover
+						border-left 5px solid $dark-link-hover-color
 
 // 小屏模式下的导航栏
 #mobile-bar

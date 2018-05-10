@@ -49,7 +49,7 @@
       .date
         display inline-block
         font-size 40px
-        color lighten($color-main-primary, 10%)
+        color lighten($default-link-hover-color, 10%)
         vertical-align middle
         &::before
           content ''
@@ -57,7 +57,7 @@
           top 0px
           left 17px
           width 4px
-          background-color: $color-main-primary
+          background-color: $default-link-hover-color
           height 20%
           border-radius 0 0 2px 2px
         &::after
@@ -66,7 +66,7 @@
           bottom 0px
           left 17px
           width 4px
-          background-color: $color-main-primary
+          background-color: $default-link-hover-color
           height 20%
           border-radius 2px 2px 0 0
       .main-title
@@ -91,7 +91,7 @@
         font-size 14px
         padding-left 10px
         a
-          color $color-main-primary
+          color $default-link-hover-color
           font-weight 500
           cursor pointer
           &:hover
@@ -105,7 +105,7 @@
         display inline-block
         margin-left 8px
         font-size 24px
-        color lighten($color-typegraphy-title, 20%)
+        color lighten($default-title-color, 20%)
         vertical-align middle
         &::before
           content ''
@@ -113,7 +113,7 @@
           top 0px
           left 17px
           width 4px
-          background-color: $color-main-primary
+          background $default-link-hover-color
           height 20%
           border-radius 0 0 2px 2px
         &::after
@@ -122,7 +122,7 @@
           bottom 0px
           left 17px
           width 4px
-          background-color: $color-main-primary
+          background $default-link-hover-color
           height 20%
           border-radius 2px 2px 0 0
       .main-title
@@ -147,7 +147,7 @@
         font-size 14px
         padding-left 10px
         a
-          color $color-main-primary
+          color $default-link-hover-color
           font-weight 500
           cursor pointer
           &:hover

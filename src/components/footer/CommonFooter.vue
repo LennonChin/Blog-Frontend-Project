@@ -54,5 +54,5 @@
       a
         color $default-link-color
         &:hover
-          color $default-link-color-hover
+          color $default-link-hover-color
 </style>

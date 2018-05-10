@@ -233,7 +233,7 @@
             color $default-info-color
             cursor pointer
             &:hover
-              color $default-info-color-hover
+              color $default-info-hover-color
           + span
             margin-left 8px
         @media only screen and (max-width: 768px)
@@ -257,7 +257,7 @@
       padding 10px 0
       background-color $default-cell-toggle-background-color
       &:hover
-        color $default-info-color-hover
+        color $default-info-hover-color
       > i
         transition: All 0.4s ease-in-out
         transform rotateX(180deg)

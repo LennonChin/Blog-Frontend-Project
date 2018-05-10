@@ -33,7 +33,7 @@ body.dark
 				a
 					color $dark-info-color
 					&:hover
-						color $dark-info-color-hover
+						color $dark-info-hover-color
 		.img-wrapper
 			&.big-image
 				box-shadow 1px 1px 1px $dark-border-color
@@ -41,7 +41,7 @@ body.dark
 		.toggle-arrow
 			background-color $dark-cell-toggle-background-color
 			&:hover
-				color $dark-info-color-hover
+				color $dark-info-hover-color
 		.book-infos
 			.book-infos-wrapper
 				.img
@@ -63,16 +63,64 @@ body.dark
 			a
 				color $dark-link-color
 				&:hover
-					color $dark-link-color-hover
+					color $dark-link-hover-color
 		.operate_info
 			span
 				a
 					&:hover
-						color $dark-link-color-hover
+						color $dark-link-hover-color
 		.abstract
 			border 1px dashed $dark-border-color
 			background $dark-border-hover-color
 			color $dark-desc-color
+	// article-home-banner
+	.article-home-banner
+		.gallery
+			border-color $dark-border-color
+			.carousel-infos
+				background $dark-background-color
+				.title
+					color $dark-title-color
+				.desc
+					color $dark-desc-color
+	// archive-list-cell
+	.archive-list-cell
+		&::after
+			background $dark-link-hover-color
+		.info
+			.base-info
+				a.title
+					color $dark-title-color
+					&:hover
+						color $dark-title-hover-color
+				a.see-desc
+					color $dark-desc-color
+					&:hover,&.show
+						color $dark-desc-hover-color
+				.desc
+					color $dark-desc-color
+	// article-list-year-title
+	.article-list-year-title
+		&.style-date-year
+			.date
+				color lighten($dark-link-hover-color, 10%)
+				&::before
+					background-color: $dark-link-hover-color
+				&::after
+					background-color: $dark-link-hover-color
+			.view-more
+				a
+					color $dark-link-hover-color
+		&.style-date-month
+			.date
+				color lighten($dark-title-color, 20%)
+				&::before
+					background $dark-link-hover-color
+				&::after
+					background $dark-link-hover-color
+			.view-more
+				a
+					color $dark-link-hover-color
 	// section-title的主题
 	.section-title
 		.title
@@ -87,6 +135,44 @@ body.dark
 			.view-more
 				a
 					color $dark-sectionTitle-title-color
+		.menu
+			ul.list
+				li
+					a
+						color $dark-link-color
+						&:hover, &.active
+							color $dark-link-hover-color
+							border-bottom 2px solid $dark-link-hover-color
+			.refresh
+				a
+					color $dark-link-color
+					&:hover
+						color $dark-link-hover-color
+	// classifyMenu
+	.classify-bar
+		.level
+			border-bottom 1px solid $dark-border-color
+			.title
+				color $dark-title-color
+			.class
+				a
+					color $dark-link-color
+					&.name
+						&:hover
+							color $dark-link-hover-color
+					&.active
+						color $dark-select-color
+						background $dark-select-background-hover-color
+	// browse more
+	.browse-more
+		border 1px solid $dark-link-hover-color
+		border-radius $border-radius
+		a
+			.text
+				color $dark-link-hover-color
+			.spinner
+				> div
+					background $dark-link-hover-color
 	// about主题
 	.about
 		background-color $dark-background-color
@@ -115,13 +201,13 @@ body.dark
 				> a
 					color $dark-link-color
 					&:hover
-						color $dark-link-color-hover
+						color $dark-link-hover-color
 			.info
 				span
 					color $dark-info-color
 				a
 					&:hover
-						color $dark-link-color-hover
+						color $dark-link-hover-color
 			.desc
 				color $dark-desc-color
 		.others
@@ -145,19 +231,23 @@ body.dark
 							&.title
 								color $dark-title-hover-color
 							&.link
-								color $dark-link-color-hover
+								color $dark-link-hover-color
+	// tag wall
+	.tag-wall
+		.content
+			border-left 1px solid $dark-border-color
 	// panel主题
 	.panel
 		background $dark-background-color
 		h4
 			color $dark-title-color
-			border-left 5px solid $dark-link-color-hover
+			border-left 5px solid $dark-link-hover-color
 			&.center
 				border 1px solid $dark-border-color
 			&.left
-				border-left 5px solid $dark-link-color-hover
+				border-left 5px solid $dark-link-hover-color
 			&.right
-				border-right 5px solid $dark-link-color-hover
+				border-right 5px solid $dark-link-hover-color
 	// footer主题
 	.common-footer
 		background $dark-header-background-color
@@ -167,7 +257,7 @@ body.dark
 			a
 				color $dark-link-color
 				&:hover
-					color $dark-link-color-hover
+					color $dark-link-hover-color
 	// tag的主题
 	.border-tag
 		background-color transparent!important
@@ -175,5 +265,7 @@ body.dark
 		span
 			color $dark-info-color!important
 	.dot-tag
-		background $dark-desc-color
-		border-color transparent
+		background $dark-desc-color!important
+		border-color transparent!important
+		span
+			color $dark-select-background-hover-color!important

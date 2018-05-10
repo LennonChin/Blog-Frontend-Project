@@ -84,7 +84,7 @@
         color: $default-link-color
         cursor pointer
         &:hover
-          color $default-link-color-hover
+          color $default-link-hover-color
       .publish-time
         margin-left 20px
     .operate_info
@@ -98,7 +98,7 @@
         a
           cursor pointer
           &:hover
-            color $default-link-color-hover
+            color $default-link-hover-color
     .abstract
       font-size 16px
       line-height 28px

@@ -21,7 +21,7 @@
         </div>
       </i-col>
       <i-col :xs="0" :sm="0" :md="0" :lg="7" class="col">
-        <div v-swiper="rightSwiperOption" :instanceName="'rightSwiper'" class="gallery">
+        <div v-swiper="rightSwiperOption" :instanceName="'rightSwiper'" class="gallery right-gallery">
           <div class="swiper-wrapper">
             <div class="swiper-slide" v-for="article in bannerArticles">
               <div class="carousel-infos">
@@ -113,11 +113,12 @@
 
   .article-home-banner
     height 100%
-    .row, .col, .gallery
+    .row, .col
       height 100%
     .gallery
       width 100%
-      border 1px solid $color-border
+      height 100%
+      border 1px solid $default-border-color
       a
         display block
         height 100%
@@ -129,24 +130,28 @@
         height 100%
         width 100%
         padding 20px
-        background-color white
+        background-color $default-background-color
         .title
           font-size 23px
           line-height 31px
           margin-bottom 10px
+          color $default-title-color
         .desc
           font-size 15px
           font-weight 300
           line-height 20px
           margin-bottom 10px
+          color $default-desc-color
       .swiper-pagination-bullet
-        background $color-gradually-gray-91
+        background $default-background-color
       .swiper-pagination-bullet-active
-        background white
+        background $default-background-color
       .swiper-button-prev, .swiper-button-next
         text-align center
         background-image none
-        color white
+        color $default-background-color
         > i
           font-size 45px
+    .right-gallery
+      border-left none
 </style>

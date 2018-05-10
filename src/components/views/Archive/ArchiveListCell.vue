@@ -107,7 +107,7 @@
       bottom 0
       left 17px
       width 4px
-      background-color: $color-main-primary
+      background $default-link-hover-color
     .info
       display flex
       font-size 17px
@@ -122,12 +122,12 @@
         a.title
           margin-left 5px
           font-weight 300
-          color $color-typegraphy-title
+          color $default-title-color
           cursor pointer
           &:hover
-            color $color-typegraphy-title-hover
+            color $default-title-hover-color
         a.see-desc
-          color $color-gradually-gray-21
+          color $default-desc-color
           font-size 13px
           margin-left 5px
           font-weight 100
@@ -136,7 +136,7 @@
             transition: All 0.4s ease-in-out
             transform rotateX(180deg)
           &:hover,&.show
-            color $color-gradually-gray-11
+            color $default-desc-hover-color
           &.show
             > i
               transform rotateX(0deg)
@@ -144,7 +144,7 @@
           font-size 14px
           font-weight 300
           margin-left 5px
-          color $color-gradually-gray-51
+          color $default-desc-color
           overflow hidden
           max-height 0
           transition All 0.4s ease-in-out

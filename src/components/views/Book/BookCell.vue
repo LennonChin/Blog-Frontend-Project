@@ -180,7 +180,7 @@
             color $default-info-color
             cursor pointer
             &:hover
-              color $default-info-color-hover
+              color $default-info-hover-color
           + span
             margin-left 8px
         @media only screen and (max-width: 768px)
