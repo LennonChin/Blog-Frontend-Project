@@ -95,7 +95,8 @@
               ordering: '-add_time',
               limit: DefaultLimitSize * 2
             }
-          }
+          },
+          reset: true
         })
       ]);
     },
@@ -109,8 +110,9 @@
               ordering: '-add_time',
               limit: DefaultLimitSize * 2
             }
-          }
-        }, true);
+          },
+          reset: true
+        });
       }
     },
     computed: {

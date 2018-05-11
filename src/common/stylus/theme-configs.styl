@@ -9,12 +9,12 @@ body
 	min-height 100vh
 	-webkit-font-smoothing antialiased
 	-moz-osx-font-smoothing grayscale
-	background-color #fafafa
+	background-color $default-body-background-color
 	@media screen and (min-width $responsive-lg)
 		padding-top $header-height
 
 body.dark
-	background-color $dark-background-color
+	background-color $dark-body-background-color
 	// cell的主题
 	.article-list-cell, .book-cell, .book-note-cell
 		background-color $dark-cell-background-color
@@ -37,6 +37,7 @@ body.dark
 		.img-wrapper
 			&.big-image
 				box-shadow 1px 1px 1px $dark-border-color
+	// book-note-cell
 	.book-note-cell
 		.toggle-arrow
 			background-color $dark-cell-toggle-background-color
@@ -115,6 +116,47 @@ body.dark
 					color $dark-desc-color
 					> span
 						color $dark-info-color
+	// book-overview-content
+	.book-overview-content
+		.book-infos
+			.book-base-info
+				.img
+					border 1px solid $dark-border-color
+				.info
+					.title
+						color $dark-title-color
+					.desc
+						color $dark-desc-color
+						> span
+							color $dark-desc-color
+			.book-detail-info
+				p.summary, p.author, p.catalog
+					color $dark-desc-color
+				.nav-tabs-navigation
+					border-bottom 1px solid $dark-border-color
+					.nav-tabs
+						li
+							a
+								color $dark-info-color
+								&.active_tab
+									color $dark-info-hover-color
+								&::before
+									border-bottom 11px solid $dark-border-color
+								&::after
+									border-bottom 11px solid $dark-body-background-color
+	// book-catalog
+	.book-catalog
+		.book-toc-list-item
+			a.book-toc-link
+				color $dark-desc-color
+				&.is-active-link
+					color $dark-link-hover-color
+				&:hover
+					color $dark-link-hover-color
+		.toggle-more
+			color $dark-link-hover-color
+			.mask
+				background-image linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 1))
 	// archive-list-cell
 	.archive-list-cell
 		&::after
@@ -192,11 +234,78 @@ body.dark
 					color $dark-link-color
 					&:hover
 						color $dark-link-hover-color
+	// social-section
+	.social-section
+		.comment-list
+			background rgba($dark-background-hover-color, 0.4)
+	// custom-mavon-editor
+	.custom-mavon-editor
+		.operate
+			.ivu-input-group-prepend
+				background $dark-border-color
+				span
+					color $dark-desc-color
+			.ivu-input
+				background $dark-background-color
+				color $dark-desc-color
+			.i-dropdown-link
+				color $dark-desc-hover-color
+		.editor-area
+			// mavon editor区域
+			.markdown-body
+				background $dark-background-color
+				.v-note-op
+					background $dark-background-hover-color
+				textarea
+					background $dark-background-color
+					color $dark-desc-color
+				.v-show-content
+					background $dark-background-color
+					color $dark-desc-color
+				pre
+					background rgba($dark-background-hover-color, 0.25)
+					div
+						background transparent
+			.bottom-area
+				.comment-tip
+					a
+						color $dark-link-color
+						&:hover
+							color $dark-link-hover-color
+	// comment-list-cell
+	.comment-list-cell
+		.content
+			.title
+				.name
+					a
+						color $dark-title-hover-color
+				.name-tag
+					background-color $dark-info-color
+				.reply-icon
+					color $dark-info-color
+				.reply-name
+					a
+						color $dark-link-color
+						&:hover
+							color $dark-link-hover-color
+				.time
+					color $dark-info-color
+		.operate-area
+			.like, .unlike
+				color $dark-info-color
+		.comment-area
+			p.comment-tip
+				a
+					&:hover
+						color $dark-link-hover-color
 	// search-view
 	.search-view
 		.ivu-input
 			border-color $dark-border-color
 			background-color $dark-background-hover-color
+			color $dark-title-color
+			> i
+				color $dark-title-color
 		.result-area
 			border 1px solid $dark-border-color
 			box-shadow 1px 1px 1px $dark-box-shadow-color

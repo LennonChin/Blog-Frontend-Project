@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import CryptoJS from 'crypto-js';
+iimport MD5 from 'crypto-js/md5';
 
 // 创建token
 const createToken = (url) => {

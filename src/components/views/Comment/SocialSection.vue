@@ -70,8 +70,6 @@
     created() {
       this.getCommentInfo();
     },
-    mounted() {
-    },
     methods: {
       getCommentInfo() {
         API.getCommentInfo({

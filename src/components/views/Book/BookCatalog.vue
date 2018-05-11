@@ -99,35 +99,35 @@
     li
       list-style: none
     .book-toc-list
-      margin: 0;
-      padding-left: 25px
-      overflow-y: hidden
+      margin 0
+      padding-left 25px
+      overflow-y hidden
     > .book-toc-list
       max-height 360px
       padding-left 8px
     .book-toc-list-item
       a.book-toc-link
-        height: 100%
+        height 100%
         line-height 30px
         padding 5px 0
-        color $color-gradually-gray-31
+        color $default-desc-color
         i
           font-size 16px
         &.is-active-link
           font-weight: 700
-          color $color-main-primary
+          color $default-link-hover-color
         &:hover
-          color $color-main-primary
+          color $default-link-hover-color
     &.is-collapsible
-      max-height: 1000px;
-      overflow: hidden;
-      transition: all 300ms ease-in-out
+      max-height 1000px
+      overflow hidden
+      transition all 300ms ease-in-out
     &.is-collapsed
-      max-height: 0
+      max-height 0
     .toggle-more
       position relative
       display block
-      color $color-main-primary
+      color $default-link-hover-color
       background-color transparent
       margin-top -40px
       padding 60px 0 10px
@@ -141,7 +141,7 @@
         top 0
         bottom 0
         opacity 1
-        background-image linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 1));
+        background-image linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 1))
   &.open
     > .book-toc-list
       max-height inherit

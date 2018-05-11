@@ -37,7 +37,7 @@
       </div>
     </div>
     <div class="sidebar-operate-area" @click.stop>
-      <i-switch @on-change="toggleTheme">
+      <i-switch @on-change="toggleTheme" v-model="isDark">
         <span slot="open">夜</span>
         <span slot="close">日</span>
       </i-switch>
@@ -46,6 +46,10 @@
 </template>
 
 <script type="text/ecmascript-6">
+  import {
+    mapState,
+    mapMutations
+  } from 'vuex';
   export default {
     name: 'side-bar',
     props: {
@@ -60,16 +64,29 @@
         showNav: false
       };
     },
+    computed: {
+      ...mapState({
+        siteInfo: state => state.base.siteInfo,
+        siteTheme: state => state.base.siteTheme
+      }),
+      isDark: {
+        get: function () {
+          return this.siteTheme === 'dark';
+        },
+        set: function(newTheme) {
+          this.updateSiteTheme(newTheme);
+        }
+      }
+    },
     methods: {
+      ...mapMutations({
+        updateSiteTheme: 'base/UPDATE_SITE_THEME'
+      }),
       toggleSideBar() {
         this.show = !this.show;
       },
       toggleTheme(isDark) {
-        if (isDark) {
-          document.body.classList.add('dark');
-        } else {
-          document.body.classList.remove('dark');
-        }
+        this.updateSiteTheme(isDark ? 'dark' : 'default');
       }
     }
   };

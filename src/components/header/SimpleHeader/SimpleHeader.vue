@@ -3,7 +3,7 @@
     <div id="mobile-bar">
       <router-link class="logo" to="/"></router-link>
       <transition name="fade">
-        <div class="search-area" v-show="showSearchInput">
+        <div class="search-area" v-show="showMobileSearchView">
           <search-view></search-view>
         </div>
       </transition>
@@ -50,7 +50,7 @@
           </router-link>
         </li>
         <li>
-          <i-switch @on-change="toggleTheme">
+          <i-switch @on-change="toggleTheme" v-model="isDark">
             <span slot="open">夜</span>
             <span slot="close">日</span>
           </i-switch>
@@ -64,10 +64,12 @@
 <script type="text/ecmascript-6">
   import {
     mapState,
+    mapMutations,
     mapActions
   } from 'vuex';
   import SideBar from '@/components/header/SimpleHeader/SideBar';
   import SearchView from '@/components/views/Search/SearchView';
+  import {loadFromLocal} from '@/common/js/utils';
 
   export default {
     name: 'simple-header',
@@ -75,7 +77,7 @@
       return {
         searchKeyWords: '',
         searchResult: [],
-        showSearchInput: true
+        showMobileSearchView: false
       };
     },
     asyncData({store}) {
@@ -87,13 +89,27 @@
     mounted() {
       if (!this.$store.state.base.siteInfo) this.getSiteInfo();
       if (!this.$store.state.base.allCategorysInfo) this.getAllCategorys();
+      // 获取皮肤信息
+      this.checkTheme();
     },
     computed: {
       ...mapState({
-        siteInfo: state => state.base.siteInfo
-      })
+        siteInfo: state => state.base.siteInfo,
+        siteTheme: state => state.base.siteTheme
+      }),
+      isDark: {
+        get: function () {
+          return this.siteTheme === 'dark';
+        },
+        set: function(newTheme) {
+          this.updateSiteTheme(newTheme);
+        }
+      }
     },
     methods: {
+      ...mapMutations({
+        updateSiteTheme: 'base/UPDATE_SITE_THEME'
+      }),
       ...mapActions({
         getSiteInfo: 'base/GET_SITE_INFO',
         getAllCategorys: 'base/GET_ALL_CATEGORYS'
@@ -116,14 +132,14 @@
         sidebar.toggleSideBar();
       },
       showSearchView() {
-        this.showSearchInput = !this.showSearchInput;
+        this.showMobileSearchView = !this.showMobileSearchView;
+      },
+      checkTheme() {
+        const theme = loadFromLocal('siteConfig', 'theme', 'default');
+        this.updateSiteTheme(theme);
       },
       toggleTheme(isDark) {
-        if (isDark) {
-          document.body.classList.add('dark');
-        } else {
-          document.body.classList.remove('dark');
-        }
+        this.updateSiteTheme(isDark ? 'dark' : 'default');
       }
     },
     components: {

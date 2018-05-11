@@ -30,9 +30,6 @@
         focusIndex: -1
       };
     },
-    mounted() {
-
-    },
     methods: {
       search() {
         this.hideOptions = false;

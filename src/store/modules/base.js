@@ -1,13 +1,15 @@
 import API from 'API';
 
 import { handleError } from '../utils/handles';
+import { saveToLocal } from '@/common/js/utils';
 
 export default {
   namespaced: true,
   state: {
     siteInfo: {},
     bloggerInfo: {},
-    allCategorysInfo: []
+    allCategorysInfo: [],
+    siteTheme: 'default'
   },
   mutations: {
     UPDATE_SITE_INFO(state, siteInfo) {
@@ -18,6 +20,19 @@ export default {
     },
     UPDATE_ALL_CATEGORYS(state, categorysInfo) {
       state.allCategorysInfo = categorysInfo;
+    },
+    UPDATE_SITE_THEME(state, siteTheme) {
+      if (siteTheme === state.siteTheme) return;
+      try {
+        // 更改皮肤
+        document.body.classList.remove(state.siteTheme);
+        document.body.classList.add(siteTheme);
+        // 持久化
+        saveToLocal('siteConfig', 'theme', siteTheme);
+      } catch (exception) {
+        console.log(exception);
+      }
+      state.siteTheme = siteTheme;
     }
   },
   actions: {

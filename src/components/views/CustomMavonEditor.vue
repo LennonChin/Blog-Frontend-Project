@@ -1,5 +1,5 @@
 <template>
-  <div id="mavon-editor" :class="theme">
+  <div class="custom-mavon-editor" :class="theme">
     <div class="operate">
       <i-row>
         <i-col :xs="8" :sm="8" :md="6" :lg="6" style="padding-left: 0; padding-right: 7.5px;">
@@ -41,6 +41,7 @@
       <mavon-editor v-model="origin_content"
                     v-if="showEditor"
                     style="height: 100%; min-height: 50px; min-width: 200px; z-index: 1000;"
+                    :codeStyle="codeStyle"
                     :editable="post.is_commentable"
                     :toolbarsFlag="toolbarsFlag"
                     :subfield="subfield"
@@ -71,6 +72,9 @@
 </template>
 
 <script type="text/ecmascript-6">
+  import {
+    mapState
+  } from 'vuex';
   import MavonEditor from 'mavon-editor';
   import 'mavon-editor/dist/css/index.css';
   import {loadFromLocal, saveToLocal, uploadFile} from '@/common/js/utils';
@@ -150,8 +154,19 @@
       };
     },
     computed: {
+      ...mapState({
+        siteTheme: state => state.base.siteTheme
+      }),
       buttonType: function () {
         return this.theme === 'dark-theme' ? 'warning' : 'primary';
+      },
+      codeStyle: {
+        get: function () {
+          return this.siteTheme === 'dark' ? 'dark' : 'default';
+        },
+        set: function(newTheme) {
+          this.updateSiteTheme(newTheme);
+        }
       }
     },
     methods: {
@@ -437,8 +452,9 @@
 </script>
 
 <style lang="stylus" type="text/stylus" rel="stylesheet/stylus">
+  @import "../../common/stylus/theme.styl";
 
-  #mavon-editor
+  .custom-mavon-editor
     position relative
     height 100%
     width 100%
@@ -446,13 +462,20 @@
     flex-direction column
     .operate
       margin-bottom 15px
+      .ivu-input-group-prepend
+        background $default-border-color
+        span
+          color $default-desc-color
+      .ivu-input
+        background $default-background-color
+        color $default-desc-color
       .i-dropdown-link
         display block
         height 36px
         line-height 36px
         text-align right
         font-size 15px
-        color $color-main-primary
+        color $default-desc-hover-color
         &:hover
           cursor pointer
     .editor-area
@@ -462,10 +485,21 @@
       height 100%
       min-height 50px
       min-width 200px
+      // 编辑器区域
+      .markdown-body
+        background $default-background-color
+        .v-note-op
+          background $default-background-hover-color
+        textarea
+          background $default-background-color
+          color $default-desc-color
+        .v-show-content
+          background $default-background-color
+          color $default-desc-color
     .bottom-area
       display flex
       padding-top 15px
-      justify-content: space-between
+      justify-content space-between
       .publish-area
         display flex
     &.dark-theme
@@ -485,7 +519,7 @@
       .bottom-area
         .comment-tip
           a
-            color $color-gradually-gray-61
+            color $default-link-color
             &:hover
-              color $color-secondary-warning
+              color $default-link-hover-color
 </style>

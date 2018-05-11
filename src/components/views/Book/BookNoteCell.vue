@@ -269,7 +269,7 @@
       overflow hidden
       cursor pointer
       &.show
-        max-height 250px
+        max-height 350px
       .book-infos-wrapper
         display flex
         padding 20px

@@ -1,5 +1,7 @@
-import {hexMd5} from '@/common/js/md5';
 import API from 'API';
+import AES from 'crypto-js/aes';
+import MD5 from 'crypto-js/md5';
+import ENCUTF8 from 'crypto-js/enc-utf8';
 
 // 按社交方式格式化时间
 export function socialDateFormat(formateDate) {
@@ -31,46 +33,59 @@ export function socialDateFormat(formateDate) {
     let date = new Date(parseInt(timestamp));
     return date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
   }
-};
+}
 
+/**
+ * LocalStorage的操作
+ * classify 分类
+ * key 存储键
+ * value 存储值
+ * */
 // 存储到LocalStorage
-export function saveToLocal(id, key, value) {
-  if (!window) return;
-  let blog = window.localStorage.__blog__;
-  if (!blog) {
-    blog = {};
-    blog[id] = {};
-  } else {
-    blog = JSON.parse(blog);
-    if (!blog[id]) {
-      blog[id] = {};
+export function saveToLocal(classify, key, value) {
+  try {
+    let blog = window.localStorage.__blog__;
+    if (!blog) {
+      blog = {};
+      blog[classify] = {};
+    } else {
+      blog = JSON.parse(AES.decrypt(blog, 'local storage').toString(ENCUTF8));
+      if (!blog[classify]) {
+        blog[classify] = {};
+      }
     }
+    blog[classify][key] = value;
+    window.localStorage.__blog__ = AES.encrypt(JSON.stringify(blog), 'local storage').toString();
+  } catch (exception) {
+    console.log(exception);
   }
-  blog[id][key] = value;
-  window.localStorage.__blog__ = JSON.stringify(blog);
-};
+}
 
 // 从LocalStorage中取
-export function loadFromLocal(id, key, def) {
-  if (!window) return;
-  let blog = window.localStorage.__blog__;
-  if (!blog) {
-    return def;
+export function loadFromLocal(classify, key, def) {
+  try {
+    let blog = window.localStorage.__blog__;
+    if (!blog) {
+      return def;
+    }
+    blog = AES.decrypt(blog, 'local storage').toString(ENCUTF8);
+    blog = JSON.parse(blog)[classify];
+    if (!blog) {
+      return def;
+    }
+    let ret = blog[key];
+    return ret || def;
+  } catch (exception) {
+    console.log(exception);
   }
-  blog = JSON.parse(blog)[id];
-  if (!blog) {
-    return def;
-  }
-  let ret = blog[key];
-  return ret || def;
-};
+}
 
 // 检查文章加密
 export function checkPostAuth(post, title, message, noAuthCallback, successCallback, failCallback) {
   let browseAuth = '';
   if (post.browse_password_encrypt) {
     let checkAuth = (browseAuth, isAutoRemove) => {
-      let encryptedBrowseAuth = hexMd5(browseAuth);
+      let encryptedBrowseAuth = MD5(browseAuth).toString();
       if (encryptedBrowseAuth === post.browse_password_encrypt) {
         successCallback(encryptedBrowseAuth);
         if (isAutoRemove) {

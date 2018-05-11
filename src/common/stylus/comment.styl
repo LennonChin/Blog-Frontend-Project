@@ -6,33 +6,126 @@
     font-weight 500
   h1
     font-size 20px
+    @media only screen and (max-width: $responsive-sm)
+      font-size 14px
+    @media screen and (min-width: $responsive-sm)
+      font-size 16px
+    @media screen and (min-width: $responsive-md)
+      font-size 18px
+    @media screen and (min-width: $responsive-lg)
+      font-size 20px
   h2
     font-size 17px
+    @media only screen and (max-width: $responsive-sm)
+      font-size 13px
+    @media screen and (min-width: $responsive-sm)
+      font-size 15px
+    @media screen and (min-width: $responsive-md)
+      font-size 16px
+    @media screen and (min-width: $responsive-lg)
+      font-size 17px
   h3
     font-size 15px
+    @media only screen and (max-width: $responsive-sm)
+      font-size 12px
+    @media screen and (min-width: $responsive-sm)
+      font-size 13px
+    @media screen and (min-width: $responsive-md)
+      font-size 14px
+    @media screen and (min-width: $responsive-lg)
+      font-size 15px
   h4, h5, h6, h7
     font-size 14px
+    @media only screen and (max-width: $responsive-sm)
+      font-size 12px
+    @media screen and (min-width: $responsive-sm)
+      font-size 12px
+    @media screen and (min-width: $responsive-md)
+      font-size 13px
+    @media screen and (min-width: $responsive-lg)
+      font-size 14px
   ul, ol
     list-style-type square
     line-height 1.5em
-    padding-left 2.5em
+    padding-left 2em
+    margin-bottom 1.5em
   li
     list-style-type square
     margin .5em 0
-    color $color-typegraphy-title
     font-weight 200
+    color $default-title-color
   p
     font-size 16px
     line-height 22px
-    color $color-typegraphy-title
-    font-weight 200
-    margin 8px 0
+    margin 10px 0
+    color $default-info-color
+    word-wrap break-word
+    @media only screen and (max-width: $responsive-sm)
+      font-size 13px
+      line-height 18px
+      margin 6px 0
+    @media screen and (min-width: $responsive-sm)
+      font-size 14px
+      line-height 19px
+      margin 6px 0
+    @media screen and (min-width: $responsive-md)
+      font-size 15px
+      line-height 20px
+      margin 8px 0
+    @media screen and (min-width: $responsive-lg)
+      font-size 16px
+      line-height 22px
+      margin 10px 0
   img
     display block
     max-width 100%
+    margin 0 auto
+    cursor pointer
+  blockquote
+    padding-left 12px
+    margin 15px 0
+    word-wrap break-word
+    border-left 5px solid $default-desc-hover-color
+    @media only screen and (max-width: $responsive-sm)
+      padding-left 5px
+      margin 8px 0
+      border-left 2px solid $default-desc-hover-color
+    @media screen and (min-width: $responsive-sm)
+      padding-left 8px
+      margin 10px 0
+      border-left 3px solid $default-desc-hover-color
+    @media screen and (min-width: $responsive-md)
+      padding-left 10px
+      margin 12px 0
+      border-left 4px solid $default-desc-hover-color
+    @media screen and (min-width: $responsive-lg)
+      padding-left 12px
+      margin 15px 0
+      border-left 5px solid $default-desc-hover-color
+    > p
+      font-weight 100
+      margin 5px 0
+      color $default-info-color
+      @media screen and (min-width: $responsive-sm)
+        font-size 13px
+        line-height 20px
+      @media screen and (min-width: $responsive-md)
+        font-size 14px
+        line-height 21px
+      @media screen and (min-width: $responsive-lg)
+        font-size 15px
+        line-height 22px
   // 代码相关
   pre
     margin-bottom 18px
+    @media only screen and (max-width: $responsive-sm)
+      margin-bottom 5px
+    @media screen and (min-width: $responsive-sm)
+      margin-bottom 8px
+    @media screen and (min-width: $responsive-md)
+      margin-bottom 15px
+    @media screen and (min-width: $responsive-lg)
+      margin-bottom 18px
   code.hljs
     display block
     padding 0
@@ -41,23 +134,46 @@
     width 100%
     font-size 14px
     font-weight 100
-    background #eee !important
-    color #333
+    background $default-border-color !important
+    color $default-info-color
     white-space pre-wrap
     > ul
       list-style decimal
-      margin 30px 0 0 45px !important
+      margin-left 30px 0 0 45px !important
       padding 0
-      background-color #fff
+      border-top 1px solid $default-border-hover-color
+      @media only screen and (max-width: $responsive-sm)
+        margin 21px 0 0 35px !important
+      @media screen and (min-width: $responsive-sm)
+        margin 25px 0 0 40px !important
+      @media screen and (min-width: $responsive-md)
+        margin 25px 0 0 40px !important
+      @media screen and (min-width: $responsive-lg)
+        margin 30px 0 0 45px !important
       > li
         list-style decimal-leading-zero
         padding 5px
         margin 0
         line-height 16px
-        background #fcfcfc
-        border-left 1px solid #ddd
+        font-size 14px
+        background $default-codeLine-light
+        border-left 1px solid $default-border-hover-color
         word-break break-all
         word-wrap break-word
+        @media only screen and (max-width: $responsive-sm)
+          padding 2px
+          font-size 12px
+        @media screen and (min-width: $responsive-sm)
+          padding 3px
+          font-size 13px
+        @media screen and (min-width: $responsive-md)
+          padding 4px
+          font-size 14px
+        @media screen and (min-width: $responsive-lg)
+          padding 5px
+          font-size 14px
         &:nth-of-type(even)
-          background-color #fafafa
+          background $default-codeLine-dark
           color inherit
+
+// dark主题下的颜色配置写在article.styl文件中

@@ -51,7 +51,7 @@
   // TOC
   import tocbot from 'tocbot';
   // 加密
-  import {hexMd5} from '@/common/js/md5';
+  import MD5 from 'crypto-js/md5';
 
   let HLJS = hljs;
 
@@ -164,7 +164,7 @@
       },
       checkPassword(message) {
         let checkAuth = (browseAuthInput, isAutoRemove) => {
-          this.browse_auth = hexMd5(browseAuthInput);
+          this.browse_auth = MD5(browseAuthInput).toString();
           console.log(this.id, this.browse_auth);
           this.$router.replace({
             name: this.$router.name,

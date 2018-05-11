@@ -3,8 +3,8 @@
     <i-row v-if="!needAuth">
       <i-col :xs="24" :sm="24" :md="24" :lg="17">
         <div class="layout-left">
-          <div class="book-base-info">
-            <a>
+          <div class="book-infos">
+            <div class="book-base-info">
               <div class="img">
                 <div class="container">
                   <div class="bracket"></div>
@@ -22,11 +22,11 @@
                 <p class="desc"><span>评分：</span>
                   <i-rate v-model="bookDoubanInfo.rating.average * 0.5" :allowHalf="true" :disabled="true"></i-rate>
                 </p>
-                <i-tag type="border" v-for="tag in bookDoubanInfo.tags" :key="tag.name">{{ tag.name }}</i-tag>
+                <i-tag type="border" v-for="tag in bookDoubanInfo.tags" :key="tag.name" class="border-tag">{{ tag.name }}</i-tag>
               </div>
               <div class="rating"></div>
-            </a>
-            <vue-tabs class="infos" @tab-change="handleTabChange">
+            </div>
+            <vue-tabs class="book-detail-info" @tab-change="handleTabChange">
               <v-tab title="简介">
                 <p class="author" v-html="bookDoubanInfo.author_intro"></p>
                 <p class="summary" v-html="bookDoubanInfo.summary"></p>
@@ -88,7 +88,7 @@
   // TOC
   import tocbot from 'tocbot';
   // 加密
-  import {hexMd5} from '@/common/js/md5';
+  import MD5 from 'crypto-js/md5';
 
   let HLJS = hljs;
 
@@ -203,7 +203,7 @@
       },
       checkPassword(message) {
         let checkAuth = (browseAuthInput, isAutoRemove) => {
-          this.browse_auth = hexMd5(browseAuthInput);
+          this.browse_auth = MD5(browseAuthInput).toString();
           this.$router.push({
             name: this.$router.name,
             params: {id: this.id},
@@ -340,15 +340,16 @@
   @import "../../common/stylus/article.styl";
 
   .book-overview-content
-    .book-base-info
-      > a
+    .book-infos
+      .book-base-info
         display flex
-        margin-bottom 20px
+        margin-bottom 15px
         .img
           position relative
           flex 0 0 140px
           width 140px
           overflow hidden
+          border 1px solid $default-border-color
           .container
             width 100%
             position relative
@@ -364,43 +365,52 @@
               > img
                 width 100%
                 height 100%
-                transition: All 0.4s ease-in-out
-                transform: scale(1.0)
-                zoom: 1.0
+                transition All 0.4s ease-in-out
+                transform scale(1.0)
+                zoom 1.0
         .info
           padding-left 15px
           .title
             font-size 20px
             line-height 28px
             font-weight 500
-            color $color-typegraphy-title
+            color $default-title-color
             margin-bottom 5px
             text-align justify
           .desc
             font-size 14px
             font-weight 100
             line-height 20px
-            color $color-gradually-gray-61
+            color $default-desc-color
             text-align justify
             margin-bottom 3px
             > span
-              color $color-gradually-gray-41
-              font-weight 300
-        &:hover
-          img
-            transition: All 0.4s ease-in-out
-            transform: scale(1.05)
-            zoom: 1.05
-          .info
-            .desc
-              color $color-gradually-gray-11
-      .infos
+              color $default-desc-color
+              font-weight 700
+      .book-detail-info
         p.summary, p.author, p.catalog
           font-size 14px
           font-weight 200
           line-height 23px
           text-align justify
+          color $default-desc-color
         .nav-tabs-navigation
+          border-bottom 1px solid $default-border-color
           margin-bottom 20px
+          .nav-tabs
+            li
+              margin-bottom 0
+              a
+                color $default-info-color
+                &.active_tab
+                  color $default-info-hover-color
+                &::before
+                  bottom 2px
+                  background transparent
+                  border-bottom 11px solid $default-border-color
+                &::after
+                  bottom 1px
+                  background transparent
+                  border-bottom 11px solid $default-body-background-color
 
 </style>

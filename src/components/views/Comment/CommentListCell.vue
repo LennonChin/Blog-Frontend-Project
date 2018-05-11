@@ -69,9 +69,9 @@
   // Api
   import API from 'API';
   // utils
-  import {hexMd5} from '@/common/js/md5';
+  import MD5 from 'crypto-js/md5';
 
-  var HLJS = hljs;
+  const HLJS = hljs;
 
   const CELL_LEFT_SPAN = {
     'xs': 3,
@@ -113,7 +113,7 @@
         // 随机固定的头像图片名
         let idStr = author.id + '';
         let start = author.nick_name.length + idStr.length > 31 ? 31 : author.nick_name.length + idStr.length;
-        return hexMd5(author.nick_name + idStr).slice(start, start + 1) + '.png';
+        return MD5((author.nick_name + idStr)).toString().slice(start, start + 1) + '.png';
       },
       addCodeLineNumber() {
         // 添加行号

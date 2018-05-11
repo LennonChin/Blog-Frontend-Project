@@ -2,7 +2,7 @@ import Router from 'vue-router';
 
 import routes from './routes';
 import {LoadingBar, Modal, Notice} from 'iview';
-import {hexMd5} from '@/common/js/md5';
+import MD5 from 'crypto-js/md5';
 import {saveToLocal, loadFromLocal} from '@/common/js/utils';
 
 // 配置加载进度条
@@ -35,7 +35,7 @@ let accessGuard = (successCallBack, password, defaultEncrypt) => {
 
   // 校验密码是否正确
   let checkAuth = (browseAuth, isAutoRemove) => {
-    let encryptedBrowseAuth = hexMd5(browseAuth);
+    let encryptedBrowseAuth = MD5(browseAuth).toString();
     if (encryptedBrowseAuth === password) {
       // 将认证信息保存到本地，避免多次请求
       let siteGuardInfo = {
