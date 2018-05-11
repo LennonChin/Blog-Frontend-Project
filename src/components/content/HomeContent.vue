@@ -69,7 +69,7 @@
           </section-title>
           <div class="movies">
             <i-row :gutter="10">
-              <i-col :xs="12" :sm="12" :md="8" :lg="8" v-for="movie in movies" :key="movie.id"
+              <i-col :xs="24" :sm="12" :md="8" :lg="8" v-for="movie in movies" :key="movie.id"
                      style="margin-bottom: 10px;">
                 <movie-list-item :movie="movie"></movie-list-item>
               </i-col>

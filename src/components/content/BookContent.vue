@@ -349,7 +349,6 @@
           flex 0 0 140px
           width 140px
           overflow hidden
-          border 1px solid $default-border-color
           .container
             width 100%
             position relative
@@ -362,6 +361,7 @@
               bottom 0
               left 0
               right 0
+              border 1px solid $default-border-color
               > img
                 width 100%
                 height 100%

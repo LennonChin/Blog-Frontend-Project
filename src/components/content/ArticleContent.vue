@@ -238,8 +238,12 @@
         /* eslint-disable */
         if (!this.$refs.article) return;
         console.log('addTocScrollSpy');
+        let tocSelector = '#side-toc';
+        if (document.body.clientWidth <= 1200) {
+          tocSelector = '#sidebar-toc';
+        }
         tocbot.init({
-          tocSelector: '#side-toc',
+          tocSelector: tocSelector,
           contentSelector: '#article-main-page',
           headingSelector: 'h1, h2, h3, h4, h5',
           linkClass: 'toc-link',

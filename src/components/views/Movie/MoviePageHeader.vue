@@ -68,21 +68,21 @@
       .img
         float left
         margin-bottom 10px
-        height: 0
+        height 0
         overflow hidden
         @media only screen and (max-width: 768px)
-          width: 30%
-          padding 0 10px 39% 0
-          margin-bottom 5px
+          width 100%
+          padding-bottom 150%
+          margin-bottom 0
         @media screen and (min-width: 768px)
-          width: 25%
+          width 25%
           padding 0 10px 33% 0
           margin-bottom 5px
         @media screen and (min-width: 992px)
-          width: 28%
+          width 28%
           padding 0 15px 39% 0
         @media screen and (min-width: 1200px)
-          width: 25%
+          width 25%
           padding 0 15px 35% 0
         img
           width 100%

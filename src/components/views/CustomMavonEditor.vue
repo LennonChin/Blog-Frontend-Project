@@ -54,8 +54,7 @@
     <div class="bottom-area">
       <div class="comment-tip">
         <a href="https://guides.github.com/features/mastering-markdown/" target="_blank">
-          <i-icon
-            type="information-circled"></i-icon>
+          <i-icon type="social-markdown"></i-icon>
           支持MarkDown</a>
       </div>
       <div class="publish-area">
