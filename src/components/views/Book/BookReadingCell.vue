@@ -30,7 +30,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import {checkPostAuth} from '@/common/js/utils';
+  import {checkPostAuth, mixin} from '@/common/js/utils';
 
   export default {
     name: 'book-reading-cell',
@@ -40,6 +40,7 @@
         default: undefined
       }
     },
+    mixins: [mixin],
     methods: {
       gotoPostDetail(post) {
         checkPostAuth.call(this, post, '提示', '该文章已加密，您需要输入阅读密码', () => {

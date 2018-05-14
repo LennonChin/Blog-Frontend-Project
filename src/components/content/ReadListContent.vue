@@ -65,6 +65,9 @@
     SectionTitleDefaultDatePickerOptions
   } from '@/common/js/const';
 
+  // mixin
+  import {mixin} from '@/common/js/utils';
+
   export default {
     name: 'read-list-content',
     data() {
@@ -88,6 +91,7 @@
         bookNotesSelectedDateRange: []
       };
     },
+    mixins: [mixin],
     metaInfo() {
       return {
         title: this.documentMeta.title,

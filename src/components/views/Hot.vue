@@ -56,7 +56,7 @@
 <script type="text/ecmascript-6">
   import Panel from '@/components/views/Panel';
   import API from 'API';
-  import {checkPostAuth} from '@/common/js/utils';
+  import {checkPostAuth, mixin} from '@/common/js/utils';
 
   export default {
     name: 'hot',
@@ -65,6 +65,7 @@
         articles: []
       };
     },
+    mixins: [mixin],
     created() {
       this.getDatas();
     },

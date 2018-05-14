@@ -159,6 +159,24 @@ body.dark
 			color $dark-link-hover-color
 			.mask
 				background-image linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 1))
+	// book-info
+	.book-info
+		.content
+			border-left 1px solid $dark-border-color
+			border-right 1px solid $dark-border-color
+			border-bottom 1px solid $dark-border-color
+		.info
+			.title
+				a
+					color $dark-title-color
+			.desc
+				color $dark-desc-color
+				> span
+					color $dark-info-color
+		&:hover
+			.info
+				.desc
+					color $dark-desc-hover-color
 	// archive-list-cell
 	.archive-list-cell
 		&::after

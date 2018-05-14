@@ -23,10 +23,10 @@ article.article-main-content
       outline none
     @media only screen and (max-width: $responsive-sm)
       padding-top 35px
-      margin-top -28px
+      margin-top -15px
     @media screen and (min-width: $responsive-sm)
       padding-top 50px
-      margin-top -40px
+      margin-top -30px
     @media screen and (min-width: $responsive-md)
       padding-top 70px
       margin-top -50px
@@ -111,10 +111,11 @@ article.article-main-content
     margin 0 auto
     cursor pointer
   blockquote
-    padding-left 12px
+    padding 4px 5px 4px 12px
     margin 15px 0
     word-wrap break-word
     border-left 5px solid $default-desc-hover-color
+    background $default-border-color
     @media only screen and (max-width: $responsive-sm)
       padding-left 5px
       margin 8px 0
@@ -137,13 +138,13 @@ article.article-main-content
       color $default-info-color
       @media screen and (min-width: $responsive-sm)
         font-size 13px
-        line-height 20px
+        line-height 17px
       @media screen and (min-width: $responsive-md)
         font-size 14px
-        line-height 21px
+        line-height 18px
       @media screen and (min-width: $responsive-lg)
         font-size 15px
-        line-height 22px
+        line-height 20px
   // 代码相关
   pre
     margin-bottom 18px
@@ -168,7 +169,7 @@ article.article-main-content
     white-space pre-wrap
     > ul
       list-style decimal
-      margin-left 30px 0 0 45px !important
+      margin 30px 0 0 45px !important
       padding 0
       border-top 1px solid $default-border-hover-color
       @media only screen and (max-width: $responsive-sm)
@@ -215,6 +216,15 @@ body.dark
       color $dark-info-color
     blockquote
       border-left 5px solid $dark-desc-hover-color
+      background $dark-border-color
+      @media only screen and (max-width: $responsive-sm)
+        border-left 2px solid $dark-desc-hover-color
+      @media screen and (min-width: $responsive-sm)
+        border-left 3px solid $dark-desc-hover-color
+      @media screen and (min-width: $responsive-md)
+        border-left 4px solid $dark-desc-hover-color
+      @media screen and (min-width: $responsive-lg)
+        border-left 5px solid $dark-desc-hover-color
       > p
         color $dark-info-color
     // 代码相关

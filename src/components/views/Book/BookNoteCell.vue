@@ -71,7 +71,7 @@
 
 <script type="text/ecmascript-6">
   import API from 'API';
-  import {checkPostAuth} from '@/common/js/utils';
+  import {checkPostAuth, mixin} from '@/common/js/utils';
 
   const ARTICLE_TYPE_NO_IMAGE = 0;
   const ARTICLE_TYPE_NORMAL_IMAGE = 1;
@@ -84,6 +84,7 @@
         Type: Object
       }
     },
+    mixins: [mixin],
     data() {
       return {
         showBookInfo: false

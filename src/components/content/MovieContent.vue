@@ -55,6 +55,8 @@
   import tocbot from 'tocbot';
   // 加密
   import MD5 from 'crypto-js/md5';
+  // mixin
+  import {mixin} from '@/common/js/utils';
 
   let HLJS = hljs;
 
@@ -63,9 +65,11 @@
     data() {
       return {
         id: undefined,
-        browse_auth: undefined
+        browse_auth: undefined,
+        tocbotControl: undefined
       };
     },
+    mixins: [mixin],
     metaInfo() {
       return {
         title: this.documentMeta.title,
@@ -129,6 +133,12 @@
       ...mapGetters({
         documentMeta: 'DOCUMENT_META'
       })
+    },
+    beforeDestroy() {
+      if (this.tocbotControl !== undefined) {
+        console.log('tocbot destroyed');
+        this.tocbotControl.destroy();
+      }
     },
     methods: {
       ...mapMutations({
@@ -238,8 +248,12 @@
       },
       addTocScrollSpy() {
         /* eslint-disable */
-        tocbot.init({
-          tocSelector: '#side-toc',
+        let tocSelector = '#side-toc';
+        if (document.body.clientWidth <= 1200) {
+          tocSelector = '#sidebar-toc';
+        }
+        this.tocbotControl = tocbot.init({
+          tocSelector,
           contentSelector: '#article-main-page',
           headingSelector: 'h1, h2, h3, h4, h5',
           linkClass: 'toc-link',

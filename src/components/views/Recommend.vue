@@ -60,10 +60,11 @@
   } from 'vuex';
   import Panel from '@/components/views/Panel';
   import API from 'API';
-  import {checkPostAuth} from '@/common/js/utils';
+  import {checkPostAuth, mixin} from '@/common/js/utils';
 
   export default {
     name: 'recommend',
+    mixins: [mixin],
     asyncData({store}) {
       return Promise.all([
         store.dispatch('common/GET_RECOMMENDS')

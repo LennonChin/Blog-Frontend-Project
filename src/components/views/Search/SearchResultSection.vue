@@ -13,12 +13,16 @@
 </template>
 
 <script type="text/ecmascript-6">
+  // mixin
+  import {mixin} from '@/common/js/utils';
+
   export default {
     props: {
       result: {
         default: []
       }
     },
+    mixins: [mixin],
     methods: {
       typeName() {
         switch (this.result.type) {

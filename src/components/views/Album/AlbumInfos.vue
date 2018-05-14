@@ -38,6 +38,8 @@
   import LicenseTag from '@/components/views/LicenseTag';
   import SocialSection from '@/components/views/Comment/SocialSection';
   import API from 'API';
+  // mixin
+  import {mixin} from '@/common/js/utils';
 
   export default {
     name: 'album-infos',
@@ -47,6 +49,7 @@
         default: undefined
       }
     },
+    mixins: [mixin],
     data() {
       return {
         currentPicture: undefined

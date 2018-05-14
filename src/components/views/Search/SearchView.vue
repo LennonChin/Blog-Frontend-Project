@@ -30,6 +30,9 @@
         focusIndex: -1
       };
     },
+    beforeDestroy() {
+      document.removeEventListener('click', this.handleClickWindow);
+    },
     methods: {
       search() {
         this.hideOptions = false;

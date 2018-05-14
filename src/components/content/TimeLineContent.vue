@@ -54,6 +54,8 @@
   import Hot from '@/components/views/Hot';
   import TagWall from '@/components/views/TagWall';
   import BrowseMore from '@/components/views/BrowseMore';
+  // mixin
+  import {mixin} from '@/common/js/utils';
 
   import {
     DefaultLimitSize,
@@ -78,6 +80,7 @@
         selectedDateRange: []
       };
     },
+    mixins: [mixin],
     metaInfo() {
       return {
         title: this.documentMeta.title,

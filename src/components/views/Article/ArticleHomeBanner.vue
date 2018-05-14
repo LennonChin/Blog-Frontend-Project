@@ -41,7 +41,7 @@
 
 <script type="text/ecmascript-6">
   import Vue from 'vue';
-  import {checkPostAuth} from '@/common/js/utils';
+  import {checkPostAuth, mixin} from '@/common/js/utils';
 
   if (process.browser) {
     require('swiper/dist/css/swiper.css');
@@ -56,6 +56,7 @@
         Default: []
       }
     },
+    mixins: [mixin],
     data() {
       return {
         leftSwiperOption: {

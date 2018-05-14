@@ -53,6 +53,9 @@
     SectionTitleDefaultDatePickerOptions
   } from '@/common/js/const';
 
+  // mixin
+  import {mixin} from '@/common/js/utils';
+
   export default {
     name: 'article-list-content',
     data() {
@@ -69,6 +72,7 @@
         selectedDateRange: []
       };
     },
+    mixins: [mixin],
     metaInfo() {
       return {
         title: this.documentMeta.title,

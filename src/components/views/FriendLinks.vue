@@ -22,9 +22,12 @@
     mapActions
   } from 'vuex';
   import Panel from '@/components/views/Panel';
+  // mixin
+  import {mixin} from '@/common/js/utils';
 
   export default {
     name: 'friend-links',
+    mixins: [mixin],
     mounted() {
       if (this.$store.state.common.friendLinks.length === 0) {
         console.log('friendLinks');

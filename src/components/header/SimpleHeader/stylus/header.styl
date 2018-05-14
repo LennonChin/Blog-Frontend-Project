@@ -13,8 +13,11 @@ body
 		top 0
 		background-color $default-header-background-color
 		border-bottom 1px solid $default-header-border-color
-		transition background-color .3s ease-in-out
+		transition all 0.4s 0.1s cubic-bezier(0.4, 0, 0, 1)
+		transform translate(0, -100%)
 		z-index 1003
+		&.show
+			transform translate(0, 0)
 		#logo
 			display flex
 			align-items center
@@ -130,8 +133,12 @@ body
 		background-color $default-background-color
 		border-bottom 1px solid $default-border-color
 		box-shadow 0 0 2px $default-box-shadow-color
+		transition all 0.4s 0.1s cubic-bezier(0.4, 0, 0, 1)
+		transform translate(0, -100%)
 		z-index 1003
 		display none
+		&.show
+			transform translate(0, 0)
 		.menu-button
 			position absolute
 			cursor pointer

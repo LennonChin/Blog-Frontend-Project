@@ -20,8 +20,11 @@
 </template>
 
 <script type="text/ecmascript-6">
+  // mixin
+  import {mixin} from '@/common/js/utils';
   export default {
     name: 'movie-page-header',
+    mixins: [mixin],
     props: {
       movie: {
         Type: Object,

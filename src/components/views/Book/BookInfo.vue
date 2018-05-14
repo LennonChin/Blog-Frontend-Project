@@ -20,7 +20,7 @@
             <i-rate v-model="bookDoubanInfo.rating * 0.5" :allowHalf="true" :disabled="true"></i-rate>
           </p>
           <p class="desc">
-            <i-tag type="border" v-for="tag in bookDoubanInfo.tags" :key="tag.name">{{ tag.name }}</i-tag>
+            <i-tag type="border" v-for="tag in bookDoubanInfo.tags" :key="tag.name" class="border-tag">{{ tag.name }}</i-tag>
           </p>
         </div>
         <div class="rating"></div>
@@ -109,9 +109,9 @@
   .book-info
     .content
       padding 15px 20px
-      border-left 1px solid $color-border
-      border-right 1px solid $color-border
-      border-bottom 1px solid $color-border
+      border-left 1px solid $default-border-color
+      border-right 1px solid $default-border-color
+      border-bottom 1px solid $default-border-color
     .img
       position relative
       margin 0 auto
@@ -141,16 +141,16 @@
         margin-bottom 5px
         text-align center
         a
-          color $color-typegraphy-title
+          color $default-title-color
       .desc
         font-size 14px
         font-weight 100
         line-height 20px
-        color $color-gradually-gray-61
+        color $default-desc-color
         text-align center
         margin-bottom 3px
         > span
-          color $color-gradually-gray-41
+          color $default-info-color
           font-weight 300
     &:hover
       img
@@ -159,5 +159,5 @@
         zoom: 1.05
       .info
         .desc
-          color $color-gradually-gray-11
+          color $default-desc-hover-color
 </style>

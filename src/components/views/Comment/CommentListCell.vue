@@ -70,8 +70,10 @@
   import API from 'API';
   // utils
   import MD5 from 'crypto-js/md5';
+  // mixin
+  import {mixin} from '@/common/js/utils';
 
-  const HLJS = hljs;
+  let HLJS = hljs;
 
   const CELL_LEFT_SPAN = {
     'xs': 3,
@@ -102,6 +104,7 @@
         default: ''
       }
     },
+    mixins: [mixin],
     data() {
       return {
         showEditor: false,

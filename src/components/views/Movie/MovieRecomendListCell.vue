@@ -69,7 +69,7 @@
 
 <script type="text/ecmascript-6">
   import MovieListItem from '@/components/views/Movie/MovieListItem';
-  import {checkPostAuth} from '@/common/js/utils';
+  import {checkPostAuth, mixin} from '@/common/js/utils';
 
   export default {
     name: 'movie-recomend-list-cell',
@@ -79,6 +79,7 @@
         default: []
       }
     },
+    mixins: [mixin],
     methods: {
       gotoPostDetail(post) {
         checkPostAuth.call(this, post, '提示', '该文章为加密文章，您需要输入阅读密码', () => {

@@ -27,6 +27,8 @@
 
 <script type="text/ecmascript-6">
   import API from 'API';
+  // mixin
+  import {mixin} from '@/common/js/utils';
 
   export default {
     name: 'article-page-header',
@@ -36,6 +38,7 @@
         default: undefined
       }
     },
+    mixins: [mixin],
     methods: {
       likePost(post) {
         API.addPostLike({

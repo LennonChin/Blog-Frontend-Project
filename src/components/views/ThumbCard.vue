@@ -32,10 +32,11 @@
 
 <script type="text/ecmascript-6">
   import API from 'API';
-  import {checkPostAuth} from '@/common/js/utils';
+  import {checkPostAuth, mixin} from '@/common/js/utils';
 
   export default {
     name: 'thumb-card',
+    mixins: [mixin],
     props: {
       album: {
         Type: Object

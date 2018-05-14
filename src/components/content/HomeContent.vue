@@ -107,6 +107,9 @@
   import FriendLinks from '@/components/views/FriendLinks';
   import SideToc from '@/components/views/SideToc';
 
+  // mixin
+  import {mixin} from '@/common/js/utils';
+
   export default {
     name: 'home-content',
     data() {
@@ -158,6 +161,7 @@
         ]
       };
     },
+    mixins: [mixin],
     metaInfo() {
       return {
         title: this.documentMeta.title,

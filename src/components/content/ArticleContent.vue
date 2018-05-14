@@ -44,6 +44,7 @@
   import FriendLinks from '@/components/views/FriendLinks';
   import SideToc from '@/components/views/SideToc';
   import Recommend from '@/components/views/Recommend';
+
   // highlight.js引入
   import hljs from '@/common/js/highlight.pack';
   // 样式文件
@@ -52,6 +53,8 @@
   import tocbot from 'tocbot';
   // 加密
   import MD5 from 'crypto-js/md5';
+  // mixin
+  import {mixin} from '@/common/js/utils';
 
   let HLJS = hljs;
 
@@ -60,9 +63,11 @@
     data() {
       return {
         id: undefined,
-        browse_auth: undefined
+        browse_auth: undefined,
+        tocbotControl: undefined
       };
     },
+    mixins: [mixin],
     metaInfo() {
       return {
         title: this.documentMeta.title,
@@ -116,6 +121,12 @@
           // SSR的情况
           this.refreshContent();
         }
+      }
+    },
+    beforeDestroy() {
+      if (this.tocbotControl !== undefined) {
+        console.log('tocbot destroyed');
+        this.tocbotControl.destroy();
       }
     },
     computed: {
@@ -242,8 +253,8 @@
         if (document.body.clientWidth <= 1200) {
           tocSelector = '#sidebar-toc';
         }
-        tocbot.init({
-          tocSelector: tocSelector,
+        this.tocbotControl = tocbot.init({
+          tocSelector,
           contentSelector: '#article-main-page',
           headingSelector: 'h1, h2, h3, h4, h5',
           linkClass: 'toc-link',
@@ -259,7 +270,7 @@
           throttleTimeout: 50,
           positionFixedClass: 'is-position-fixed',
           fixedSidebarOffset: 'auto',
-          includeHtml: false,
+          includeHtml: true,
           onClick: false
         });
       },

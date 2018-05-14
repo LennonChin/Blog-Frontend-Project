@@ -64,6 +64,9 @@
     SectionTitleDefaultMenus
   } from '@/common/js/const';
 
+  // mixin
+  import {mixin} from '@/common/js/utils';
+
   if (process.browser) {
     require('swiper/dist/css/swiper.css');
     Vue.use(require('vue-awesome-swiper/dist/ssr'));
@@ -95,6 +98,7 @@
         }
       };
     },
+    mixins: [mixin],
     metaInfo() {
       return {
         title: this.documentMeta.title,
