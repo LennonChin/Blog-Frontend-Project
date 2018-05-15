@@ -49,6 +49,7 @@
                     :toolbars="toolbars"
                     @change="change"
                     @imgAdd="addImage"
+                    @save="saveEditorContent"
                     ref="mavonEditor"></mavon-editor>
     </div>
     <div class="bottom-area">
@@ -177,6 +178,8 @@
           this.nickName = loadFromLocal('comment_auth', 'nick_name', '');
           this.email = loadFromLocal('comment_auth', 'email', '');
         }
+        // 获取本地缓存内容
+        this.origin_content = loadFromLocal('comment_temp', `${this.$route.fullPath}-${this.reply_to}`, '');
       },
       comment_level: function () {
         if (this.replyToComment === undefined) return 0;
@@ -220,6 +223,10 @@
         }, (error) => {
           console.log(error);
         });
+      },
+      saveEditorContent(origin, formatted) {
+        console.log(origin, formatted);
+        saveToLocal('comment_temp', `${this.$route.fullPath}-${this.reply_to}`, origin);
       },
       listenWindowWidth() {
         // 此方法用于监听窗口宽度变化,改变编辑器菜单

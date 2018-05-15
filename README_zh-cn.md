@@ -12,17 +12,17 @@
 
 前端效果展示：
 
-![首页](https://github.com/LennonChin/Blog-Frontend-Project/blob/master/static/exhibition/frontend1.png)
+![首页](https://github.com/LennonChin/Blog-Frontend-Project/blob/master/readme/exhibition/frontend1.png)
 
-![文章页](https://github.com/LennonChin/Blog-Frontend-Project/blob/master/static/exhibition/frontend2.png)
+![文章页](https://github.com/LennonChin/Blog-Frontend-Project/blob/master/readme/exhibition/frontend2.png)
 
-![时间轴](https://github.com/LennonChin/Blog-Frontend-Project/blob/master/static/exhibition/frontend3.png)
+![时间轴](https://github.com/LennonChin/Blog-Frontend-Project/blob/master/readme/exhibition/frontend3.png)
 
-![文章详情页](https://github.com/LennonChin/Blog-Frontend-Project/blob/master/static/exhibition/frontend4.png)
+![文章详情页](https://github.com/LennonChin/Blog-Frontend-Project/blob/master/readme/exhibition/frontend4.png)
 
-![评论区域](https://github.com/LennonChin/Blog-Frontend-Project/blob/master/static/exhibition/frontend5.png)
+![评论区域](https://github.com/LennonChin/Blog-Frontend-Project/blob/master/readme/exhibition/frontend5.png)
 
-![读书页](https://github.com/LennonChin/Blog-Frontend-Project/blob/master/static/exhibition/frontend6.png)
+![读书页](https://github.com/LennonChin/Blog-Frontend-Project/blob/master/readme/exhibition/frontend6.png)
 
 ## 整体技术栈
 
@@ -63,7 +63,7 @@
 
 ## 接下来将实现
 
-- [ ]  将考虑实现SSR服务端渲染。~~由于目前后端使用的Django Rest Framework，SSR的支持可能推后~~。对几个必要的页面的SSR正在陆续开发中。
+- [x]  将考虑实现SSR服务端渲染。~~由于目前后端使用的Django Rest Framework，SSR的支持可能推后。对几个必要的页面的SSR正在陆续开发中。~~SSR相关开发已结束。
 - [ ]  接入GitHub、微信、微博、Facebook等第三方登录评论。
 - [x]  前端页面Markdown编辑器接入七牛云存储以存放图片。（已完成）
 - [ ]  优化图集详情的展示效果。
@@ -96,7 +96,7 @@ let localHost = 'http://host:port/path';
 5. 以上配置完成后，运行以下命令进入开发环境：
 
 ```shell
-# serve with hot reload at localhost:8080
+# serve with hot reload at localhost:9999
 npm run dev
 ```
 

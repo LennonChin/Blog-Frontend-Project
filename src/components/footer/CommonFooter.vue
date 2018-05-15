@@ -1,13 +1,26 @@
 <template>
   <div class="common-footer">
-    <i-backtop :height="500" :bottom="backTopBottom" :right="20"></i-backtop>
+    <i-backtop :height="300" :bottom="bottom" :right="right">
+      <div class="top">
+        <i-icon class="icon"
+                type="android-arrow-dropup"
+                @mouseover.native="setButtonState('top', true, true)"
+                @mouseleave.native="setButtonState('top', false)"></i-icon>
+        <i-icon class="icon"
+                type="android-arrow-dropdown"
+                @click.native.stop.prevent="scrollDown"
+                @mouseover.native="setButtonState('bottom', true, true)"
+                @mouseleave.native="setButtonState('bottom', false)"></i-icon>
+      </div>
+    </i-backtop>
     <p class="copyright">
-      <a href="http://www.miibeian.gov.cn/">{{ siteInfo.icp }}</a><span>|</span>
-      {{ siteInfo.copyright }}<span>|</span>以商业目的使用本网站内容需获许可，非商业目的使用授权遵循
-      <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a>。
+      <a href="http://www.miibeian.gov.cn/">{{ siteInfo.icp }}</a>
+      <span>|</span>
+      {{ siteInfo.copyright }}
+      <span>|</span>
+      <span v-html="siteInfo.copyright_desc"></span>
     </p>
-    <p class="copyright-english">All content is made available under the CC BY-NC 4.0 for non-commercial use. Commercial
-      use of this content is prohibited without explicit permission.</p>
+    <p class="copyright-english" v-html="siteInfo.copyright_desc_en"></p>
   </div>
 </template>
 
@@ -15,15 +28,61 @@
   import {
     mapState
   } from 'vuex';
+  import { scrollTop } from '@/common/js/utils';
 
   export default {
     name: 'common-footer',
+    data() {
+      return {
+        bottom: 120,
+        right: 20,
+        topBtnMouseOver: false,
+        bottomBtnMouseOver: false,
+        animationFrameId: undefined
+      };
+    },
+    mounted() {
+      if (document.body.clientWidth <= 1200) {
+        this.bottom = 20;
+      }
+    },
     computed: {
       ...mapState({
         siteInfo: state => state.base.siteInfo
-      }),
-      backTopBottom() {
-        return 120;
+      })
+    },
+    methods: {
+      setButtonState(position, state, start) {
+        this[(Object.is(position, 'bottom') ? 'bottomBtnMouseOver' : 'topBtnMouseOver')] = state;
+        window.cancelAnimationFrame(this.animationFrameId);
+        start && this.slowMoveToAnyWhere();
+      },
+      slowMoveToAnyWhere() {
+        const step = () => {
+          let targetScrollY = window.scrollY;
+          const currentScrollY = document.body.scrollHeight - window.innerHeight;
+          if (this.bottomBtnMouseOver) targetScrollY += 1;
+          if (this.topBtnMouseOver) targetScrollY -= 1;
+          if (targetScrollY < 0) {
+            targetScrollY = 0;
+          } else if (targetScrollY >= currentScrollY) {
+            targetScrollY = currentScrollY;
+          }
+          const canScrollTo = targetScrollY > 0 && targetScrollY < currentScrollY;
+          if (!canScrollTo) return false;
+          window.scrollTo(0, targetScrollY);
+          if (this.bottomBtnMouseOver || this.topBtnMouseOver) {
+            this.animationFrameId = window.requestAnimationFrame(step);
+          } else {
+            window.cancelAnimationFrame(this.animationFrameId);
+            return false;
+          }
+        };
+        this.animationFrameId = window.requestAnimationFrame(step);
+      },
+      scrollDown() {
+        const sTop = document.documentElement.scrollTop || document.body.scrollTop;
+        scrollTop(window, sTop, sTop + 500, 1000);
       }
     }
   };
@@ -39,6 +98,28 @@
     background $default-background-color
     border-top 1px solid $default-border-color
     z-index 99
+    .top
+      text-align center
+      border-radius 2px
+      i.icon
+        display block
+        margin-bottom 5px
+        padding 6px 12px
+        font-size 30px
+        color $default-background-color
+        background rgba($default-link-color, .7)
+        cursor pointer
+        &:hover
+          background rgba($default-link-hover-color, .7)
+        @media only screen and (max-width: $responsive-sm)
+          font-size 20px
+        @media screen and (min-width: $responsive-sm)
+          font-size 24px
+        @media screen and (min-width: $responsive-md)
+          font-size 28px
+        @media screen and (min-width: $responsive-lg)
+          font-size 30px
+
     .side-menu
       right 20px
     p

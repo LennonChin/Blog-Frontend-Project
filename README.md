@@ -12,17 +12,17 @@ Blog has been online ，welcome to browse：[https://blog.coderap.com/](https://
 
 Front effect display：
 
-![Home Page](https://github.com/LennonChin/Blog-Frontend-Project/blob/master/static/exhibition/frontend1.png)
+![Home Page](https://github.com/LennonChin/Blog-Frontend-Project/blob/master/readme/exhibition/frontend1.png)
 
-![Article Page](https://github.com/LennonChin/Blog-Frontend-Project/blob/master/static/exhibition/frontend2.png)
+![Article Page](https://github.com/LennonChin/Blog-Frontend-Project/blob/master/readme/exhibition/frontend2.png)
 
-![Timeline](https://github.com/LennonChin/Blog-Frontend-Project/blob/master/static/exhibition/frontend3.png)
+![Timeline](https://github.com/LennonChin/Blog-Frontend-Project/blob/master/readme/exhibition/frontend3.png)
 
-![Article Detail Page](https://github.com/LennonChin/Blog-Frontend-Project/blob/master/static/exhibition/frontend4.png)
+![Article Detail Page](https://github.com/LennonChin/Blog-Frontend-Project/blob/master/readme/exhibition/frontend4.png)
 
-![Comment Area](https://github.com/LennonChin/Blog-Frontend-Project/blob/master/static/exhibition/frontend5.png)
+![Comment Area](https://github.com/LennonChin/Blog-Frontend-Project/blob/master/readme/exhibition/frontend5.png)
 
-![Reading Page](https://github.com/LennonChin/Blog-Frontend-Project/blob/master/static/exhibition/frontend6.png)
+![Reading Page](https://github.com/LennonChin/Blog-Frontend-Project/blob/master/readme/exhibition/frontend6.png)
 
 ## The overall technology stack
 
@@ -63,7 +63,7 @@ At present, the development of ordinary pages basically completed the developmen
 
 ## The next will be achieved
 
-- [ ]  Will consider implementing SSR server rendering. ~~Due to the current backend Django Rest Framework, SSR support may be postponed.~~ SSR support for some necessary pages is developing now.
+- [x]  Will consider implementing SSR server rendering. ~~Due to the current backend Django Rest Framework, SSR support may be postponed. SSR support for some necessary pages is developing now.~~SSR can already work now.
 - [ ]  Access GitHub, WeChat, Weibo, Facebook and other third-party login comments.
 - [x] front-end page Markdown editor access Qiniu Cloud Storage to store pictures. (Completed)
 - [ ]  Optimize the details of the gallery display.

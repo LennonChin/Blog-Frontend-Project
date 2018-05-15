@@ -169,10 +169,10 @@
           // 判断滑动方向
           if (y - this.startY > 0) {
             this.toggleHeader('up');
-            console.log('下滑了！');
+            // console.log('下滑了！');
           } else {
             this.toggleHeader('down');
-            console.log('上滑了！');
+            // console.log('上滑了！');
           }
         } catch (e) {
           console.log(e.message);
@@ -185,10 +185,10 @@
           // 判断滑动方向
           if (y - this.startY > 0) {
             this.toggleHeader('down');
-            console.log('下滑了！');
+            // console.log('下滑了！');
           } else {
             this.toggleHeader('up');
-            console.log('上滑了！');
+            // console.log('上滑了！');
           }
         } catch (e) {
           console.log(e.message);
@@ -201,24 +201,24 @@
           if (e.wheelDelta > 0) {
             // 当滑轮向上滚动时
             this.toggleHeader('up');
-            console.log('滑轮向上滚动');
+            // console.log('滑轮向上滚动');
           }
           if (e.wheelDelta < 0) {
             // 当滑轮向下滚动时
             this.toggleHeader('down');
-            console.log('滑轮向下滚动');
+            // console.log('滑轮向下滚动');
           }
         } else if (e.detail) {
           // Firefox滑轮事件
           if (e.detail > 0) {
             // 当滑轮向上滚动时
             this.toggleHeader('up');
-            console.log('滑轮向上滚动');
+            // console.log('滑轮向上滚动');
           }
           if (e.detail < 0) {
             // 当滑轮向下滚动时
             this.toggleHeader('down');
-            console.log('滑轮向下滚动');
+            // console.log('滑轮向下滚动');
           }
         }
       },

@@ -201,7 +201,7 @@ export default {
 
   // 上传评论图片
   uploadImage(params) {
-    return handleRequest(request.post(`http://upload.qiniup.com`, params, {headers: {'Content-Type': 'multipart/form-data'}}));
+    return handleRequest(request.post(`https://upload.qiniup.com`, params, {headers: {'Content-Type': 'multipart/form-data'}}));
   },
 
   // 点赞文章

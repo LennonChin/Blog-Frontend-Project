@@ -20,7 +20,7 @@ module.exports = {
     productionGzipExtensions: ['js', 'css'],
     // qiniu yun configs
     qiniuConfigs: {
-      host: 'https://material.coderap.com/',
+      host: 'https://material.coderap.com',
       bucket: 'blog-material',
       assetsPrefix: 'site'
     },
