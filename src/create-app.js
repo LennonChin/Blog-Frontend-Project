@@ -4,7 +4,9 @@ import VueRouter from 'vue-router';
 import Vuex from 'vuex';
 import Meta from 'vue-meta';
 import App from './App.vue';
-// import Viewer from 'v-viewer';
+// v-viewer
+import 'viewerjs/dist/viewer.css';
+import Viewer from 'v-viewer';
 
 import createRouter from './router/router';
 import createStore from './store/store';
@@ -43,7 +45,7 @@ import {
 Vue.use(VueRouter);
 Vue.use(Vuex);
 Vue.use(Meta);
-// Vue.use(Viewer);
+Vue.use(Viewer);
 
 Vue.prototype.$Modal = Modal;
 Vue.prototype.$Message = Message;

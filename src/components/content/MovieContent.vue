@@ -9,7 +9,7 @@
         <i-col :xs="24" :sm="24" :md="24" :lg="17">
           <div class="layout-left">
             <movie-page-content>
-              <div class="article-details" id="article-main-page" slot="content" ref="article">
+              <div class="article-details" id="article-main-page" slot="content" ref="article" v-viewer>
                 <div class="detail" v-if="movie !== undefined" v-for="detail in movie.details">
                   <article class="typo container article-main-content" v-html="detail.formatted_content">
                   </article>

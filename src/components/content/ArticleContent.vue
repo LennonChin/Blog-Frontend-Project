@@ -5,7 +5,7 @@
         <div class="layout-left" v-if="article">
           <article-page-header :article="article"></article-page-header>
           <article-page-content>
-            <div class="article-details" id="article-main-page" slot="content" ref="article">
+            <div class="article-details" id="article-main-page" slot="content" ref="article" v-viewer>
               <div class="detail" v-if="article" v-for="detail in article.details">
                 <article class="typo container article-main-content" v-html="detail.formatted_content">
                 </article>

@@ -38,7 +38,7 @@
                 <p class="catalog" v-html="bookDoubanInfo.catalog"></p>
               </v-tab>
               <v-tab title="整书读后感" v-if="book !== undefined">
-                <div class="article-details" id="article-main-page" ref="book">
+                <div class="article-details" id="article-main-page" ref="book" v-viewer>
                   <div class="detail" v-for="detail in book.details">
                     <article class="typo container article-main-content" v-html="detail.formatted_content">
                     </article>
