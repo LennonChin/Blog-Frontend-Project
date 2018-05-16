@@ -81,8 +81,10 @@
         this.animationFrameId = window.requestAnimationFrame(step);
       },
       scrollDown() {
-        const sTop = document.documentElement.scrollTop || document.body.scrollTop;
-        scrollTop(window, sTop, sTop + 500, 1000);
+        if (document.body.clientWidth >= 1200) {
+          const sTop = document.documentElement.scrollTop || document.body.scrollTop;
+          scrollTop(window, sTop, sTop + 500, 1000);
+        }
       }
     }
   };
