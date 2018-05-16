@@ -82,7 +82,7 @@
         limit_size: DefaultLimitSize,
         menus: SectionTitleDefaultMenus,
         swiperOption: {
-          lazy: true,
+          lazy: false,
           centeredSlides: true,
           loop: true,
           effect: 'fade',
@@ -113,7 +113,8 @@
               ordering: '-add_time',
               limit: DefaultLimitSize
             }
-          }
+          },
+          reset: true
         }),
         store.dispatch('readHome/GET_BOOKNOTES_BASE_INFO', {
           params: {
@@ -122,7 +123,8 @@
               ordering: '-add_time',
               limit: DefaultLimitSize
             }
-          }
+          },
+          reset: true
         })
       ]);
     },
@@ -142,7 +144,7 @@
               limit: DefaultLimitSize
             }
           }
-        }, false);
+        }, true);
         this.updateBookNotesInfo({
           params: {
             params: {
@@ -151,7 +153,7 @@
               limit: DefaultLimitSize
             }
           }
-        }, false);
+        }, true);
       }
     },
     computed: {
