@@ -105,7 +105,7 @@
   @import "../../../common/stylus/theme.styl";
 
   .movie-recent-list-cell
-    border 1px solid $color-border
+    border 1px solid $default-border-color
     h4
       font-size 26px
       line-height 30px
@@ -139,12 +139,12 @@
             p
               text-align left
               font-weight 100
-              color $color-gradually-gray-61
+              color $default-title-color
               &.title
                 line-height 40px
                 font-size 24px
                 font-weight 300
-                color $color-typegraphy-title
+                color $default-title-color
               &.link
                 font-size 18px
                 line-height 23px
@@ -160,15 +160,15 @@
               zoom: 1.05
             p.title
               font-weight 500
-              color $color-secondary-warning
+              color $default-link-hover-color
             p.link
-              color $color-gradually-gray-61
+              color $default-link-hover-color
             p.content
-              color $color-gradually-gray-61
+              color $default-link-hover-color
     .recommend
       margin 20px 0 10px 20px
       padding 0 25px 20px 20px
-      border-left 1px solid $color-border
+      border-left 1px solid $default-border-color
       @media only screen and (max-width: 768px)
         margin 0 0 20px 0
         padding 0 20px
@@ -179,10 +179,10 @@
         border-left none
       @media screen and (min-width: 992px)
         padding 0 25px 20px 20px
-        border-left 1px solid $color-border
+        border-left 1px solid $default-border-color
       @media screen and (min-width: 1200px)
         padding 0 25px 20px 20px
-        border-left 1px solid $color-border
+        border-left 1px solid $default-border-color
       h4
         font-size 20px
         padding 0 0 10px 0
@@ -193,7 +193,7 @@
           margin-bottom 10px
         .title
           text-align justify
-          color $color-gradually-gray-41
+          color $default-title-color
           font-size 16px
           line-height 23px
           margin-bottom 5px
@@ -203,7 +203,7 @@
             font-size 13px
             line-height 18px
             font-weight 100
-            color $color-secondary-info
+            color $default-info-color
             + span
               float right
               margin-left 10px
@@ -212,7 +212,7 @@
             color: #777
             cursor pointer
             &:hover
-              color $color-main-primary
+              color $default-desc-hover-color
               text-decoration underline
         .img
           padding-bottom: 40%
@@ -227,13 +227,13 @@
             zoom: 1.0
         .desc
           text-align justify
-          color $color-secondary-info
+          color $default-desc-color
           font-size 13px
           line-height 20px
           margin 5px 0 0
         &:hover
           .title
-            color $color-main-primary
+            color $default-link-hover-color
           img
             transition: All 0.4s ease-in-out
             transform: scale(1.05)

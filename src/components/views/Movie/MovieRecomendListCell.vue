@@ -107,7 +107,7 @@
   @import "../../../common/stylus/theme.styl";
 
   .movie-recommend-list-cell
-    border 1px solid $color-border
+    border 1px solid $default-border-color
     h4
       font-size 26px
       line-height 30px
@@ -150,7 +150,7 @@
             font-size 20px
             line-height 26px
             font-weight 500
-            color $color-typegraphy-title
+            color $default-title-color
             margin-bottom 10px
             text-align justify
           .desc
@@ -170,14 +170,14 @@
             zoom: 1.05
           .info
             .title
-              color $color-secondary-warning
+              color $iview-secondary-warning-color
             .desc
               color $color-gradually-gray-11
 
     .comment
       margin 15px 20px 20px 20px
       padding 15px
-      border 1px solid $color-border
+      border 1px solid $default-border-color
       a
         display flex
         flex-wrap: wrap;
@@ -200,7 +200,7 @@
               height 32px
               line-height 40px
               font-size 16px
-              color $color-secondary-warning
+              color $iview-secondary-warning-color
             &.time
               height 14px
               line-height 15px
@@ -213,6 +213,6 @@
           line-height 22px
         &:hover
           p.time, p.content
-            color $color-secondary-warning
+            color $iview-secondary-warning-color
 
 </style>

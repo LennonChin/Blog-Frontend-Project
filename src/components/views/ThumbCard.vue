@@ -154,19 +154,19 @@
           line-height 25px
           height 60px
           a
-            color $color-typegraphy-title
+            color $default-title-color
             &:hover
               text-decoration underline
-              color $color-typegraphy-title-hover
+              color $default-title-hover-color
         .info
           margin-bottom 10px
           font-size 14px
           font-weight 200
           a
-            color $color-typegraphy-subtitle
+            color $default-info-color
             cursor pointer
             &:hover
-              color $color-main-primary
+              color $default-info-hover-color
         .operate_info
           font-size 14px
           margin-top 15px
@@ -175,8 +175,8 @@
             + span
               margin-left 5px
             a
-              color $color-typegraphy-subtitle
+              color $default-desc-color
               cursor pointer
               &:hover
-                color $color-main-primary
+                color $default-desc-hover-color
 </style>

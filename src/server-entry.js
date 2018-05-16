@@ -58,7 +58,6 @@ export default context => {
       Promise.all(targetPromises).then(data => {
         targetPromises = [];
         keyCache = [];
-        context.meta = app.$meta();
         context.state = store.state;
         resolve(app);
       }).catch(error => {
@@ -70,9 +69,8 @@ export default context => {
         if (error.code === 401) {
           // 文章加密了
           console.log('server-entry auth', error.code);
-          context.meta = app.$meta();
           context.state = store.state;
-          reject(app);
+          resolve(app);
         }
       });
     }, reject);

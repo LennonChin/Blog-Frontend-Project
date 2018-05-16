@@ -38,16 +38,16 @@
         font-size 13px
         text-align center
       .name
-        background-color $color-main-primary
+        background-color $default-link-hover-color
         color $white
-        border 1px solid $color-main-primary
+        border 1px solid $default-link-hover-color
         font-weight 700
       .type
         background-color $white
-        color $color-main-primary
-        border 1px solid $color-main-primary
+        color $default-link-hover-color
+        border 1px solid $default-link-hover-color
       .desc
         font-size 14px
-        color $color-gradually-gray-51
+        color $default-desc-color
 
 </style>

@@ -96,7 +96,7 @@ let localHost = 'http://host:port/path';
 5. After the above configuration is completed, run the following command to enter the development environment:
 
 ```shell
-# serve with hot reload at localhost: 8080
+# serve with hot reload at localhost: 9999
 npm run dev
 ```
 

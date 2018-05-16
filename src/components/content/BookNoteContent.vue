@@ -34,7 +34,6 @@
 <script type="text/ecmascript-6">
   import {
     mapState,
-    mapGetters,
     mapMutations,
     mapActions
   } from 'vuex';
@@ -68,15 +67,6 @@
       };
     },
     mixins: [mixin],
-    metaInfo() {
-      return {
-        title: this.documentMeta.title,
-        meta: [
-          {name: 'description', content: this.documentMeta.description},
-          {name: 'keywords', content: this.documentMeta.keywords}
-        ]
-      };
-    },
     beforeRouteLeave(to, from, next) {
       // 导航离开时清空vuex中图书笔记数据
       this.clearBookNoteInfo();
@@ -84,6 +74,9 @@
     },
     beforeRouteUpdate(to, from, next) {
       next();
+      console.log('beforeRouteUpdate');
+      this.id = this.$route.params.id;
+      this.browse_auth = this.$route.query.browse_auth;
       this.refreshData();
     },
     asyncData({store, route}) {
@@ -133,9 +126,6 @@
       ...mapState({
         bookNote: state => state.bookNote.bookNote,
         needAuth: state => state.bookNote.needAuth
-      }),
-      ...mapGetters({
-        documentMeta: 'DOCUMENT_META'
       })
     },
     methods: {

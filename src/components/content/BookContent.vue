@@ -69,7 +69,6 @@
 <script type="text/ecmascript-6">
   import {
     mapState,
-    mapGetters,
     mapMutations,
     mapActions
   } from 'vuex';
@@ -104,15 +103,6 @@
       };
     },
     mixins: [mixin],
-    metaInfo() {
-      return {
-        title: this.documentMeta.title,
-        meta: [
-          {name: 'description', content: this.documentMeta.description},
-          {name: 'keywords', content: this.documentMeta.keywords}
-        ]
-      };
-    },
     beforeRouteLeave(to, from, next) {
       // 导航离开时清空vuex中文章数据
       this.clearBookInfo();
@@ -120,6 +110,9 @@
     },
     beforeRouteUpdate(to, from, next) {
       next();
+      console.log('beforeRouteUpdate');
+      this.id = this.$route.params.id;
+      this.browse_auth = this.$route.query.browse_auth;
       this.refreshData();
     },
     asyncData({store, route}) {
@@ -139,9 +132,6 @@
         book: state => state.book.book,
         bookDoubanInfo: state => state.book.bookDoubanInfo,
         needAuth: state => state.book.needAuth
-      }),
-      ...mapGetters({
-        documentMeta: 'DOCUMENT_META'
       })
     },
     mounted() {
@@ -184,6 +174,8 @@
         getBookDetailInfo: 'book/GET_BOOK_DETAIL_INFO'
       }),
       refreshData() {
+        this.id = this.$route.params.id;
+        this.browse_auth = this.$route.query.browse_auth;
         let that = this;
         this.getBookDetailInfo({
           params: {

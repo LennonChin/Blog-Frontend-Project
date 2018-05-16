@@ -33,13 +33,13 @@
 .comment-main-content li {
   list-style-type: square;
   margin: 0.5em 0;
-  color: $color-typegraphy-title;
+  color: $default-title-color;
   font-weight: 200;
 }
 .comment-main-content p {
   font-size: 16px;
   line-height: 22px;
-  color: $color-typegraphy-title;
+  color: $default-title-color;
   font-weight: 200;
   margin: 8px 0;
 }

@@ -2,7 +2,6 @@ import Vue from 'vue';
 // vue router相关
 import VueRouter from 'vue-router';
 import Vuex from 'vuex';
-import Meta from 'vue-meta';
 import App from './App.vue';
 // v-viewer
 import 'viewerjs/dist/viewer.css';
@@ -44,7 +43,6 @@ import {
 
 Vue.use(VueRouter);
 Vue.use(Vuex);
-Vue.use(Meta);
 Vue.use(Viewer);
 
 Vue.prototype.$Modal = Modal;

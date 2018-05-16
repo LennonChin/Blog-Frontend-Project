@@ -46,8 +46,8 @@
           </div>
           <!-- 阅读笔记 -->
           <section-title v-if="this.specialCategory('readings') !== undefined && bookNotes.length > 0"
-                         :mainTitle="this.specialCategory('readings').name + '笔记'"
-                         :subTitle="this.specialCategory('readings').subname + ' Note'"
+                         :mainTitle="'笔记'"
+                         :subTitle="'Note'"
                          :menus="bookNotesTitleMenus"
                          :withRefresh="true"
                          :withTimeSelect="false"
@@ -92,7 +92,6 @@
 <script type="text/ecmascript-6">
   import {
     mapState,
-    mapGetters,
     mapActions
   } from 'vuex';
   import ArticleListCell from '@/components/views/Article/ArticleListCell';
@@ -162,15 +161,6 @@
       };
     },
     mixins: [mixin],
-    metaInfo() {
-      return {
-        title: this.documentMeta.title,
-        meta: [
-          {name: 'description', content: this.documentMeta.description},
-          {name: 'keywords', content: this.documentMeta.keywords}
-        ]
-      };
-    },
     asyncData({store}) {
       return Promise.all([
         store.dispatch('home/UPDATE_HOME_META'),
@@ -235,9 +225,6 @@
         bookNotes: state => state.home.bookNotes,
         albums: state => state.home.albums,
         movies: state => state.home.movies
-      }),
-      ...mapGetters({
-        documentMeta: 'DOCUMENT_META'
       })
     },
     beforeMount() {

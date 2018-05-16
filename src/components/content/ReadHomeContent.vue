@@ -47,7 +47,6 @@
   import Vue from 'vue';
   import {
     mapState,
-    mapGetters,
     mapMutations,
     mapActions
   } from 'vuex';
@@ -99,14 +98,10 @@
       };
     },
     mixins: [mixin],
-    metaInfo() {
-      return {
-        title: this.documentMeta.title,
-        meta: [
-          {name: 'description', content: this.documentMeta.description},
-          {name: 'keywords', content: this.documentMeta.keywords}
-        ]
-      };
+    beforeRouteLeave(to, from, next) {
+      // 导航离开时清空已有的数据
+      this.clearReadInfo();
+      next();
     },
     asyncData({store}) {
       this.selected_category = 2;
@@ -164,9 +159,6 @@
         books: state => state.readHome.books,
         bookNotes: state => state.readHome.bookNotes,
         readingBooks: state => state.readHome.readingBooks
-      }),
-      ...mapGetters({
-        documentMeta: 'DOCUMENT_META'
       }),
       categorysInfo: function() {
         return this.allCategorysInfo.filter((category) => {

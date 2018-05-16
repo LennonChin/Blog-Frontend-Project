@@ -114,7 +114,7 @@
         a
           color $color-gradually-gray-91
           &:hover
-            color $color-secondary-warning
+            color $iview-secondary-warning-color
     .author
       padding 10px 20px 20px
       border-bottom 1px solid $color-gradually-gray-21
@@ -171,9 +171,9 @@
             a
               color $color-gradually-gray-91
               &:hover
-                color $color-secondary-warning
+                color $iview-secondary-warning-color
           &.yellow
-            color $color-secondary-warning
+            color $iview-secondary-warning-color
     .picture
       padding 20px
       border-bottom 1px solid $color-gradually-gray-21

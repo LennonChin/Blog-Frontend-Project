@@ -185,15 +185,15 @@
         display none
       .ivu-menu-item
         &:hover
-          color $color-secondary-warning
-          border-bottom 2px solid $color-secondary-warning
+          color $iview-secondary-warning-color
+          border-bottom 2px solid $iview-secondary-warning-color
       .ivu-menu-item-active
-        color $color-secondary-warning
-        border-bottom 2px solid $color-secondary-warning
+        color $iview-secondary-warning-color
+        border-bottom 2px solid $iview-secondary-warning-color
       .ivu-menu-submenu
         &:hover
-          color $color-secondary-warning
-          border-bottom 2px solid $color-secondary-warning
+          color $iview-secondary-warning-color
+          border-bottom 2px solid $iview-secondary-warning-color
     .content
       margin 15px 0
       .likes

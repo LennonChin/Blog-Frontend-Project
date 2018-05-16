@@ -33,7 +33,6 @@
 <script type="text/ecmascript-6">
   import {
     mapState,
-    mapGetters,
     mapMutations,
     mapActions
   } from 'vuex';
@@ -69,15 +68,6 @@
       };
     },
     mixins: [mixin],
-    metaInfo() {
-      return {
-        title: this.documentMeta.title,
-        meta: [
-          {name: 'description', content: this.documentMeta.description},
-          {name: 'keywords', content: this.documentMeta.keywords}
-        ]
-      };
-    },
     asyncData({store, route}) {
       this.selected_category = route.params.id;
       return Promise.all([
@@ -92,8 +82,14 @@
         })
       ]);
     },
+    beforeRouteLeave(to, from, next) {
+      // 导航离开时清空已有的数据
+      this.clearBookNotesBaseInfo();
+      next();
+    },
     beforeRouteUpdate(to, from, next) {
       next();
+      console.log('beforeRouteUpdate');
       this.selected_category = this.$route.params.id;
       this.refresh();
     },
@@ -119,9 +115,6 @@
       ...mapState({
         bookNotes: state => state.bookNoteList.bookNotes,
         noMoreData: state => state.bookNoteList.noMoreData
-      }),
-      ...mapGetters({
-        documentMeta: 'DOCUMENT_META'
       }),
       categorysInfo: function () {
         return this.allCategorysInfo.filter((category) => {

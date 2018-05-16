@@ -10,6 +10,8 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin');
+const isProduction = process.env.NODE_ENV === 'production';
+console.log(chalk.green(`webpack prod conf run in ${process.env.NODE_ENV} env`));
 
 const env = config.build.env;
 
@@ -25,7 +27,7 @@ const webpackConfig = merge(baseWebpackConfig, {
     path: config.build.assetsRoot,
     filename: utils.assetsPath('js/[name].[chunkhash].js'),
     chunkFilename: utils.assetsPath('js/[id].[chunkhash].js'),
-    publicPath: `${config.build.qiniuConfigs.host}/${config.build.qiniuConfigs.assetsPrefix}/`
+    publicPath: isProduction ? `${config.build.qiniuConfigs.host}/${config.build.qiniuConfigs.assetsPrefix}/` : `${config.build.assetsPublicPath}/`
   },
   // externals: [
   //   {

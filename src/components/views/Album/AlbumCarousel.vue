@@ -165,7 +165,7 @@
             max-height: 100%;
             max-width: 100%;
         .swiper-pagination-progressbar-fill
-          background $color-secondary-warning
+          background $iview-secondary-warning-color
       .gallery-thumbs
         width 100%
         @media only screen and (max-width: 768px)

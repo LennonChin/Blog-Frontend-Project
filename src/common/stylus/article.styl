@@ -164,6 +164,7 @@ article.article-main-content
     width 100%
     font-size 14px
     font-weight 100
+    font-family $code-font
     background $default-border-color !important
     color $default-info-color
     white-space pre-wrap
@@ -207,6 +208,11 @@ article.article-main-content
           color inherit
 
 body.dark
+  .article-details
+    .detail
+      .detail-footer
+        color $dark-desc-color
+        border-bottom 1px dashed $dark-border-color
   article.article-main-content, .comment-main-content
     h1, h2, h3, h4, h5, h6, h7
       color $dark-title-color

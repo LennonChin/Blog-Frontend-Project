@@ -42,7 +42,6 @@
 <script type="text/ecmascript-6">
   import {
     mapState,
-    mapGetters,
     mapMutations,
     mapActions
   } from 'vuex';
@@ -81,15 +80,6 @@
       };
     },
     mixins: [mixin],
-    metaInfo() {
-      return {
-        title: this.documentMeta.title,
-        meta: [
-          {name: 'description', content: this.documentMeta.description},
-          {name: 'keywords', content: this.documentMeta.keywords}
-        ]
-      };
-    },
     asyncData({store}) {
       return Promise.all([
         store.dispatch('timeline/GET_TIMELINE_INFO', {
@@ -102,6 +92,11 @@
           reset: true
         })
       ]);
+    },
+    beforeRouteLeave(to, from, next) {
+      // 导航离开时清空已有的数据
+      this.clearTimelineInfo();
+      next();
     },
     mounted() {
       if (Object.keys(this.$store.state.timeline.timeline).length === 0) {
@@ -122,9 +117,6 @@
       ...mapState({
         timeline: state => state.timeline.timeline,
         noMoreData: state => state.timeline.noMoreData
-      }),
-      ...mapGetters({
-        documentMeta: 'DOCUMENT_META'
       })
     },
     methods: {

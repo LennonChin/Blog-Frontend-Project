@@ -44,6 +44,6 @@
         a
           font-size 14px
           &:hover
-            color $color-main-primary
+            color $default-link-hover-color
 
 </style>

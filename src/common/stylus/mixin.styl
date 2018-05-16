@@ -37,6 +37,10 @@ border-none()
       -webkit-transform : scaleY(0.5)
       transform : scaleY(0.5)
 
+.scroll-control {
+  position: fixed;
+  width: 100%;
+}
 
 .custom-scrollbar
   scrollbar-arrow-color #f4ae21 /**//*三角箭头的颜色*/
@@ -53,14 +57,14 @@ border-none()
     height 10px
   &::-webkit-scrollbar-button
     /*滚动条两端的按钮，可以用display:none让其不显示，也可以添加背景图片，颜色改变显示效果（位置2）*/
-    /*background $color-border */
+    /*background $default-border-color */
     display none
   &::-webkit-scrollbar-track
     /*外层轨道，可以用display:none让其不显示，也可以添加背景图片，颜色改变显示效果（位置3）*/
-    /*background $color-border */
+    /*background $default-border-color */
   &::-webkit-scrollbar-track-piece
     /*内层轨道，滚动条中间部分（位置4）*/
-    background $color-border
+    background $default-border-color
     border-radius 4px
   &::-webkit-scrollbar-thumb
     /*滚动条里面可以拖动的那部分（位置5）*/
@@ -68,9 +72,9 @@ border-none()
     border-radius 4px
   &::-webkit-scrollbar-corner
     /*边角（位置6）*/
-    background $color-border
+    background $default-border-color
   &::-webkit-scrollbar-resizer
-    background $color-border
+    background $default-border-color
 
 .hide-scrollbar
   scrollbar-arrow-color #f4ae21 /**//*三角箭头的颜色*/

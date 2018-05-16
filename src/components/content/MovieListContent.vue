@@ -37,7 +37,6 @@
 <script type="text/ecmascript-6">
   import {
     mapState,
-    mapGetters,
     mapMutations,
     mapActions
   } from 'vuex';
@@ -74,15 +73,6 @@
       };
     },
     mixins: [mixin],
-    metaInfo() {
-      return {
-        title: this.documentMeta.title,
-        meta: [
-          {name: 'description', content: this.documentMeta.description},
-          {name: 'keywords', content: this.documentMeta.keywords}
-        ]
-      };
-    },
     asyncData({store, route}) {
       this.selected_category = route.params.id;
       return Promise.all([
@@ -96,6 +86,11 @@
           }
         })
       ]);
+    },
+    beforeRouteLeave(to, from, next) {
+      // 导航离开时清空已有的数据
+      this.clearMoviesBaseInfo();
+      next();
     },
     beforeRouteUpdate(to, from, next) {
       next();
@@ -124,9 +119,6 @@
       ...mapState({
         movies: state => state.movieList.movies,
         noMoreData: state => state.movieList.noMoreData
-      }),
-      ...mapGetters({
-        documentMeta: 'DOCUMENT_META'
       }),
       categorysInfo: function () {
         return this.allCategorysInfo.filter((category) => {

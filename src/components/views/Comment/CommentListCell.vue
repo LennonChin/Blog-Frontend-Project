@@ -219,7 +219,7 @@
               text-decoration underline
           &.dark-theme
             a
-              color $color-secondary-warning
+              color $iview-secondary-warning-color
         .name-tag
           font-size 10px
           background-color $default-info-color
@@ -241,7 +241,7 @@
             a
               color $color-gradually-gray-71
               &:hover
-                color $color-secondary-warning
+                color $iview-secondary-warning-color
                 text-decoration underline
         .time
           font-size 13px
@@ -271,10 +271,10 @@
       &.dark-theme
         .i-dropdown-link
           &:hover
-            color $color-secondary-warning
+            color $iview-secondary-warning-color
         .reply
           a
-            color $color-secondary-warning
+            color $iview-secondary-warning-color
     .comment-area
       margin-bottom 10px
       .reply-editor

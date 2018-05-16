@@ -9,11 +9,19 @@ module.exports = async (ctx, renderer, template) => {
    * */
   const context = { url: ctx.url };
   try {
+    // HTML页面
     const appString = await renderer.renderToString(context);
-    const meta = context.meta.inject();
+    // 处理meta信息
+    const state = context.state;
+    const title = state.documentTitle || state.base.siteInfo.name;
+    const description = state.documentDescription || state.base.siteInfo.desc;
+    const keywords = state.documentKeywords || state.base.siteInfo.keywords;
+
     ctx.body = ejs.render(template, {
       appString,
-      meta: meta,
+      title,
+      description,
+      keywords,
       style: context.renderStyles(),
       scripts: context.renderScripts(),
       initialState: context.renderState()

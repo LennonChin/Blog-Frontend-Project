@@ -3,14 +3,16 @@
  */
 const path = require('path');
 const ExtractPlugin = require('extract-text-webpack-plugin');
+const chalk = require('chalk');
 const webpack = require('webpack');
 const merge = require('webpack-merge');
 const baseConfig = require('./webpack.base.conf');
 // 用于服务端渲染的插件
 const VueServerPlugin = require('vue-server-renderer/server-plugin');
+const isProduction = process.env.NODE_ENV === 'production';
+console.log(chalk.green(`webpack prod conf run in ${process.env.NODE_ENV} env`));
 
 let config;
-// const isDev = process.env.NODE_ENV === 'development';
 
 config = merge(baseConfig, {
   target: 'node',

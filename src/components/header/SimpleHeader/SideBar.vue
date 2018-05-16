@@ -1,7 +1,7 @@
 <template>
-  <div class="side-bar" @touchmove.stop.prevent :class="{ open: show }">
-    <div class="main-area">
-      <div class="top-wrapper" @click.prevent @touchmove.stop>
+  <div class="side-bar" @touchmove.prevent :class="{ open: show }">
+    <div class="main-area" @touchmove.stop>
+      <div class="top-wrapper" @click.prevent>
         <div class="top-area">
           <img :src="siteInfo.background" alt="">
           <div class="site-info">
@@ -123,8 +123,27 @@
         router.params['id'] = category.id;
         return router;
       },
+      // sidebar打开时调用，用于防止滚动穿透
+      afterOpen(className) {
+        this.scrollTop = document.scrollingElement.scrollTop || document.body.scrollTop;
+        document.body.classList.add(className);
+        document.body.style.top = -this.scrollTop + 'px';
+      },
+      // sidebar关闭时调用，用于防止滚动穿透
+      beforeClose(className) {
+        document.body.classList.remove(className);
+        document.scrollingElement.scrollTop = this.scrollTop;
+        document.body.scrollTop = this.scrollTop;
+        document.body.style.top = '';
+      },
       toggleSideBar() {
         this.show = !this.show;
+        // 控制遮罩弹出后防止滚动穿透问题
+        if (this.show) {
+          this.afterOpen('scroll-control');
+        } else {
+          this.beforeClose('scroll-control');
+        }
       },
       toggleTheme(isDark) {
         this.updateSiteTheme(isDark ? 'dark' : 'default');

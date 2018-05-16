@@ -74,10 +74,10 @@
     > a
       cursor default
       display block
-      border 1px solid $color-border
+      border 1px solid $default-border-color
       &:hover
-        border 1px solid $color-border-hover
-        box-shadow 1px 1px 1px $color-border
+        border 1px solid $default-border-hover-color
+        box-shadow 1px 1px 1px $default-box-shadow-color
       .top-area
         padding-bottom: 100%
         width: 100%
@@ -104,18 +104,18 @@
           font-size 18px
           margin-bottom 10px
           a
-            color $color-typegraphy-title
+            color $default-title-color
             &:hover
-              color $color-typegraphy-title-hover
+              color $default-title-hover-color
         .info
           margin-bottom 10px
           font-size 14px
           font-weight 200
           a
-            color $color-typegraphy-subtitle
+            color $default-info-color
             cursor pointer
             &:hover
-              color $color-main-primary
+              color $default-info-hover-color
         .operate_info
           font-size 14px
           margin-top 15px
@@ -124,8 +124,8 @@
             + span
               margin-left 5px
             a
-              color $color-typegraphy-subtitle
+              color $default-desc-color
               cursor pointer
               &:hover
-                color $color-main-primary
+                color $default-desc-hover-color
 </style>

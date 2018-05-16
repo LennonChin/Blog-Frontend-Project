@@ -39,7 +39,6 @@
 <script type="text/ecmascript-6">
   import {
     mapState,
-    mapGetters,
     mapMutations,
     mapActions
   } from 'vuex';
@@ -77,15 +76,6 @@
       };
     },
     mixins: [mixin],
-    metaInfo() {
-      return {
-        title: this.documentMeta.title,
-        meta: [
-          {name: 'description', content: this.documentMeta.description},
-          {name: 'keywords', content: this.documentMeta.keywords}
-        ]
-      };
-    },
     asyncData({store}) {
       this.selected_category = 1;
       return Promise.all([
@@ -99,6 +89,11 @@
           }
         })
       ]);
+    },
+    beforeRouteLeave(to, from, next) {
+      // 导航离开时清空vuex中文章数据
+      this.clearArticlesBaseInfo();
+      next();
     },
     created() {
       // 设置默认的分类id
@@ -124,9 +119,6 @@
         articles: state => state.articleHome.articles,
         bannerArticles: state => state.articleHome.bannerArticles,
         noMoreData: state => state.articleHome.noMoreData
-      }),
-      ...mapGetters({
-        documentMeta: 'DOCUMENT_META'
       }),
       categorysInfo: function () {
         return this.allCategorysInfo.filter((category) => {

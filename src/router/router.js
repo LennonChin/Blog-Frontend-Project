@@ -143,7 +143,7 @@ export default () => {
     next();
   });
 
-  router.afterEach(route => {
+  router.afterEach((to, from) => {
     try {
       LoadingBar.finish();
     } catch (err) {

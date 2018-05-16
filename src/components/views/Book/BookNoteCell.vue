@@ -11,8 +11,12 @@
             <a @click="gotoPostDetail(bookNote)"> {{bookNote.title}}</a>
           </h4>
           <p class="book-info">
-            &nbsp;<i-icon type="ios-book"></i-icon>&nbsp;Book：《{{bookNote.book.book_name }}》 &nbsp;&nbsp;&nbsp;
-            <i-icon type="document-text"></i-icon>&nbsp;Chapter：{{bookNote.abstract | textLineBreak(70) }}</p>
+            <i-icon type="ios-book"></i-icon>《{{bookNote.book.book_name }}》&nbsp;
+            <i-icon type="paintbrush"></i-icon>&nbsp;&nbsp;{{bookNote.book.book_author }}
+          </p>
+          <p class="book-info">
+            <i-icon type="document-text"></i-icon>&nbsp;&nbsp;Chapter：{{bookNote.abstract | textLineBreak(70) }}
+          </p>
           <div class="tags">
             <i-tag :color="tag.color" type="border" v-for="tag in bookNote.tags" :key="tag.id" class="border-tag">{{ tag.name }}</i-tag>
           </div>

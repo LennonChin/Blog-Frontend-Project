@@ -519,8 +519,8 @@
           font-size 15px
           color $color-gradually-gray-61
           &:hover
-            color $color-secondary-warning
-            border-bottom 2px solid $color-secondary-warning
+            color $iview-secondary-warning-color
+            border-bottom 2px solid $iview-secondary-warning-color
             cursor pointer
       .bottom-area
         .comment-tip
