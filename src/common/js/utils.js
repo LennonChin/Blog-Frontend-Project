@@ -192,7 +192,7 @@ export function uploadFile(file, useType, successCallback, failCallback) {
     formdata.append('token', data['token']);
 
     API.uploadImage(formdata).then((response) => {
-      let fileURL = data.base_url + response.data.key;
+      let fileURL = `${data.base_url}/${response.data.key}`;
       successCallback(response.data.hash, fileURL);
     }).catch((error) => {
       console.log(error);
