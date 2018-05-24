@@ -100,7 +100,8 @@
     mixins: [mixin],
     beforeRouteLeave(to, from, next) {
       // 导航离开时清空已有的数据
-      this.clearReadInfo();
+      this.clearBooksInfo();
+      this.clearBookNotesInfo();
       next();
     },
     asyncData({store}) {
@@ -136,24 +137,8 @@
       if (this.$store.state.readHome.books.length + this.$store.state.readHome.bookNotes.length === 0) {
         console.log('non ssr');
         // 未SSR的情况
-        this.updateBooksInfo({
-          params: {
-            params: {
-              top_category: this.selected_category,
-              ordering: '-add_time',
-              limit: DefaultLimitSize
-            }
-          }
-        }, true);
-        this.updateBookNotesInfo({
-          params: {
-            params: {
-              top_category: this.selected_category,
-              ordering: '-add_time',
-              limit: DefaultLimitSize
-            }
-          }
-        }, true);
+        this.updateBooksInfo(true);
+        this.updateBookNotesInfo(true);
       }
     },
     computed: {
@@ -170,7 +155,8 @@
     },
     methods: {
       ...mapMutations({
-        clearReadInfo: 'readHome/CLAER_READ_INFO'
+        clearBooksInfo: 'readHome/CLAER_BOOKS_BASE_INFO',
+        clearBookNotesInfo: 'readHome/CLAER_BOOKNOTES_BASE_INFO'
       }),
       ...mapActions({
         getBooksBaseInfo: 'readHome/GET_BOOKS_BASE_INFO',
@@ -194,6 +180,7 @@
         this.getBooksBaseInfo({
           params: {
             params: {
+              top_category: this.selected_category,
               ordering: orderings.toString(),
               is_recommend: this.recommend,
               is_banner: false,
@@ -221,6 +208,7 @@
         this.getBookNotesBaseInfo({
           params: {
             params: {
+              top_category: this.selected_category,
               ordering: orderings.toString(),
               is_recommend: this.recommend,
               is_banner: false,

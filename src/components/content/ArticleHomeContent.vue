@@ -86,7 +86,8 @@
               ordering: '-add_time',
               limit: DefaultLimitSize
             }
-          }
+          },
+          reset: true
         })
       ]);
     },
@@ -103,15 +104,7 @@
       if (this.$store.state.articleHome.articles.length + this.$store.state.articleHome.bannerArticles.length === 0) {
         console.log('non ssr');
         // 未SSR的情况
-        this.updateArticlesInfo({
-          params: {
-            params: {
-              top_category: this.selected_category,
-              ordering: '-add_time',
-              limit: DefaultLimitSize
-            }
-          }
-        }, false);
+        this.updateArticlesInfo(true);
       }
     },
     computed: {

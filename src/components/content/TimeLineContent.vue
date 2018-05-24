@@ -102,15 +102,7 @@
       if (Object.keys(this.$store.state.timeline.timeline).length === 0) {
         console.log('non ssr');
         // 未SSR的情况
-        this.updateTimeLineInfo({
-          params: {
-            params: {
-              ordering: '-add_time',
-              limit: DefaultLimitSize * 2
-            }
-          },
-          reset: true
-        });
+        this.updateTimeLineInfo(true);
       }
     },
     computed: {

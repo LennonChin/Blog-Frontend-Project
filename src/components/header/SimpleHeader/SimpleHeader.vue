@@ -24,17 +24,17 @@
           <search-view></search-view>
         </li>
         <!-- 类别导航 -->
-        <li class="nav-dropdown-container" v-for="category_level1 in allCategorysInfo">
+        <li class="nav-dropdown-container" v-for="category_level1 in allCategorysInfo" v-if="category_level1.is_tab">
           <router-link class="nav-link" :to="rootRouterLink(category_level1)">
             {{ category_level1.name }} <span class="arrow"></span>
           </router-link>
           <ul class="nav-dropdown" v-if="category_level1.sub_category.length > 0">
-            <li v-for="category_level2 in category_level1.sub_category">
+            <li v-for="category_level2 in category_level1.sub_category" v-if="category_level2.is_tab">
               <router-link class="nav-link" :to="routerLink(category_level2)">
                 {{category_level2.name}}
               </router-link>
               <ul class="nav-dropdown">
-                <li v-for="category_level3 in category_level2.sub_category">
+                <li v-for="category_level3 in category_level2.sub_category" v-if="category_level3.is_tab">
                   <router-link class="nav-link" :to="routerLink(category_level3)">
                     {{category_level3.name}}
                   </router-link>

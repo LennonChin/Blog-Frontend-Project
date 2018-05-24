@@ -5,7 +5,11 @@ import ENCUTF8 from 'crypto-js/enc-utf8';
 import {mapState} from 'vuex';
 import {LineBreakMode} from '@/common/js/const';
 
-// 按社交方式格式化时间
+/**
+ * 按社交方式格式化时间
+ * @param formateDate
+ * @returns {string}
+ */
 export function socialDateFormat(formateDate) {
   let timestamp = Date.parse(new Date(formateDate));
   // 获取时间戳
@@ -33,7 +37,12 @@ export function socialDateFormat(formateDate) {
   } else {
     // 超过3天
     let date = new Date(parseInt(timestamp));
-    return date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
+    let year = date.getFullYear();
+    let month = date.getMonth() + 1;
+    month = month >= 10 ? month : '0' + month; // 不满10前面加0
+    let day = date.getDate();
+    day = day >= 10 ? day : '0' + day; // 不满10前面加0
+    return year + '-' + month + '-' + day;
   }
 }
 
@@ -43,7 +52,6 @@ export function socialDateFormat(formateDate) {
  * key 存储键
  * value 存储值
  * */
-// 存储到LocalStorage
 export function saveToLocal(classify, key, value) {
   try {
     let blog = window.localStorage.__blog__;
@@ -63,7 +71,13 @@ export function saveToLocal(classify, key, value) {
   }
 }
 
-// 从LocalStorage中取
+/**
+ * 从LocalStorage中取
+ * @param classify 分类
+ * @param key 存储键
+ * @param def 存储值
+ * @returns {*} 获取的值
+ */
 export function loadFromLocal(classify, key, def) {
   try {
     let blog = window.localStorage.__blog__;
@@ -82,10 +96,23 @@ export function loadFromLocal(classify, key, def) {
   }
 }
 
-// 检查文章加密
+/**
+ * 检查文章是否加密
+ * @param post 文章数据
+ * @param title 提示标题
+ * @param message 提示消息正文
+ * @param noAuthCallback 没有加密的回调
+ * @param successCallback 解密成功的回调
+ * @param failCallback 解密失败的回调
+ */
 export function checkPostAuth(post, title, message, noAuthCallback, successCallback, failCallback) {
   let browseAuth = '';
   if (post.browse_password_encrypt) {
+    /**
+     * 检查加密
+     * @param browseAuth 用户输入的密码
+     * @param isAutoRemove 是否自动移除提示
+     */
     let checkAuth = (browseAuth, isAutoRemove) => {
       let encryptedBrowseAuth = MD5(browseAuth).toString();
       if (encryptedBrowseAuth === post.browse_password_encrypt) {

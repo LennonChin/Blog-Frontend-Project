@@ -83,7 +83,8 @@
               ordering: '-add_time',
               limit: DefaultLimitSize
             }
-          }
+          },
+          reset: true
         })
       ]);
     },
@@ -104,15 +105,7 @@
       if (this.$store.state.articleList.articles.length === 0) {
         console.log('non ssr');
         // 未SSR的情况
-        this.updateMoviesInfo({
-          params: {
-            params: {
-              top_category: this.selected_category,
-              ordering: '-add_time',
-              limit: DefaultLimitSize
-            }
-          }
-        }, false);
+        this.updateMoviesInfo(true);
       }
     },
     computed: {

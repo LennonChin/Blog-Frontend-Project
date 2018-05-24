@@ -9,17 +9,19 @@
         <a :href="social.url" :target="social.url.indexOf(siteImageBaseUrl) === 0 ? '_self' : '_blank'"><img :src="social.image" alt=""></a>
       </li>
     </ul>
-    <div class="line"></div>
-    <h4>技能值</h4>
-    <div class="progresses">
-      <i-row v-for="master in bloggerInfo.masters" :gutter="20" :key="master.id">
-        <i-col :span="6">
-          <p class="title">{{ master.name }}</p>
-        </i-col>
-        <i-col :span="18">
-          <i-progress status="normal" :hide-info="true" :stroke-width="8" :percent="master.experience" class="bar"></i-progress>
-        </i-col>
-      </i-row>
+    <div class="master" v-if="bloggerInfo.masters.length > 0">
+      <div class="line"></div>
+      <h4>技能值</h4>
+      <div class="progresses">
+        <i-row v-for="master in bloggerInfo.masters" :gutter="20" :key="master.id">
+          <i-col :span="6">
+            <p class="title">{{ master.name }}</p>
+          </i-col>
+          <i-col :span="18">
+            <i-progress status="normal" :hide-info="true" :stroke-width="8" :percent="master.experience" class="bar"></i-progress>
+          </i-col>
+        </i-row>
+      </div>
     </div>
   </div>
 </template>
@@ -94,29 +96,35 @@
     .social
       text-align center
       display flex
+      justify-content space-around
       padding 0 20px
       margin-top 15px
       > li
         flex 1
         padding 8px
+        max-width 60px
+        max-height 60px
         a
           display block
           img
             width 100%
-    .line
-      height 1px
-      background-color $default-border-color
-      margin 10px 20px
-    h4
-      font-size 19px
-      margin 30px 0 20px
-      font-weight 600
-    .progresses
-      padding 0 20px
-      p.title
-        height 38px
-        line-height 38px
-        text-align right
-      .bar
-        margin 10px 0
+    .master
+      .line
+        height 1px
+        background-color $default-border-color
+        margin 10px 20px
+      h4
+        font-size 19px
+        margin 30px 0 20px
+        font-weight 600
+        color $default-title-color
+      .progresses
+        padding 0 20px
+        p.title
+          height 38px
+          line-height 38px
+          text-align right
+          color $default-title-color
+        .bar
+          margin 10px 0
 </style>

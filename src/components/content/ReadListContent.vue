@@ -101,7 +101,8 @@
               ordering: '-add_time',
               limit: DefaultLimitSize
             }
-          }
+          },
+          reset: true
         }),
         store.dispatch('readList/GET_BOOKNOTES_BASE_INFO', {
           params: {
@@ -110,7 +111,8 @@
               ordering: '-add_time',
               limit: DefaultLimitSize
             }
-          }
+          },
+          reset: true
         })
       ]);
     },
@@ -132,28 +134,12 @@
       if (this.$store.state.readList.books.length === 0) {
         console.log('non ssr');
         // 未SSR的情况
-        this.updateBooksInfo({
-          params: {
-            params: {
-              top_category: this.selected_category,
-              ordering: '-add_time',
-              limit: DefaultLimitSize
-            }
-          }
-        }, false);
+        this.updateBooksInfo(true);
       }
       if (this.$store.state.readList.bookNotes.length === 0) {
         console.log('non ssr');
         // 未SSR的情况
-        this.updateBookNotesInfo({
-          params: {
-            params: {
-              top_category: this.selected_category,
-              ordering: '-add_time',
-              limit: DefaultLimitSize
-            }
-          }
-        }, false);
+        this.updateBookNotesInfo(true);
       }
     },
     computed: {

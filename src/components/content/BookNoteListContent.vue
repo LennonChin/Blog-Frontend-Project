@@ -78,7 +78,8 @@
               ordering: '-add_time',
               limit: DefaultLimitSize
             }
-          }
+          },
+          reset: true
         })
       ]);
     },
@@ -100,15 +101,7 @@
       if (this.$store.state.bookNoteList.bookNotes.length === 0) {
         console.log('non ssr');
         // 未SSR的情况
-        this.updateBookNotesInfo({
-          params: {
-            params: {
-              top_category: this.selected_category,
-              ordering: '-add_time',
-              limit: DefaultLimitSize
-            }
-          }
-        }, false);
+        this.updateBookNotesInfo(true);
       }
     },
     computed: {

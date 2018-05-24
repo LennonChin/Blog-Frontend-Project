@@ -68,8 +68,7 @@ export default {
         API.getCategorys({
           params: {
             level_min: 1,
-            level_max: 1,
-            is_tab: true
+            level_max: 1
           }
         }).then((response) => {
           commit('UPDATE_ALL_CATEGORYS', response.data.results);
