@@ -47,22 +47,9 @@
       ]);
     },
     beforeRouteLeave(to, from, next) {
-      // 导航离开时清空vuex中文章数据
+      // 导航离开时清空vuex中数据
       this.clearMoviesBaseInfo();
       next();
-    },
-    computed: {
-      ...mapState({
-        recommendMovies: state => state.movieHome.recommendMovies,
-        hotMovies: state => state.movieHome.hotMovies,
-        otherMovies: state => state.movieHome.otherMovies,
-        noMoreData: state => state.movieHome.noMoreData
-      }),
-      categorysInfo: function () {
-        return this.allCategorysInfo.filter((category) => {
-          return category.category_type === 'movies';
-        });
-      }
     },
     mounted() {
       if (this.$store.state.movieHome.movies.length === 0) {
@@ -77,6 +64,23 @@
             }
           },
           reset: true
+        });
+      }
+    },
+    beforeDestroy() {
+      // 导航离开时清空vuex中数据
+      this.clearMoviesBaseInfo();
+    },
+    computed: {
+      ...mapState({
+        recommendMovies: state => state.movieHome.recommendMovies,
+        hotMovies: state => state.movieHome.hotMovies,
+        otherMovies: state => state.movieHome.otherMovies,
+        noMoreData: state => state.movieHome.noMoreData
+      }),
+      categorysInfo: function () {
+        return this.allCategorysInfo.filter((category) => {
+          return category.category_type === 'movies';
         });
       }
     },

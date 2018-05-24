@@ -58,7 +58,7 @@
   } from '@/common/js/const';
 
   // mixin
-  import {mixin} from '@/common/js/utils';
+  import {mixin, dateAdd} from '@/common/js/utils';
 
   export default {
     name: 'article-home-content',
@@ -92,7 +92,7 @@
       ]);
     },
     beforeRouteLeave(to, from, next) {
-      // 导航离开时清空vuex中文章数据
+      // 导航离开时清空vuex中数据
       this.clearArticlesBaseInfo();
       next();
     },
@@ -118,6 +118,10 @@
           return category.category_type === 'articles';
         });
       }
+    },
+    beforeDestroy() {
+      // 导航离开时清空vuex中数据
+      this.clearArticlesBaseInfo();
     },
     methods: {
       ...mapMutations({
@@ -196,7 +200,7 @@
         this.updateArticlesInfo(true);
       },
       dateSelect(dateRange) {
-        this.selectedDateRange = dateRange;
+        this.selectedDateRange = [dateRange[0], dateAdd(dateRange[1], 60 * 60 * 24 * 1000)];
         this.page = 0;
         this.limit_size = MaxLimitSize;
         this.updateArticlesInfo(true);

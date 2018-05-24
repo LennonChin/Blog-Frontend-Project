@@ -65,8 +65,20 @@
     position relative
     text-align center
     padding-bottom 20px
+    margin-top 0
     background-color $default-background-color
     border 1px solid $default-border-color
+    @media only screen and (max-width: $responsive-sm)
+      display block
+      order 10
+      margin-top 15px
+    @media screen and (min-width: $responsive-sm)
+      display none
+    @media screen and (min-width: $responsive-md)
+      display none
+    @media screen and (min-width: $responsive-lg)
+      display block
+      order 0
     img.background
       position absolute
       top 0

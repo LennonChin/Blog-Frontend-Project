@@ -53,7 +53,7 @@
   } from '@/common/js/const';
 
   // mixin
-  import {mixin} from '@/common/js/utils';
+  import {mixin, dateAdd} from '@/common/js/utils';
 
   export default {
     name: 'article-list-content',
@@ -107,6 +107,10 @@
         // 未SSR的情况
         this.updateArticlesInfo(true);
       }
+    },
+    beforeDestroy() {
+      // 导航离开时清空vuex中数据
+      this.clearArticlesBaseInfo();
     },
     computed: {
       ...mapState({
@@ -197,7 +201,7 @@
         this.updateArticlesInfo(true);
       },
       dateSelect(dateRange) {
-        this.selectedDateRange = dateRange;
+        this.selectedDateRange = [dateRange[0], dateAdd(dateRange[1], 60 * 60 * 24 * 1000)];
         this.page = 0;
         this.limit_size = MaxLimitSize;
         this.updateArticlesInfo(true);

@@ -50,7 +50,7 @@
   } from '@/common/js/const';
 
   // mixin
-  import {mixin} from '@/common/js/utils';
+  import {mixin, dateAdd} from '@/common/js/utils';
 
   export default {
     name: 'book-note-list-content',
@@ -103,6 +103,10 @@
         // 未SSR的情况
         this.updateBookNotesInfo(true);
       }
+    },
+    beforeDestroy() {
+      // 导航离开时清空vuex中数据
+      this.clearBookNotesBaseInfo();
     },
     computed: {
       ...mapState({
@@ -199,7 +203,7 @@
         this.updateBookNotesInfo(true);
       },
       dateSelect(dateRange) {
-        this.selectedDateRange = dateRange;
+        this.selectedDateRange = [dateRange[0], dateAdd(dateRange[1], 60 * 60 * 24 * 1000)];
         this.page = 0;
         this.updateBookNotesInfo(true);
       },

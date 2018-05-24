@@ -142,7 +142,7 @@
   .hot
     background $default-background-color
     .content
-      padding 5px 20px
+      padding 5px 20px 15px
       border-left 1px solid $default-border-color
     .top, .others
       display block
@@ -156,10 +156,10 @@
         margin-bottom 5px
         > a
           display inline
-          color $default-link-color
+          color $default-title-color
           &:hover
             text-decoration underline
-            color $default-link-hover-color
+            color $default-title-hover-color
       .info
         margin 5px 0 0
         span
@@ -189,7 +189,7 @@
           zoom: 1.0
       .desc
         text-align justify
-        color $default-desc-color
+        color $default-info-color
         font-size 13px
         line-height 20px
         margin 5px 0 0

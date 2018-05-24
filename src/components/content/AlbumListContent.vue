@@ -40,6 +40,7 @@
   import Recommend from '@/components/views/Recommend';
   import TagWall from '@/components/views/TagWall';
   import BrowseMore from '@/components/views/BrowseMore';
+  import {dateAdd} from '@/common/js/utils';
 
   // API
   import API from 'API';
@@ -212,7 +213,7 @@
         this.getAlbumBaseInfo();
       },
       dateSelect(dateRange) {
-        this.selectedDateRange = dateRange;
+        this.selectedDateRange = [dateRange[0], dateAdd(dateRange[1], 60 * 60 * 24 * 1000)];
         this.page = 0;
         this.limit_size = MAX_LIMIT_SIZE;
         this.albums = [];

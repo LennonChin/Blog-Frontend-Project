@@ -27,14 +27,14 @@
     margin 10px 0
     font-size 0
     a
-      display inline-block
+      display block
       &:hover
         cursor pointer
         text-decoration none
       .name, .type, .desc
         display inline-block
-        padding 1px 8px
-        margin 5px 0
+        padding 5px 8px
+        margin 3px 0
         font-size 13px
         text-align center
       .name
@@ -45,8 +45,10 @@
       .type
         background-color $white
         color $default-link-hover-color
+        margin-right 8px
         border 1px solid $default-link-hover-color
       .desc
+        padding-left 0
         font-size 14px
         color $default-desc-color
 

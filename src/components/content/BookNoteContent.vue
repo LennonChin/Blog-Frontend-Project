@@ -117,6 +117,8 @@
       }
     },
     beforeDestroy() {
+      // 导航离开时清空vuex中图书笔记数据
+      this.clearBookNoteInfo();
       if (this.tocbotControl !== undefined) {
         console.log('tocbot destroyed');
         this.tocbotControl.destroy();

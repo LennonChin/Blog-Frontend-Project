@@ -45,9 +45,9 @@
         </li>
         <!-- 自定义的导航 -->
         <li class="nav-dropdown-container" v-for="navigation in siteInfo.navigations">
-          <router-link class="nav-link" :to="navigation.url" :target="navigation.target">
+          <a class="nav-link" :href="navigation.url" :target="navigation.target">
             {{ navigation.name }}
-          </router-link>
+          </a>
         </li>
         <li>
           <i-switch @on-change="toggleTheme" v-model="isDark">

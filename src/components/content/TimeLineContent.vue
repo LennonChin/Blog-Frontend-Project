@@ -54,7 +54,7 @@
   import TagWall from '@/components/views/TagWall';
   import BrowseMore from '@/components/views/BrowseMore';
   // mixin
-  import {mixin} from '@/common/js/utils';
+  import {mixin, dateAdd} from '@/common/js/utils';
 
   import {
     DefaultLimitSize,
@@ -104,6 +104,10 @@
         // 未SSR的情况
         this.updateTimeLineInfo(true);
       }
+    },
+    beforeDestroy() {
+      // 导航离开时清空vuex中数据
+      this.clearTimelineInfo();
     },
     computed: {
       ...mapState({
@@ -200,7 +204,7 @@
         this.updateTimeLineInfo(true);
       },
       dateSelect(dateRange) {
-        this.selectedDateRange = dateRange;
+        this.selectedDateRange = [dateRange[0], dateAdd(dateRange[1], 60 * 60 * 24 * 1000)];
         this.page = 0;
         this.limit_size = MaxLimitSize;
         this.updateTimeLineInfo(true);

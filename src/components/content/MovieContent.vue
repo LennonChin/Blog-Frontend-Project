@@ -71,7 +71,7 @@
     mixins: [mixin],
     beforeRouteLeave(to, from, next) {
       console.log('beforeRouteLeave');
-      // 导航离开时清空vuex中文章数据
+      // 导航离开时清空vuex中数据
       this.clearMovieInfo();
       next();
     },
@@ -126,6 +126,8 @@
       })
     },
     beforeDestroy() {
+      // 导航离开时清空vuex中数据
+      this.clearMovieInfo();
       if (this.tocbotControl !== undefined) {
         console.log('tocbot destroyed');
         this.tocbotControl.destroy();

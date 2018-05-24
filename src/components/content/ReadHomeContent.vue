@@ -141,6 +141,11 @@
         this.updateBookNotesInfo(true);
       }
     },
+    beforeDestroy() {
+      // 导航离开时清空vuex中数据
+      this.clearBooksInfo();
+      this.clearBookNotesInfo();
+    },
     computed: {
       ...mapState({
         books: state => state.readHome.books,

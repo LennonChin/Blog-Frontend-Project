@@ -160,6 +160,8 @@
       }
     },
     beforeDestroy() {
+      // 销毁时清空vuex中数据
+      this.clearBookInfo();
       if (this.tocbotControl !== undefined) {
         console.log('tocbot destroyed');
         this.tocbotControl.destroy();

@@ -66,13 +66,20 @@
     .tags
       margin-bottom 10px
     .title
-      font-size 27px
-      line-height 35px
       font-weight 500
       color $default-title-color
-      @media only screen and (max-width: 768px)
-        font-size 20px
-        line-height 23px
+      @media only screen and (max-width: $responsive-sm)
+        font-size 24px
+        line-height 27px
+      @media screen and (min-width: $responsive-sm)
+        font-size 25px
+        line-height 35px
+      @media screen and (min-width: $responsive-md)
+        font-size 26px
+        line-height 35px
+      @media screen and (min-width: $responsive-lg)
+        font-size 27px
+        line-height 35px
     .info, .operate_info
       margin-top 10px
       font-size 14px
@@ -103,19 +110,26 @@
           &:hover
             color $default-link-hover-color
     .abstract
-      font-size 16px
-      line-height 28px
       color $default-desc-color
       border 1px dashed $default-border-color
       background $default-border-color
-      @media only screen and (max-width: 768px)
-        padding 10px
+      @media only screen and (max-width: $responsive-sm)
+        padding 8px
         margin-top 8px
-      @media screen and (min-width: 768px)
+        font-size 13px
+        line-height 18px
+      @media screen and (min-width: $responsive-sm)
         padding 15px
         margin-top 8px
-      @media screen and (min-width: 992px)
+        font-size 14px
+        line-height 24px
+      @media screen and (min-width: $responsive-md)
         padding 20px
         margin-top 15px
+        line-height 28px
+      @media screen and (min-width: $responsive-lg)
+        padding 20px
+        margin-top 15px
+        line-height 28px
 
 </style>

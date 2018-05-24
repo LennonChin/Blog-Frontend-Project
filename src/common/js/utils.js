@@ -47,6 +47,24 @@ export function socialDateFormat(formateDate) {
 }
 
 /**
+ * 时间前后推
+ * @param dateTime 传入时间 yyyy-MM-dd
+ * @param millisecond 毫秒
+ * @returns {string} 返回时间 yyyy-MM-dd
+ */
+export function dateAdd(dateTime, millisecond) {
+  let timestamp = Date.parse(new Date(dateTime));
+  timestamp = timestamp + millisecond;
+  let newDate = new Date(parseInt(timestamp));
+  let year = newDate.getFullYear();
+  let month = newDate.getMonth() + 1;
+  month = month >= 10 ? month : '0' + month; // 不满10前面加0
+  let day = newDate.getDate();
+  day = day >= 10 ? day : '0' + day; // 不满10前面加0
+  return year + '-' + month + '-' + day;
+}
+
+/**
  * LocalStorage的操作
  * classify 分类
  * key 存储键
