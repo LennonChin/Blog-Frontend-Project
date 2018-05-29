@@ -1,5 +1,7 @@
-export default {
-  documentTitle: '',
-  documentDescription: '',
-  documentKeywords: ''
+export default () => {
+  return {
+    documentTitle: '',
+    documentDescription: '',
+    documentKeywords: ''
+  };
 };

@@ -27,27 +27,27 @@ const isDev = process.env.NODE_ENV === 'development';
 export default () => {
   const store = new Vuex.Store({
     strict: isDev,
-    state: defaultState,
-    mutations,
-    getters,
-    actions,
+    state: defaultState(),
+    mutations: mutations(),
+    getters: getters(),
+    actions: actions(),
     modules: {
-      base,
-      common,
-      home,
-      article,
-      book,
-      bookNote,
-      movie,
-      timeline,
-      articleHome,
-      articleList,
-      movieHome,
-      movieList,
-      readHome,
-      readList,
-      bookList,
-      bookNoteList
+      base: base(),
+      common: common(),
+      home: home(),
+      article: article(),
+      book: book(),
+      bookNote: bookNote(),
+      movie: movie(),
+      timeline: timeline(),
+      articleHome: articleHome(),
+      articleList: articleList(),
+      movieHome: movieHome(),
+      movieList: movieList(),
+      readHome: readHome(),
+      readList: readList(),
+      bookList: bookList(),
+      bookNoteList: bookNoteList()
     }
   });
 
@@ -96,27 +96,27 @@ export default () => {
       const bookNoteList = require('./modules/bookNoteList').default;
 
       store.hotUpdate({
-        state: newState,
-        mutations: newMutations,
-        getters: newGetters,
-        actions: newActions,
+        state: newState(),
+        mutations: newMutations(),
+        getters: newGetters(),
+        actions: newActions(),
         modules: {
-          base,
-          common,
-          home,
-          article,
-          book,
-          bookNote,
-          movie,
-          timeline,
-          articleHome,
-          articleList,
-          movieHome,
-          movieList,
-          readHome,
-          readList,
-          bookList,
-          bookNoteList
+          base: base(),
+          common: common(),
+          home: home(),
+          article: article(),
+          book: book(),
+          bookNote: bookNote(),
+          movie: movie(),
+          timeline: timeline(),
+          articleHome: articleHome(),
+          articleList: articleList(),
+          movieHome: movieHome(),
+          movieList: movieList(),
+          readHome: readHome(),
+          readList: readList(),
+          bookList: bookList(),
+          bookNoteList: bookNoteList()
         }
       });
     });
