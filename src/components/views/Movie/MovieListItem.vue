@@ -1,5 +1,5 @@
 <template>
-  <div class="movie-list-item" v-if="movie != undefined" @click="gotoPostDetail(movie)">
+  <div class="movie-list-item" v-if="movie != undefined" @click.prevent="gotoPostDetail(movie)" :href="`${movie.post_type}/${movie.id}`">
     <img :src="movie.front_image" alt="">
     <div class="movie-info">
       <p class="title">

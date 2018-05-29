@@ -8,13 +8,13 @@
             <i-tool-tip placement="right" content="该文章已图集，您需要输入阅读密码" v-if="book.browse_password_encrypt">
               <i-icon type="android-lock" color="#FA5555" v-if="book.browse_password_encrypt"></i-icon>
             </i-tool-tip>
-            <a @click="gotoPostDetail(book)">{{book.title}}</a>
+            <a @click.prevent="gotoPostDetail(book)" :href="`${book.post_type}/${book.id}`">{{book.title}}</a>
           </h4>
           <div class="tags">
             <i-tag :color="tag.color" type="border" v-for="tag in book.tags" :key="tag.id" class="border-tag">{{ tag.name }}</i-tag>
           </div>
           <p class="desc">{{book.desc | textLineBreak(70) }}
-            <a @click="gotoPostDetail(book)"> View More
+            <a @click.prevent="gotoPostDetail(book)" :href="`${book.post_type}/${book.id}`"> View More
               <i-icon type="arrow-right-b"></i-icon>
             </a>
           </p>

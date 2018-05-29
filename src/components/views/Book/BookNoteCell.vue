@@ -8,7 +8,7 @@
             <i-tool-tip placement="right" content="该文章已图集，您需要输入阅读密码" v-if="bookNote.browse_password_encrypt">
               <i-icon type="android-lock" color="#FA5555" v-if="bookNote.browse_password_encrypt"></i-icon>
             </i-tool-tip>
-            <a @click="gotoPostDetail(bookNote)"> {{bookNote.title}}</a>
+            <a @click.prevent="gotoPostDetail(bookNote)" :href="`${bookNote.post_type}/${bookNote.id}`"> {{bookNote.title}}</a>
           </h4>
           <p class="book-info">
             <i-icon type="ios-book"></i-icon>《{{bookNote.book.book_name }}》&nbsp;
@@ -21,7 +21,7 @@
             <i-tag :color="tag.color" type="border" v-for="tag in bookNote.tags" :key="tag.id" class="border-tag">{{ tag.name }}</i-tag>
           </div>
           <p class="desc">{{bookNote.abstract | textLineBreak(70) }}
-            <a @click="gotoPostDetail(bookNote)"> View More
+            <a @click.prevent="gotoPostDetail(bookNote)" :href="`${bookNote.post_type}/${bookNote.id}`"> View More
               <i-icon type="arrow-right-b"></i-icon>
             </a>
           </p>
@@ -43,7 +43,7 @@
     <a class="toggle-arrow" @click="toggleBookInfo" :class="{show: showBookInfo}">
       {{ this.showBookInfo ? '隐藏' : '查看' }}书籍《{{ bookNote.book.book_name }}》信息 &nbsp;<i-icon type="chevron-up" :class="{show: showBookInfo}"></i-icon>
     </a>
-    <div class="book-infos" :class="{show: showBookInfo}" @click="gotoPostDetail(bookNote.book)">
+    <div class="book-infos" :class="{show: showBookInfo}" @click.prevent="gotoPostDetail(bookNote.book)" :href="`${bookNote.book.post_type}/${bookNote.book.id}`">
       <div class="book-infos-wrapper">
         <div class="img">
           <div class="container">

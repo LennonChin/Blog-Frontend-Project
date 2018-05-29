@@ -2,7 +2,7 @@
   <div class="book-catalog" :class="{'open': showMoreToc}" v-if="book != undefined">
     <ul class="book-toc-list">
       <li class="book-toc-list-item" v-for="note1 in book.book_note">
-        <a class="book-toc-link" :class="{'is-active-link' : note1.is_reading}" @click="gotoBookNoteDetail(note1)">
+        <a class="book-toc-link" :class="{'is-active-link' : note1.is_reading}" @click.prevent="gotoBookNoteDetail(note1)" :href="`${note1.post_type}/${note1.id}`">
           <i-tool-tip placement="right" :content="note1.is_completed ? '已读' : (note1.is_reading ? '正在读' : '未读')">
             <span><i-icon :type="note1.is_completed ? 'android-checkbox-outline' : (note1.is_reading ? 'play' : 'android-checkbox-outline-blank')"></i-icon></span>
           </i-tool-tip>
@@ -13,7 +13,7 @@
         </a>
         <ul class="book-toc-list is-collapsible" v-if="note1.sub_note.length > 0">
           <li class="book-toc-list-item" v-for="note2 in note1.sub_note">
-            <a class="book-toc-link" :class="{'is-active-link' : note2.is_reading}" @click="gotoBookNoteDetail(note2)">
+            <a class="book-toc-link" :class="{'is-active-link' : note2.is_reading}" @click.prevent="gotoBookNoteDetail(note2)":href="`${note2.post_type}/${note2.id}`">
               <i-tool-tip placement="right" :content="note2.is_completed ? '已读' : (note2.is_reading ? '正在读' : '未读')">
                 <span><i-icon :type="note2.is_completed ? 'android-checkbox-outline' : (note2.is_reading ? 'play' : 'android-checkbox-outline-blank')"></i-icon></span>
               </i-tool-tip>

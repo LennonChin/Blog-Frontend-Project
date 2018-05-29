@@ -1,5 +1,5 @@
 <template>
-  <div class="social-section" v-if="article != undefined" ref="socialSection">
+  <div class="social-section" id="comments" v-if="article != undefined" ref="socialSection">
     <i-spin size="large" v-if="showSpin" fix style="z-index: 99;"></i-spin>
     <div class="comment-area">
       <div class="editor" :class="{spread: spreadEditor}">

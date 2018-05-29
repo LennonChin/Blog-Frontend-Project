@@ -11,7 +11,7 @@
           <i-tool-tip placement="right" content="该图集已图集，您需要输入阅读密码" v-if="album.browse_password_encrypt">
             <i-icon type="android-lock" color="#FA5555" v-if="album.browse_password_encrypt"></i-icon>
           </i-tool-tip>
-          <a :title="album.title" @click="gotoPostDetail(album)">{{ album.title | textLineBreak(11) }}</a>
+          <a :title="album.title" @click.prevent="gotoPostDetail(album)" :href="`${album.post_type}/${album.id}`">{{ album.title | textLineBreak(11) }}</a>
         </h4>
         <p class="info"><span class="author"><a>By / {{ album.author }}</a></span></p>
         <p class="info"><span class="publish-time"><a>At time / {{ album.add_time | socialDate }}</a></span></p>

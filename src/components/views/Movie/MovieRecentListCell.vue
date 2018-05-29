@@ -5,7 +5,7 @@
       <i-col :xs="24" :sm="24" :md="16" :lg="16" v-if="movies.length > 0">
         <ul class="recent">
           <li v-for="movie in movies.slice(0, 3)">
-            <a @click="gotoPostDetail(movie)">
+            <a @click.prevent="gotoPostDetail(movie)" :href="`${movie.post_type}/${movie.id}`">
               <i-row>
                 <i-col :xs="24" :sm="24" :md="7" :lg="6">
                   <div class="img">
@@ -32,7 +32,7 @@
       <i-col :xs="24" :sm="24" :md="8" :lg="8" v-if="movies[3] != undefined">
         <div class="recommend">
           <h4>推荐观影</h4>
-          <a @click="gotoPostDetail(movies[3])">
+          <a @click.prevent="gotoPostDetail(movies[3])" :href="`${movies[3].post_type}/${movies[3].id}`">
             <p class="title">
               <i-tool-tip placement="top" content="该文章已加密，您需要输入阅读密码" v-if="movies[3].browse_password_encrypt">
                 <i-icon type="android-lock" color="#FA5555" v-if="movies[3].browse_password_encrypt"></i-icon>

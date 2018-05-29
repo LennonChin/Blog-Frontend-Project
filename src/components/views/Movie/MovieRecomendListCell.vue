@@ -11,7 +11,7 @@
         <i-row>
           <i-col :xs="24" :sm="24" :md="12" :lg="12" v-for="movie in movies.slice(1, 5)" :key="movie.id">
             <div class="right">
-              <a @click="gotoPostDetail(movie)">
+              <a @click.prevent="gotoPostDetail(movie)" :href="`${movie.post_type}/${movie.id}`">
                 <div class="img">
                   <div class="container">
                     <div class="bracket"></div>

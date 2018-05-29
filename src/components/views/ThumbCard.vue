@@ -15,7 +15,7 @@
           <i-tool-tip placement="right" content="该图集已图集，您需要输入阅读密码" v-if="album.browse_password_encrypt">
             <i-icon type="android-lock" color="#FA5555" v-if="album.browse_password_encrypt"></i-icon>
           </i-tool-tip>
-          <a @click="gotoPostDetail(album)">
+          <a @click.prevent="gotoPostDetail(album)" :href="`${album.post_type}/${album.id}`">
             {{ album.title }}
           </a>
         </h4>

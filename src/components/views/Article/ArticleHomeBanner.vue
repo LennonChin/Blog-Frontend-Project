@@ -5,7 +5,7 @@
         <div v-swiper="leftSwiperOption" :instanceName="'leftSwiper'" class="gallery">
           <div class="swiper-wrapper">
             <div class="swiper-slide" v-for="article in bannerArticles">
-              <a @click="gotoPostDetail(article)">
+              <a @click.prevent="gotoPostDetail(article)" :href="`${article.post_type}/${article.id}`">
                 <img :data-src="article.front_image" :title="article.title" class="swiper-lazy">
                 <div class="swiper-lazy-preloader swiper-lazy-preloader-white"></div>
               </a>
@@ -29,7 +29,7 @@
                 <p class="desc">
                   {{ article.desc | textLineBreak(70) }}
                 </p>
-                <i-button size="large" type="primary" @click="gotoPostDetail(article)">点击查看更多</i-button>
+                <i-button size="large" type="primary" @click.prevent="gotoPostDetail(article)" :href="`${article.post_type}/${article.id}`">点击查看更多</i-button>
               </div>
             </div>
           </div>
