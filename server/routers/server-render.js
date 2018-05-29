@@ -26,6 +26,8 @@ module.exports = async (ctx, renderer, template) => {
       scripts: context.renderScripts(),
       initialState: context.renderState()
     });
+    // 清空context中的state
+    context.state = {};
   } catch (err) {
     console.log(chalk.red('Render Error ', err));
     throw err;
