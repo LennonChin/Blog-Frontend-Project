@@ -26,13 +26,14 @@ body
 			font-weight 500
 			img
 				margin-right 6px
-				width $header-inner-height
-				height $header-inner-height
+				width 129px
+				height $header-height
 			.info
 				display flex
 				flex-direction column
 				justify-content space-around
 				.name
+					display none
 					font-size 20px
 				.desc
 					font-size 12px
@@ -47,6 +48,8 @@ body
 			> li
 				position relative
 				display inline-block
+				&.search-area
+					margin-right 15px
 			.nav-dropdown-container
 				margin-right 10px
 				&:hover
@@ -90,7 +93,7 @@ body
 				color $default-link-color
 				font-size 17px
 				font-weight 300
-				padding 0 20px
+				padding 0 15px 0 10px
 				text-decoration none
 				cursor pointer
 				.arrow
@@ -109,19 +112,9 @@ body
 				&:hover:not(.current)
 					border-bottom none
 				&.active-link, &.exact-active-link
+					font-weight 400
 					border-bottom none
 					color $default-link-hover-color
-					&::after
-						content ""
-						width 0
-						height 0
-						border-left 5px solid $default-link-hover-color
-						border-top 3px solid transparent
-						border-bottom 2px solid transparent
-						position absolute
-						top 50%
-						margin-top -4px
-						left 8px
 	// 小屏模式下的导航栏
 	#mobile-bar
 		position fixed
@@ -150,13 +143,15 @@ body
 			background-size 24px
 		.logo
 			position absolute
-			width $mobile-header-inner-height
+			width 86px
 			height $mobile-header-inner-height
-			background url(./../../../assets/logo.png) center center no-repeat
 			top "calc((%s - %s) / 2)" % ($mobile-header-height $mobile-header-inner-height)
 			left 50%
-			margin-left -15px
+			margin-left -43px
 			background-size $mobile-header-inner-height
+			img
+				height $mobile-header-inner-height
+				width 86px
 		.search-area
 			> .search-view
 				padding 0 50px

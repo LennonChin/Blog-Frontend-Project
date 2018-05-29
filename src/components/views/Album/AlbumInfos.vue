@@ -7,7 +7,7 @@
     </p>
     <div class="author">
       <a href="">
-        <img src="../../../assets/logo.png" alt="">
+        <img src="../../../assets/logo-small.png" alt="">
         <div class="right">
           <p class="name">{{ album.author }}</p>
           <p class="time">{{ album.add_time | socialDate }}</p>

@@ -1,7 +1,9 @@
 <template>
   <div class="simple-header" v-if="siteInfo">
     <div id="mobile-bar" :class="{show: showHeader}">
-      <router-link class="logo" to="/"></router-link>
+      <router-link class="logo" to="/">
+        <img :src="siteInfo.icon">
+      </router-link>
       <transition name="fade">
         <div class="search-area" v-show="showMobileSearchView">
           <search-view></search-view>
@@ -20,7 +22,7 @@
       </router-link>
       <ul id="nav">
         <!-- 搜索框 -->
-        <li>
+        <li class="search-area">
           <search-view></search-view>
         </li>
         <!-- 类别导航 -->

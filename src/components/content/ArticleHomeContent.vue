@@ -1,12 +1,12 @@
 <template>
   <div class="article-home-content layout-content">
-    <div class="banner" v-if="bannerArticles.length > 0">
+    <div class="banner" v-if="bannerArticles.length > 0" style="margin-bottom:20px;">
       <div class="bracket"></div>
       <div class="target">
         <article-home-banner :bannerArticles="bannerArticles"></article-home-banner>
       </div>
     </div>
-    <i-row style="margin-top:20px;">
+    <i-row>
       <i-col :xs="24" :sm="24" :md="24" :lg="17">
         <div class="layout-left">
           <classify-menu :categorys="categorysInfo" @selectCategory="selectCategory"

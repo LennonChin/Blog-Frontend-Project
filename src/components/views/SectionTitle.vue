@@ -5,7 +5,11 @@
       <span class="main-title">{{mainTitle}}</span>
       <span class="vertical-line"></span>
       <span class="sub-title">{{subTitle}}</span>
-      <span class="view-more"><a @click="tipAction">{{tipText}} <i-icon type="arrow-right-b"></i-icon></a></span>
+      <span class="view-more" v-if="to !== undefined" @click="tipAction">
+        <a>
+          {{tipText}} <i-icon type="arrow-right-b"></i-icon>
+        </a>
+      </span>
     </div>
     <div class="menu">
       <ul class="list clearfix" v-if="controlMenus.length > 0">
@@ -38,6 +42,10 @@
       },
       menus: {
         Type: Array,
+        default: undefined
+      },
+      to: {
+        Type: Object,
         default: undefined
       },
       withRefresh: {
@@ -77,6 +85,7 @@
       },
       tipAction() {
         this.$emit('tipAction');
+        this.$router.push(this.to);
       },
       menusControl(menu) {
         menu.selected = !menu.selected;

@@ -1,7 +1,7 @@
 <template>
   <div class="side-bar" @touchmove.stop.prevent :class="{ open: show }">
     <div class="main-area">
-      <div class="top-wrapper" @click.prevent @touchmove.stop>
+      <div class="top-wrapper" @touchmove.stop>
         <div class="top-area">
           <img :src="siteInfo.background" alt="">
           <div class="site-info">
@@ -44,9 +44,9 @@
             <!-- 自定义的导航 -->
             <li class="nav-dropdown-container" v-for="navigation in siteInfo.navigations">
               <i-icon type="minus-round"></i-icon>&nbsp;
-              <a class="nav-link" :href="navigation.url" :target="navigation.target">
+              <router-link class="nav-link" :to="navigation.url" :target="navigation.target">
                 {{ navigation.name }}
-              </a>
+              </router-link>
             </li>
           </ul>
           <div class="sidebar-toc-list" ref="list">
