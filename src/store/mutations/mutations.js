@@ -14,7 +14,7 @@ export default () => {
       state.isLoading = isLoading;
     },
     UPDATE_DOCUMENT_TITLE(state, documentTitle) {
-      state.documentTitle = `${documentTitle} | Diomedes - ${titleIdiom[Math.floor(Math.random() * titleIdiom.length)]}`;
+      state.documentTitle = `${documentTitle} | CodeRap - ${titleIdiom[Math.floor(Math.random() * titleIdiom.length)]}`;
       try {
         // 修改页面title
         document.title = state.documentTitle;
