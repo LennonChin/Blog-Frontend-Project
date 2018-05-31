@@ -3,49 +3,45 @@
     <panel :title="'热门阅读'">
       <div slot="content" class="content">
         <div class="top">
-          <a>
-            <p class="title">
-              <i-tool-tip placement="right" :content="routerInfos(articleSlice(0, 1)[0]).message" v-if="articleSlice(0, 1)[0].browse_password_encrypt">
-                <i-icon type="android-lock" color="#FA5555" v-if="articleSlice(0, 1)[0].browse_password_encrypt"></i-icon>
-              </i-tool-tip>
-              <a @click.prevent="gotoPostDetail(articleSlice(0, 1)[0])" :href="`${articleSlice(0, 1)[0].post_type}/${articleSlice(0, 1)[0].id}`">
-                {{ articleSlice(0, 1)[0].title }}
-              </a>
-            </p>
-            <div class="tags">
-              <i-tag :color="tag.color" type="border" v-for="tag in articleSlice(0, 1)[0].tags" :key="tag.id" class="border-tag">{{
-                tag.name }}
-              </i-tag>
-            </div>
-            <p class="info">
-              <span class="time"><a>{{ articleSlice(0, 1)[0].add_time | socialDate }}</a></span>
-              <span class="likes"><a @click="likePost(articleSlice(0, 1)[0])"><i-icon
-                type="heart"></i-icon> {{ articleSlice(0, 1)[0].like_num }} </a></span>
-              <span class="comments"><a><i-icon type="compose"></i-icon> {{ articleSlice(0, 1)[0].comment_num }} </a></span>
-              <span class="readings"><a><i-icon type="eye"></i-icon> {{ articleSlice(0, 1)[0].click_num }} </a></span>
-            </p>
-            <div class="img" v-if="articleSlice(0, 1)[0].front_image">
-              <img :src="articleSlice(0, 1)[0].front_image" :alt="articleSlice(0, 1)[0].title">
-            </div>
-            <p class="desc" v-if="articleSlice(0, 1)[0].desc">{{ articleSlice(0, 1)[0].desc | textLineBreak(60) }}</p>
-          </a>
+          <p class="title">
+            <i-tool-tip placement="right" :content="routerInfos(articleSlice(0, 1)[0]).message" v-if="articleSlice(0, 1)[0].browse_password_encrypt">
+              <i-icon type="android-lock" color="#FA5555" v-if="articleSlice(0, 1)[0].browse_password_encrypt"></i-icon>
+            </i-tool-tip>
+            <a @click.prevent="gotoPostDetail(articleSlice(0, 1)[0])" :href="`${articleSlice(0, 1)[0].post_type}/${articleSlice(0, 1)[0].id}`">
+              {{ articleSlice(0, 1)[0].title }}
+            </a>
+          </p>
+          <div class="tags">
+            <i-tag :color="tag.color" type="border" v-for="tag in articleSlice(0, 1)[0].tags" :key="tag.id" class="border-tag">{{
+              tag.name }}
+            </i-tag>
+          </div>
+          <p class="info">
+            <span class="time"><a>{{ articleSlice(0, 1)[0].add_time | socialDate }}</a></span>
+            <span class="likes"><a @click="likePost(articleSlice(0, 1)[0])"><i-icon
+              type="heart"></i-icon> {{ articleSlice(0, 1)[0].like_num }} </a></span>
+            <span class="comments"><a><i-icon type="compose"></i-icon> {{ articleSlice(0, 1)[0].comment_num }} </a></span>
+            <span class="readings"><a><i-icon type="eye"></i-icon> {{ articleSlice(0, 1)[0].click_num }} </a></span>
+          </p>
+          <div class="img" v-if="articleSlice(0, 1)[0].front_image">
+            <img :src="articleSlice(0, 1)[0].front_image" :alt="articleSlice(0, 1)[0].title">
+          </div>
+          <p class="desc" v-if="articleSlice(0, 1)[0].desc">{{ articleSlice(0, 1)[0].desc | textLineBreak(60) }}</p>
         </div>
         <ul class="others">
           <li v-for="article in articleSlice(1)">
-            <a>
-              <p class="title">
-                <i-tool-tip placement="right" :content="routerInfos(article).message" v-if="article.browse_password_encrypt">
-                  <i-icon type="android-lock" color="#FA5555" v-if="article.browse_password_encrypt"></i-icon>
-                </i-tool-tip>
-                <a @click.prevent="gotoPostDetail(article)" :href="`${article.post_type}/${article.id}`">{{ article.title }}</a>
-              </p>
-              <p class="info">
-                <span class="time">{{ article.add_time | socialDate }}</span>
-                <span class="likes"><a @click="likePost(article)"><i-icon type="heart"></i-icon> {{ article.like_num}} </a></span>
-                <span class="comments"><a><i-icon type="compose"></i-icon> {{ article.comment_num}} </a></span>
-                <span class="readings"><a><i-icon type="eye"></i-icon> {{ article.click_num}} </a></span>
-              </p>
-            </a>
+            <p class="title">
+              <i-tool-tip placement="right" :content="routerInfos(article).message" v-if="article.browse_password_encrypt">
+                <i-icon type="android-lock" color="#FA5555" v-if="article.browse_password_encrypt"></i-icon>
+              </i-tool-tip>
+              <a @click.prevent="gotoPostDetail(article)" :href="`${article.post_type}/${article.id}`">{{ article.title }}</a>
+            </p>
+            <p class="info">
+              <span class="time">{{ article.add_time | socialDate }}</span>
+              <span class="likes"><a @click="likePost(article)"><i-icon type="heart"></i-icon> {{ article.like_num}} </a></span>
+              <span class="comments"><a><i-icon type="compose"></i-icon> {{ article.comment_num}} </a></span>
+              <span class="readings"><a><i-icon type="eye"></i-icon> {{ article.click_num}} </a></span>
+            </p>
           </li>
         </ul>
       </div>
