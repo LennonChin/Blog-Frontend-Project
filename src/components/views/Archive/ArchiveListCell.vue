@@ -16,7 +16,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import {checkPostAuth} from '@/common/js/utils';
+  import {checkPostAuth, mixin} from '@/common/js/utils';
 
   const POST_TYPE_ARTICLE = 'article';
   const POST_TYPE_ALBUM = 'album';
@@ -29,6 +29,7 @@
         Type: Object
       }
     },
+    mixins: [mixin],
     data() {
       return {
         showDesc: false
@@ -86,8 +87,13 @@
     },
     filters: {
       formatDate: function (date) {
-        let formatedDate = new Date(date);
-        return formatedDate.getFullYear() + '-' + (formatedDate.getMonth() + 1) + '-' + formatedDate.getDate();
+        let formattedDate = new Date(date);
+        let year = formattedDate.getFullYear();
+        let month = formattedDate.getMonth() + 1;
+        month = month >= 10 ? month : '0' + month; // 不满10前面加0
+        let day = formattedDate.getDate();
+        day = day >= 10 ? day : '0' + day; // 不满10前面加0
+        return year + '-' + month + '-' + day;
       }
     }
   };

@@ -32,7 +32,8 @@ export default () => {
           API.getPostBaseInfo({
             params: {
               is_recommend: true,
-              limit: 5,
+              ordering: '-add_time',
+              limit: 10,
               offset: 0
             }
           }).then((response) => {
@@ -50,7 +51,8 @@ export default () => {
           API.getPostBaseInfo({
             params: {
               is_hot: true,
-              limit: 5,
+              ordering: '-add_time',
+              limit: 10,
               offset: 0
             }
           }).then((response) => {

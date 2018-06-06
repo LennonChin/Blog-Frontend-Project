@@ -3,7 +3,6 @@
     <panel :title="'推荐阅读'">
       <div slot="content" class="content">
         <div class="top">
-
           <p class="title">
             <i-tool-tip placement="right" :content="routerInfos(articleSlice(0, 1)[0]).message" v-if="articleSlice(0, 1)[0].browse_password_encrypt">
               <i-icon type="android-lock" color="#FA5555" v-if="articleSlice(0, 1)[0].browse_password_encrypt"></i-icon>

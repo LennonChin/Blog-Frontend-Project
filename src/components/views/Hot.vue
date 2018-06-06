@@ -1,5 +1,5 @@
 <template>
-  <div class="hot" v-if="articles.length > 0">
+  <div class="hot" v-if="hots.length > 0">
     <panel :title="'热门阅读'">
       <div slot="content" class="content">
         <div class="top">
@@ -50,35 +50,35 @@
 </template>
 
 <script type="text/ecmascript-6">
+  import {
+    mapState,
+    mapActions
+  } from 'vuex';
   import Panel from '@/components/views/Panel';
   import API from 'API';
   import {checkPostAuth, mixin} from '@/common/js/utils';
 
   export default {
     name: 'hot',
-    data() {
-      return {
-        articles: []
-      };
-    },
     mixins: [mixin],
-    created() {
-      this.getDatas();
+    asyncData({store}) {
+      return Promise.all([
+        store.dispatch('common/GET_HOTS')
+      ]);
+    },
+    mounted() {
+      if (!this.$store.state.common.hots || this.$store.state.common.hots.length === 0) {
+        console.log('hot');
+        this['common/GET_HOTS']();
+      }
+    },
+    computed: {
+      ...mapState({
+        hots: state => state.common.hots
+      })
     },
     methods: {
-      getDatas() {
-        API.getPostBaseInfo({
-          params: {
-            is_hot: true,
-            limit: 5,
-            offset: 0
-          }
-        }).then((response) => {
-          this.articles = response.data.results;
-        }).catch((error) => {
-          console.log(error);
-        });
-      },
+      ...mapActions(['common/GET_HOTS']),
       gotoPostDetail(post) {
         let routerInfos = this.routerInfos(post);
         checkPostAuth.call(this, post, '提示', routerInfos.message, () => {
@@ -123,7 +123,7 @@
         return router;
       },
       articleSlice(start, end) {
-        return this.articles.slice(start, end);
+        return this.hots.slice(start, end);
       }
     },
     components: {
