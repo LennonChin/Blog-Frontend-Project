@@ -6,9 +6,9 @@
 			text-align right
 			font-size 12px
 			color $default-desc-color
-			border-bottom 1px dashed $default-border-color
+			border-bottom 2px dashed $default-border-color
 			padding-bottom 10px
-			margin-bottom 15px
+			margin 15px 0
 
 article.article-main-content
 	text-align left
@@ -92,6 +92,7 @@ article.article-main-content
 		color $default-title-color
 	p
 		font-size 16px
+		font-weight 100
 		line-height 25px
 		margin 15px 0
 		color $default-desc-color
@@ -152,67 +153,6 @@ article.article-main-content
 			@media screen and (min-width: $responsive-lg)
 				font-size 15px
 				line-height 20px
-	// 代码相关
-	pre
-		margin-bottom 18px
-		@media only screen and (max-width: $responsive-sm)
-			margin-bottom 5px
-		@media screen and (min-width: $responsive-sm)
-			margin-bottom 8px
-		@media screen and (min-width: $responsive-md)
-			margin-bottom 15px
-		@media screen and (min-width: $responsive-lg)
-			margin-bottom 18px
-	code.hljs
-		display block
-		padding 0
-		border 0
-		margin 0
-		width 100%
-		font-size 14px
-		font-weight 100
-		font-family $code-font
-		background $default-border-color !important
-		color $default-info-color
-		white-space pre-wrap
-		> ul
-			list-style decimal
-			margin 30px 0 0 45px !important
-			padding 0
-			border-top 1px solid $default-border-hover-color
-			@media only screen and (max-width: $responsive-sm)
-				margin 21px 0 0 35px !important
-			@media screen and (min-width: $responsive-sm)
-				margin 25px 0 0 40px !important
-			@media screen and (min-width: $responsive-md)
-				margin 25px 0 0 40px !important
-			@media screen and (min-width: $responsive-lg)
-				margin 30px 0 0 45px !important
-			> li
-				list-style decimal-leading-zero
-				padding 5px
-				margin 0
-				line-height 16px
-				font-size 14px
-				background $default-codeLine-light
-				border-left 1px solid $default-border-hover-color
-				word-break break-all
-				word-wrap break-word
-				@media only screen and (max-width: $responsive-sm)
-					padding 2px
-					font-size 12px
-				@media screen and (min-width: $responsive-sm)
-					padding 3px
-					font-size 13px
-				@media screen and (min-width: $responsive-md)
-					padding 4px
-					font-size 14px
-				@media screen and (min-width: $responsive-lg)
-					padding 5px
-					font-size 14px
-				&:nth-of-type(even)
-					background $default-codeLine-dark
-					color inherit
 
 body.dark
 	.article-details
@@ -226,7 +166,7 @@ body.dark
 		li
 			color $dark-title-color
 		p
-			color $dark-info-color
+			color $dark-title-color
 		blockquote
 			border-left 5px solid $dark-desc-hover-color
 			background $dark-border-color
@@ -240,15 +180,6 @@ body.dark
 				border-left 5px solid $dark-desc-hover-color
 			> p
 				color $dark-info-color
-		// 代码相关
-		code.hljs
-			background $dark-border-color !important
-			color $dark-info-color
-			> ul
-				border-top 1px solid $dark-border-hover-color
-				> li
-					background $dark-codeLine-light
-					border-left 1px solid $dark-border-hover-color
-					&:nth-of-type(even)
-						background $dark-codeLine-dark
 
+@import "./PyMdown.styl";
+@import "./highlights.styl";

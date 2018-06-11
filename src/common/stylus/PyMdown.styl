@@ -1,0 +1,246 @@
+@import "./theme.styl"
+@import "./theme-configs.styl"
+// 键盘按键
+.keys
+	kbd
+		padding 3px 4px
+		font-size 13px
+		border 1px solid $default-info-color
+		border-radius $border-radius
+		box-shadow 2px 2px 2px $default-border-color
+
+// 进度条
+.progress-label
+	position absolute
+	text-align center
+	font-weight 700
+	width 100%
+	margin 0!important
+	line-height 1.2rem!important
+	color $default-desc-color!important
+	white-space nowrap
+	overflow hidden
+
+.progress-bar
+	height 1.2rem
+	float left
+	background-color #2979ff
+
+.progress
+	display block
+	width 100%
+	margin 0.5rem 0
+	height 1.2rem
+	background-color #eeeeee
+	position relative
+
+.progress.thin
+	margin-top 0.9rem
+	height 0.4rem
+	.progress-label
+		margin-top -0.4rem
+	.progress-bar
+		height 0.4rem
+
+.progress-100plus
+	.progress-bar
+		background-color #00e676
+
+.progress-80plus
+	.progress-bar
+		background-color #fbc02d
+
+.progress-60plus
+	.progress-bar
+		background-color #ff9100
+
+.progress-40plus
+	.progress-bar
+		background-color #ff5252
+
+.progress-20plus
+	.progress-bar
+		background-color #ff1744
+
+.progress-0plus
+	.progress-bar
+		background-color #f50057
+
+// details
+details
+	margin 10px 0
+	> summary
+		font-size 15px
+		font-weight 700
+		color $default-title-color
+	&.info
+		border-left .4rem solid $iview-secondary-info-color
+		> .admonition-title, > summary
+			outline none
+			padding 10px
+			border-bottom .1rem solid rgba(170, 0, 255, .1)
+			background-color rgba($iview-secondary-info-color .1)
+			cursor pointer
+		> .admonition-title:before, > summary:before
+			color $iview-secondary-info-color
+			content ""
+	&.success
+		border-left .4rem solid $iview-secondary-sucess-color
+		> .admonition-title, > summary
+			outline none
+			padding 10px
+			border-bottom .1rem solid rgba(170, 0, 255, .1)
+			background-color rgba($iview-secondary-sucess-color .1)
+			cursor pointer
+		> .admonition-title:before, > summary:before
+			color $iview-secondary-sucess-color
+			content ""
+	&.warning
+		border-left .4rem solid $iview-secondary-warning-color
+		> .admonition-title, > summary
+			outline none
+			padding 10px
+			border-bottom .1rem solid rgba(170, 0, 255, .1)
+			background-color rgba($iview-secondary-warning-color .1)
+			cursor pointer
+		> .admonition-title:before, > summary:before
+			color $iview-secondary-warning-color
+			content ""
+	&.danger
+		border-left .4rem solid $iview-secondary-danger-color
+		> .admonition-title, > summary
+			outline none
+			padding 10px
+			border-bottom .1rem solid rgba(170, 0, 255, .1)
+			background-color rgba($iview-secondary-danger-color .1)
+			cursor pointer
+		> .admonition-title:before, > summary:before
+			color $iview-secondary-danger-color
+			content ""
+
+// 代码区域
+.highlighttable
+	display block
+	width 100%
+	word-break break-all
+	word-wrap break-word
+	background $default-select-color
+
+article.article-main-content
+	> .highlighttable
+		margin 15px 0
+
+pre
+	line-height 25px
+	white-space pre-wrap
+	word-wrap break-word
+	span
+		word-wrap break-word
+
+code
+	font-size 0.9em
+	padding 0 2px
+	color #960050
+	word-wrap break-word
+
+.linenos
+	min-width 40px
+	border-right 1px solid $default-border-color
+
+.code
+	width 100%
+
+.linenodiv
+	padding 10px 8px 5px 12px
+	background-color $default-codeLine-dark
+	> pre
+		text-align right
+		color $default-info-color
+		span
+			&.special
+				color $default-desc-color
+
+.highlight
+	padding 10px 8px 5px 10px
+	background-color $default-codeLine-light
+
+// superfences-tabs
+.superfences-tabs
+	display flex
+	position relative
+	background-color $default-background-color
+	flex-wrap wrap
+	.superfences-content
+		display none
+		background $default-codeLine-light
+		order 99
+		width 100%
+	label
+		width auto
+		margin 5px 10px 5px 15px
+		padding 10px 4px
+		cursor pointer
+	input
+		position absolute
+		font-weight 300
+		color $default-desc-color
+		opacity 0
+		&:nth-child(n+1)
+			color $default-desc-color
+			+ label
+				color $default-desc-color
+		&:nth-child(n+1):checked
+			+ label
+				font-weight 700
+				color $default-desc-hover-color
+				+ .superfences-content
+					display block
+
+body.dark
+	// 键盘按键
+	.keys
+		kbd
+			border 1px solid $dark-info-color
+			border-radius $border-radius
+			box-shadow 2px 2px 2px $dark-border-color
+	// details
+	details
+		margin 10px 0
+		> summary
+			font-size 15px
+			font-weight 700
+			color $dark-title-color
+
+	// 代码区域
+	.highlighttable
+		background $dark-select-color
+
+	.linenos
+		border-right 1px solid $dark-codeLine-light
+
+	.linenodiv
+		background $dark-background-hover-color
+
+	.highlight
+		background-color $dark-codeLine-dark
+
+	pre
+		color $dark-info-color
+		span.special
+			color $dark-desc-color
+	code
+		color #a6e22e
+
+	// superfences-tabs
+	.superfences-tabs
+		background-color $dark-background-color
+		.superfences-content
+			background $dark-codeLine-light
+		input
+			&:nth-child(n+1)
+				color $dark-desc-color
+				+ label
+					color $dark-desc-color
+			&:nth-child(n+1):checked
+				+ label
+					color $dark-desc-hover-color
