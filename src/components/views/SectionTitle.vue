@@ -18,7 +18,7 @@
         </li>
       </ul>
       <div class="date-picker" v-if="withTimeSelect">
-        <i-date-picker type="daterange" :options="datePickerOptions" confirm placement="bottom-end"
+        <i-date-picker type="daterange" :options="datePickerOptions" confirm :split-panels="true" placement="bottom-end"
                         placeholder="选择日期区间" @on-clear="clearDateSelect" @on-ok="comfirmDateSelect" @on-change="changeDate"
                         style="width: 180px;"></i-date-picker>
       </div>

@@ -64,16 +64,12 @@
 
 <script type="text/ecmascript-6">
   import CustomMavonEditor from '@/components/views/CustomMavonEditor';
-  // highlight.js引入
-  import hljs from '@/common/js/highlight.pack';
   // Api
   import API from 'API';
   // utils
   import MD5 from 'crypto-js/md5';
   // mixin
   import {mixin} from '@/common/js/utils';
-
-  let HLJS = hljs;
 
   const CELL_LEFT_SPAN = {
     'xs': 3,
@@ -117,19 +113,6 @@
         let idStr = author.id + '';
         let start = author.nick_name.length + idStr.length > 31 ? 31 : author.nick_name.length + idStr.length;
         return MD5((author.nick_name + idStr)).toString().slice(start, start + 1) + '.png';
-      },
-      addCodeLineNumber() {
-        // 添加行号
-        if (this.$refs.content) {
-          let blocks = this.$refs.content.querySelectorAll('pre code');
-          blocks.forEach((block) => {
-            HLJS.highlightBlock(block);
-            // 去前后空格并添加行号
-            let reg = /<ul(.*?)><li(.*?)>[\s\S]*?<\/li><\/ul>/gm;
-            if (reg.test(block.innerHTML)) return;
-            block.innerHTML = '<ul><li>' + block.innerHTML.replace(/(^\s*)|(\s*$)/g, '').replace(/\n/g, '\n</li><li>') + '\n</li></ul>';
-          });
-        }
       },
       cellSpan(size) {
         var span = {};
@@ -179,7 +162,6 @@
     },
     mounted() {
       this.$nextTick(() => {
-        this.addCodeLineNumber();
         // 添加图片前缀
         if (this.$refs.content) {
           this.resolveImageTagsUrl(this.$refs.content.querySelectorAll('img'));

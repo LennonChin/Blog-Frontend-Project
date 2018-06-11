@@ -1,5 +1,7 @@
 # Front and back end of the separation of the blog project - front-end project
 
+> Supported SSR Now.
+
 Blog has been online ，welcome to browse：[https://blog.coderap.com/](https://blog.coderap.com/)
 
 > [中文版说明](https://github.com/LennonChin/Blog-Frontend-Project/blob/master/README_zh-cn.md)
@@ -29,10 +31,10 @@ Front effect display：
 - [Vue.js ^2.5.6](https://github.com/vuejs/vue)
 - [Vue-Router ^3.0.1](https://github.com/vuejs/vue-router)
 - [Axios ^0.17.1](https://github.com/axios/axios)
-- [iView UI ^2.7.3](https://github.com/iview/iview)
+- [iView UI ^2.14.2](https://github.com/iview/iview)
 - [MavonEditor ^2.3.1](https://github.com/hinesboy/mavonEditor)
 - [Tocbot ^4.0.0](https://github.com/tscanlin/tocbot)
-- [Highlight.js ^9.12.0](https://github.com/isagalaev/highlight.js)
+- ~~[Highlight.js ^9.12.0](https://github.com/isagalaev/highlight.js)~~
 - [vue-awesome-swiper ^3.0.6](https://github.com/surmon-china/vue-awesome-swiper)
 
 ## Achieved basic functions
@@ -59,7 +61,7 @@ Has now developed 17 pages, basically meet the needs of conventional blog. The p
 
 At present, the development of ordinary pages basically completed the development, the need for the next test to verify the details and Bug; article details page has achieved code highlighting, catalogs, reviews and other functions.
 
-> Note: The code highlighting `Highlight.js` plug-in, and in order to reduce the packaging volume customize the plug-in JS package, custom plug-ins stored in`./src/common/js/highlight.pack.js`, if you need other highlights please Custom plug-ins, [custom tutorials here](http://highlightjs.readthedocs.io/en/latest/building-testing.html)
+> Note: ~~The code highlighting `Highlight.js` plug-in, and in order to reduce the packaging volume customize the plug-in JS package, custom plug-ins stored in`./src/common/js/highlight.pack.js`, if you need other highlights please Custom plug-ins, [custom tutorials here](http://highlightjs.readthedocs.io/en/latest/building-testing.html)~~. Now I removed highlight.js, replaced by using Pygments at backend, to improved render effect at frontend.
 
 ## The next will be achieved
 
@@ -84,13 +86,18 @@ npm install
 
 > Note: You can choose to browse the offline version: [6a10ff2](https://github.com/LennonChin/Blog-Frontend-Project/tree/6a10ff207e413c02d7e5eb810409144a65450e27), this version is not complete, but shows the most basic page, all the data are local test data.
 
-The backend of this project uses Django + Xadmin + Django Rest Framework. The code repository is located at [BlogBackendProject](https://github.com/LennonChin/BlogBackendProject). You need to configure it online according to the repository code. After configuring, please refer to the `./src/api/api.js` text in this project Your backend environment configures the backend interfaces as follows:
+The backend of this project uses Django + Xadmin + Django Rest Framework. The code repository is located at [BlogBackendProject](https://github.com/LennonChin/BlogBackendProject). You need to configure it online according to the repository code. After configuring, please refer to the `./src/api/client-api.js` and `./src/api/client-api.js` files in this project your interface configurations of both client environment and SSR environment, my configurations as follows:
 
 ```javascript
-// host: your back-end server address
-// port: your back-end server port
-// path: custom path
-let localHost = 'http://host:port/path';
+// client-api.js
+const request = axios.create({
+  baseURL: process.env.NODE_ENV === 'development' ? 'https://localhost:8000/api/' : 'https://blog.coderap.com/api/'
+});
+
+// server-api.js
+const request = axios.create({
+  baseURL: process.env.NODE_ENV === 'development' ? 'https://localhost:8000/api/' : 'http://localhost/api/'
+});
 ```
 
 5. After the above configuration is completed, run the following command to enter the development environment:

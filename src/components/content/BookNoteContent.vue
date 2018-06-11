@@ -9,8 +9,8 @@
               <div class="detail" v-if="bookNote !== undefined" v-for="detail in bookNote.details">
                 <article class="typo container article-main-content" v-html="detail.formatted_content">
                 </article>
-                <div class="detail-footer">Append At / {{ detail.add_time | socialDate
-                  }} &nbsp;&nbsp;&nbsp; Update At / {{ detail.update_time | socialDate }}
+                <div class="detail-footer">以上内容添加于 {{ detail.add_time | socialDate
+                  }} &nbsp;&nbsp;&nbsp; 更新于 {{ detail.update_time | socialDate }}
                 </div>
               </div>
             </div>
@@ -44,18 +44,12 @@
   import SideToc from '@/components/views/SideToc';
   import Recommend from '@/components/views/Recommend';
   import BookInfo from '@/components/views/Book/BookInfo';
-  // highlight.js引入
-  import hljs from '@/common/js/highlight.pack';
-  // 样式文件
-  import 'highlight.js/styles/atom-one-light.css';
   // TOC
   import tocbot from 'tocbot';
   // 加密
   import MD5 from 'crypto-js/md5';
   // mixin
   import {mixin} from '@/common/js/utils';
-
-  let HLJS = hljs;
 
   export default {
     name: 'book-note-content',
@@ -231,7 +225,6 @@
         this.$nextTick(() => {
           // 添加图片前缀
           this.resolveImageTagsUrl(this.$refs.article.querySelectorAll('img'));
-          this.addCodeLineNumber();
           this.addTocScrollSpy();
         });
       },
@@ -261,17 +254,6 @@
           fixedSidebarOffset: 'auto',
           includeHtml: false,
           onClick: false
-        });
-      },
-      addCodeLineNumber() {
-        // 添加行号
-        let blocks = this.$refs.article.querySelectorAll('pre code');
-        blocks.forEach((block) => {
-          HLJS.highlightBlock(block);
-          // 去前后空格并添加行号
-          let reg = /<ul(.*?)><li(.*?)>[\s\S]*?<\/li><\/ul>/gm;
-          if (reg.test(block.innerHTML)) return;
-          block.innerHTML = '<ul><li>' + block.innerHTML.replace(/(^\s*)|(\s*$)/g, '').replace(/\n/g, '\n</li><li>') + '\n</li></ul>';
         });
       }
     },
