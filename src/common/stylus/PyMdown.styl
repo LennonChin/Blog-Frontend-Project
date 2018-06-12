@@ -122,9 +122,16 @@ details
 .highlighttable
 	display block
 	width 100%
-	word-break break-all
-	word-wrap break-word
 	background $default-select-color
+	overflow hidden
+	tbody
+		display block
+	tr
+		display flex
+		border 1px solid $default-border-color
+		td.code
+			flex 1
+			overflow auto
 
 article.article-main-content
 	> .highlighttable
@@ -132,16 +139,12 @@ article.article-main-content
 
 pre
 	line-height 25px
-	white-space pre-wrap
-	word-wrap break-word
-	span
-		word-wrap break-word
+	overflow auto
 
 code
 	font-size 0.9em
 	padding 0 2px
 	color #960050
-	word-wrap break-word
 
 .linenos
 	min-width 40px
@@ -168,13 +171,18 @@ code
 .superfences-tabs
 	display flex
 	position relative
+	margin-bottom 8px
 	background-color $default-background-color
+	border 1px solid $default-border-color
 	flex-wrap wrap
 	.superfences-content
 		display none
 		background $default-codeLine-light
+		border none
 		order 99
 		width 100%
+		tr
+			border none
 	label
 		width auto
 		margin 5px 10px 5px 15px
@@ -214,6 +222,8 @@ body.dark
 	// 代码区域
 	.highlighttable
 		background $dark-select-color
+		tr
+			border 1px solid $dark-border-color
 
 	.linenos
 		border-right 1px solid $dark-codeLine-light
@@ -234,6 +244,7 @@ body.dark
 	// superfences-tabs
 	.superfences-tabs
 		background-color $dark-background-color
+		border 1px solid $dark-border-color
 		.superfences-content
 			background $dark-codeLine-light
 		input

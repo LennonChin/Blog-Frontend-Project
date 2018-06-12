@@ -51,5 +51,9 @@
         padding-left 0
         font-size 14px
         color $default-desc-color
+				a
+					color $default-link-color
+					&:hover
+						color $default-link-hover-color
 
 </style>
