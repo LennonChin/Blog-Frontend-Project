@@ -131,7 +131,7 @@ details
     > span.language
       flex-grow 1
       color $default-desc-color
-      font-size 15px
+      font-size 14px
       font-weight 300
       padding-left 4px
       line-height 130%
@@ -151,19 +151,33 @@ details
         color $default-select-color
 
 .highlight
+  display block
+  padding 5px
+  height auto
   background $default-codeLine-light
   border 1px solid $default-border-color
   border-top none
+  &.folded
+    height 0
+    border none
+    padding 0
   pre
+    display flex
     height inherit
     margin 0
     border-top none
     white-space inherit
-    overflow hidden
     background transparent
+    overflow auto
+    &::-webkit-scrollbar
+      width .4rem
+      height .4rem
+    &::-webkit-scrollbar-thumb
+      background-color rgba(0,0,0,.26)
     > ul
+      flex 1
       list-style none
-      padding 5px 5px 5px 40px !important
+      padding-left 40px !important
       margin 0
       background transparent
       li
@@ -173,11 +187,13 @@ details
         color $default-info-color
         padding 5px !important
         margin 0 !important
-        line-height 14px
+        line-height 135%
         word-break break-all
         word-wrap break-word
-        white-space pre-wrap
+        white-space pre
         background $default-codeLine-light
+        &.wrapline
+          white-space pre-wrap
         &:nth-of-type(even)
           background $default-codeLine-dark
         &.hll
@@ -191,6 +207,9 @@ code
   font-size 0.9em
   padding 0 2px
   color $default-code-color
+  word-break break-all
+  word-wrap break-word
+  white-space pre-wrap
 
 // superfences-tabs
 .superfences-tabs
