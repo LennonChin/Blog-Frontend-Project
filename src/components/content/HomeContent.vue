@@ -247,7 +247,7 @@
             is_recommend: this.recommendArticles,
             is_hot: this.hotArticles,
             ordering: this.mostCommentArticles,
-            limit: 5,
+            limit: 8,
             offset: 0
           }
         });
