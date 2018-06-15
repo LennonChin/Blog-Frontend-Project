@@ -1,5 +1,11 @@
 import createApp from './create-app';
-import {initCopyCodeAction, initBreakCodeAction, initFoldCodeAction} from '@/common/js/utils';
+import {
+  initCopyCodeAction,
+  initToggleCodeNumAction,
+  initToggleCodeTheme,
+  initToggleBreakCodeAction,
+  initToggleFoldCodeAction
+} from '@/common/js/utils';
 
 const {app, router, store} = createApp();
 
@@ -10,8 +16,10 @@ if (window.__INITIAL_STATE__) {
 if (window) {
   // 初始化一些代码的操作
   initCopyCodeAction();
-  initBreakCodeAction();
-  initFoldCodeAction();
+  initToggleCodeTheme();
+  initToggleCodeNumAction();
+  initToggleBreakCodeAction();
+  initToggleFoldCodeAction();
 }
 
 router.onReady(() => {

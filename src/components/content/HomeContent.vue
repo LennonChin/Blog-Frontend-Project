@@ -1,5 +1,5 @@
 <template>
-  <div class="home-content layout-content">
+  <div class="home-content layout-content" v-if="showPage">
     <i-row>
       <i-col :xs="24" :sm="24" :md="24" :lg="17">
         <div class="layout-left">
@@ -83,7 +83,7 @@
         </div>
       </i-col>
       <i-col :xs="24" :sm="24" :md="24" :lg="7">
-        <div class="layout-right">
+        <div class="layout-right" v-if="showPage">
           <about></about>
           <recommend style="margin-top:15px;"></recommend>
           <hot style="margin-top:15px;"></hot>
@@ -230,7 +230,15 @@
         bookNotes: state => state.home.bookNotes,
         albums: state => state.home.albums,
         movies: state => state.home.movies
-      })
+      }),
+      showPage: function () {
+        return (this.$store.state.home.articles.length +
+          this.$store.state.home.articles.length +
+          this.$store.state.home.books.length +
+          this.$store.state.home.bookNotes.length +
+          this.$store.state.home.albums.length +
+          this.$store.state.home.movies.length) > 0;
+      }
     },
     beforeMount() {
       if (this.$store.state.home.topLevelCategoriesInfo.length === 0) {

@@ -388,30 +388,81 @@ export function initCopyCodeAction() {
   };
 }
 
-// 折行代码
-export function initBreakCodeAction() {
-  window.breakCode = function (target) {
-    let highlight = target.parentNode.parentNode.querySelector('.highlight');
-    if (highlight !== 'undefined') {
-      if (highlight.classList.contains('wrapline')) {
-        highlight.classList.remove('wrapline');
+// 显示或隐藏代码行号
+export function initToggleCodeNumAction() {
+  window.toggleCodeNum = function (target) {
+    let wrapDiv = target.parentNode.parentNode;
+    if (wrapDiv !== 'undefined') {
+      if (wrapDiv.classList.contains('shownum')) {
+        wrapDiv.classList.remove('shownum');
       } else {
-        highlight.classList.add('wrapline');
+        wrapDiv.classList.add('shownum');
+      }
+    }
+    let ul = target.parentNode.parentNode.querySelector('ul');
+    if (ul !== 'undefined') {
+      if (ul.classList.contains('numbered')) {
+        ul.classList.remove('numbered');
+      } else {
+        ul.classList.add('numbered');
       }
     }
   };
 }
 
-export function initFoldCodeAction() {
-  window.foldCode = function (target) {
+// 切换代码明暗样式
+export function initToggleCodeTheme() {
+  window.toggleCodeTheme = function (target) {
+    let wrapDiv = target.parentNode.parentNode;
+    if (wrapDiv !== 'undefined') {
+      if (wrapDiv.classList.contains('dark')) {
+        wrapDiv.classList.remove('dark');
+      } else {
+        wrapDiv.classList.add('dark');
+      }
+    }
     let highlight = target.parentNode.parentNode.querySelector('.highlight');
     if (highlight !== 'undefined') {
-      if (highlight.classList.contains('folded')) {
-        highlight.classList.remove('folded');
-        target.setAttribute('title', '点击展开代码');
+      if (highlight.classList.contains('dark')) {
+        highlight.classList.remove('dark');
       } else {
-        highlight.classList.add('folded');
-        target.setAttribute('title', '点击收起代码');
+        highlight.classList.add('dark');
+      }
+    }
+  };
+}
+
+// 折行代码
+export function initToggleBreakCodeAction() {
+  window.toggleBreakCode = function (target) {
+    let wrapDiv = target.parentNode.parentNode;
+    if (wrapDiv !== 'undefined') {
+      if (wrapDiv.classList.contains('linefeed')) {
+        wrapDiv.classList.remove('linefeed');
+      } else {
+        wrapDiv.classList.add('linefeed');
+      }
+    }
+    let highlight = target.parentNode.parentNode.querySelector('.highlight');
+    if (highlight !== 'undefined') {
+      if (highlight.classList.contains('linefeed')) {
+        highlight.classList.remove('linefeed');
+      } else {
+        highlight.classList.add('linefeed');
+      }
+    }
+  };
+}
+
+// 关闭或收起代码
+export function initToggleFoldCodeAction() {
+  window.toggleFoldCode = function (target) {
+    let wrapDiv = target.parentNode.parentNode;
+    if (wrapDiv !== 'undefined') {
+      if (wrapDiv.classList.contains('folded')) {
+        wrapDiv.classList.remove('folded');
+      } else {
+        wrapDiv.classList.add('folded');
       }
     }
   };

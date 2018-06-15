@@ -138,13 +138,19 @@ details
     > button
       border 1px solid $default-border-hover-color
       margin-left 2px
-      width 20px
       outline none
-      font-size 15px
+      font-size 13px
+      min-width 20px
       padding 2px 4px
       cursor pointer
       background $default-background-color
       color $default-title-color
+      &.shownum-class
+        &::before
+          content '\F453'
+      &.theme-class
+        &::before
+          content '\F467'
       &.copy-class
         &::before
           content '\F41B'
@@ -156,19 +162,37 @@ details
           content '\F2D7'
       &:hover
         background $default-background-hover-color
-      &.checked
-        &.copy-class
-          &::before
-            content '\F41C'
-        &.break-class
-          &::before
-            content '\F20B'
-        &.fold-class
-          &::before
-            content '\F25E'
       &:active
         background $default-info-color
         color $default-select-color
+  &.shownum
+    .toolsbar
+      > button
+        &.shownum-class
+          &::before
+            content '\F391'
+  &.dark
+    .toolsbar
+      > button
+        &.theme-class
+          &::before
+            content '\F4B6'
+  &.linefeed
+    .toolsbar
+      > button
+        &.break-class
+          &::before
+            content '\F20B'
+  &.folded
+    .toolsbar
+      > button
+        &.fold-class
+          &::before
+            content '\F25E'
+    .highlight
+      height 0
+      border none!important
+      padding 0
 
 .highlight
   display block
@@ -177,11 +201,7 @@ details
   background $default-codeLine-light
   border 1px solid $default-border-color
   border-top none
-  &.folded
-    height 0
-    border none!important
-    padding 0
-  &.wrapline
+  &.linefeed
     li
       white-space pre-wrap
   pre
@@ -192,10 +212,15 @@ details
     white-space inherit
     background transparent
     overflow auto
+    &::-webkit-scrollbar
+      width .4rem
+      height .4rem
+    &::-webkit-scrollbar-thumb
+      background-color rgba(0,0,0,.26)
     > ul
       flex 1
       list-style none
-      padding-left 40px !important
+      padding-left 0 !important
       margin 0
       background transparent
       transition All 0.4s ease-in-out
@@ -217,6 +242,7 @@ details
         &.hll
           background $default-codeLine-highlight
       &.numbered
+        padding-left 40px !important
         list-style decimal
         > li.numbered
           list-style decimal-leading-zero
@@ -334,6 +360,8 @@ body.dark
             background $dark-codeLine-dark
           &.hll
             background $dark-codeLine-highlight
+      &::-webkit-scrollbar-thumb
+        background-color rgba(255, 255, 255, .26)
   code
     color $dark-code-color
 
@@ -351,3 +379,20 @@ body.dark
       &:nth-child(n+1):checked
         + label
           color $dark-desc-hover-color
+
+.highlight
+  &.dark
+    background $dark-codeLine-light
+    border 1px solid $dark-border-color
+    pre
+      > ul
+        li
+          border-left 1px solid $dark-border-color !important
+          color $dark-title-color
+          background $dark-codeLine-light
+          &:nth-of-type(even)
+            background $dark-codeLine-dark
+          &.hll
+            background $dark-codeLine-highlight
+      &::-webkit-scrollbar-thumb
+        background-color rgba(255, 255, 255, .26)
