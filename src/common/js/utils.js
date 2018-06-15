@@ -4,6 +4,7 @@ import MD5 from 'crypto-js/md5';
 import ENCUTF8 from 'crypto-js/enc-utf8';
 import {mapState} from 'vuex';
 import {LineBreakMode} from '@/common/js/const';
+import {Notice} from 'iview';
 
 /**
  * 按社交方式格式化时间
@@ -324,5 +325,94 @@ export function scrollTop(el, from = 0, to, duration = 500) {
     }
     window.requestAnimationFrame(() => scroll(d, end, step));
   }
+
   scroll(from, to, step);
+}
+
+// 复制元素的纯文本内容
+export function copyInnerText(el) {
+  let text = '';
+  if (el.nodeName === 'SELECT') {
+    el.focus();
+    text = el.value;
+  } else if (el.nodeName === 'INPUT' || el.nodeName === 'TEXTAREA') {
+    let readonly = el.hasAttribute('readonly');
+    readonly || el.setAttribute('readonly', '');
+    el.select();
+    el.setSelectionRange(0, el.value.length);
+    readonly || el.removeAttribute('readonly');
+    text = el.value;
+  } else {
+    el.hasAttribute('contenteditable') && el.focus();
+    let selection = window.getSelection();
+    let range = document.createRange();
+    range.selectNodeContents(el);
+    selection.removeAllRanges();
+    selection.addRange(range);
+    text = selection.toString();
+  }
+
+  try {
+    // 复制
+    document.execCommand('Copy');
+  } catch (e) {
+    console.log('failed', e);
+    return false;
+  } finally {
+    // 清除选中
+    window.getSelection().removeAllRanges();
+  }
+  // 返回选中的值
+  return text;
+}
+
+// 代码操作
+// 复制代码
+export function initCopyCodeAction() {
+  window.copyCode = function (target) {
+    let preEle = target.parentNode.parentNode.querySelector('pre');
+    if (preEle !== 'undefined') {
+      let result = copyInnerText(preEle);
+      if (!result) {
+        Notice.error({
+          title: '复制出错',
+          desc: '请手动选择复制'
+        });
+      } else {
+        Notice.success({
+          title: '复制成功',
+          desc: '代码已复制到剪切板'
+        });
+      }
+    }
+  };
+}
+
+// 折行代码
+export function initBreakCodeAction() {
+  window.breakCode = function (target) {
+    let highlight = target.parentNode.parentNode.querySelector('.highlight');
+    if (highlight !== 'undefined') {
+      if (highlight.classList.contains('wrapline')) {
+        highlight.classList.remove('wrapline');
+      } else {
+        highlight.classList.add('wrapline');
+      }
+    }
+  };
+}
+
+export function initFoldCodeAction() {
+  window.foldCode = function (target) {
+    let highlight = target.parentNode.parentNode.querySelector('.highlight');
+    if (highlight !== 'undefined') {
+      if (highlight.classList.contains('folded')) {
+        highlight.classList.remove('folded');
+        target.setAttribute('title', '点击展开代码');
+      } else {
+        highlight.classList.add('folded');
+        target.setAttribute('title', '点击收起代码');
+      }
+    }
+  };
 }
