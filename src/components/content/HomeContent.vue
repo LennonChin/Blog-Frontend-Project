@@ -6,7 +6,7 @@
           <!-- 文章 -->
           <section-title v-if="this.specialCategory('articles') !== undefined && articles.length > 0"
                          :mainTitle="this.specialCategory('articles').name"
-                         :subTitle="this.specialCategory('articles').subname"
+                         :subTitle="this.specialCategory('articles').en_name"
                          :menus="articlesTitleMenus"
                          :to="{'name': this.specialCategory('articles').category_type}"
                          :withRefresh="true"
@@ -18,7 +18,7 @@
           <!-- 图集 -->
           <section-title v-if="this.specialCategory('albums') !== undefined && albums.length > 0"
                          :mainTitle="this.specialCategory('albums').name"
-                         :subTitle="this.specialCategory('albums').subname"
+                         :subTitle="this.specialCategory('albums').en_name"
                          :menus="albumsTitleMenus"
                          :to="{'name': this.specialCategory('albums').category_type}"
                          :withRefresh="true"
@@ -36,7 +36,7 @@
           <!-- 图书 -->
           <section-title v-if="this.specialCategory('readings') !== undefined && books.length > 0"
                          :mainTitle="this.specialCategory('readings').name"
-                         :subTitle="this.specialCategory('readings').subname"
+                         :subTitle="this.specialCategory('readings').en_name"
                          :menus="booksTitleMenus"
                          :to="{'name': this.specialCategory('readings').category_type}"
                          :withRefresh="true"
@@ -64,7 +64,7 @@
           <!-- 电影 -->
           <section-title v-if="this.specialCategory('movies') !== undefined && movies.length > 0"
                          :mainTitle="this.specialCategory('movies').name"
-                         :subTitle="this.specialCategory('movies').subname"
+                         :subTitle="this.specialCategory('movies').en_name"
                          :menus="moviesTitleMenus"
                          :to="{'name': this.specialCategory('movies').category_type}"
                          :withRefresh="true"
@@ -123,9 +123,9 @@
         hotArticles: undefined,
         recommendArticles: undefined,
         articlesTitleMenus: [
-          {title: '评论最多', selected: false, method: 'mostComment'},
-          {title: '最热', selected: false, method: 'hot'},
-          {title: '推荐', selected: false, method: 'recommend'}
+          {title: 'article.mostComment', selected: false, method: 'mostComment'},
+          {title: 'article.hot', selected: false, method: 'hot'},
+          {title: 'article.recommend', selected: false, method: 'recommend'}
         ],
         // 摄影
         mostCommentAlbums: undefined,

@@ -1,26 +1,36 @@
 <template>
   <div class="article-page-header" v-if="article !== undefined">
-    <div class="tags">
-      <i-tag color="blue" v-for="tag in article.tags" :key="tag.id" class="dot-tag">{{ tag.name }}</i-tag>
+    <div class="status">
+      <div class="tags">
+        <i-tag color="blue" v-for="tag in article.tags" :key="tag.id" class="dot-tag">{{tag[resolveI18N('name')]}}</i-tag>
+      </div>
+      <div class="toggleI18N" v-if="languages.length > 1">
+        <i-button-group size="small">
+          <i-button type="ghost" :disabled="isLanguageActive(language)" @click.native="selectedLanguage(language)"
+                    v-for="language in languages" :key="language">
+            {{ $i18n.messages[language.toUpperCase()].title }}
+          </i-button>
+        </i-button-group>
+      </div>
     </div>
-    <p class="title">{{ article.title }}</p>
+    <p class="title">{{article[resolveI18N('title')]}}</p>
     <i-row>
       <i-col :xs="24" :sm="10" :md="10" :lg="10" style="padding-left: 0;padding-right: 0;">
         <p class="info">
-          <span class="author">By / <a href="">{{article.author}}</a></span>
-          <span class="publish-time">  At time / <a href="">{{ article.add_time | socialDate }}</a></span>
+          <span class="author">{{ $t("article.author") }} / <a href="">{{article.author}}</a></span>
+          <span class="publish-time">  {{ $t("article.publishTime") }} / <a href="">{{ article.add_time | socialDate }}</a></span>
         </p>
       </i-col>
       <i-col :xs="24" :sm="14" :md="14" :lg="14" style="padding-left: 0;padding-right: 0;">
         <p class="operate_info">
-          <span class="readings"><a><i-icon type="eye"></i-icon> {{article.click_num}} 阅读</a></span> |
-          <span class="comments"><a><i-icon type="compose"></i-icon> {{article.comment_num}} 评论</a></span> |
-          <span class="likes"><a @click="likePost(article)"><i-icon type="heart"></i-icon> {{article.like_num}} 觉得赞</a></span>
+          <span class="readings"><a><i-icon type="eye"></i-icon> {{article.click_num}} {{ $t("article.read") }}</a></span>
+          <span class="comments"><a><i-icon type="compose"></i-icon> {{article.comment_num}} {{ $t("article.comments") }}</a></span>
+          <span class="likes"><a @click="likePost(article)"><i-icon type="heart"></i-icon> {{article.like_num}} {{ $t("article.likes") }}</a></span>
         </p>
       </i-col>
     </i-row>
-    <p class="abstract" v-if="article.abstract">
-      摘要：{{ article.abstract }}
+    <p class="abstract" v-if="article.desc || article.en_desc">
+      {{ $t("article.desc") }}：{{ article[resolveI18N('desc')] }}
     </p>
   </div>
 </template>
@@ -32,14 +42,30 @@
 
   export default {
     name: 'article-page-header',
+    data() {
+      return {
+        seletedLanguageIndex: 0
+      };
+    },
     props: {
       article: {
         Type: Object,
         default: undefined
+      },
+      languages: {
+        Type: []
       }
     },
     mixins: [mixin],
+    computed: {
+      isEnActive: function () {
+        return this.languages[this.seletedLanguageIndex] === 'en';
+      }
+    },
     methods: {
+      isLanguageActive: function (language) {
+        return this.languages[this.seletedLanguageIndex] === language;
+      },
       likePost(post) {
         API.addPostLike({
           post_id: post.id
@@ -49,6 +75,11 @@
         }).catch((error) => {
           console.log(error);
         });
+      },
+      selectedLanguage(language) {
+        this.seletedLanguageIndex = this.languages.indexOf(language);
+        this.$i18n.locale = language;
+        this.$emit('selectedLanguage', this.seletedLanguageIndex);
       }
     }
   };
@@ -63,8 +94,15 @@
       padding 10px 0 10px
     @media screen and (min-width: 992px)
       padding 15px 0 10px
-    .tags
+    .status
+      display flex
       margin-bottom 10px
+      line-height 100%
+      .toggleI18N
+        flex 1
+        display flex
+        justify-content flex-end
+        cursor pointer
     .title
       font-weight 500
       color $default-title-color
@@ -102,7 +140,6 @@
       @media only screen and (max-width: 768px)
         text-align left
       span
-        margin-right 10px
         + span
           margin-left 10px
         a

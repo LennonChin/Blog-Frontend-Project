@@ -7,7 +7,7 @@
       <span class="sub-title">{{subTitle}}</span>
       <span class="view-more" v-if="to !== undefined" @click="tipAction">
         <a>
-          {{tipText}} <i-icon type="arrow-right-b"></i-icon>
+          {{tipText ? tipText : $t('common.viewmore')}} <i-icon type="arrow-right-b"></i-icon>
         </a>
       </span>
     </div>
@@ -38,7 +38,7 @@
       mainTitle: '',
       subTitle: '',
       tipText: {
-        default: '查看更多'
+        default: undefined
       },
       menus: {
         Type: Array,
@@ -77,7 +77,7 @@
     },
     methods: {
       menuTitle(menu) {
-        return menu.selected ? (menu.selectedTitle !== undefined ? menu.selectedTitle : menu.title) : menu.title;
+        return menu.selected ? (menu.selectedTitle !== undefined ? this.$t(menu.selectedTitle) : this.$t(menu.title)) : this.$t(menu.title);
       },
       refresh() {
         this.copiedMenus = undefined;

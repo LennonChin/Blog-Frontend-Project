@@ -1,3 +1,6 @@
+import zh from 'iview/dist/locale/zh-CN';
+import en from 'iview/dist/locale/en-US';
+
 // 文字省略模式
 export const LineBreakMode = {
   WrappingTruncatingTail: 1, // 显示头部文字内容，其他直接截断。
@@ -22,9 +25,9 @@ export const MaxLimitSize = 100;
 
 // section title默认的menus
 export const SectionTitleDefaultMenus = [
-  {title: '顺序', selectedTitle: '逆序', selected: true, method: 'timeSorted'},
-  {title: '评论最多', selected: false, method: 'mostComment'},
-  {title: '推荐', selected: false, method: 'recommend'}
+  {title: 'common.order.desc', selectedTitle: 'common.order.asc', selected: true, method: 'timeSorted'},
+  {title: 'common.mostComment', selected: false, method: 'mostComment'},
+  {title: 'common.recommend', selected: false, method: 'recommend'}
 ];
 
 // section tite默认的日期选择options
@@ -70,4 +73,62 @@ export const SectionTitleDefaultDatePickerOptions = {
       }
     }
   ]
+};
+
+// 国际化
+export const i18nMessage = {
+  CN: Object.assign(zh, {
+    title: '中文',
+    common: {
+      viewmore: '查看更多',
+      order: {
+        desc: '逆序',
+        asc: '顺序'
+      },
+      mostComment: '评论最多',
+      hot: '最热',
+      recommend: '推荐'
+    },
+    article: {
+      author: '作者',
+      publishTime: '发布于',
+      read: '阅读',
+      comments: '阅读',
+      likes: '阅读',
+      desc: '摘要',
+      authTip: '该文章已加密，您需要输入阅读密码',
+      detailAddTip: '以上内容添加于',
+      detailUpdateTip: '更新于',
+      mostComment: '评论最多',
+      hot: '最热',
+      recommend: '推荐'
+    }
+  }),
+  EN: Object.assign(en, {
+    title: 'CN',
+    common: {
+      viewmore: 'View More',
+      order: {
+        desc: 'Desc',
+        asc: 'Asc'
+      },
+      mostComment: 'Most Comment',
+      hot: 'Hot',
+      recommend: 'Recommend'
+    },
+    article: {
+      author: 'By',
+      publishTime: 'At Time',
+      read: 'read',
+      comments: 'comments',
+      likes: 'likes',
+      desc: 'Abstract',
+      authTip: 'Private Article, need reading password.',
+      detailAddTip: 'Above context added at',
+      detailUpdateTip: 'updated at',
+      mostComment: 'Most Comment',
+      hot: 'Hot',
+      recommend: 'Recommend'
+    }
+  })
 };

@@ -28,17 +28,17 @@
         <!-- 类别导航 -->
         <li class="nav-dropdown-container" v-for="category_level1 in allCategorysInfo" v-if="category_level1.is_tab">
           <router-link class="nav-link" :to="rootRouterLink(category_level1)">
-            {{ category_level1.name }} <span class="arrow"></span>
+            {{ category_level1[resolveI18N('name')] }} <span class="arrow"></span>
           </router-link>
           <ul class="nav-dropdown" v-if="category_level1.sub_category.length > 0">
             <li v-for="category_level2 in category_level1.sub_category" v-if="category_level2.is_tab">
               <router-link class="nav-link" :to="routerLink(category_level2)">
-                {{category_level2.name}}
+                {{ category_level2[resolveI18N('name')] }}
               </router-link>
               <ul class="nav-dropdown">
                 <li v-for="category_level3 in category_level2.sub_category" v-if="category_level3.is_tab">
                   <router-link class="nav-link" :to="routerLink(category_level3)">
-                    {{category_level3.name}}
+                    {{ category_level3[resolveI18N('name')] }}
                   </router-link>
                 </li>
               </ul>
@@ -52,10 +52,13 @@
           </a>
         </li>
         <li>
-          <i-switch @on-change="toggleTheme" v-model="isDark">
-            <span slot="open">夜</span>
-            <span slot="close">日</span>
-          </i-switch>
+          <i-button-group size="small">
+            <i-button style="width:30px;" type="ghost" :icon="isDark ? 'android-sunny' : 'ios-moon'" @click="toggleTheme">
+            </i-button>
+            <i-button style="width:40px;" type="ghost" @click="toggleLanguage">
+              {{ $i18n.locale === 'EN' ? '中文' : 'EN' }}
+            </i-button>
+          </i-button-group>
         </li>
       </ul>
     </div>
@@ -123,13 +126,8 @@
         siteInfo: state => state.base.siteInfo,
         siteTheme: state => state.base.siteTheme
       }),
-      isDark: {
-        get: function () {
-          return this.siteTheme === 'dark';
-        },
-        set: function (newTheme) {
-          this.updateSiteTheme(newTheme);
-        }
+      isDark: function () {
+        return this.siteTheme === 'dark';
       }
     },
     methods: {
@@ -162,6 +160,13 @@
           this.startY = y;
         } catch (e) {
           console.log(e.message);
+        }
+      },
+      toggleLanguage() {
+        if (this.$i18n.locale === 'CN') {
+          this.$i18n.locale = 'EN';
+        } else if (this.$i18n.locale === 'EN') {
+          this.$i18n.locale = 'CN';
         }
       },
       touchMove(evt) {
@@ -247,8 +252,8 @@
         const theme = loadFromLocal('siteConfig', 'theme', 'default');
         this.updateSiteTheme(theme);
       },
-      toggleTheme(isDark) {
-        this.updateSiteTheme(isDark ? 'dark' : 'default');
+      toggleTheme() {
+        this.updateSiteTheme(this.siteTheme === 'dark' ? 'default' : 'dark');
       }
     },
     components: {

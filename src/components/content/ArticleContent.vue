@@ -3,14 +3,14 @@
     <i-row v-if="!needAuth">
       <i-col :xs="24" :sm="24" :md="24" :lg="17">
         <div class="layout-left" v-if="article">
-          <article-page-header :article="article"></article-page-header>
+          <article-page-header :article="article" :languages="languages" @selectedLanguage="selectedLanguage"></article-page-header>
           <article-page-content>
             <div class="article-details" id="article-main-page" slot="content" ref="article" v-viewer>
-              <div class="detail" v-if="article" v-for="detail in article.details">
+              <div class="detail" v-if="articleDetail" v-for="detail in articleDetail">
                 <article class="typo container article-main-content" v-html="detail.formatted_content">
                 </article>
-                <div class="detail-footer">以上内容添加于 {{ detail.add_time | socialDate
-                  }} &nbsp;&nbsp;&nbsp; 更新于 {{ detail.update_time | socialDate }}
+                <div class="detail-footer">{{ $t('article.detailAddTip') }} {{ detail.add_time | socialDate
+                  }} &nbsp;&nbsp;&nbsp; {{ $t('article.detailUpdateTip') }} {{ detail.update_time | socialDate }}
                 </div>
               </div>
             </div>
@@ -121,12 +121,21 @@
     computed: {
       ...mapState({
         article: state => state.article.article,
+        languages: state => state.article.languages,
+        selectedLanguageIndex: state => state.article.selectedLanguageIndex,
         needAuth: state => state.article.needAuth
-      })
+      }),
+      articleDetail: function () {
+        let language = this.languages[this.selectedLanguageIndex];
+        return this.article.details.filter(detail => {
+          return detail.language === language;
+        });
+      }
     },
     methods: {
       ...mapMutations({
         updateArticleAuth: 'article/UPDATE_ARTICLE_AUTH',
+        updateArticleSelectedLanguage: 'article/UPDATE_ARTICLE_SelectedLanguageIndex',
         clearArticleInfo: 'article/CLAER_ARTICLE_DETAIL_INFO'
       }),
       ...mapActions({
@@ -221,6 +230,9 @@
             checkAuth(this.browse_auth_input, false);
           }
         });
+      },
+      selectedLanguage(seletedLanguageIndex) {
+        this.updateArticleSelectedLanguage(seletedLanguageIndex);
       },
       // 更新文章图片、目录
       refreshContent() {

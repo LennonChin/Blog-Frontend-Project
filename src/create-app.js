@@ -6,6 +6,7 @@ import App from './App.vue';
 // v-viewer
 import 'viewerjs/dist/viewer.css';
 import Viewer from 'v-viewer';
+import {i18nMessage} from '@/common/js/const';
 
 import createRouter from './router/router';
 import createStore from './store/store';
@@ -15,6 +16,7 @@ import {
   Row,
   Col,
   Button,
+  ButtonGroup,
   Input,
   Progress,
   Tag,
@@ -38,8 +40,13 @@ import {
   Spin,
   Tooltip,
   BackTop,
-  Rate
+  Rate,
+  locale
 } from 'iview';
+import zh from 'iview/dist/locale/zh-CN';
+import en from 'iview/dist/locale/en-US';
+
+import VueI18n from 'vue-i18n';
 
 Vue.use(VueRouter);
 Vue.use(Vuex);
@@ -57,6 +64,7 @@ Vue.prototype.$Notice.config({
 Vue.component('i-row', Row);
 Vue.component('i-col', Col);
 Vue.component('i-button', Button);
+Vue.component('i-button-group', ButtonGroup);
 Vue.component('i-input', Input);
 Vue.component('i-progress', Progress);
 Vue.component('i-tag', Tag);
@@ -78,6 +86,17 @@ Vue.component('i-backtop', BackTop);
 Vue.component('i-spin', Spin);
 Vue.component('i-tool-tip', Tooltip);
 Vue.component('i-rate', Rate);
+// iview不兼容7以上版本
+Vue.use(VueI18n);
+
+Vue.locale = () => {};
+const i18n = new VueI18n({
+  locale: 'CN',
+  messages: i18nMessage
+});
+
+locale(zh);
+locale(en);
 
 export default () => {
   const router = createRouter();
@@ -85,6 +104,7 @@ export default () => {
   const app = new Vue({
     router,
     store,
+    i18n,
     render: h => h(App)
   });
 

@@ -262,6 +262,16 @@ export const mixin = {
       } else {
         return url;
       }
+    },
+    resolveI18N(key) {
+      if (this.$i18n.locale === 'CN') {
+        if (key.indexOf('en_') === 0) {
+          return key.slice(3);
+        }
+        return key;
+      }
+      console.log(`${this.$i18n.locale.toLowerCase()}_${key}`);
+      return `${this.$i18n.locale.toLowerCase()}_${key}`;
     }
   },
   filters: {
