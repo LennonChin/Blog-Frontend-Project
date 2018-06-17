@@ -48,7 +48,7 @@
         <!-- 自定义的导航 -->
         <li class="nav-dropdown-container" v-for="navigation in siteInfo.navigations">
           <a class="nav-link" :href="navigation.url" :target="navigation.target">
-            {{ navigation.name }}
+            {{ navigation[resolveI18N('name')] }}
           </a>
         </li>
         <li class="switchs">

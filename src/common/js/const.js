@@ -211,7 +211,7 @@ export const i18nMessage = {
       email: '邮箱',
       nicknameTip: '请输入您的昵称',
       emailTip: '及邮箱以评论',
-      comemntClosed: '本文章已经关闭了评论功能',
+      commentClosed: '本文章已经关闭了评论功能',
       suppportMarkdown: '支持Markdown',
       publish: '发布',
       publishing: '发布中'
@@ -374,7 +374,7 @@ export const i18nMessage = {
       email: 'Email',
       nicknameTip: 'Please input nickname',
       emailTip: 'and email to comment',
-      comemntClosed: 'This post cannot be comment',
+      commentClosed: 'This post cannot be comment',
       suppportMarkdown: 'Support Markdown',
       publish: 'Publish',
       publishing: 'Publishing'
