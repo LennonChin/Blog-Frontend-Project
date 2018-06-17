@@ -6,10 +6,10 @@
         <a class="title">
           <i-tool-tip placement="right" :content="routerInfos(post).message" v-if="post.browse_password_encrypt">
             <i-icon type="android-lock" color="#FA5555" v-if="post.browse_password_encrypt" style="margin-right:5px;"></i-icon>
-          </i-tool-tip>{{ post.title }}
+          </i-tool-tip>{{ post[resolveI18N('title')] }}
         </a>
-        <a class="see-desc" @click.stop="seeDesc" :class="{show: showDesc}">{{ showDesc ? '隐藏简介' : '查看简介' }} <i-icon type="android-arrow-dropup-circle"></i-icon></a>
-        <p class="desc" :class="{show: showDesc}">{{ post.desc }}</p>
+        <a class="see-desc" @click.stop="seeDesc" :class="{show: showDesc}">{{ showDesc ? $t('timeline.hideDescTip') : $t('timeline.showDescTip') }} <i-icon type="android-arrow-dropup-circle"></i-icon></a>
+        <p class="desc" :class="{show: showDesc}">{{ post[resolveI18N('desc')] }}</p>
       </div>
     </div>
   </div>

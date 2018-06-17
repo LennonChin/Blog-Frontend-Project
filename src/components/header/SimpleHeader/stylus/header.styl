@@ -50,6 +50,10 @@ body
 				display inline-block
 				&.search-area
 					margin-right 15px
+				&.switchs
+					.ivu-btn
+						i::before, span
+							color $default-info-color
 			.nav-dropdown-container
 				margin-right 10px
 				&:hover
@@ -181,6 +185,11 @@ body.dark
 				> .nav-dropdown
 					li
 						background-color $dark-header-background-color
+						&.switchs
+							.ivu-btn
+								border-color $dark-info-color
+								i::before, span
+									color $dark-info-color
 			.nav-dropdown
 				border 1px solid $dark-header-background-color
 			a.nav-link

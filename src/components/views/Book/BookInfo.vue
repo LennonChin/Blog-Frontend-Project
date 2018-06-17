@@ -1,6 +1,6 @@
 <template>
   <div class="book-info" v-if="bookDoubanInfo !== undefined">
-    <panel :title="'图书信息'" :titleAlign="'center'">
+    <panel :title="$t('book.bookInfo')" :titleAlign="'center'">
       <div slot="content" class="content">
         <div class="img">
           <div class="container">
@@ -12,11 +12,11 @@
         </div>
         <div class="info">
           <p class="title"><a :href="bookDoubanInfo.alt" target="_blank">{{ bookDoubanInfo.title }}</a></p>
-          <p class="desc"><span>作者：</span>{{ bookDoubanInfo.author.join(' ') }}</p>
-          <p class="desc"><span>出版社：</span>{{ bookDoubanInfo.publisher }}</p>
-          <p class="desc"><span>出版日期：</span>{{ bookDoubanInfo.publish_date }}</p>
-          <p class="desc"><span>页数：</span>{{ bookDoubanInfo.pages }}</p>
-          <p class="desc"><span>评分：</span>
+          <p class="desc"><span>{{ $t('book.author') }}：</span>{{ bookDoubanInfo.author.join(' ') }}</p>
+          <p class="desc"><span>{{ $t('book.publisher') }}：</span>{{ bookDoubanInfo.publisher }}</p>
+          <p class="desc"><span>{{ $t('book.publishDate') }}：</span>{{ bookDoubanInfo.publish_date }}</p>
+          <p class="desc"><span>{{ $t('book.pages') }}：</span>{{ bookDoubanInfo.pages }}</p>
+          <p class="desc"><span>{{ $t('book.rating') }}：</span>
             <i-rate v-model="bookDoubanInfo.rating * 0.5" :allowHalf="true" :disabled="true"></i-rate>
           </p>
           <p class="desc">

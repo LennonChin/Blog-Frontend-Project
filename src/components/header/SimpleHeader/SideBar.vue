@@ -11,10 +11,10 @@
         </div>
         <div class="sidebar-menus">
           <div class="site-nav">
-            <p><i-icon type="map"></i-icon> 网站导航</p>
+            <p><i-icon type="map"></i-icon> {{ $t('others.siteNav') }}</p>
             <i-switch v-model="showNav">
-              <span slot="open">开</span>
-              <span slot="close">关</span>
+              <span slot="open">{{ $t('others.open') }}</span>
+              <span slot="close">{{ $t('others.close') }}</span>
             </i-switch>
           </div>
           <ul class="nav-menu" :class="{'hide': !showNav}">
@@ -22,19 +22,19 @@
             <li class="nav-dropdown-container" v-for="category_level1 in allCategorysInfo">
               <i-icon type="minus-round"></i-icon>&nbsp;
               <router-link class="nav-link" :to="rootRouterLink(category_level1)">
-                {{ category_level1.name }} <span class="arrow"></span>
+                {{ category_level1[resolveI18N('name')] }} <span class="arrow"></span>
               </router-link>
               <ul class="nav-dropdown" v-if="category_level1.sub_category.length > 0">
                 <li v-for="category_level2 in category_level1.sub_category">
                   <i-icon type="minus-round"></i-icon>
                   <router-link class="nav-link" :to="routerLink(category_level2)">
-                    {{category_level2.name}}
+                    {{category_level2[resolveI18N('name')]}}
                   </router-link>
                   <ul class="nav-dropdown">
                     <li v-for="category_level3 in category_level2.sub_category">
                       <i-icon type="minus-round"></i-icon>&nbsp;
                       <router-link class="nav-link" :to="routerLink(category_level3)">
-                        {{category_level3.name}}
+                        {{category_level3[resolveI18N('name')]}}
                       </router-link>
                     </li>
                   </ul>
@@ -45,23 +45,26 @@
             <li class="nav-dropdown-container" v-for="navigation in siteInfo.navigations">
               <i-icon type="minus-round"></i-icon>&nbsp;
               <router-link class="nav-link" :to="navigation.url" :target="navigation.target">
-                {{ navigation.name }}
+                {{ navigation[resolveI18N('name')] }}
               </router-link>
             </li>
           </ul>
           <div class="sidebar-toc-list" ref="list">
             <div class="site-nav">
-              <p><i-icon type="ios-flower-outline"></i-icon> 文章目录</p>
+              <p><i-icon type="ios-flower-outline"></i-icon> {{ $t('article.typeName') + $t('others.toc') }}</p>
             </div>
             <div id="sidebar-toc" class="list"  @click.prevent></div>
           </div>
         </div>
       </div>
       <div class="sidebar-operate-area" @click.stop>
-        <i-switch @on-change="toggleTheme" v-model="isDark">
-          <span slot="open">夜</span>
-          <span slot="close">日</span>
-        </i-switch>
+        <i-button-group size="small">
+          <i-button style="width:30px;" type="ghost" :icon="isDark ? 'android-sunny' : 'ios-moon'" @click="toggleTheme">
+          </i-button>
+          <i-button style="width:40px;" type="ghost" @click="toggleLanguage">
+            {{ $i18n.locale === 'EN' ? '中文' : 'EN' }}
+          </i-button>
+        </i-button-group>
       </div>
     </div>
     <div class="mask" @click.prevent="toggleSideBar"></div>
@@ -98,13 +101,8 @@
         bloggerInfo: state => state.base.bloggerInfo,
         siteTheme: state => state.base.siteTheme
       }),
-      isDark: {
-        get: function () {
-          return this.siteTheme === 'dark';
-        },
-        set: function(newTheme) {
-          this.updateSiteTheme(newTheme);
-        }
+      isDark: function () {
+        return this.siteTheme === 'dark';
       }
     },
     methods: {
@@ -126,8 +124,15 @@
       toggleSideBar() {
         this.show = !this.show;
       },
-      toggleTheme(isDark) {
-        this.updateSiteTheme(isDark ? 'dark' : 'default');
+      toggleLanguage() {
+        if (this.$i18n.locale === 'CN') {
+          this.$i18n.locale = 'EN';
+        } else if (this.$i18n.locale === 'EN') {
+          this.$i18n.locale = 'CN';
+        }
+      },
+      toggleTheme() {
+        this.updateSiteTheme(this.siteTheme === 'dark' ? 'default' : 'dark');
       }
     }
   };

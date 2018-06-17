@@ -115,66 +115,7 @@
       @media screen and (min-width: $responsive-lg)
         font-size 15px
         line-height 22px
-  // 代码相关
-  pre
-    margin-bottom 18px
-    @media only screen and (max-width: $responsive-sm)
-      margin-bottom 5px
-    @media screen and (min-width: $responsive-sm)
-      margin-bottom 8px
-    @media screen and (min-width: $responsive-md)
-      margin-bottom 15px
-    @media screen and (min-width: $responsive-lg)
-      margin-bottom 18px
-  code.hljs
-    display block
-    padding 0
-    border 0
-    margin 0
-    width 100%
-    font-size 14px
-    font-weight 100
-    font-family $code-font
-    background $default-border-color !important
-    color $default-info-color
-    white-space pre-wrap
-    > ul
-      list-style decimal
-      margin-left 30px 0 0 45px !important
-      padding 0
-      border-top 1px solid $default-border-hover-color
-      @media only screen and (max-width: $responsive-sm)
-        margin 21px 0 0 35px !important
-      @media screen and (min-width: $responsive-sm)
-        margin 25px 0 0 40px !important
-      @media screen and (min-width: $responsive-md)
-        margin 25px 0 0 40px !important
-      @media screen and (min-width: $responsive-lg)
-        margin 30px 0 0 45px !important
-      > li
-        list-style decimal-leading-zero
-        padding 5px
-        margin 0
-        line-height 16px
-        font-size 14px
-        background $default-codeLine-light
-        border-left 1px solid $default-border-hover-color
-        word-break break-all
-        word-wrap break-word
-        @media only screen and (max-width: $responsive-sm)
-          padding 2px
-          font-size 12px
-        @media screen and (min-width: $responsive-sm)
-          padding 3px
-          font-size 13px
-        @media screen and (min-width: $responsive-md)
-          padding 4px
-          font-size 14px
-        @media screen and (min-width: $responsive-lg)
-          padding 5px
-          font-size 14px
-        &:nth-of-type(even)
-          background $default-codeLine-dark
-          color inherit
 
 // dark主题下的颜色配置写在article.styl文件中
+@import "./PyMdown.styl";
+@import "./highlights.styl";

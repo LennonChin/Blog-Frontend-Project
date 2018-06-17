@@ -1,8 +1,9 @@
 <template>
   <div class="tag-wall">
-    <panel :title="'相关标签'">
+    <panel :title="$t('common.tagsWallTitle')">
       <div slot="content" class="content">
-        <i-tag :color="tag.color" type="dot" v-for="tag in tags" :key="tag.id" style="margin: 0 5px 5px 0;" class="dot-tag">{{ tag.name }} [{{ tag.related_post_num }}]
+        <i-tag :color="tag.color" type="dot" v-for="tag in tags" :key="tag.id" style="margin: 0 5px 5px 0;" class="dot-tag">
+          {{tag[resolveI18N('name')]}} [{{ tag.related_post_num }}]
         </i-tag>
       </div>
     </panel>
@@ -15,9 +16,11 @@
     mapActions
   } from 'vuex';
   import Panel from '@/components/views/Panel';
+  import {mixin} from '@/common/js/utils';
 
   export default {
     name: 'tag-wall',
+    mixins: [mixin],
     mounted() {
       if (this.$store.state.common.tags.length === 0) {
         console.log('tags');

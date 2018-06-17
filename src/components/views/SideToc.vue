@@ -1,6 +1,6 @@
 <template>
   <div class="side-toc hide-scrollbar">
-    <panel :title="'目录'">
+    <panel :title="$t('others.toc')">
       <div id="side-toc" class="list" slot="content" ref="list">
       </div>
     </panel>

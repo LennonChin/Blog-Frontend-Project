@@ -1,6 +1,6 @@
 <template>
   <div class="book-reading-cell">
-    <h4>正在阅读</h4>
+    <h4>{{ $t('book.reading') }}</h4>
     <a @click.prevent="gotoPostDetail(book)" :href="`${book.post_type}/${book.id}`">
       <div class="img">
         <div class="container">
@@ -12,12 +12,12 @@
       </div>
       <div class="book-info">
         <p class="title">
-          <i-tool-tip placement="right" content="该文章已加密，您需要输入阅读密码" v-if="book.browse_password_encrypt">
+          <i-tool-tip placement="right" :content="$t('book.authTip')" v-if="book.browse_password_encrypt">
             <i-icon type="android-lock" color="#FA5555" v-if="book.browse_password_encrypt"></i-icon>
           </i-tool-tip>
           <a @click.prevent="gotoPostDetail(book)" :href="`${book.post_type}/${book.id}`"> {{book.book_name}}</a>
         </p>
-        <p class="desc"><span>作者：</span>{{ book.book_author }}</p>
+        <p class="desc"><span>{{ $t('book.autor') }}：</span>{{ book.book_author }}</p>
         <i-progress :percent="book.read_precentage" :stroke-width="6">
           <i-icon type="checkmark-circled"></i-icon>
           <span>{{ book.read_precentage }}%</span>

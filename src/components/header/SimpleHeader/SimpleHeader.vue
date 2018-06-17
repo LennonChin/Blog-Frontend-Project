@@ -51,7 +51,7 @@
             {{ navigation.name }}
           </a>
         </li>
-        <li>
+        <li class="switchs">
           <i-button-group size="small">
             <i-button style="width:30px;" type="ghost" :icon="isDark ? 'android-sunny' : 'ios-moon'" @click="toggleTheme">
             </i-button>

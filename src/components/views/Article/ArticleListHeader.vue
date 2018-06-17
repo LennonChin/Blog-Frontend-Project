@@ -1,7 +1,7 @@
 <template>
   <div class="article-list-header">
     <classify-menu @selectCategory="selectCategory"></classify-menu>
-    <section-title :mainTitle="'文章列表'" :subTitle="'Articles'"></section-title>
+    <section-title :mainTitle="$t('article.typeName') + $t('others.list')" :subTitle="'Articles'"></section-title>
   </div>
 </template>
 

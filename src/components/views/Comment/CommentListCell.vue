@@ -15,12 +15,12 @@
               <div class="content">
                 <p class="title">
                   <span class="name" :class="theme" v-if="comment.author !== null"><a>{{ comment.author.nick_name }}</a></span>
-                  <span class="name-tag" v-if="comment.author !== null && comment.author.is_blogger">博主</span>
+                  <span class="name-tag" v-if="comment.author !== null && comment.author.is_blogger">{{ $t('comments.blogger') }}</span>
                   <span class="reply-icon" :class="theme" v-if="comment.reply_to_author !== null"><i-icon
                     type="forward"></i-icon></span>
                   <span class="reply-name" :class="theme"
                         v-if="comment.reply_to_author !== null"><a>{{ comment.reply_to_author.nick_name }}</a></span>
-                  <span class="name-tag" v-if="comment.reply_to_author !== null && comment.reply_to_author.is_blogger">博主</span>
+                  <span class="name-tag" v-if="comment.reply_to_author !== null && comment.reply_to_author.is_blogger">{{ $t('comments.blogger') }}</span>
                   <span class="time">{{ comment.add_time | socialDate }}</span>
                 </p>
                 <div class="comment-main-content" :class="theme" v-if="comment.detail" v-html="comment.detail.formatted_content"
@@ -29,7 +29,7 @@
                   <span class="like" @click="likeComment(comment)"><i-icon type="thumbsup"></i-icon> {{ comment.like_num }}</span>
                   <span class="unlike" @click="unlikeComment(comment)"><i-icon type="thumbsdown"></i-icon> {{ comment.unlike_num }}</span>
                   <span class="reply"><a @click="showEditor = !showEditor"><i-icon
-                    type="forward"></i-icon> 回复</a></span>
+                    type="forward"></i-icon> {{ $t('comments.reply') }}</a></span>
                   <!--<i-dropdown>-->
                   <!--<span class="i-dropdown-link">-->
                   <!--<i-icon type="android-share-alt"></i-icon> 分享 <i-icon type="arrow-down-b"></i-icon>-->

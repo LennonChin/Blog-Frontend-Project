@@ -11,8 +11,8 @@
         <div class="layout-left">
           <classify-menu :categorys="categorysInfo" @selectCategory="selectCategory"
                          :defaultCategory="selected_category"></classify-menu>
-          <section-title :mainTitle="categorysInfo[0].name + '列表'"
-                         :subTitle="categorysInfo[0].subname + ' List'"
+          <section-title :mainTitle="categorysInfo[0][resolveI18N('name')] + $t('others.list')"
+                         :subTitle="categorysInfo[0].en_name + ' List'"
                          :menus="menus"
                          :withRefresh="true"
                          :withTimeSelect="true"

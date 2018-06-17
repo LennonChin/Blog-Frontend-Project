@@ -4,8 +4,8 @@
       <i-col :xs="24" :sm="24" :md="24" :lg="17">
         <div class="layout-left">
           <classify-menu :categorys="categorysInfo" @selectCategory="selectCategory" :defaultCategory="selected_category"></classify-menu>
-          <section-title :mainTitle="'电影列表'"
-                         :subTitle="'Articles'"
+          <section-title :mainTitle="$t('movie.typeName') + $t('others.list')"
+                         :subTitle="'Movies'"
                          :menus="menus"
                          :withRefresh="true"
                          :withTimeSelect="true"

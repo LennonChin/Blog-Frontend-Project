@@ -143,7 +143,6 @@ export function checkPostAuth(post, title, message, noAuthCallback, successCallb
         failCallback();
       }
     };
-
     this.$Modal.confirm({
       maskClosable: true,
       render: (h) => {
@@ -270,7 +269,6 @@ export const mixin = {
         }
         return key;
       }
-      console.log(`${this.$i18n.locale.toLowerCase()}_${key}`);
       return `${this.$i18n.locale.toLowerCase()}_${key}`;
     }
   },
@@ -281,6 +279,9 @@ export const mixin = {
     },
     // 用于处理行尾省略号的过滤器
     textLineBreak: function (text, maxLength, lineBreakMode) {
+      if (text === undefined || text === null || text.length === 0) {
+        return '';
+      }
       if (lineBreakMode === null || lineBreakMode === undefined) {
         lineBreakMode = LineBreakMode.EllipsisTruncatingTail;
       }

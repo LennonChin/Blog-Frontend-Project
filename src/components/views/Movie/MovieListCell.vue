@@ -1,6 +1,6 @@
 <template>
   <div class="movie-list-cell">
-    <h4>历史观影<a href="">查看更多</a></h4>
+    <h4>{{ $t('movie.history') }}<a href="">{{ $t('common..browseMore.seemore') }}</a></h4>
     <i-row>
       <i-col :xs="12" :sm="12" :md="8" :lg="6" v-for="movie in movies" :key="movie.id">
         <div class="list">

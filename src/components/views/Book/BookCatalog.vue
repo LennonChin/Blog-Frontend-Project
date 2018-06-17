@@ -3,22 +3,22 @@
     <ul class="book-toc-list">
       <li class="book-toc-list-item" v-for="note1 in book.book_note">
         <a class="book-toc-link" :class="{'is-active-link' : note1.is_reading}" @click.prevent="gotoBookNoteDetail(note1)" :href="`${note1.post_type}/${note1.id}`">
-          <i-tool-tip placement="right" :content="note1.is_completed ? '已读' : (note1.is_reading ? '正在读' : '未读')">
+          <i-tool-tip placement="right" :content="note1.is_completed ? $t('book.readDone') : (note1.is_reading ? $t('book.reading') : $t('book.noRead'))">
             <span><i-icon :type="note1.is_completed ? 'android-checkbox-outline' : (note1.is_reading ? 'play' : 'android-checkbox-outline-blank')"></i-icon></span>
           </i-tool-tip>
           {{ note1.title }}
-          <i-tool-tip placement="right" :content="'笔记已完成'" v-if="note1.is_noted">
+          <i-tool-tip placement="right" :content="$t('book.noteDone')" v-if="note1.is_noted">
             <i-icon type="ios-compose"></i-icon>
           </i-tool-tip>
         </a>
         <ul class="book-toc-list is-collapsible" v-if="note1.sub_note.length > 0">
           <li class="book-toc-list-item" v-for="note2 in note1.sub_note">
             <a class="book-toc-link" :class="{'is-active-link' : note2.is_reading}" @click.prevent="gotoBookNoteDetail(note2)":href="`${note2.post_type}/${note2.id}`">
-              <i-tool-tip placement="right" :content="note2.is_completed ? '已读' : (note2.is_reading ? '正在读' : '未读')">
+              <i-tool-tip placement="right" :content="note2.is_completed ? $t('book.readDone') : (note2.is_reading ? $t('book.reading') : $t('book.noRead'))">
                 <span><i-icon :type="note2.is_completed ? 'android-checkbox-outline' : (note2.is_reading ? 'play' : 'android-checkbox-outline-blank')"></i-icon></span>
               </i-tool-tip>
               {{ note2.title }}
-              <i-tool-tip placement="right" :content="'笔记已完成'" v-if="note2.is_noted">
+              <i-tool-tip placement="right" :content="$t('book.noteDone')" v-if="note2.is_noted">
                 <i-icon type="ios-compose"></i-icon>
               </i-tool-tip>
             </a>
@@ -28,7 +28,7 @@
     </ul>
     <a class="toggle-more" @click="openToc" v-if="showToggleMoreMenu">
       <span style="z-index: 10;">
-        {{ showMoreToc ? '收起目录' : '展开查看所有目录' }}
+        {{ showMoreToc ? $t('book.hideToc') : $t('book.showToc') }}
         <i-icon :type="showMoreToc ? 'chevron-up' : 'chevron-down'"></i-icon>
       </span>
       <div class="mask" style="z-index: 9;"></div>

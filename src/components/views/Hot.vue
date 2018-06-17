@@ -1,6 +1,6 @@
 <template>
   <div class="hot" v-if="hots.length > 0">
-    <panel :title="'热门阅读'">
+    <panel :title="$t('common.hotTitle')">
       <div slot="content" class="content">
         <div class="top">
           <p class="title">
@@ -8,12 +8,11 @@
               <i-icon type="android-lock" color="#FA5555" v-if="articleSlice(0, 1)[0].browse_password_encrypt"></i-icon>
             </i-tool-tip>
             <a @click.prevent="gotoPostDetail(articleSlice(0, 1)[0])" :href="`${articleSlice(0, 1)[0].post_type}/${articleSlice(0, 1)[0].id}`">
-              {{ articleSlice(0, 1)[0].title }}
+              {{ articleSlice(0, 1)[0][resolveI18N('title')] }}
             </a>
           </p>
           <div class="tags">
-            <i-tag :color="tag.color" type="border" v-for="tag in articleSlice(0, 1)[0].tags" :key="tag.id" class="border-tag">{{
-              tag.name }}
+            <i-tag :color="tag.color" type="border" v-for="tag in articleSlice(0, 1)[0].tags" :key="tag.id" class="border-tag">{{tag[resolveI18N('name')]}}
             </i-tag>
           </div>
           <p class="info">
@@ -26,7 +25,7 @@
           <div class="img" v-if="articleSlice(0, 1)[0].front_image">
             <img :src="articleSlice(0, 1)[0].front_image" :alt="articleSlice(0, 1)[0].title">
           </div>
-          <p class="desc" v-if="articleSlice(0, 1)[0].desc">{{ articleSlice(0, 1)[0].desc | textLineBreak(60) }}</p>
+          <p class="desc" v-if="articleSlice(0, 1)[0].desc">{{ articleSlice(0, 1)[0][resolveI18N('desc')] | textLineBreak(60) }}</p>
         </div>
         <ul class="others">
           <li v-for="article in articleSlice(1)">
@@ -34,7 +33,7 @@
               <i-tool-tip placement="right" :content="routerInfos(article).message" v-if="article.browse_password_encrypt">
                 <i-icon type="android-lock" color="#FA5555" v-if="article.browse_password_encrypt"></i-icon>
               </i-tool-tip>
-              <a @click.prevent="gotoPostDetail(article)" :href="`${article.post_type}/${article.id}`">{{ article.title }}</a>
+              <a @click.prevent="gotoPostDetail(article)" :href="`${article.post_type}/${article.id}`">{{article[resolveI18N('title')]}}</a>
             </p>
             <p class="info">
               <span class="time">{{ article.add_time | socialDate }}</span>

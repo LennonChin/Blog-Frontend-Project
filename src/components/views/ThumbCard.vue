@@ -12,7 +12,7 @@
       </div>
       <div class="bottom-area">
         <h4 class="title">
-          <i-tool-tip placement="right" content="该图集已图集，您需要输入阅读密码" v-if="album.browse_password_encrypt">
+          <i-tool-tip placement="right" :content="$t('album.authTip')" v-if="album.browse_password_encrypt">
             <i-icon type="android-lock" color="#FA5555" v-if="album.browse_password_encrypt"></i-icon>
           </i-tool-tip>
           <a @click.prevent="gotoPostDetail(album)" :href="`${album.post_type}/${album.id}`">
@@ -22,9 +22,9 @@
         <p class="info"><span class="author"><a>By / {{ album.author }}</a></span></p>
         <p class="info"><span class="publish-time"><a>At time / {{ album.add_time | socialDate}}</a></span></p>
         <p class="operate_info">
-          <span class="readings"><a> {{ album.click_num}}次阅读</a></span> |
-          <span class="comments"><a> {{ album.comment_num}}个评论</a></span> |
-          <span class="likes"><a @click="likePost(album)"> {{ album.like_num }}个喜欢</a></span></p>
+          <span class="readings"><a> {{ album.click_num}} {{ $t('album.read') }}</a></span> |
+          <span class="comments"><a> {{ album.comment_num}} {{ $t('album.comments') }}</a></span> |
+          <span class="likes"><a @click="likePost(album)"> {{ album.like_num }} {{ $t('album.likes') }}</a></span></p>
       </div>
     </a>
   </div>

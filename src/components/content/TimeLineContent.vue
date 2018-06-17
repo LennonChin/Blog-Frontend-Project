@@ -5,7 +5,7 @@
         <div class="layout-left">
           <classify-menu :categorys="allCategorysInfo" @selectCategory="selectCategory"
                          :defaultCategory="top_category"></classify-menu>
-          <section-title :mainTitle="'存档时光'"
+          <section-title :mainTitle="$t('timeline.typeName')"
                          :subTitle="'Timeline'"
                          :menus="menus"
                          :withRefresh="true"
@@ -17,10 +17,9 @@
                          @clearDateSelect="dateSelectClear">
           </section-title>
           <div v-for="year in sortedYearKeys(timeline)" v-if="Object.keys(timeline).length > 0">
-            <archive-list-time-title :date="year + '年'" :count="timeline[year].count"></archive-list-time-title>
+            <archive-list-time-title :date="$t('timeline.year', {'0': year})" :count="timeline[year].count"></archive-list-time-title>
             <div v-for="month in sortedMonthKeys(timeline[year].months)">
-              <archive-list-time-title :date="month + '月'" :count="timeline[year].months[month].length"
-                                       :dateType="'month'"></archive-list-time-title>
+              <archive-list-time-title :date="$t('timeline.month', {'0': month})" :count="timeline[year].months[month].length" :dateType="'month'"></archive-list-time-title>
               <archive-list-cell v-for="post in timeline[year].months[month]" :post="post"
                                  :key="post.id"></archive-list-cell>
             </div>

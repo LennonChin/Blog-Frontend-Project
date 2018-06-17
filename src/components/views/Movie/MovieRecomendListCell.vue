@@ -1,6 +1,6 @@
 <template>
   <div class="movie-recommend-list-cell" v-if="movies.length > 0">
-    <h4>推荐影评</h4>
+    <h4>{{ $t('movie.recommend') }}</h4>
     <i-row>
       <i-col :xs="24" :sm="24" :md="6" :lg="8">
         <div class="left">
@@ -22,15 +22,15 @@
                 </div>
                 <div class="info">
                   <p class="title">
-                    <i-tool-tip placement="top" content="该文章已加密，您需要输入阅读密码" v-if="movie.browse_password_encrypt">
+                    <i-tool-tip placement="top" :content="$t('movie.authTip')" v-if="movie.browse_password_encrypt">
                       <i-icon type="android-lock" color="#FA5555" v-if="movie.browse_password_encrypt"></i-icon>
                     </i-tool-tip>
                     {{ movie.title }}
                   </p>
-                  <p class="desc"><span>导演：</span>{{ movie.director }}</p>
-                  <p class="desc"><span>主演：</span>{{ movie.actors | textLineBreak(20) }}</p>
-                  <p class="desc"><span>类型：</span>{{ movie.category.name }}</p>
-                  <p class="desc"><span>剧情介绍：</span>{{ movie.desc  | textLineBreak(30) }}</p>
+                  <p class="desc"><span>{{ $t('movie.director') }}：</span>{{ movie.director }}</p>
+                  <p class="desc"><span>{{ $t('movie.actors') }}：</span>{{ movie.actors | textLineBreak(20) }}</p>
+                  <p class="desc"><span>{{ $t('movie.type') }}：</span>{{ movie.category.name }}</p>
+                  <p class="desc"><span>{{ $t('movie.desc') }}：</span>{{ movie.desc  | textLineBreak(30) }}</p>
                 </div>
               </a>
             </div>

@@ -4,8 +4,8 @@
     <a class="result-option" v-for="(result, index) in result.results" :key="index" :data-link="result.link" @click="handleClick">
       <p class="title">{{result.title}}</p>
       <p class="infos">
-        <span class="comments">作者： {{result.author}}</span>
-        <span class="publish-time">时间： {{ result.add_time | socialDate }} </span>
+        <span class="comments">{{ $t('other.author') }}： {{result.author}}</span>
+        <span class="publish-time">{{ $t('other.time') }}： {{ result.add_time | socialDate }} </span>
       </p>
       <p class="highlighted" v-html="result.highlighted" @click.prevent></p>
     </a>

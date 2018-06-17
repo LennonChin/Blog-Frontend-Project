@@ -2,7 +2,7 @@
   <div class="search-view" @click.prevent.stop>
     <i-input v-model="searchKeyWords"
              icon="ios-search"
-             placeholder="你想搜什么？"
+             :placeholder="$t('common.inputPlaceholder.search')"
              @on-focus="search"
              @on-keydown="handleKeydown"
              @on-change="search">

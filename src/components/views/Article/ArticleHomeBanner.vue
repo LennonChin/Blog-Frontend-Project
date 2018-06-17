@@ -29,7 +29,7 @@
                 <p class="desc">
                   {{ article.desc | textLineBreak(70) }}
                 </p>
-                <i-button size="large" type="primary" @click.prevent="gotoPostDetail(article)" :href="`${article.post_type}/${article.id}`">点击查看更多</i-button>
+                <i-button size="large" type="primary" @click.prevent="gotoPostDetail(article)" :href="`${article.post_type}/${article.id}`">{{ $t('common.browseMore.clickToSeeMore') }}</i-button>
               </div>
             </div>
           </div>
@@ -65,7 +65,7 @@
           loop: true,
           effect: 'fade',
           autoplay: {
-            delay: 5000,
+            delay: 15000,
             disableOnInteraction: false
           },
           pagination: {

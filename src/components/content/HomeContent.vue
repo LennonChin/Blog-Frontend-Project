@@ -5,7 +5,7 @@
         <div class="layout-left">
           <!-- 文章 -->
           <section-title v-if="this.specialCategory('articles') !== undefined && articles.length > 0"
-                         :mainTitle="this.specialCategory('articles').name"
+                         :mainTitle="this.specialCategory('articles')[resolveI18N('name')]"
                          :subTitle="this.specialCategory('articles').en_name"
                          :menus="articlesTitleMenus"
                          :to="{'name': this.specialCategory('articles').category_type}"
@@ -17,7 +17,7 @@
           <article-list-cell v-for="article in articles" :article="article" :key="article.id"></article-list-cell>
           <!-- 图集 -->
           <section-title v-if="this.specialCategory('albums') !== undefined && albums.length > 0"
-                         :mainTitle="this.specialCategory('albums').name"
+                         :mainTitle="this.specialCategory('albums')[resolveI18N('name')]"
                          :subTitle="this.specialCategory('albums').en_name"
                          :menus="albumsTitleMenus"
                          :to="{'name': this.specialCategory('albums').category_type}"
@@ -35,7 +35,7 @@
           </div>
           <!-- 图书 -->
           <section-title v-if="this.specialCategory('readings') !== undefined && books.length > 0"
-                         :mainTitle="this.specialCategory('readings').name"
+                         :mainTitle="this.specialCategory('readings')[resolveI18N('name')]"
                          :subTitle="this.specialCategory('readings').en_name"
                          :menus="booksTitleMenus"
                          :to="{'name': this.specialCategory('readings').category_type}"
@@ -49,7 +49,7 @@
           </div>
           <!-- 阅读笔记 -->
           <section-title v-if="this.specialCategory('readings') !== undefined && bookNotes.length > 0"
-                         :mainTitle="'笔记'"
+                         :mainTitle="$t('others.bookNoteTitle')"
                          :subTitle="'Note'"
                          :menus="bookNotesTitleMenus"
                          :to="{'name': this.specialCategory('readings').category_type}"
@@ -63,7 +63,7 @@
           </div>
           <!-- 电影 -->
           <section-title v-if="this.specialCategory('movies') !== undefined && movies.length > 0"
-                         :mainTitle="this.specialCategory('movies').name"
+                         :mainTitle="this.specialCategory('movies')[resolveI18N('name')]"
                          :subTitle="this.specialCategory('movies').en_name"
                          :menus="moviesTitleMenus"
                          :to="{'name': this.specialCategory('movies').category_type}"
@@ -123,9 +123,9 @@
         hotArticles: undefined,
         recommendArticles: undefined,
         articlesTitleMenus: [
-          {title: 'article.mostComment', selected: false, method: 'mostComment'},
-          {title: 'article.hot', selected: false, method: 'hot'},
-          {title: 'article.recommend', selected: false, method: 'recommend'}
+          {title: 'article.filter.mostComment', selected: false, method: 'mostComment'},
+          {title: 'article.filter.hot', selected: false, method: 'hot'},
+          {title: 'article.filter.recommend', selected: false, method: 'recommend'}
         ],
         // 摄影
         mostCommentAlbums: undefined,
@@ -141,27 +141,27 @@
         hotBooks: undefined,
         recommendBooks: undefined,
         booksTitleMenus: [
-          {title: '评论最多', selected: false, method: 'mostComment'},
-          {title: '最热', selected: false, method: 'hot'},
-          {title: '推荐', selected: false, method: 'recommend'}
+          {title: 'book.filter.mostComment', selected: false, method: 'mostComment'},
+          {title: 'book.filter.hot', selected: false, method: 'hot'},
+          {title: 'book.filter.recommend', selected: false, method: 'recommend'}
         ],
         // 笔记
         mostCommentBookNotes: undefined,
         hotBookNotes: undefined,
         recommendBookNotes: undefined,
         bookNotesTitleMenus: [
-          {title: '评论最多', selected: false, method: 'mostComment'},
-          {title: '最热', selected: false, method: 'hot'},
-          {title: '推荐', selected: false, method: 'recommend'}
+          {title: 'bookNote.filter.mostComment', selected: false, method: 'mostComment'},
+          {title: 'bookNote.filter.hot', selected: false, method: 'hot'},
+          {title: 'bookNote.filter.recommend', selected: false, method: 'recommend'}
         ],
         // 电影
         mostCommentMovies: undefined,
         hotMovies: undefined,
         recommendMovies: undefined,
         moviesTitleMenus: [
-          {title: '评论最多', selected: false, method: 'mostComment'},
-          {title: '最热', selected: false, method: 'hot'},
-          {title: '推荐', selected: false, method: 'recommend'}
+          {title: 'movie.filter.mostComment', selected: false, method: 'mostComment'},
+          {title: 'movie.filter.hot', selected: false, method: 'hot'},
+          {title: 'movie.filter.recommend', selected: false, method: 'recommend'}
         ]
       };
     },

@@ -5,7 +5,7 @@
         <div class="layout-left">
           <classify-menu :categorys="categorysInfo" @selectCategory="selectCategory"
                          :defaultCategory="selected_category"></classify-menu>
-          <section-title :mainTitle="'笔记列表'"
+          <section-title :mainTitle="$t('others.bookNoteTitle') + $t('others.list')"
                          :subTitle="'Book Notes'"
                          :menus="menus"
                          :withRefresh="true"

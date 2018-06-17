@@ -13,7 +13,7 @@
           </div>
           <classify-menu :categorys="categorysInfo" @selectCategory="selectCategory"
                          :defaultCategory="selected_category"></classify-menu>
-          <section-title :mainTitle="'图书列表'"
+          <section-title :mainTitle="$t('others.bookTitle') + $t('others.list')"
                          :subTitle="'Books'"
                          :menus="menus"
                          :withRefresh="true"
@@ -22,7 +22,7 @@
                          @menusControl="menusControl">
           </section-title>
           <book-cell v-for="book in books" :book="book" :key="book.id"></book-cell>
-          <section-title :mainTitle="'笔记列表'"
+          <section-title :mainTitle="$t('others.bookNoteTitle') + $t('others.list')"
                          :subTitle="'Book Notes'"
                          :menus="menus"
                          :withRefresh="true"

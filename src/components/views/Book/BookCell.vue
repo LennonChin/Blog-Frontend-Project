@@ -5,24 +5,26 @@
              style="padding-left: 0;padding-right: 0;">
         <div class="text-wrapper">
           <h4 class="title">
-            <i-tool-tip placement="right" content="该文章已图集，您需要输入阅读密码" v-if="book.browse_password_encrypt">
+            <i-tool-tip placement="right" :content="$t('book.authTip')" v-if="book.browse_password_encrypt">
               <i-icon type="android-lock" color="#FA5555" v-if="book.browse_password_encrypt"></i-icon>
             </i-tool-tip>
-            <a @click.prevent="gotoPostDetail(book)" :href="`${book.post_type}/${book.id}`">{{book.title}}</a>
+            <a @click.prevent="gotoPostDetail(book)" :href="`${book.post_type}/${book.id}`">{{book[resolveI18N('title')]}}</a>
           </h4>
           <div class="tags">
-            <i-tag :color="tag.color" type="border" v-for="tag in book.tags" :key="tag.id" class="border-tag">{{ tag.name }}</i-tag>
+            <i-tag :color="tag.color" type="border" v-for="tag in book.tags" :key="tag.id" class="border-tag">
+              {{tag[resolveI18N('name')]}}
+            </i-tag>
           </div>
-          <p class="desc">{{book.desc | textLineBreak(70) }}
+          <p class="desc">{{book[resolveI18N('desc')] | textLineBreak(70) }}
             <a @click.prevent="gotoPostDetail(book)" :href="`${book.post_type}/${book.id}`"> View More
               <i-icon type="arrow-right-b"></i-icon>
             </a>
           </p>
           <p class="operate_info">
             <span class="publish-time"><a>{{ book.add_time | socialDate }}</a></span>
-            <span class="readings"><a><i-icon type="eye"></i-icon> {{book.click_num}} 阅</a></span>
-            <span class="comments"><a><i-icon type="compose"></i-icon> {{book.comment_num}} 评</a></span>
-            <span class="likes"><a @click="likePost(book)"><i-icon type="heart"></i-icon> {{book.like_num}} 赞</a></span>
+            <span class="readings"><a><i-icon type="eye"></i-icon> {{book.click_num}} {{ $t("book.read") }}</a></span>
+            <span class="comments"><a><i-icon type="compose"></i-icon> {{book.comment_num}} {{ $t("book.comments") }}</a></span>
+            <span class="likes"><a @click="likePost(book)"><i-icon type="heart"></i-icon> {{book.like_num}} {{ $t("book.likes") }}</a></span>
           </p>
         </div>
       </i-col>

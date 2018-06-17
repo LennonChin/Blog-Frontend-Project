@@ -17,15 +17,11 @@
   export default {
     name: 'browse-more',
     props: {
-      tipText: {
-        default: '浏览更多'
-      },
+      tipText: undefined,
       noMoreData: {
         default: false
       },
-      noMoreDataTipText: {
-        default: '暂无更多'
-      }
+      noMoreDataTipText: undefined
     },
     data() {
       return {
@@ -37,7 +33,13 @@
       tipStr: function () {
         let isNoMore = this.noMoreData || this.noMore;
         if (isNoMore) this.loading = false;
-        return isNoMore ? this.noMoreDataTipText : this.tipText;
+        return isNoMore ? this.noMoreDataTipText || this.noMoreDataDefaultTipText : this.tipText || this.defaultTipText;
+      },
+      defaultTipText: function () {
+        return this.$t('common.browseMore.seemore');
+      },
+      noMoreDataDefaultTipText: function () {
+        return this.$t('common.browseMore.nomore');
       }
     },
     methods: {

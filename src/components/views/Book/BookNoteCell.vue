@@ -5,31 +5,31 @@
              style="padding-left: 0;padding-right: 0;">
         <div class="text-wrapper">
           <h4 class="title">
-            <i-tool-tip placement="right" content="该文章已图集，您需要输入阅读密码" v-if="bookNote.browse_password_encrypt">
+            <i-tool-tip placement="right" :content="$t('bookNote.authTip')" v-if="bookNote.browse_password_encrypt">
               <i-icon type="android-lock" color="#FA5555" v-if="bookNote.browse_password_encrypt"></i-icon>
             </i-tool-tip>
-            <a @click.prevent="gotoPostDetail(bookNote)" :href="`${bookNote.post_type}/${bookNote.id}`"> {{bookNote.title}}</a>
+            <a @click.prevent="gotoPostDetail(bookNote)" :href="`${bookNote.post_type}/${bookNote.id}`"> {{bookNote[resolveI18N('title')]}}</a>
           </h4>
           <p class="book-info">
             <i-icon type="ios-book"></i-icon>《{{bookNote.book.book_name }}》&nbsp;
             <i-icon type="paintbrush"></i-icon>&nbsp;&nbsp;{{bookNote.book.book_author }}
           </p>
           <p class="book-info">
-            <i-icon type="document-text"></i-icon>&nbsp;&nbsp;Chapter：{{bookNote.abstract | textLineBreak(70) }}
+            <i-icon type="document-text"></i-icon>&nbsp;&nbsp;Chapter：{{bookNote.chapter | textLineBreak(70) }}
           </p>
           <div class="tags">
             <i-tag :color="tag.color" type="border" v-for="tag in bookNote.tags" :key="tag.id" class="border-tag">{{ tag.name }}</i-tag>
           </div>
-          <p class="desc">{{bookNote.abstract | textLineBreak(70) }}
+          <p class="desc">{{ bookNote[resolveI18N('desc')] | textLineBreak(70) }}
             <a @click.prevent="gotoPostDetail(bookNote)" :href="`${bookNote.post_type}/${bookNote.id}`"> View More
               <i-icon type="arrow-right-b"></i-icon>
             </a>
           </p>
           <p class="operate_info">
             <span class="publish-time"><a>{{ bookNote.add_time | socialDate }}</a></span>
-            <span class="readings"><a><i-icon type="eye"></i-icon> {{bookNote.click_num}} 阅</a></span>
-            <span class="comments"><a><i-icon type="compose"></i-icon> {{bookNote.comment_num}} 评</a></span>
-            <span class="likes"><a @click="likePost(book)"><i-icon type="heart"></i-icon> {{bookNote.like_num}} 赞</a></span>
+            <span class="readings"><a><i-icon type="eye"></i-icon> {{bookNote.click_num}} {{ $t('bookNote.read') }}</a></span>
+            <span class="comments"><a><i-icon type="compose"></i-icon> {{bookNote.comment_num}} {{ $t('bookNote.comments') }}</a></span>
+            <span class="likes"><a @click="likePost(book)"><i-icon type="heart"></i-icon> {{bookNote.like_num}} {{ $t('bookNote.likes') }}</a></span>
           </p>
         </div>
       </i-col>
@@ -41,7 +41,7 @@
       </i-col>
     </i-row>
     <a class="toggle-arrow" @click="toggleBookInfo" :class="{show: showBookInfo}">
-      {{ this.showBookInfo ? '隐藏' : '查看' }}书籍《{{ bookNote.book.book_name }}》信息 &nbsp;<i-icon type="chevron-up" :class="{show: showBookInfo}"></i-icon>
+      {{ this.showBookInfo ? $t('bookNote.HideBookInfo', {'0': bookNote.book.book_name}) : $t('bookNote.showBookInfo', {'0': bookNote.book.book_name}) }} &nbsp;<i-icon type="chevron-up" :class="{show: showBookInfo}"></i-icon>
     </a>
     <div class="book-infos" :class="{show: showBookInfo}" @click.prevent="gotoPostDetail(bookNote.book)" :href="`${bookNote.book.post_type}/${bookNote.book.id}`">
       <div class="book-infos-wrapper">
@@ -55,17 +55,17 @@
         </div>
         <div class="book-info">
           <p class="title">
-            <i-tool-tip placement="right" content="该文章已加密，您需要输入阅读密码" v-if="false">
+            <i-tool-tip placement="right" :content="$t('book.authTip')" v-if="false">
               <i-icon type="android-lock" color="#FA5555" v-if="false"></i-icon>
             </i-tool-tip>
-            《{{ bookNote.book.book_name }}》
+            《{{ bookNote.book[resolveI18N('title')] }}》
           </p>
-          <p class="desc"><span>作者：</span>{{ bookNote.book.book_author }}</p>
+          <p class="desc"><span>{{ $t('book.author') }}：</span>{{ bookNote.book.book_author }}</p>
           <i-progress :percent="bookNote.book.read_precentage" :stroke-width="6">
             <i-icon type="checkmark-circled"></i-icon>
             <span class="progress">{{bookNote.book.read_precentage}}%</span>
           </i-progress>
-          <p class="desc">{{ bookNote.book.desc | textLineBreak(140) }}</p>
+          <p class="desc">{{ bookNote.book[resolveI18N('desc')] | textLineBreak(140) }}</p>
           <i-tag type="border" v-for="tag in bookTags" :key="tag.name" class="border-tag">{{ tag.name }}</i-tag>
         </div>
       </div>

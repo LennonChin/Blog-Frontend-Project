@@ -7,13 +7,13 @@
         <img :src="resolveImageUrl(movie.front_image)" alt="">
       </div>
       <div class="info">
-        <p class="director"><span>导演：</span>{{ movie.director }}</p>
-        <p class="director"><span>主演：</span>{{ movie.actors }}</p>
-        <p class="director"><span>类型：</span>{{ movie.category.name }}</p>
-        <p class="director"><span>制片国家/地区：</span>{{ movie.region }}</p>
-        <p class="director"><span>语言：</span>{{ movie.language }}</p>
-        <p class="director"><span>片长：</span>{{ movie.length }}分钟</p>
-        <p class="director"><span>剧情介绍：</span>{{ movie.desc }}</p>
+        <p class="director"><span>{{ $t('movie.director') }}：</span>{{ movie.director }}</p>
+        <p class="director"><span>{{ $t('movie.actors') }}：</span>{{ movie.actors }}</p>
+        <p class="director"><span>{{ $t('movie.type') }}：</span>{{ movie.category.name }}</p>
+        <p class="director"><span>{{ $t('movie.region') }}：</span>{{ movie.region }}</p>
+        <p class="director"><span>{{ $t('movie.language') }}：</span>{{ movie.language }}</p>
+        <p class="director"><span>{{ $t('movie.length') }}：</span>{{ movie.length }}分钟</p>
+        <p class="director"><span>{{ $t('movie.desc') }}：</span>{{ movie.desc }}</p>
       </div>
     </div>
   </div>

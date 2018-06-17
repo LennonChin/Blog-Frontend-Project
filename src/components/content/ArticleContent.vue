@@ -9,8 +9,8 @@
               <div class="detail" v-if="articleDetail" v-for="detail in articleDetail">
                 <article class="typo container article-main-content" v-html="detail.formatted_content">
                 </article>
-                <div class="detail-footer">{{ $t('article.detailAddTip') }} {{ detail.add_time | socialDate
-                  }} &nbsp;&nbsp;&nbsp; {{ $t('article.detailUpdateTip') }} {{ detail.update_time | socialDate }}
+                <div class="detail-footer">{{ $t('common.detailAddTip') }} {{ detail.add_time | socialDate
+                  }} &nbsp;&nbsp;&nbsp; {{ $t('common.detailUpdateTip') }} {{ detail.update_time | socialDate }}
                 </div>
               </div>
             </div>

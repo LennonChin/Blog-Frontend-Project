@@ -11,7 +11,7 @@
     </ul>
     <div class="master" v-if="bloggerInfo.masters.length > 0">
       <div class="line"></div>
-      <h4>技能值</h4>
+      <h4>{{ $t('others.master') }}</h4>
       <div class="progresses">
         <i-row v-for="master in bloggerInfo.masters" :gutter="20" :key="master.id">
           <i-col :span="6">

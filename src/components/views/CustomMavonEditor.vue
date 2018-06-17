@@ -3,13 +3,13 @@
     <div class="operate">
       <i-row>
         <i-col :xs="8" :sm="8" :md="6" :lg="6" style="padding-left: 0; padding-right: 7.5px;">
-          <i-input v-model="nickName" placeholder="请输入您的昵称" size="large">
-            <span slot="prepend">昵称 </span>
+          <i-input v-model="nickName" :placeholder="$t('comments.nicknameTip')" size="large">
+            <span slot="prepend">{{ $t('comments.nickname') }} </span>
           </i-input>
         </i-col>
         <i-col :xs="16" :sm="16" :md="12" :lg="11" style="padding-left: 0; padding-right: 0;">
-          <i-input v-model="email" placeholder="及邮箱以评论" size="large">
-            <span slot="prepend">邮箱 </span>
+          <i-input v-model="email" :placeholder="$t('comments.emailTip')" size="large">
+            <span slot="prepend">{{ $t('comments.email') }} </span>
           </i-input>
           <!--<i-input v-model="email" placeholder="联系方式（邮箱或手机号）以评论" size="large">-->
           <!--<i-select v-model="select" slot="prepend" style="width: 80px">-->
@@ -36,7 +36,7 @@
     </div>
     <div class="editor-area">
       <i-spin size="large" v-if="!post.is_commentable" fix style="z-index: 1001;">
-        {{ post.is_commentable ? '' : '本文章已经关闭了评论功能' }}
+        {{ post.is_commentable ? '' : $t('comments.commentClosed') }}
       </i-spin>
       <mavon-editor v-model="origin_content"
                     v-if="showEditor"
@@ -56,15 +56,15 @@
       <div class="comment-tip">
         <a href="https://guides.github.com/features/mastering-markdown/" target="_blank">
           <i-icon type="social-markdown"></i-icon>
-          支持MarkDown</a>
+          {{ $t('comments.suppportMarkdown') }}</a>
       </div>
       <div class="publish-area">
         <!--<img src="../../assets/captcha.png" style="height: 32px; padding-right: 5px">-->
         <!--<i-input style="padding-right: 5px" placeholder="请输入验证码"></i-input>-->
         <!--<i-button size="default" @click="send" :type="buttonType">发布</i-button>-->
         <i-button size="default" :type="buttonType" :loading="publishing" @click="send" :disabled="!post.is_commentable">
-          <span v-if="!publishing">发布</span>
-          <span v-else>发布中</span>
+          <span v-if="!publishing">{{ $t('comments.publish') }}</span>
+          <span v-else>{{ $t('comments.publishing') }}</span>
         </i-button>
       </div>
     </div>

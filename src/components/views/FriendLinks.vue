@@ -1,6 +1,6 @@
 <template>
   <div class="friend-links" v-if="friendLinks.length > 0">
-    <panel :title="'友情链接'">
+    <panel :title="$t('others.friendLinks')">
       <ul class="link-list" slot="content">
         <li v-for="friendLink in friendLinks">
           <a :href="friendLink.url" target="_blank">

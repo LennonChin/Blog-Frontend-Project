@@ -12,7 +12,7 @@ import createRouter from './router/router';
 import createStore from './store/store';
 
 // // iView UI 组件引入
-import {
+import iview, {
   Row,
   Col,
   Button,
@@ -40,26 +40,14 @@ import {
   Spin,
   Tooltip,
   BackTop,
-  Rate,
-  locale
+  Rate
 } from 'iview';
-import zh from 'iview/dist/locale/zh-CN';
-import en from 'iview/dist/locale/en-US';
 
 import VueI18n from 'vue-i18n';
 
 Vue.use(VueRouter);
 Vue.use(Vuex);
 Vue.use(Viewer);
-
-Vue.prototype.$Modal = Modal;
-Vue.prototype.$Message = Message;
-Vue.prototype.$Notice = Notice;
-
-Vue.prototype.$Notice.config({
-  top: 70,
-  duration: 3
-});
 
 Vue.component('i-row', Row);
 Vue.component('i-col', Col);
@@ -88,15 +76,21 @@ Vue.component('i-tool-tip', Tooltip);
 Vue.component('i-rate', Rate);
 // iview不兼容7以上版本
 Vue.use(VueI18n);
-
 Vue.locale = () => {};
 const i18n = new VueI18n({
   locale: 'CN',
   messages: i18nMessage
 });
+iview.i18n((key, value) => i18n.t(key, value));
 
-locale(zh);
-locale(en);
+Vue.prototype.$Modal = Modal;
+Vue.prototype.$Message = Message;
+Vue.prototype.$Notice = Notice;
+
+Vue.prototype.$Notice.config({
+  top: 70,
+  duration: 3
+});
 
 export default () => {
   const router = createRouter();

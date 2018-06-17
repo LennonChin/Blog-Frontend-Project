@@ -18,12 +18,11 @@
         </li>
       </ul>
       <div class="date-picker" v-if="withTimeSelect">
-        <i-date-picker type="daterange" :options="datePickerOptions" confirm :split-panels="true" placement="bottom-end"
-                        placeholder="选择日期区间" @on-clear="clearDateSelect" @on-ok="comfirmDateSelect" @on-change="changeDate"
+        <i-date-picker type="daterange" :options="datePickerOptions" confirm :split-panels="true" placement="bottom-end" :placeholder="$t('common.inputPlaceholder.selectDataRange')" @on-clear="clearDateSelect" @on-ok="comfirmDateSelect" @on-change="changeDate"
                         style="width: 180px;"></i-date-picker>
       </div>
       <div class="refresh" v-if="withRefresh">
-        <a @click="refresh" title="刷新">
+        <a @click="refresh" :title="$t('sectionTitle.filter.refresh')">
           <i-icon type="refresh"></i-icon>
         </a>
       </div>

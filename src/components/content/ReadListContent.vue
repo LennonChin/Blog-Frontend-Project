@@ -5,7 +5,7 @@
         <div class="layout-left">
           <classify-menu :categorys="categorysInfo" @selectCategory="selectCategory"
                          :defaultCategory="selected_category"></classify-menu>
-          <section-title :mainTitle="'图书列表'"
+          <section-title :mainTitle="$t('others.bookTitle') + $t('others.list')"
                          :subTitle="'Books'"
                          :menus="booksMenus"
                          :withRefresh="true"
@@ -18,7 +18,7 @@
           </section-title>
           <book-cell v-for="book in books" :book="book" :key="book.id"></book-cell>
           <browse-more @browseMore="browseMoreBooks" :noMoreData="noMoreBooksData" ref="browseMoreBooks"></browse-more>
-          <section-title :mainTitle="'笔记列表'"
+          <section-title :mainTitle="$t('others.bookNoteTitle') + $t('others.list')"
                          :subTitle="'Book Notes'"
                          :menus="bookNotesMenus"
                          :withRefresh="true"

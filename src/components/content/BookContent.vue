@@ -14,12 +14,12 @@
                 </div>
               </div>
               <div class="info">
-                <p class="title">{{ bookDoubanInfo.title }}</p>
-                <p class="desc"><span>作者：</span>{{ bookDoubanInfo.author.join(' ') }}</p>
-                <p class="desc"><span>出版社：</span>{{ bookDoubanInfo.publisher }}</p>
-                <p class="desc"><span>出版日期：</span>{{ bookDoubanInfo.publish_date }}</p>
-                <p class="desc"><span>页数：</span>{{ bookDoubanInfo.pages }}</p>
-                <p class="desc"><span>评分：</span>
+                <p class="title">{{ book[resolveI18N('title')] }}</p>
+                <p class="desc"><span>{{ $t('book.author') }}：</span>{{ bookDoubanInfo.author.join(' ') }}</p>
+                <p class="desc"><span>{{ $t('book.publisher') }}：</span>{{ bookDoubanInfo.publisher }}</p>
+                <p class="desc"><span>{{ $t('book.publishDate') }}：</span>{{ bookDoubanInfo.publish_date }}</p>
+                <p class="desc"><span>{{ $t('book.pages') }}：</span>{{ bookDoubanInfo.pages }}</p>
+                <p class="desc"><span>{{ $t('book.rating') }}：</span>
                   <i-rate v-model="bookDoubanInfo.rating.average * 0.5" :allowHalf="true"
                           :disabled="true"></i-rate>
                 </p>
@@ -30,17 +30,17 @@
               <div class="rating"></div>
             </div>
             <vue-tabs class="book-detail-info" @tab-change="handleTabChange">
-              <v-tab title="简介">
+              <v-tab :title="$t('book.desc')">
                 <p class="author" v-html="bookDoubanInfo.author_intro"></p>
                 <p class="summary" v-html="bookDoubanInfo.summary"></p>
               </v-tab>
-              <v-tab title="读书目录">
+              <v-tab :title="$t('book.readCatelog')">
                 <book-catalog :book="book"></book-catalog>
               </v-tab>
-              <v-tab title="原书目录">
+              <v-tab :title="$t('book.catelog')">
                 <p class="catalog" v-html="bookDoubanInfo.catalog"></p>
               </v-tab>
-              <v-tab title="整书读后感" v-if="book !== undefined">
+              <v-tab :title="$t('book.readThink')" v-if="book !== undefined">
                 <div class="article-details" id="article-main-page" ref="book" v-viewer>
                   <div class="detail" v-for="detail in book.details">
                     <article class="typo container article-main-content"

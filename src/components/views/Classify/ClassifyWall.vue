@@ -1,6 +1,6 @@
 <template>
   <div class="classify" v-if="categorys.length > 0">
-    <p class="header-title">摄影分类</p>
+    <p class="header-title">{{ $t('album.typeName') + $t('others.category') }}</p>
     <i-row>
       <i-col :xs="8" :sm="6" :md="4" :lg="4" v-for="category in categorys" :key="category.id">
         <a class="content" @click="selectCategory(category)">
