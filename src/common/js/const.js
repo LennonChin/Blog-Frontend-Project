@@ -237,7 +237,9 @@ export const i18nMessage = {
       toc: '目录',
       siteNav: '网站导航',
       open: '开',
-      close: '关'
+      close: '关',
+      sticky: '置顶',
+      stickyTip: '置顶文章'
     }
   }),
   EN: Object.assign(en, {
@@ -401,7 +403,9 @@ export const i18nMessage = {
       toc: ' Content',
       siteNav: 'Site Map',
       open: 'On',
-      close: 'Off'
+      close: 'Off',
+      sticky: 'Sticky',
+      stickyTip: 'Sticky Post'
     }
   })
 };

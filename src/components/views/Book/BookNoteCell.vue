@@ -9,7 +9,7 @@
               <i-icon type="android-lock" color="#FA5555" v-if="bookNote.browse_password_encrypt"></i-icon>
             </i-tool-tip>
             <a @click.prevent="gotoPostDetail(bookNote)" :href="`${bookNote.post_type}/${bookNote.id}`"> {{bookNote[resolveI18N('title')]}}</a>
-            <i-tag color="yellow" v-if="bookNote.index > 0" style="margin-left: 1px;vertical-align: top">置顶</i-tag>
+            <span class="special" v-if="bookNote.index > 0" :title="$t('others.stickyTip')">{{ $t('others.sticky') }}</span>
           </h4>
           <p class="book-info">
             <i-icon type="ios-book"></i-icon>《{{bookNote.book.book_name }}》&nbsp;
@@ -198,8 +198,8 @@
         font-weight 100
         line-height 27px
         @media only screen and (max-width: 768px)
-          font-size 18px
-          line-height 21px
+          font-size 17px
+          line-height 23px
           word-wrap break-word
         a
           color $default-title-color
@@ -207,6 +207,16 @@
           &:hover
             color $default-title-hover-color
             text-decoration underline
+        span.special
+          border-radius $border-radius
+          font-size 12px
+          font-weight 100
+          padding 3px 5px
+          margin-left 1px
+          vertical-align top
+          color $default-background-color
+          background $iview-secondary-warning-color
+          cursor pointer
       .book-info
         font-size 14px
         font-weight 300

@@ -9,7 +9,7 @@
               <i-icon type="android-lock" color="#FA5555" v-if="article.browse_password_encrypt"></i-icon>
             </i-tool-tip>
             <a @click.prevent="gotoPostDetail(article)" :href="`${article.post_type}/${article.id}`"> {{article[resolveI18N('title')]}}</a>
-            <i-tag color="yellow" v-if="article.index > 0" style="margin-left: 1px;vertical-align: top">置顶</i-tag>
+            <span class="special" v-if="article.index > 0" :title="$t('others.stickyTip')">{{ $t('others.sticky') }}</span>
           </h4>
           <div class="tags">
             <i-tag :color="tag.color" type="border" v-for="tag in article.tags" :key="tag.id" class="border-tag">{{tag[resolveI18N('name')]}}</i-tag>
@@ -150,8 +150,8 @@
         font-weight 100
         line-height 27px
         @media only screen and (max-width: 768px)
-          font-size 18px
-          line-height 21px
+          font-size 17px
+          line-height 23px
         word-wrap break-word
         a
           color $default-title-color
@@ -159,6 +159,16 @@
           &:hover
             color $default-title-hover-color
             text-decoration underline
+        span.special
+          border-radius $border-radius
+          font-size 12px
+          font-weight 100
+          padding 3px 5px
+          margin-left 1px
+          vertical-align top
+          color $default-background-color
+          background $iview-secondary-warning-color
+          cursor pointer
       .tags
         margin 8px 0
       .desc

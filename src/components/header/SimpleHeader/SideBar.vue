@@ -11,7 +11,10 @@
         </div>
         <div class="sidebar-menus">
           <div class="site-nav">
-            <p><i-icon type="map"></i-icon> {{ $t('others.siteNav') }}</p>
+            <p>
+              <i-icon type="map"></i-icon>
+              {{ $t('others.siteNav') }}
+            </p>
             <i-switch v-model="showNav">
               <span slot="open">{{ $t('others.open') }}</span>
               <span slot="close">{{ $t('others.close') }}</span>
@@ -49,11 +52,14 @@
               </router-link>
             </li>
           </ul>
-          <div class="sidebar-toc-list" ref="list">
+          <div class="sidebar-toc-list" ref="list" v-show="showToc">
             <div class="site-nav">
-              <p><i-icon type="ios-flower-outline"></i-icon> {{ $t('article.typeName') + $t('others.toc') }}</p>
+              <p>
+                <i-icon type="ios-flower-outline"></i-icon>
+                {{ $t('article.typeName') + $t('others.toc') }}
+              </p>
             </div>
-            <div id="sidebar-toc" class="list"  @click.prevent></div>
+            <div id="sidebar-toc" class="list" @click.prevent></div>
           </div>
         </div>
       </div>
@@ -95,6 +101,10 @@
       };
     },
     mixins: [mixin],
+    beforeRouteUpdate(to, from, next) {
+      next();
+      console.log(this.$route.path);
+    },
     computed: {
       ...mapState({
         siteInfo: state => state.base.siteInfo,
@@ -103,6 +113,14 @@
       }),
       isDark: function () {
         return this.siteTheme === 'dark';
+      },
+      showToc: function () {
+        return (this.$route.name === 'article' ||
+          this.$route.name === 'book' ||
+          this.$route.name === 'book/note' ||
+          this.$route.name === 'movie' ||
+          this.$route.name === 'album'
+        );
       }
     },
     methods: {
@@ -123,6 +141,12 @@
       },
       toggleSideBar() {
         this.show = !this.show;
+        this.showNav = !(this.$route.name === 'article' ||
+          this.$route.name === 'book' ||
+          this.$route.name === 'book/note' ||
+          this.$route.name === 'movie' ||
+          this.$route.name === 'album'
+        );
       },
       toggleLanguage() {
         if (this.$i18n.locale === 'CN') {
