@@ -6,8 +6,7 @@
       </div>
       <div class="toggleI18N" v-if="languages.length > 1">
         <i-button-group size="small">
-          <i-button type="ghost" :disabled="isLanguageActive(language)" @click.native="selectedLanguage(language)"
-                    v-for="language in languages" :key="language">
+          <i-button type="ghost" :disabled="isLanguageActive(language)" @click.native="selectedLanguage(language)" v-for="language in languages" :key="language">
             {{ $i18n.messages[language.toUpperCase()].title }}
           </i-button>
         </i-button-group>
@@ -38,15 +37,10 @@
 <script type="text/ecmascript-6">
   import API from 'API';
   // mixin
-  import {mixin} from '@/common/js/utils';
+  import {mixin, saveToLocal} from '@/common/js/utils';
 
   export default {
     name: 'article-page-header',
-    data() {
-      return {
-        seletedLanguageIndex: 0
-      };
-    },
     props: {
       article: {
         Type: Object,
@@ -57,14 +51,9 @@
       }
     },
     mixins: [mixin],
-    computed: {
-      isEnActive: function () {
-        return this.languages[this.seletedLanguageIndex] === 'en';
-      }
-    },
     methods: {
       isLanguageActive: function (language) {
-        return this.languages[this.seletedLanguageIndex] === language;
+        return this.$i18n.locale === language;
       },
       likePost(post) {
         API.addPostLike({
@@ -77,9 +66,9 @@
         });
       },
       selectedLanguage(language) {
-        this.seletedLanguageIndex = this.languages.indexOf(language);
         this.$i18n.locale = language;
-        this.$emit('selectedLanguage', this.seletedLanguageIndex);
+        // 持久化
+        saveToLocal('siteConfig', 'language', language);
       }
     }
   };

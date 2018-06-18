@@ -45,7 +45,7 @@
                     :editable="post.is_commentable"
                     :toolbarsFlag="toolbarsFlag"
                     :subfield="subfield"
-                    :placeholder="placeholder"
+                    :placeholder="placeholderText"
                     :toolbars="toolbars"
                     @change="change"
                     @imgAdd="addImage"
@@ -100,7 +100,7 @@
         default: false
       },
       placeholder: {
-        default: '输入评论内容...'
+        default: undefined
       }
     },
     data() {
@@ -166,6 +166,13 @@
         },
         set: function(newTheme) {
           this.updateSiteTheme(newTheme);
+        }
+      },
+      placeholderText: function () {
+        if (this.placeholder !== undefined && this.placeholder.length > 0) {
+          return this.placeholder;
+        } else {
+          return this.$t('comments.placeholder');
         }
       }
     },

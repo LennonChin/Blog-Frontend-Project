@@ -11,61 +11,62 @@
     box-shadow 2px 2px 2px $default-border-color
 
 // 进度条
-.progress-label
-  position absolute
-  text-align center
-  font-weight 700
-  width 100%
-  margin 0 !important
-  line-height 1.2rem !important
-  color $default-desc-color!important
-  white-space nowrap
-  overflow hidden
-
-.progress-bar
-  height 1.2rem
-  float left
-  background-color #2979ff
-
-.progress
-  display block
-  width 100%
-  margin 0.5rem 0
-  height 1.2rem
-  background-color #eeeeee
-  position relative
-
-.progress.thin
-  margin-top 0.9rem
-  height 0.4rem
+article.article-main-content, .comment-main-content
   .progress-label
-    margin-top -0.4rem
+    position absolute
+    text-align center
+    font-weight 700
+    width 100%
+    margin 0 !important
+    line-height 1.2rem !important
+    color $default-desc-color!important
+    white-space nowrap
+    overflow hidden
+
   .progress-bar
+    height 1.2rem
+    float left
+    background-color #2979ff
+
+  .progress
+    display block
+    width 100%
+    margin 0.5rem 0
+    height 1.2rem
+    background-color #eeeeee
+    position relative
+
+  .progress.thin
+    margin-top 0.9rem
     height 0.4rem
+    .progress-label
+      margin-top -0.4rem
+    .progress-bar
+      height 0.4rem
 
-.progress-100plus
-  .progress-bar
-    background-color #00e676
+  .progress-100plus
+    .progress-bar
+      background-color #00e676
 
-.progress-80plus
-  .progress-bar
-    background-color #fbc02d
+  .progress-80plus
+    .progress-bar
+      background-color #fbc02d
 
-.progress-60plus
-  .progress-bar
-    background-color #ff9100
+  .progress-60plus
+    .progress-bar
+      background-color #ff9100
 
-.progress-40plus
-  .progress-bar
-    background-color #ff5252
+  .progress-40plus
+    .progress-bar
+      background-color #ff5252
 
-.progress-20plus
-  .progress-bar
-    background-color #ff1744
+  .progress-20plus
+    .progress-bar
+      background-color #ff1744
 
-.progress-0plus
-  .progress-bar
-    background-color #f50057
+  .progress-0plus
+    .progress-bar
+      background-color #f50057
 
 // details
 details
@@ -126,7 +127,7 @@ details
     display flex
     justify-content flex-end
     height 25px
-    border 1px solid $default-border-hover-color
+    border 1px solid $default-border-color
     background $default-background-color
     padding 2px
     > span.language
@@ -196,7 +197,7 @@ details
       padding 0
 
 .highlight
-  display block
+  display flex
   padding 5px
   height auto
   background $default-codeLine-light
@@ -207,6 +208,7 @@ details
       white-space pre-wrap
   pre
     display flex
+    flex-grow 1
     height inherit
     margin 0
     border-top none
@@ -223,6 +225,7 @@ details
       list-style none
       padding-left 0 !important
       margin 0
+      margin-left -1px
       background transparent
       transition All 0.4s ease-in-out
       li
@@ -244,6 +247,7 @@ details
           background $default-codeLine-highlight
       &.numbered
         padding-left 40px !important
+        margin-left 0
         list-style decimal
         > li.numbered
           list-style decimal-leading-zero
@@ -270,6 +274,12 @@ code
     background $default-codeLine-light
     border none
     order 99
+    > .with-global-toolsbar, > .with-local-toolsbar
+        .toolsbar
+          border-left none
+          border-right none
+      .highlight
+        border none
   label
     width auto
     margin 5px 10px 5px 15px

@@ -74,7 +74,7 @@
   } from 'vuex';
   import SideBar from '@/components/header/SimpleHeader/SideBar';
   import SearchView from '@/components/views/Search/SearchView';
-  import {loadFromLocal, mixin} from '@/common/js/utils';
+  import {loadFromLocal, saveToLocal, mixin} from '@/common/js/utils';
 
   export default {
     name: 'simple-header',
@@ -98,6 +98,8 @@
       if (!this.$store.state.base.allCategorysInfo) this.getAllCategorys();
       // 获取皮肤信息
       this.checkTheme();
+      // 获取国际化信息
+//      this.checkLanguage();
       // 监听滑动事件，以隐藏或显示header
       document.addEventListener('touchstart', this.touchStart, false);
       document.addEventListener('touchmove', this.touchMove, false);
@@ -168,6 +170,8 @@
         } else if (this.$i18n.locale === 'EN') {
           this.$i18n.locale = 'CN';
         }
+        // 持久化
+        saveToLocal('siteConfig', 'language', this.$i18n.locale);
       },
       touchMove(evt) {
         try {
@@ -251,6 +255,9 @@
       checkTheme() {
         const theme = loadFromLocal('siteConfig', 'theme', 'default');
         this.updateSiteTheme(theme);
+      },
+      checkLanguage() {
+        this.$i18n.locale = loadFromLocal('siteConfig', 'language', 'CN');
       },
       toggleTheme() {
         this.updateSiteTheme(this.siteTheme === 'dark' ? 'default' : 'dark');

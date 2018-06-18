@@ -4,7 +4,8 @@ import {
   initToggleCodeNumAction,
   initToggleCodeTheme,
   initToggleBreakCodeAction,
-  initToggleFoldCodeAction
+  initToggleFoldCodeAction,
+  loadFromLocal
 } from '@/common/js/utils';
 
 const {app, router, store} = createApp();
@@ -20,6 +21,8 @@ if (window) {
   initToggleCodeNumAction();
   initToggleBreakCodeAction();
   initToggleFoldCodeAction();
+  app._i18n.locale = loadFromLocal('siteConfig', 'language', 'CN');
+  console.log(app._i18n.locale);
 }
 
 router.onReady(() => {

@@ -8,16 +8,12 @@ export default () => {
     state: {
       article: {},
       needAuth: false,
-      languages: [],
-      selectedLanguageIndex: 0
+      languages: []
     },
     mutations: {
       UPDATE_ARTICLE_DETAIL_INFO(state, article) {
         state.article = article;
         state.languages = Array.from(new Set(article.details.map(detail => detail.language)));
-      },
-      UPDATE_ARTICLE_SelectedLanguageIndex(state, selectedLanguageIndex) {
-        state.selectedLanguageIndex = selectedLanguageIndex;
       },
       UPDATE_ARTICLE_AUTH(state, isAuth) {
         state.needAuth = isAuth;
@@ -25,7 +21,6 @@ export default () => {
       CLAER_ARTICLE_DETAIL_INFO(state) {
         state.article = {};
         state.needAuth = false;
-        state.selectedLanguageIndex = 0;
       }
     },
     actions: {

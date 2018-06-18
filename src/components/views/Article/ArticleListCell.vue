@@ -9,6 +9,7 @@
               <i-icon type="android-lock" color="#FA5555" v-if="article.browse_password_encrypt"></i-icon>
             </i-tool-tip>
             <a @click.prevent="gotoPostDetail(article)" :href="`${article.post_type}/${article.id}`"> {{article[resolveI18N('title')]}}</a>
+            <i-tag color="yellow" v-if="article.index > 0" style="margin-left: 1px;vertical-align: top">置顶</i-tag>
           </h4>
           <div class="tags">
             <i-tag :color="tag.color" type="border" v-for="tag in article.tags" :key="tag.id" class="border-tag">{{tag[resolveI18N('name')]}}</i-tag>

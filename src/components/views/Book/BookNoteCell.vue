@@ -9,6 +9,7 @@
               <i-icon type="android-lock" color="#FA5555" v-if="bookNote.browse_password_encrypt"></i-icon>
             </i-tool-tip>
             <a @click.prevent="gotoPostDetail(bookNote)" :href="`${bookNote.post_type}/${bookNote.id}`"> {{bookNote[resolveI18N('title')]}}</a>
+            <i-tag color="yellow" v-if="bookNote.index > 0" style="margin-left: 1px;vertical-align: top">置顶</i-tag>
           </h4>
           <p class="book-info">
             <i-icon type="ios-book"></i-icon>《{{bookNote.book.book_name }}》&nbsp;

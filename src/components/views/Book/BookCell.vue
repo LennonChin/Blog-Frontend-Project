@@ -9,6 +9,7 @@
               <i-icon type="android-lock" color="#FA5555" v-if="book.browse_password_encrypt"></i-icon>
             </i-tool-tip>
             <a @click.prevent="gotoPostDetail(book)" :href="`${book.post_type}/${book.id}`">{{book[resolveI18N('title')]}}</a>
+            <i-tag color="yellow" v-if="book.index > 0" style="margin-left: 1px;vertical-align: top">置顶</i-tag>
           </h4>
           <div class="tags">
             <i-tag :color="tag.color" type="border" v-for="tag in book.tags" :key="tag.id" class="border-tag">

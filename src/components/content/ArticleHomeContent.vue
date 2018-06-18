@@ -83,7 +83,7 @@
           params: {
             params: {
               top_category: this.selected_category,
-              ordering: '-add_time',
+              ordering: '-index,-add_time',
               limit: DefaultLimitSize
             }
           },

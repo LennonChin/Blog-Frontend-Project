@@ -205,6 +205,7 @@ export const i18nMessage = {
       authTip: '该图集已加密，您需要输入阅读密码'
     },
     comments: {
+      placeholder: '请输入内容...',
       blogger: '博主',
       reply: '回复',
       nickname: '昵称',
@@ -368,6 +369,7 @@ export const i18nMessage = {
       authTip: 'Private Album, need reading password.'
     },
     comments: {
+      placeholder: 'Please input you words...',
       blogger: 'Blogger',
       reply: 'Reply',
       nickname: 'Name',
