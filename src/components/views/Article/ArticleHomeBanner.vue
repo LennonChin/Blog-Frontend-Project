@@ -99,7 +99,8 @@
             params: {id: post.id},
             query: {browse_auth: encryptedBrowseAuth}
           });
-        }, () => {
+        }, (error) => {
+          console.log(error);
           this.$Notice.error({
             title: '密码错误'
           });

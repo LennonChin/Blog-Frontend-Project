@@ -12,8 +12,8 @@
       </div>
       <div class="bottom-area">
         <h4 class="title">
-          <i-tool-tip placement="right" :content="$t('album.authTip')" v-if="album.browse_password_encrypt">
-            <i-icon type="android-lock" color="#FA5555" v-if="album.browse_password_encrypt"></i-icon>
+          <i-tool-tip placement="right" :content="$t('album.authTip')" v-if="album.need_auth">
+            <i-icon type="android-lock" color="#FA5555" v-if="album.need_auth"></i-icon>
           </i-tool-tip>
           <a @click.prevent="gotoPostDetail(album)" :href="`${album.post_type}/${album.id}`">
             {{ album.title }}
@@ -52,7 +52,8 @@
             params: {id: post.id},
             query: {browse_auth: encryptedBrowseAuth}
           });
-        }, () => {
+        }, (error) => {
+          console.log(error);
           this.$Notice.error({
             title: '密码错误'
           });

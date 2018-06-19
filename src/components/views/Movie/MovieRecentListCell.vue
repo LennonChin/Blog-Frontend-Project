@@ -15,8 +15,8 @@
                 <i-col :xs="24" :sm="24" :md="17" :lg="18">
                   <div class="info">
                     <p class="title">
-                      <i-tool-tip placement="top" :content="$t('movie.authTip')" v-if="movie.browse_password_encrypt">
-                        <i-icon type="android-lock" color="#FA5555" v-if="movie.browse_password_encrypt"></i-icon>
+                      <i-tool-tip placement="top" :content="$t('movie.authTip')" v-if="movie.need_auth">
+                        <i-icon type="android-lock" color="#FA5555" v-if="movie.need_auth"></i-icon>
                       </i-tool-tip>
                       {{ movie.title }}
                     </p>
@@ -34,8 +34,8 @@
           <h4>{{ $t('movie.recommend') }}</h4>
           <a @click.prevent="gotoPostDetail(movies[3])" :href="`${movies[3].post_type}/${movies[3].id}`">
             <p class="title">
-              <i-tool-tip placement="top" :content="$t('movie.authTip')" v-if="movies[3].browse_password_encrypt">
-                <i-icon type="android-lock" color="#FA5555" v-if="movies[3].browse_password_encrypt"></i-icon>
+              <i-tool-tip placement="top" :content="$t('movie.authTip')" v-if="movies[3].need_auth">
+                <i-icon type="android-lock" color="#FA5555" v-if="movies[3].need_auth"></i-icon>
               </i-tool-tip>
               {{ movies[3].title }}
             </p>
@@ -81,7 +81,8 @@
             params: {id: post.id},
             query: {browse_auth: encryptedBrowseAuth}
           });
-        }, () => {
+        }, (error) => {
+          console.log(error);
           this.$Notice.error({
             title: '密码错误'
           });

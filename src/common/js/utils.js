@@ -126,7 +126,7 @@ export function loadFromLocal(classify, key, def) {
  */
 export function checkPostAuth(post, title, message, noAuthCallback, successCallback, failCallback) {
   let browseAuth = '';
-  if (post.browse_password_encrypt) {
+  if (post.need_auth) {
     /**
      * 检查加密
      * @param browseAuth 用户输入的密码
@@ -134,17 +134,22 @@ export function checkPostAuth(post, title, message, noAuthCallback, successCallb
      */
     let checkAuth = (browseAuth, isAutoRemove) => {
       let encryptedBrowseAuth = MD5(browseAuth).toString();
-      if (encryptedBrowseAuth === post.browse_password_encrypt) {
+      API.verifyPostAuth({
+        post_id: post.id,
+        browse_auth: encryptedBrowseAuth
+      }).then((response) => {
+        // 验证通过
         successCallback(encryptedBrowseAuth);
         if (isAutoRemove) {
           this.$Modal.remove();
         }
-      } else {
-        failCallback();
-      }
+      }).catch((error) => {
+        console.log(error);
+        failCallback(error);
+      });
     };
     this.$Modal.confirm({
-      maskClosable: true,
+      closable: true,
       render: (h) => {
         let children = [];
         children.push(h('h2', {

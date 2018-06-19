@@ -4,8 +4,8 @@
       <div slot="content" class="content">
         <div class="top">
           <p class="title">
-            <i-tool-tip placement="right" :content="routerInfos(articleSlice(0, 1)[0]).message" v-if="articleSlice(0, 1)[0].browse_password_encrypt">
-              <i-icon type="android-lock" color="#FA5555" v-if="articleSlice(0, 1)[0].browse_password_encrypt"></i-icon>
+            <i-tool-tip placement="right" :content="routerInfos(articleSlice(0, 1)[0]).message" v-if="articleSlice(0, 1)[0].need_auth">
+              <i-icon type="android-lock" color="#FA5555" v-if="articleSlice(0, 1)[0].need_auth"></i-icon>
             </i-tool-tip>
             <a @click.prevent="gotoPostDetail(articleSlice(0, 1)[0])" :href="`${articleSlice(0, 1)[0].post_type}/${articleSlice(0, 1)[0].id}`">
               {{ articleSlice(0, 1)[0][resolveI18N('title')] }}
@@ -30,8 +30,8 @@
         <ul class="others">
           <li v-for="article in articleSlice(1)">
             <p class="title">
-              <i-tool-tip placement="right" :content="routerInfos(article).message" v-if="article.browse_password_encrypt">
-                <i-icon type="android-lock" color="#FA5555" v-if="article.browse_password_encrypt"></i-icon>
+              <i-tool-tip placement="right" :content="routerInfos(article).message" v-if="article.need_auth">
+                <i-icon type="android-lock" color="#FA5555" v-if="article.need_auth"></i-icon>
               </i-tool-tip>
               <a @click.prevent="gotoPostDetail(article)" :href="`${article.post_type}/${article.id}`">{{article[resolveI18N('title')]}}</a>
             </p>
@@ -88,7 +88,8 @@
             params: {id: post.id},
             query: {browse_auth: encryptedBrowseAuth}
           });
-        }, () => {
+        }, (error) => {
+          console.log(error);
           this.$Notice.error({
             title: '密码错误'
           });

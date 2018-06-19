@@ -22,8 +22,8 @@
                 </div>
                 <div class="info">
                   <p class="title">
-                    <i-tool-tip placement="top" :content="$t('movie.authTip')" v-if="movie.browse_password_encrypt">
-                      <i-icon type="android-lock" color="#FA5555" v-if="movie.browse_password_encrypt"></i-icon>
+                    <i-tool-tip placement="top" :content="$t('movie.authTip')" v-if="movie.need_auth">
+                      <i-icon type="android-lock" color="#FA5555" v-if="movie.need_auth"></i-icon>
                     </i-tool-tip>
                     {{ movie.title }}
                   </p>
@@ -90,7 +90,8 @@
             params: {id: post.id},
             query: {browse_auth: encryptedBrowseAuth}
           });
-        }, () => {
+        }, (error) => {
+          console.log(error);
           this.$Notice.error({
             title: '密码错误'
           });

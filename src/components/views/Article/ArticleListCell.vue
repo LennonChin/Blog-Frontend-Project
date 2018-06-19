@@ -5,8 +5,8 @@
              style="padding-left: 0;padding-right: 0;">
         <div class="text-wrapper">
           <h4 class="title">
-            <i-tool-tip placement="right" :content="$t('article.authTip')" v-if="article.browse_password_encrypt">
-              <i-icon type="android-lock" color="#FA5555" v-if="article.browse_password_encrypt"></i-icon>
+            <i-tool-tip placement="right" :content="$t('article.authTip')" v-if="article.need_auth">
+              <i-icon type="android-lock" color="#FA5555" v-if="article.need_auth"></i-icon>
             </i-tool-tip>
             <a @click.prevent="gotoPostDetail(article)" :href="`${article.post_type}/${article.id}`"> {{article[resolveI18N('title')]}}</a>
             <span class="special" v-if="article.index > 0" :title="$t('others.stickyTip')">{{ $t('others.sticky') }}</span>
@@ -94,7 +94,6 @@
     },
     methods: {
       gotoPostDetail(post) {
-        console.log(post);
         checkPostAuth.call(this, post, '提示', '该文章已加密，您需要输入阅读密码', () => {
           this.$router.push({name: post.post_type, params: {id: post.id}});
         }, (encryptedBrowseAuth) => {
@@ -103,7 +102,8 @@
             params: {id: post.id},
             query: {browse_auth: encryptedBrowseAuth}
           });
-        }, () => {
+        }, (error) => {
+          console.log(error);
           this.$Notice.error({
             title: '密码错误'
           });

@@ -22,7 +22,6 @@ if (window) {
   initToggleBreakCodeAction();
   initToggleFoldCodeAction();
   app._i18n.locale = loadFromLocal('siteConfig', 'language', 'CN');
-  console.log(app._i18n.locale);
 }
 
 router.onReady(() => {

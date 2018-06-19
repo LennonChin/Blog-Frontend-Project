@@ -5,8 +5,8 @@
              style="padding-left: 0;padding-right: 0;">
         <div class="text-wrapper">
           <h4 class="title">
-            <i-tool-tip placement="right" :content="$t('bookNote.authTip')" v-if="bookNote.browse_password_encrypt">
-              <i-icon type="android-lock" color="#FA5555" v-if="bookNote.browse_password_encrypt"></i-icon>
+            <i-tool-tip placement="right" :content="$t('bookNote.authTip')" v-if="bookNote.need_auth">
+              <i-icon type="android-lock" color="#FA5555" v-if="bookNote.need_auth"></i-icon>
             </i-tool-tip>
             <a @click.prevent="gotoPostDetail(bookNote)" :href="`${bookNote.post_type}/${bookNote.id}`"> {{bookNote[resolveI18N('title')]}}</a>
             <span class="special" v-if="bookNote.index > 0" :title="$t('others.stickyTip')">{{ $t('others.sticky') }}</span>
@@ -147,7 +147,8 @@
             params: {id: post.id},
             query: {browse_auth: encryptedBrowseAuth}
           });
-        }, () => {
+        }, (error) => {
+          console.log(error);
           this.$Notice.error({
             title: '密码错误'
           });

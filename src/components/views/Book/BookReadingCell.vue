@@ -12,8 +12,8 @@
       </div>
       <div class="book-info">
         <p class="title">
-          <i-tool-tip placement="right" :content="$t('book.authTip')" v-if="book.browse_password_encrypt">
-            <i-icon type="android-lock" color="#FA5555" v-if="book.browse_password_encrypt"></i-icon>
+          <i-tool-tip placement="right" :content="$t('book.authTip')" v-if="book.need_auth">
+            <i-icon type="android-lock" color="#FA5555" v-if="book.need_auth"></i-icon>
           </i-tool-tip>
           <a @click.prevent="gotoPostDetail(book)" :href="`${book.post_type}/${book.id}`"> {{book.book_name}}</a>
         </p>
@@ -51,7 +51,8 @@
             params: {id: post.id},
             query: {browse_auth: encryptedBrowseAuth}
           });
-        }, () => {
+        }, (error) => {
+          console.log(error);
           this.$Notice.error({
             title: '密码错误'
           });

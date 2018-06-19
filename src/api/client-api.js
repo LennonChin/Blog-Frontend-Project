@@ -16,6 +16,8 @@ const handleRequest = (request) => {
       const response = error.response;
       if (response.status === 401) {
         reject(createError(401, 'need auth'));
+      } else {
+        reject(error);
       }
     });
   });
@@ -214,6 +216,11 @@ export default {
     return handleRequest(request.post(`/likeOrUnlikeComment/`, params));
   },
 
+  // 验证文章密码
+  verifyPostAuth(params) {
+    return handleRequest(request.post(`/verifyPostAuth/`, params));
+  },
+
   // 获取邮箱验证码
   getEmailCode(params) {
     return handleRequest(request.post(`/emailCode/`, params));
@@ -221,11 +228,7 @@ export default {
 
   // 验证邮箱验证码
   verifyEmailCode(params) {
-    if ('id' in params) {
-      return handleRequest(request.get(`/emailCode/${params.id}/`, params));
-    } else {
-      return handleRequest(request.get(`/emailCode/`, params));
-    }
+    return handleRequest(request.get(`/emailCode/`, params));
   },
 
   // 搜索
