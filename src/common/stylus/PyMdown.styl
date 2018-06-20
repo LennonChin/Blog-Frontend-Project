@@ -3,408 +3,408 @@
 
 // 键盘按键
 .keys
-  kbd
-    padding 3px 4px
-    font-size 13px
-    border 1px solid $default-info-color
-    border-radius $border-radius
-    box-shadow 2px 2px 2px $default-border-color
+	kbd
+		padding 3px 4px
+		font-size 13px
+		border 1px solid $default-info-color
+		border-radius $border-radius
+		box-shadow 2px 2px 2px $default-border-color
 
 // 进度条
 article.article-main-content, .comment-main-content
-  .progress-label
-    position absolute
-    text-align center
-    font-weight 700
-    width 100%
-    margin 0 !important
-    line-height 1.2rem !important
-    color $default-desc-color!important
-    white-space nowrap
-    overflow hidden
+	.progress-label
+		position absolute
+		text-align center
+		font-weight 700
+		width 100%
+		margin 0 !important
+		line-height 1.2rem !important
+		color $default-desc-color!important
+		white-space nowrap
+		overflow hidden
 
-  .progress-bar
-    height 1.2rem
-    float left
-    background-color #2979ff
+	.progress-bar
+		height 1.2rem
+		float left
+		background-color #2979ff
 
-  .progress
-    display block
-    width 100%
-    margin 0.5rem 0
-    height 1.2rem
-    background-color #eeeeee
-    position relative
+	.progress
+		display block
+		width 100%
+		margin 0.5rem 0
+		height 1.2rem
+		background-color #eeeeee
+		position relative
 
-  .progress.thin
-    margin-top 0.9rem
-    height 0.4rem
-    .progress-label
-      margin-top -0.4rem
-    .progress-bar
-      height 0.4rem
+	.progress.thin
+		margin-top 0.9rem
+		height 0.4rem
+		.progress-label
+			margin-top -0.4rem
+		.progress-bar
+			height 0.4rem
 
-  .progress-100plus
-    .progress-bar
-      background-color #00e676
+	.progress-100plus
+		.progress-bar
+			background-color #00e676
 
-  .progress-80plus
-    .progress-bar
-      background-color #fbc02d
+	.progress-80plus
+		.progress-bar
+			background-color #fbc02d
 
-  .progress-60plus
-    .progress-bar
-      background-color #ff9100
+	.progress-60plus
+		.progress-bar
+			background-color #ff9100
 
-  .progress-40plus
-    .progress-bar
-      background-color #ff5252
+	.progress-40plus
+		.progress-bar
+			background-color #ff5252
 
-  .progress-20plus
-    .progress-bar
-      background-color #ff1744
+	.progress-20plus
+		.progress-bar
+			background-color #ff1744
 
-  .progress-0plus
-    .progress-bar
-      background-color #f50057
+	.progress-0plus
+		.progress-bar
+			background-color #f50057
 
 // details
 details
-  margin 10px 0
-  > summary
-    font-size 15px
-    font-weight 700
-    color $default-title-color
-  &.info
-    border-left .4rem solid $iview-secondary-info-color
-    > .admonition-title, > summary
-      outline none
-      padding 10px
-      border-bottom .1rem solid rgba(170, 0, 255, .1)
-      background-color rgba($iview-secondary-info-color .1)
-      cursor pointer
-    > .admonition-title:before, > summary:before
-      color $iview-secondary-info-color
-      content ""
-  &.success
-    border-left .4rem solid $iview-secondary-success-color
-    > .admonition-title, > summary
-      outline none
-      padding 10px
-      border-bottom .1rem solid rgba(170, 0, 255, .1)
-      background-color rgba($iview-secondary-success-color .1)
-      cursor pointer
-    > .admonition-title:before, > summary:before
-      color $iview-secondary-success-color
-      content ""
-  &.warning
-    border-left .4rem solid $iview-secondary-warning-color
-    > .admonition-title, > summary
-      outline none
-      padding 10px
-      border-bottom .1rem solid rgba(170, 0, 255, .1)
-      background-color rgba($iview-secondary-warning-color .1)
-      cursor pointer
-    > .admonition-title:before, > summary:before
-      color $iview-secondary-warning-color
-      content ""
-  &.danger
-    border-left .4rem solid $iview-secondary-danger-color
-    > .admonition-title, > summary
-      outline none
-      padding 10px
-      border-bottom .1rem solid rgba(170, 0, 255, .1)
-      background-color rgba($iview-secondary-danger-color .1)
-      cursor pointer
-    > .admonition-title:before, > summary:before
-      color $iview-secondary-danger-color
-      content ""
+	margin 10px 0
+	> summary
+		font-size 15px
+		font-weight 700
+		color $default-title-color
+	&.info
+		border-left .4rem solid $iview-secondary-info-color
+		> .admonition-title, > summary
+			outline none
+			padding 10px
+			border-bottom .1rem solid rgba(170, 0, 255, .1)
+			background-color rgba($iview-secondary-info-color .1)
+			cursor pointer
+		> .admonition-title:before, > summary:before
+			color $iview-secondary-info-color
+			content ""
+	&.success
+		border-left .4rem solid $iview-secondary-success-color
+		> .admonition-title, > summary
+			outline none
+			padding 10px
+			border-bottom .1rem solid rgba(170, 0, 255, .1)
+			background-color rgba($iview-secondary-success-color .1)
+			cursor pointer
+		> .admonition-title:before, > summary:before
+			color $iview-secondary-success-color
+			content ""
+	&.warning
+		border-left .4rem solid $iview-secondary-warning-color
+		> .admonition-title, > summary
+			outline none
+			padding 10px
+			border-bottom .1rem solid rgba(170, 0, 255, .1)
+			background-color rgba($iview-secondary-warning-color .1)
+			cursor pointer
+		> .admonition-title:before, > summary:before
+			color $iview-secondary-warning-color
+			content ""
+	&.danger
+		border-left .4rem solid $iview-secondary-danger-color
+		> .admonition-title, > summary
+			outline none
+			padding 10px
+			border-bottom .1rem solid rgba(170, 0, 255, .1)
+			background-color rgba($iview-secondary-danger-color .1)
+			cursor pointer
+		> .admonition-title:before, > summary:before
+			color $iview-secondary-danger-color
+			content ""
 
 // 代码区域
 // 工具栏
 .with-global-toolsbar, .with-local-toolsbar
-  .toolsbar
-    display flex
-    justify-content flex-end
-    height 25px
-    border 1px solid $default-border-color
-    background $default-background-color
-    padding 2px
-    > span.language
-      flex-grow 1
-      color $default-desc-color
-      font-size 14px
-      font-weight 300
-      padding-left 4px
-      line-height 130%
-    > button
-      border 1px solid $default-border-hover-color
-      margin-left 2px
-      outline none
-      font-size 13px
-      min-width 20px
-      padding 2px 4px
-      cursor pointer
-      background $default-background-color
-      color $default-title-color
-      &.shownum-class
-        &::before
-          content '\F453'
-      &.theme-class
-        &::before
-          content '\F467'
-      &.copy-class
-        &::before
-          content '\F41B'
-      &.break-class
-        &::before
-          content '\F13F'
-      &.fold-class
-        &::before
-          content '\F2D7'
-      &:hover
-        background $default-background-hover-color
-      &:active
-        background $default-info-color
-        color $default-select-color
-  &.shownum
-    .toolsbar
-      > button
-        &.shownum-class
-          &::before
-            content '\F391'
-  &.dark
-    .toolsbar
-      > button
-        &.theme-class
-          &::before
-            content '\F4B6'
-  &.linefeed
-    .toolsbar
-      > button
-        &.break-class
-          &::before
-            content '\F20B'
-  &.folded
-    .toolsbar
-      > button
-        &.fold-class
-          &::before
-            content '\F25E'
-    .highlight
-      height 0
-      border none!important
-      padding 0
+	.toolsbar
+		display flex
+		justify-content flex-end
+		height 25px
+		border 1px solid $default-border-color
+		background $default-background-color
+		padding 2px
+		> span.language
+			flex-grow 1
+			color $default-desc-color
+			font-size 14px
+			font-weight 300
+			padding-left 4px
+			line-height 130%
+		> button
+			border 1px solid $default-border-hover-color
+			margin-left 2px
+			outline none
+			font-size 13px
+			min-width 20px
+			padding 2px 4px
+			cursor pointer
+			background $default-background-color
+			color $default-title-color
+			&.shownum-class
+				&::before
+					content '\F453'
+			&.theme-class
+				&::before
+					content '\F467'
+			&.copy-class
+				&::before
+					content '\F41B'
+			&.break-class
+				&::before
+					content '\F13F'
+			&.fold-class
+				&::before
+					content '\F2D7'
+			&:hover
+				background $default-background-hover-color
+			&:active
+				background $default-info-color
+				color $default-select-color
+	&.shownum
+		.toolsbar
+			> button
+				&.shownum-class
+					&::before
+						content '\F391'
+	&.dark
+		.toolsbar
+			> button
+				&.theme-class
+					&::before
+						content '\F4B6'
+	&.linefeed
+		.toolsbar
+			> button
+				&.break-class
+					&::before
+						content '\F20B'
+	&.folded
+		.toolsbar
+			> button
+				&.fold-class
+					&::before
+						content '\F25E'
+		.highlight
+			height 0
+			border none !important
+			padding 0
 
 .highlight
-  display flex
-  padding 5px
-  height auto
-  background $default-codeLine-light
-  border 1px solid $default-border-color
-  border-top none
-  &.linefeed
-    li
-      white-space pre-wrap
-  pre
-    display flex
-    flex-grow 1
-    height inherit
-    margin 0
-    border-top none
-    white-space inherit
-    background transparent
-    overflow auto
-    &::-webkit-scrollbar
-      width .4rem
-      height .4rem
-    &::-webkit-scrollbar-thumb
-      background-color rgba(0,0,0,.26)
-    > ul
-      flex 1
-      list-style none
-      padding-left 0 !important
-      margin 0
-      margin-left -1px
-      background transparent
-      transition All 0.4s ease-in-out
-      li
-        list-style none
-        border-left 1px solid $default-border-color !important
-        background transparent
-        color $default-info-color
-        padding 5px !important
-        margin 0 !important
-        line-height 135%
-        word-break break-all
-        word-wrap break-word
-        white-space pre
-        background $default-codeLine-light
-        transition All 0.4s ease-in-out
-        &:nth-of-type(even)
-          background $default-codeLine-dark
-        &.hll
-          background $default-codeLine-highlight
-      &.numbered
-        padding-left 50px !important
-        margin-left 0
-        list-style decimal
-        > li.numbered
-          list-style decimal-leading-zero
+	display flex
+	padding 5px
+	height auto
+	background $default-codeLine-light
+	border 1px solid $default-border-color
+	border-top none
+	&.linefeed
+		li
+			white-space pre-wrap
+	pre
+		display flex
+		flex-grow 1
+		height inherit
+		margin 0
+		border-top none
+		white-space inherit
+		background transparent
+		overflow auto
+		&::-webkit-scrollbar
+			width .4rem
+			height .4rem
+		&::-webkit-scrollbar-thumb
+			background-color rgba(0, 0, 0, .26)
+		> ul
+			flex 1
+			list-style none
+			padding-left 0 !important
+			margin 0
+			margin-left -1px
+			background transparent
+			transition All 0.4s ease-in-out
+			li
+				list-style none
+				border-left 1px solid $default-border-color !important
+				background transparent
+				color $default-info-color
+				padding 5px !important
+				margin 0 !important
+				line-height 135%
+				word-break break-all
+				word-wrap break-word
+				white-space pre
+				background $default-codeLine-light
+				transition All 0.4s ease-in-out
+				&:nth-of-type(even)
+					background $default-codeLine-dark
+				&.hll
+					background $default-codeLine-highlight
+			&.numbered
+				padding-left 50px !important
+				margin-left 0
+				list-style decimal
+				> li.numbered
+					list-style decimal-leading-zero
 
 code
-  font-size 0.9em
-  padding 0 2px
-  color $default-code-color
-  word-wrap break-word
-  white-space pre-wrap
+	font-size 0.9em
+	padding 0 2px
+	color $default-code-color
+	word-wrap break-word
+	white-space pre-wrap
 
 // superfences-tabs
 .superfences-tabs
-  display flex
-  position relative
-  margin-bottom 8px
-  background-color $default-background-color
-  border 1px solid $default-border-color
-  flex-direction column
-  .superfences-content
-    display none
-    width 100%
-    background $default-codeLine-light
-    border none
-    order 99
-    > .with-global-toolsbar, > .with-local-toolsbar
-        .toolsbar
-          border-left none
-          border-right none
-      .highlight
-        border none
-    .table-wrap
-      margin 0
-  label
-    width auto
-    margin 5px 10px 5px 15px
-    padding 10px 4px
-    cursor pointer
-  input
-    position absolute
-    font-weight 300
-    color $default-desc-color
-    opacity 0
-    &:nth-child(n+1)
-      color $default-desc-color
-      + label
-        color $default-desc-color
-    &:nth-child(n+1):checked
-      + label
-        font-weight 700
-        color $default-desc-hover-color
-        + .superfences-content
-          display block
+	display flex
+	position relative
+	margin-bottom 8px
+	background-color $default-background-color
+	border 1px solid $default-border-color
+	flex-direction column
+	.superfences-content
+		display none
+		width 100%
+		background $default-codeLine-light
+		border none
+		order 99
+		> .with-global-toolsbar, > .with-local-toolsbar
+			.toolsbar
+				border-left none
+				border-right none
+			.highlight
+				border none
+		.table-wrap
+			margin 0
+	label
+		width auto
+		margin 5px 10px 5px 15px
+		padding 10px 4px
+		cursor pointer
+	input
+		position absolute
+		font-weight 300
+		color $default-desc-color
+		opacity 0
+		&:nth-child(n+1)
+			color $default-desc-color
+			+ label
+				color $default-desc-color
+		&:nth-child(n+1):checked
+			+ label
+				font-weight 700
+				color $default-desc-hover-color
+				+ .superfences-content
+					display block
 
 body.dark
-  // details
-  .keys
-    kbd
-      border 1px solid $dark-info-color
-      border-radius $border-radius
-      box-shadow 2px 2px 2px $dark-border-color
-  details
-    margin 10px 0
-    > summary
-      font-size 15px
-      font-weight 700
-      color $dark-title-color
-    &.info
-      border-left .4rem solid $iview-secondary-info-color
-      > .admonition-title, > summary
-        background-color rgba($iview-secondary-info-color .6)
-      > .admonition-title:before, > summary:before
-        color $iview-secondary-info-color
-    &.success
-      border-left .4rem solid $iview-secondary-success-color
-      > .admonition-title, > summary
-        background-color rgba($iview-secondary-success-color .6)
-      > .admonition-title:before, > summary:before
-        color $iview-secondary-success-color
-    &.warning
-      border-left .4rem solid $iview-secondary-warning-color
-      > .admonition-title, > summary
-        background-color rgba($iview-secondary-warning-color .6)
-      > .admonition-title:before, > summary:before
-        color $iview-secondary-warning-color
-    &.danger
-      border-left .4rem solid $iview-secondary-danger-color
-      > .admonition-title, > summary
-        background-color rgba($iview-secondary-danger-color .6)
-      > .admonition-title:before, > summary:before
-        color $iview-secondary-danger-color
+	// details
+	.keys
+		kbd
+			border 1px solid $dark-info-color
+			border-radius $border-radius
+			box-shadow 2px 2px 2px $dark-border-color
+	details
+		margin 10px 0
+		> summary
+			font-size 15px
+			font-weight 700
+			color $dark-title-color
+		&.info
+			border-left .4rem solid $iview-secondary-info-color
+			> .admonition-title, > summary
+				background-color rgba($iview-secondary-info-color .6)
+			> .admonition-title:before, > summary:before
+				color $iview-secondary-info-color
+		&.success
+			border-left .4rem solid $iview-secondary-success-color
+			> .admonition-title, > summary
+				background-color rgba($iview-secondary-success-color .6)
+			> .admonition-title:before, > summary:before
+				color $iview-secondary-success-color
+		&.warning
+			border-left .4rem solid $iview-secondary-warning-color
+			> .admonition-title, > summary
+				background-color rgba($iview-secondary-warning-color .6)
+			> .admonition-title:before, > summary:before
+				color $iview-secondary-warning-color
+		&.danger
+			border-left .4rem solid $iview-secondary-danger-color
+			> .admonition-title, > summary
+				background-color rgba($iview-secondary-danger-color .6)
+			> .admonition-title:before, > summary:before
+				color $iview-secondary-danger-color
 
-  // 代码区域
-  // 工具栏
-  .with-global-toolsbar, .with-local-toolsbar
-    .toolsbar
-      padding 2px
-      border 1px solid $dark-border-hover-color
-      background $dark-background-color
-      > span.language
-        color $dark-desc-color
-      > button
-        border 1px solid $dark-border-hover-color
-        background $dark-background-color
-        color $dark-title-color
-        &:hover
-          background $dark-background-hover-color
-        &:active
-          background $dark-info-color
-          color $dark-select-color
+	// 代码区域
+	// 工具栏
+	.with-global-toolsbar, .with-local-toolsbar
+		.toolsbar
+			padding 2px
+			border 1px solid $dark-border-hover-color
+			background $dark-background-color
+			> span.language
+				color $dark-desc-color
+			> button
+				border 1px solid $dark-border-hover-color
+				background $dark-background-color
+				color $dark-title-color
+				&:hover
+					background $dark-background-hover-color
+				&:active
+					background $dark-info-color
+					color $dark-select-color
 
-  .highlight
-    background $dark-codeLine-light
-    border 1px solid $dark-border-color
-    pre
-      > ul
-        li
-          border-left 1px solid $dark-border-color !important
-          color $dark-title-color
-          background $dark-codeLine-light
-          &:nth-of-type(even)
-            background $dark-codeLine-dark
-          &.hll
-            background $dark-codeLine-highlight
-      &::-webkit-scrollbar-thumb
-        background-color rgba(255, 255, 255, .26)
-  code
-    color $dark-code-color
+	.highlight
+		background $dark-codeLine-light
+		border 1px solid $dark-border-color
+		pre
+			> ul
+				li
+					border-left 1px solid $dark-border-color !important
+					color $dark-title-color
+					background $dark-codeLine-light
+					&:nth-of-type(even)
+						background $dark-codeLine-dark
+					&.hll
+						background $dark-codeLine-highlight
+			&::-webkit-scrollbar-thumb
+				background-color rgba(255, 255, 255, .26)
+	code
+		color $dark-code-color
 
-  // superfences-tabs
-  .superfences-tabs
-    background-color $dark-background-color
-    border 1px solid $dark-border-color
-    .superfences-content
-      background $dark-codeLine-light
-    input
-      &:nth-child(n+1)
-        color $dark-desc-color
-        + label
-          color $dark-desc-color
-      &:nth-child(n+1):checked
-        + label
-          color $dark-desc-hover-color
+	// superfences-tabs
+	.superfences-tabs
+		background-color $dark-background-color
+		border 1px solid $dark-border-color
+		.superfences-content
+			background $dark-codeLine-light
+		input
+			&:nth-child(n+1)
+				color $dark-desc-color
+				+ label
+					color $dark-desc-color
+			&:nth-child(n+1):checked
+				+ label
+					color $dark-desc-hover-color
 
 .highlight
-  &.dark
-    background $dark-codeLine-light
-    border 1px solid $dark-border-color
-    pre
-      > ul
-        li
-          border-left 1px solid $dark-border-color !important
-          color $dark-title-color
-          background $dark-codeLine-light
-          &:nth-of-type(even)
-            background $dark-codeLine-dark
-          &.hll
-            background $dark-codeLine-highlight
-      &::-webkit-scrollbar-thumb
-        background-color rgba(255, 255, 255, .26)
+	&.dark
+		background $dark-codeLine-light
+		border 1px solid $dark-border-color
+		pre
+			> ul
+				li
+					border-left 1px solid $dark-border-color !important
+					color $dark-title-color
+					background $dark-codeLine-light
+					&:nth-of-type(even)
+						background $dark-codeLine-dark
+					&.hll
+						background $dark-codeLine-highlight
+			&::-webkit-scrollbar-thumb
+				background-color rgba(255, 255, 255, .26)
