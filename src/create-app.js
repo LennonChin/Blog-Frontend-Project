@@ -4,15 +4,16 @@ import VueRouter from 'vue-router';
 import Vuex from 'vuex';
 import App from './App.vue';
 // v-viewer
-import 'viewerjs/dist/viewer.css';
 import Viewer from 'v-viewer';
+import 'viewerjs/dist/viewer.css';
+// i18n
 import {i18nMessage} from '@/common/js/const';
 
 import createRouter from './router/router';
 import createStore from './store/store';
 
 // // iView UI 组件引入
-import iview, {
+import iView, {
   Row,
   Col,
   Button,
@@ -74,14 +75,9 @@ Vue.component('i-backtop', BackTop);
 Vue.component('i-spin', Spin);
 Vue.component('i-tool-tip', Tooltip);
 Vue.component('i-rate', Rate);
-// iview不兼容7以上版本
+
 Vue.use(VueI18n);
 Vue.locale = () => {};
-const i18n = new VueI18n({
-  locale: 'CN',
-  messages: i18nMessage
-});
-iview.i18n((key, value) => i18n.t(key, value));
 
 Vue.prototype.$Modal = Modal;
 Vue.prototype.$Message = Message;
@@ -93,8 +89,15 @@ Vue.prototype.$Notice.config({
 });
 
 export default () => {
+  // vue-router and vuex
   const router = createRouter();
   const store = createStore();
+  // i18n
+  const i18n = new VueI18n({
+    locale: 'CN',
+    messages: i18nMessage
+  });
+  iView.i18n((key, value) => i18n.t(key, value));
   const app = new Vue({
     router,
     store,
