@@ -153,6 +153,33 @@ article.article-main-content
 			@media screen and (min-width: $responsive-lg)
 				font-size 15px
 				line-height 20px
+.table-wrap
+	width 100%
+	margin 10px 0
+	overflow auto
+	&::-webkit-scrollbar
+		width .4rem
+		height .4rem
+	&::-webkit-scrollbar-thumb
+		background-color rgba(0, 0, 0, .26)
+	table
+		min-width 100%
+		border-collapse collapse
+		word-break normal
+		td, th
+			border 1px solid $default-border-hover-color
+			color $default-info-color
+			padding 8px
+			min-height 30px !important
+		thead
+			th
+				color $default-desc-color
+				background-color rgba($iview-main-primary-color, 0.1)
+				font-weight 700
+		tr:nth-child(odd)
+			background $default-background-color
+		tr:nth-child(even)
+			background rgba($iview-main-primary-color, 0.03)
 
 body.dark
 	.article-details
@@ -180,6 +207,20 @@ body.dark
 				border-left 5px solid $dark-desc-hover-color
 			> p
 				color $dark-info-color
+	.table-wrap
+		&::-webkit-scrollbar-thumb
+			background-color rgba(255, 255, 255, .26)
+		table
+			td, th
+				border 1px solid $dark-border-hover-color
+				color $dark-info-color
+			thead
+				th
+					background-color rgba($iview-main-primary-color, 0.1)
+			tr:nth-child(odd)
+				background $dark-background-color
+			tr:nth-child(even)
+				background rgba($iview-main-primary-color, 0.03)
 
 @import "./PyMdown.styl";
 @import "./highlights.styl";

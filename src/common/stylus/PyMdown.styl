@@ -256,7 +256,6 @@ code
   font-size 0.9em
   padding 0 2px
   color $default-code-color
-  word-break break-all
   word-wrap break-word
   white-space pre-wrap
 
@@ -267,7 +266,7 @@ code
   margin-bottom 8px
   background-color $default-background-color
   border 1px solid $default-border-color
-  flex-wrap wrap
+  flex-direction column
   .superfences-content
     display none
     width 100%
@@ -280,6 +279,8 @@ code
           border-right none
       .highlight
         border none
+    .table-wrap
+      margin 0
   label
     width auto
     margin 5px 10px 5px 15px
