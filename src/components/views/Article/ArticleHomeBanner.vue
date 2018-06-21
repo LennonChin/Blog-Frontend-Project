@@ -135,12 +135,11 @@
 					display none
 					top 5px
 					right 5px
-					padding 5px
+					padding 4px
 					background rgba($default-background-color, 0.6)
 					color $default-title-color
 					font-size 13px
 					max-width 90%
-					border-radius $border-radius
 					@media only screen and (max-width: $responsive-lg)
 						display block
 			.carousel-infos
