@@ -78,6 +78,10 @@ body.dark
 	.article-home-banner
 		.gallery
 			border-color $dark-border-color
+			a
+				.title
+					background rgba($dark-background-color, 0.8)
+					color $dark-title-color
 			.carousel-infos
 				background $dark-background-color
 				.title
@@ -490,3 +494,17 @@ body.dark
 		border-color transparent!important
 		span
 			color $dark-select-background-hover-color!important
+	// spin
+	.ivu-spin
+		background-color $dark-select-color
+		.ivu-spin-text
+			color $dark-desc-color
+	// data-picker
+	//.ivu-select-dropdown
+	//	background-color $dark-background-color
+	//	.ivu-picker-panel-sidebar
+	//		background-color $dark-background-hover-color
+	//		.ivu-picker-panel-shortcut
+	//			color $dark-title-color
+	//			&:hover
+	//				background-color $dark-background-color

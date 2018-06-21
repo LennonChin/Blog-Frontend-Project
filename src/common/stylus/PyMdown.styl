@@ -195,6 +195,8 @@ details
 			height 0
 			border none !important
 			padding 0
+	.highlight
+		border-top none
 
 .highlight
 	display flex
@@ -202,7 +204,6 @@ details
 	height auto
 	background $default-codeLine-light
 	border 1px solid $default-border-color
-	border-top none
 	&.linefeed
 		li
 			white-space pre-wrap
@@ -226,6 +227,7 @@ details
 			padding-left 0 !important
 			margin 0
 			margin-left -1px
+			font-size 13px
 			background transparent
 			transition All 0.4s ease-in-out
 			li
@@ -235,7 +237,8 @@ details
 				color $default-info-color
 				padding 5px !important
 				margin 0 !important
-				line-height 135%
+				line-height 125%
+				font-size 13px
 				word-break break-all
 				word-wrap break-word
 				white-space pre
@@ -266,7 +269,7 @@ code
 	margin-bottom 8px
 	background-color $default-background-color
 	border 1px solid $default-border-color
-	flex-direction column
+	flex-wrap wrap
 	.superfences-content
 		display none
 		width 100%
@@ -277,11 +280,17 @@ code
 			.toolsbar
 				border-left none
 				border-right none
-			.highlight
+				border-bottom none
+			> .highlight
 				border none
+		> .highlight
+			border-left none
+			border-right none
+			border-bottom none
 		.table-wrap
 			margin 0
 	label
+		flex-grow 0
 		width auto
 		margin 5px 10px 5px 15px
 		padding 10px 4px

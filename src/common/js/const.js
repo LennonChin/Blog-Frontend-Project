@@ -265,7 +265,7 @@ export const i18nMessage = {
       detailAddTip: 'Above context added at',
       detailUpdateTip: 'updated at',
       browseMore: {
-        clickToSeeMore: 'Click to view More',
+        clickToSeeMore: 'Click to view more',
         seemore: 'More',
         nomore: 'No More'
       }

@@ -54,6 +54,9 @@ body
 					.ivu-btn
 						i::before, span
 							color $default-info-color
+						&:hover
+							i::before, span
+								color $default-info-hover-color
 			.nav-dropdown-container
 				margin-right 10px
 				&:hover
@@ -181,15 +184,20 @@ body.dark
 				.desc
 					color $dark-title-hover-color
 		#nav
+			li
+				&.switchs
+					.ivu-btn
+						border-color $dark-info-color
+						i::before, span
+							color $dark-info-color
+						&:hover
+							color $dark-info-hover-color
+							i::before, span
+								color $dark-info-hover-color
 			.nav-dropdown-container
 				> .nav-dropdown
 					li
 						background-color $dark-header-background-color
-						&.switchs
-							.ivu-btn
-								border-color $dark-info-color
-								i::before, span
-									color $dark-info-color
 			.nav-dropdown
 				border 1px solid $dark-header-background-color
 			a.nav-link
