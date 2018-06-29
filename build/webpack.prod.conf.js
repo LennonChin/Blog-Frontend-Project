@@ -18,11 +18,11 @@ const env = config.build.env;
 const webpackConfig = merge(baseWebpackConfig, {
   module: {
     rules: utils.styleLoaders({
-      sourceMap: false, // config.build.productionSourceMap,
+      sourceMap: config.build.productionSourceMap,
       extract: true
     })
   },
-  devtool: false, // config.build.productionSourceMap ? '#source-map' : false,
+  devtool: config.build.productionSourceMap ? '#source-map' : false,
   output: {
     path: config.build.assetsRoot,
     filename: utils.assetsPath('js/[name].[chunkhash].js'),

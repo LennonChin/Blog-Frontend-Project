@@ -25,7 +25,7 @@ module.exports = {
     extensions: ['.js', '.vue', '.json'],
     alias: {
       'vue$': 'vue/dist/vue.esm.js',
-      '@': resolve('src'),
+      '@': resolve('src')
     }
   },
   module: {
@@ -49,7 +49,7 @@ module.exports = {
         loader: 'babel-loader',
         include: [resolve('src'), resolve('test')],
         query: {
-          "presets": ["env"]
+          'presets': ['env']
         }
       },
       {

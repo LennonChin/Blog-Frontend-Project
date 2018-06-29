@@ -112,6 +112,38 @@ export function loadFromLocal(classify, key, def) {
     return ret || def;
   } catch (exception) {
     console.log(exception);
+    return def;
+  }
+}
+
+/**
+ * 强制刷新LocalStorage，防止由于代码修改，用户遗留的本地配置无法正确读取
+ * @param forceRefresh 是否强制刷新
+ * @param refreshTime 上次刷新时间
+ */
+export function refreshLocal(forceRefresh, refreshTime) {
+  if (forceRefresh === null || forceRefresh === undefined || !forceRefresh ||
+    refreshTime === null || refreshTime === undefined) {
+    return false;
+  }
+  // 判断时间
+  refreshTime = Date.parse(new Date(refreshTime));
+  let latestRefreshTime = loadFromLocal('siteConfig', 'refreshTime', undefined);
+  if (refreshTime > latestRefreshTime || latestRefreshTime === undefined) {
+    // 需要刷新
+    try {
+      // 清空，并只存储上次刷新时间
+      let blog = {
+        siteConfig: {
+          refreshTime: refreshTime
+        }
+      };
+      window.localStorage.__blog__ = AES.encrypt(JSON.stringify(blog), 'local storage').toString();
+      return true;
+    } catch (exception) {
+      console.log(exception);
+      return false;
+    }
   }
 }
 

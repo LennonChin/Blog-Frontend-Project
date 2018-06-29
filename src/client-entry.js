@@ -5,13 +5,16 @@ import {
   initToggleCodeTheme,
   initToggleBreakCodeAction,
   initToggleFoldCodeAction,
-  loadFromLocal
+  loadFromLocal,
+  refreshLocal
 } from '@/common/js/utils';
 
 const {app, router, store} = createApp();
 
 if (window.__INITIAL_STATE__) {
   store.replaceState(window.__INITIAL_STATE__);
+  // 控制页面LocalStorage的强制刷新
+  refreshLocal(window.__INITIAL_STATE__.base.siteInfo.is_force_refresh, window.__INITIAL_STATE__.base.siteInfo.force_refresh_time);
 }
 
 if (window) {
