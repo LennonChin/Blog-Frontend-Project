@@ -12,30 +12,33 @@ Blog has been online ，welcome to browse：[https://blog.coderap.com/](https://
 
 > Note 2: The backend code repository linked with this repository is linked here [BlogBackendProject](https://github.com/LennonChin/BlogBackendProject) and the backend code is implemented using Django + Xadmin + Django Rest Framework.
 
-Front effect display：
+## Front effect display
 
-![Home Page](https://github.com/LennonChin/Blog-Frontend-Project/blob/master/readme/exhibition/frontend1.png)
+### PC Platform
 
-![Article Page](https://github.com/LennonChin/Blog-Frontend-Project/blob/master/readme/exhibition/frontend2.png)
+![Home Page](https://github.com/LennonChin/Blog-Frontend-Project/blob/master/readme/exhibition/PC_1.fig)
 
-![Timeline](https://github.com/LennonChin/Blog-Frontend-Project/blob/master/readme/exhibition/frontend3.png)
+![Article Page](https://github.com/LennonChin/Blog-Frontend-Project/blob/master/readme/exhibition/PC_2.fig)
 
-![Article Detail Page](https://github.com/LennonChin/Blog-Frontend-Project/blob/master/readme/exhibition/frontend4.png)
+![Article List Page](https://github.com/LennonChin/Blog-Frontend-Project/blob/master/readme/exhibition/PC_3.fig)
 
-![Comment Area](https://github.com/LennonChin/Blog-Frontend-Project/blob/master/readme/exhibition/frontend5.png)
+![Timeline](https://github.com/LennonChin/Blog-Frontend-Project/blob/master/readme/exhibition/PC_4.fig)
 
-![Reading Page](https://github.com/LennonChin/Blog-Frontend-Project/blob/master/readme/exhibition/frontend6.png)
+### Mobile Platform
+
+![Mobile effect](https://github.com/LennonChin/Blog-Frontend-Project/blob/master/readme/exhibition/MOBILE_1.png)
 
 ## The overall technology stack
 
 - [Vue.js ^2.5.6](https://github.com/vuejs/vue)
 - [Vue-Router ^3.0.1](https://github.com/vuejs/vue-router)
+- [Vuex ^3.0.1](https://github.com/vuejs/vuex)
 - [Axios ^0.17.1](https://github.com/axios/axios)
 - [iView UI ^2.14.2](https://github.com/iview/iview)
-- [MavonEditor ^2.3.1](https://github.com/hinesboy/mavonEditor)
-- [Tocbot ^4.0.0](https://github.com/tscanlin/tocbot)
-- ~~[Highlight.js ^9.12.0](https://github.com/isagalaev/highlight.js)~~
-- [vue-awesome-swiper ^3.0.6](https://github.com/surmon-china/vue-awesome-swiper)
+- [MavonEditor ^2.4.16](https://github.com/hinesboy/mavonEditor)
+- [Tocbot ^4.1.1](https://github.com/tscanlin/tocbot)
+- [vue-i18n ^8.0.0](https://github.com/kazupon/vue-i18n)
+- [vue-awesome-swiper ^3.1.2](https://github.com/surmon-china/vue-awesome-swiper)
 
 ## Achieved basic functions
 

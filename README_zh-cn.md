@@ -12,30 +12,33 @@
 
 > 注2：与该仓库配合的后端代码仓库链接在此[BlogBackendProject](https://github.com/LennonChin/BlogBackendProject)，后端代码使用Django + Xadmin + Django Rest Framework实现。
 
-前端效果展示：
+## 前端效果展示
 
-![首页](https://github.com/LennonChin/Blog-Frontend-Project/blob/master/readme/exhibition/frontend1.png)
+### PC端
 
-![文章页](https://github.com/LennonChin/Blog-Frontend-Project/blob/master/readme/exhibition/frontend2.png)
+![首页](https://github.com/LennonChin/Blog-Frontend-Project/blob/master/readme/exhibition/PC_1.fig)
 
-![时间轴](https://github.com/LennonChin/Blog-Frontend-Project/blob/master/readme/exhibition/frontend3.png)
+![文章详情页](https://github.com/LennonChin/Blog-Frontend-Project/blob/master/readme/exhibition/PC_2.fig)
 
-![文章详情页](https://github.com/LennonChin/Blog-Frontend-Project/blob/master/readme/exhibition/frontend4.png)
+![文章列表页](https://github.com/LennonChin/Blog-Frontend-Project/blob/master/readme/exhibition/PC_3.fig)
 
-![评论区域](https://github.com/LennonChin/Blog-Frontend-Project/blob/master/readme/exhibition/frontend5.png)
+![时间轴](https://github.com/LennonChin/Blog-Frontend-Project/blob/master/readme/exhibition/PC_4.fig)
 
-![读书页](https://github.com/LennonChin/Blog-Frontend-Project/blob/master/readme/exhibition/frontend6.png)
+### 手机端
+
+![手机端效果](https://github.com/LennonChin/Blog-Frontend-Project/blob/master/readme/exhibition/MOBILE_1.png)
 
 ## 整体技术栈
 
 - [Vue.js ^2.5.6](https://github.com/vuejs/vue)
 - [Vue-Router ^3.0.1](https://github.com/vuejs/vue-router)
+- [Vuex ^3.0.1](https://github.com/vuejs/vuex)
 - [Axios ^0.17.1](https://github.com/axios/axios)
 - [iView UI ^2.14.2](https://github.com/iview/iview)
-- [MavonEditor ^2.3.1](https://github.com/hinesboy/mavonEditor)
-- [Tocbot ^4.0.0](https://github.com/tscanlin/tocbot)
-- ~~[Highlight.js ^9.12.0](https://github.com/isagalaev/highlight.js)~~
-- [vue-awesome-swiper ^3.0.6](https://github.com/surmon-china/vue-awesome-swiper)
+- [MavonEditor ^2.4.16](https://github.com/hinesboy/mavonEditor)
+- [Tocbot ^4.1.1](https://github.com/tscanlin/tocbot)
+- [vue-i18n ^8.0.0](https://github.com/kazupon/vue-i18n)
+- [vue-awesome-swiper ^3.1.2](https://github.com/surmon-china/vue-awesome-swiper)
 
 ## 已实现的基本功能
 
