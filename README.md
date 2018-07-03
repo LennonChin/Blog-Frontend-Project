@@ -16,13 +16,13 @@ Blog has been online ，welcome to browse：[https://blog.coderap.com/](https://
 
 ### PC Platform
 
-![Home Page](https://github.com/LennonChin/Blog-Frontend-Project/blob/master/readme/exhibition/PC_1.fig)
+![Home Page](https://github.com/LennonChin/Blog-Frontend-Project/blob/master/readme/exhibition/PC_1.gif)
 
-![Article Page](https://github.com/LennonChin/Blog-Frontend-Project/blob/master/readme/exhibition/PC_2.fig)
+![Article Page](https://github.com/LennonChin/Blog-Frontend-Project/blob/master/readme/exhibition/PC_2.gif)
 
-![Article List Page](https://github.com/LennonChin/Blog-Frontend-Project/blob/master/readme/exhibition/PC_3.fig)
+![Article List Page](https://github.com/LennonChin/Blog-Frontend-Project/blob/master/readme/exhibition/PC_3.gif)
 
-![Timeline](https://github.com/LennonChin/Blog-Frontend-Project/blob/master/readme/exhibition/PC_4.fig)
+![Timeline](https://github.com/LennonChin/Blog-Frontend-Project/blob/master/readme/exhibition/PC_4.gif)
 
 ### Mobile Platform
 

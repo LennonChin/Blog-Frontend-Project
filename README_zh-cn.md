@@ -16,13 +16,13 @@
 
 ### PC端
 
-![首页](https://github.com/LennonChin/Blog-Frontend-Project/blob/master/readme/exhibition/PC_1.fig)
+![首页](https://github.com/LennonChin/Blog-Frontend-Project/blob/master/readme/exhibition/PC_1.gif)
 
-![文章详情页](https://github.com/LennonChin/Blog-Frontend-Project/blob/master/readme/exhibition/PC_2.fig)
+![文章详情页](https://github.com/LennonChin/Blog-Frontend-Project/blob/master/readme/exhibition/PC_2.gif)
 
-![文章列表页](https://github.com/LennonChin/Blog-Frontend-Project/blob/master/readme/exhibition/PC_3.fig)
+![文章列表页](https://github.com/LennonChin/Blog-Frontend-Project/blob/master/readme/exhibition/PC_3.gif)
 
-![时间轴](https://github.com/LennonChin/Blog-Frontend-Project/blob/master/readme/exhibition/PC_4.fig)
+![时间轴](https://github.com/LennonChin/Blog-Frontend-Project/blob/master/readme/exhibition/PC_4.gif)
 
 ### 手机端
 
