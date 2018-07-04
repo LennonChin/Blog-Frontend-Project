@@ -182,7 +182,7 @@
             is_recommend: this.recommendArticles,
             is_hot: this.hotArticles,
             ordering: this.mostCommentArticles,
-            limit: 8,
+            limit: 10,
             offset: 0
           }
         }),
@@ -257,7 +257,7 @@
             is_recommend: this.recommendArticles,
             is_hot: this.hotArticles,
             ordering: this.mostCommentArticles,
-            limit: 8,
+            limit: 10,
             offset: 0
           }
         });
@@ -330,7 +330,7 @@
             is_recommend: this.recommendArticles,
             is_hot: this.hotArticles,
             ordering: this.mostCommentArticles,
-            limit: 8,
+            limit: 10,
             offset: 0
           }
         });

@@ -1,7 +1,7 @@
 <template>
   <div class="article-content layout-content" v-if="Object.keys(article).length > 0">
     <i-row v-if="!needAuth">
-      <i-col :xs="24" :sm="24" :md="24" :lg="17">
+      <i-col :xs="24" :sm="24" :md="24" :lg="ExpandLeftColumn ? 24 : 17">
         <div class="layout-left" v-if="article">
           <article-page-header :article="article" :languages="languages"></article-page-header>
           <article-page-content>
@@ -19,7 +19,7 @@
           <article-page-footer :article="article"></article-page-footer>
         </div>
       </i-col>
-      <i-col :xs="0" :sm="0" :md="0" :lg="7">
+      <i-col :xs="0" :sm="0" :md="0" :lg="ExpandLeftColumn ? 0 : 7">
         <div class="layout-right">
           <recommend></recommend>
           <i-affix :offset-top="60">
@@ -114,6 +114,8 @@
     beforeDestroy() {
       // 导航离开时清空vuex中数据
       this.clearArticleInfo();
+      // 恢复通栏
+      this.resetExpandColumn();
       if (this.tocbotControl !== undefined) {
         console.log('tocbot destroyed');
         this.tocbotControl.destroy();
@@ -123,7 +125,8 @@
       ...mapState({
         article: state => state.article.article,
         languages: state => state.article.languages,
-        needAuth: state => state.article.needAuth
+        needAuth: state => state.article.needAuth,
+        ExpandLeftColumn: state => state.base.ExpandLeftColumn
       }),
       articleDetail: function () {
         let result = this.article.details.filter(detail => {
@@ -139,7 +142,8 @@
     methods: {
       ...mapMutations({
         updateArticleAuth: 'article/UPDATE_ARTICLE_AUTH',
-        clearArticleInfo: 'article/CLAER_ARTICLE_DETAIL_INFO'
+        clearArticleInfo: 'article/CLAER_ARTICLE_DETAIL_INFO',
+        resetExpandColumn: 'base/RESET_EXPAND_COLUMN'
       }),
       ...mapActions({
         getArticleDetailInfo: 'article/GET_ARTICLE_DETAIL_INFO'

@@ -9,18 +9,17 @@ body, html
 	width auto
 	margin-top $mobile-header-height
 	@media only screen and (max-width: $responsive-sm)
-		margin 0 5px 0 5px
+		margin $mobile-header-height 5px 0 5px
 		padding-top 5px
 	@media screen and (min-width: $responsive-sm)
-		margin 0 10px 0 10px
+		margin $mobile-header-height 10px 0 10px
 		padding-top 10px
 	@media screen and (min-width: $responsive-md)
-		margin 0 35px 0 35px
+		margin $mobile-header-height 35px 0 35px
 		padding-top 15px
 	@media screen and (min-width: $responsive-lg)
 		width 1200px
-		margin 0 auto 15px
-		margin-top $header-height
+		margin $header-height auto 15px
 		padding-top 15px
 		.layout-left, .layout-right
 			padding 0
@@ -62,3 +61,6 @@ body, html
 	font-size 17px
 	margin-top 15px
 	text-align center
+	
+.ivu-col
+	transition All 0.4s ease-in-out

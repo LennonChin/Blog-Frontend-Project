@@ -10,7 +10,8 @@ export default () => {
       siteInfo: {},
       bloggerInfo: {},
       allCategorysInfo: [],
-      siteTheme: 'default'
+      siteTheme: 'default',
+      ExpandLeftColumn: false
     },
     mutations: {
       UPDATE_SITE_INFO(state, siteInfo) {
@@ -34,6 +35,12 @@ export default () => {
           console.log(exception);
         }
         state.siteTheme = siteTheme;
+      },
+      UPDATE_EXPAND_LEFT_COLUMN(state, ExpandLeftColumn) {
+        state.ExpandLeftColumn = ExpandLeftColumn;
+      },
+      RESET_EXPAND_COLUMN(state) {
+        state.ExpandLeftColumn = false;
       }
     },
     actions: {

@@ -165,7 +165,9 @@ export default {
       open: '开',
       close: '关',
       sticky: '置顶',
-      stickyTip: '置顶文章'
+      stickyTip: '置顶文章',
+      expandLeft: '通栏阅读',
+      shrinkLeft: '退出通栏'
     }
   }),
   EN: Object.assign(en, {
@@ -331,7 +333,9 @@ export default {
       open: 'On',
       close: 'Off',
       sticky: 'Sticky',
-      stickyTip: 'Sticky Post'
+      stickyTip: 'Sticky Post',
+      expandLeft: 'Expand Left',
+      shrinkLeft: 'Shrink Left'
     }
   })
 };

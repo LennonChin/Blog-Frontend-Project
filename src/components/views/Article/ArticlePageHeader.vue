@@ -77,85 +77,82 @@
 <style lang="stylus" type="text/stylus" rel="stylesheet/stylus">
   @import "../../../common/stylus/theme.styl";
 
-  .article-page-header
-    text-align left
-    @media screen and (min-width: 768px)
-      padding 10px 0 10px
-    @media screen and (min-width: 992px)
-      padding 15px 0 10px
-    .status
-      display flex
-      margin-bottom 10px
-      line-height 100%
-      .toggleI18N
-        flex 1
-        display flex
-        justify-content flex-end
-        cursor pointer
-    .title
-      font-weight 500
-      color $default-title-color
-      @media only screen and (max-width: $responsive-sm)
-        font-size 24px
-        line-height 27px
-      @media screen and (min-width: $responsive-sm)
-        font-size 25px
-        line-height 35px
-      @media screen and (min-width: $responsive-md)
-        font-size 26px
-        line-height 35px
-      @media screen and (min-width: $responsive-lg)
-        font-size 27px
-        line-height 35px
-    .info, .operate_info
-      margin-top 10px
-      font-size 14px
-      font-weight 200
-      line-height 18px
-      color $default-desc-color
-      @media only screen and (max-width: 768px)
-        margin-top 7px
-        font-size 12px
-        line-height 15px
-      a
-        color: $default-link-color
-        cursor pointer
-        &:hover
-          color $default-link-hover-color
-      .publish-time
-        margin-left 20px
-    .operate_info
-      text-align right
-      @media only screen and (max-width: 768px)
-        text-align left
-      span
-        + span
-          margin-left 10px
-        a
-          cursor pointer
-          &:hover
-            color $default-link-hover-color
-    .abstract
-      color $default-desc-color
-      border 1px dashed $default-border-color
-      background $default-border-color
-      @media only screen and (max-width: $responsive-sm)
-        padding 8px
-        margin-top 8px
-        font-size 13px
-        line-height 18px
-      @media screen and (min-width: $responsive-sm)
-        padding 15px
-        margin-top 8px
-        font-size 14px
-        line-height 24px
-      @media screen and (min-width: $responsive-md)
-        padding 20px
-        margin-top 15px
-        line-height 28px
-      @media screen and (min-width: $responsive-lg)
-        padding 20px
-        margin-top 15px
-        line-height 28px
+	.article-page-header
+		padding-bottom 10px
+		text-align left
+		.status
+			display flex
+			margin-bottom 10px
+			line-height 100%
+			.toggleI18N
+				flex 1
+				display flex
+				justify-content flex-end
+				cursor pointer
+		.title
+			font-weight 500
+			color $default-title-color
+			@media only screen and (max-width: $responsive-sm)
+				font-size 24px
+				line-height 27px
+			@media screen and (min-width: $responsive-sm)
+				font-size 25px
+				line-height 35px
+			@media screen and (min-width: $responsive-md)
+				font-size 26px
+				line-height 35px
+			@media screen and (min-width: $responsive-lg)
+				font-size 27px
+				line-height 35px
+		.info, .operate_info
+			margin-top 10px
+			font-size 14px
+			font-weight 200
+			line-height 18px
+			color $default-desc-color
+			@media only screen and (max-width: 768px)
+				margin-top 7px
+				font-size 12px
+				line-height 15px
+			a
+				color: $default-link-color
+				cursor pointer
+				&:hover
+					color $default-link-hover-color
+			.publish-time
+				margin-left 20px
+		.operate_info
+			text-align right
+			@media only screen and (max-width: 768px)
+				text-align left
+			span
+				+ span
+					margin-left 10px
+				a
+					cursor pointer
+					&:hover
+						color $default-link-hover-color
+		.abstract
+			color $default-desc-color
+			border 1px dashed $default-border-color
+			background $default-border-color
+			@media only screen and (max-width: $responsive-sm)
+				padding 8px
+				margin-top 8px
+				font-size 13px
+				line-height 18px
+			@media screen and (min-width: $responsive-sm)
+				padding 15px
+				margin-top 8px
+				font-size 14px
+				line-height 24px
+			@media screen and (min-width: $responsive-md)
+				padding 20px
+				margin-top 15px
+				line-height 28px
+			@media screen and (min-width: $responsive-lg)
+				padding 20px
+				margin-top 15px
+				line-height 28px
 
 </style>

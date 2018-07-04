@@ -21,9 +21,13 @@
   export default {
     name: 'tag-wall',
     mixins: [mixin],
+    asyncData({store, route}) {
+      return Promise.all([
+        store.dispatch('common/GET_TAGS')
+      ]);
+    },
     mounted() {
       if (this.$store.state.common.tags.length === 0) {
-        console.log('tags');
         this['common/GET_TAGS']();
       }
     },
