@@ -6,14 +6,12 @@ import App from './App.vue';
 // v-viewer
 import Viewer from 'v-viewer';
 import 'viewerjs/dist/viewer.css';
-// i18n
-import {i18nMessage} from '@/common/js/const';
-
+import createI18N from './i18n/i18n';
 import createRouter from './router/router';
 import createStore from './store/store';
 
 // // iView UI 组件引入
-import iView, {
+import {
   Row,
   Col,
   Button,
@@ -89,15 +87,10 @@ Vue.prototype.$Notice.config({
 });
 
 export default () => {
-  // vue-router and vuex
+  // vue-router, vuex and i18n
   const router = createRouter();
   const store = createStore();
-  // i18n
-  const i18n = new VueI18n({
-    locale: 'CN',
-    messages: i18nMessage
-  });
-  iView.i18n((key, value) => i18n.t(key, value));
+  const i18n = createI18N();
   const app = new Vue({
     router,
     store,

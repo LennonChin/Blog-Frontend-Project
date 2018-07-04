@@ -1,5 +1,5 @@
 const ejs = require('ejs');
-const chalk = require('chalk');
+const signale = require('../../build/logger');
 
 module.exports = async (ctx, renderer, template) => {
   ctx.headers['Content-Type'] = 'text/html;charset=utf-8';
@@ -27,7 +27,7 @@ module.exports = async (ctx, renderer, template) => {
       initialState: context.renderState()
     });
   } catch (error) {
-    console.log(chalk.red('Render Error: ', error));
+    signale.fatal(new Error(`Render ${error.message}`));
     throw error;
   }
 };

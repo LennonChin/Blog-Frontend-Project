@@ -1,13 +1,13 @@
 const qiniu = require('qiniu');
 const fs = require('fs');
 const path = require('path');
-const chalk = require('chalk');
+const signale = require('./logger');
 
 const argv = process.argv;
 
 if (argv.length < 4) {
-  console.log(chalk.red('Error: You need to provide accessKey and secretKey'));
-  console.log(chalk.red('Like this: npm run upload accessKey secretKey'));
+  signale.error('Error: You need to provide accessKey and secretKey');
+  signale.error('Like this: npm run upload accessKey secretKey');
   return;
 }
 
@@ -26,7 +26,7 @@ const bucketManager = new qiniu.rs.BucketManager(mac, config);
 // 获取指定前缀的文件，用于删除原有文件
 const options = {
   limit: 300,
-  prefix: `${assetsPrefix}/`,
+  prefix: `${assetsPrefix}/`
 };
 
 // 删除旧文件业务
@@ -40,20 +40,20 @@ const deleteOldFiles = new Promise((doneResolve, doneReject) => {
         doneReject(err);
       }
       if (respInfo.statusCode === 200) {
-        //如果这个nextMarker不为空，那么还有未列举完毕的文件列表，下次调用listPrefix的时候，
-        //指定options里面的marker为这个值
+        // 如果这个nextMarker不为空，那么还有未列举完毕的文件列表，下次调用listPrefix的时候，
+        // 指定options里面的marker为这个值
         const nextMarker = respBody.marker;
         const commonPrefixes = respBody.commonPrefixes;
-        console.log('nextMarker', nextMarker);
-        console.log('commonPrefixes', commonPrefixes);
+        signale.info(`nextMarker ${nextMarker}`);
+        signale.info(`commonPrefixes ${commonPrefixes}`);
         const items = respBody.items;
         oldFilePaths = items.map((item) => {
           return item.key;
         });
         resolve(oldFilePaths);
       } else {
-        console.log('statusCode', respInfo.statusCode);
-        console.log('respBody', respBody);
+        signale.info(`statusCode: ${respInfo.statusCode}`);
+        signale.info(`respBody: ${respBody}`);
       }
     });
   }).then(oldFilePaths => {
@@ -69,15 +69,15 @@ const deleteOldFiles = new Promise((doneResolve, doneReject) => {
         if (parseInt(respInfo.statusCode / 100) === 2) {
           respBody.forEach(function (item) {
             if (item.code === 200) {
-              console.log(item.code + "\t delete old file success");
+              signale.info(item.code + '\t delete old file success');
             } else {
-              console.log(item.code + "\t" + item.data.error);
+              signale.info(item.code + '\t' + item.data.error);
             }
           });
           doneResolve(respInfo.statusCode);
         } else {
-          console.log(respInfo.deleteusCode);
-          console.log(respBody);
+          signale.info(respInfo.deleteusCode);
+          signale.info(respBody);
         }
       }
     });
@@ -95,17 +95,16 @@ const doUpload = (key, file) => {
   return new Promise((resolve, reject) => {
     formUploader.putFile(uploadToken, key, file, putExtra, (err, body, info) => {
       if (err) {
-        return reject(err)
+        return reject(err);
       }
       if (info.statusCode === 200) {
-        resolve(body)
+        resolve(body);
       } else {
-        reject(body)
+        reject(body);
       }
-    })
+    });
   });
 };
-
 
 // dist/resource/client/...
 const uploadAll = (dir, prefix) => {
@@ -117,15 +116,16 @@ const uploadAll = (dir, prefix) => {
       return uploadAll(filePath, key)
     }
     doUpload(`${assetsPrefix}/${key}`, filePath)
-      .then(resp => console.log(resp))
-      .catch(err => console.error(err))
+      .then(resp => signale.info(resp))
+      .catch(err => signale.error(err));
   });
 };
 
 // 删除旧文件并上传新文件
 const distPath = path.join(__dirname, '../dist');
 deleteOldFiles.then(code => {
-  console.log(code);
+  signale.info(code);
   uploadAll(distPath);
 }).catch(error => {
+  signale.error(error);
 });

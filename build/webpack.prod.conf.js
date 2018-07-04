@@ -1,6 +1,5 @@
 'use strict';
 const path = require('path');
-const chalk = require('chalk');
 const utils = require('./utils');
 const webpack = require('webpack');
 const config = require('../config');
@@ -10,8 +9,10 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin');
+const signale = require('./logger');
 const isProduction = process.env.NODE_ENV === 'production';
-console.log(chalk.green(`webpack prod conf run in ${process.env.NODE_ENV} env`));
+
+signale.info(`webpack prod conf run in ${process.env.NODE_ENV} env`);
 
 const env = config.build.env;
 
@@ -70,13 +71,13 @@ const webpackConfig = merge(baseWebpackConfig, {
           /mavon-editor/.test(resource) ||
           /tocbot/.test(resource) ||
           /vue-awesome-swiper/.test(resource))
-      ),
+      )
     }),
     new webpack.optimize.CommonsChunkPlugin({
       async: 'used-twice',
       minChunks: (module, count) => (
         count >= 2
-      ),
+      )
     }),
     new webpack.optimize.CommonsChunkPlugin({
       name: 'manifest',
@@ -124,14 +125,14 @@ if (config.build.productionGzip) {
       threshold: 10240,
       minRatio: 0.8
     })
-  )
+  );
 }
 
 // 打包分析插件
 if (config.build.bundleAnalyzerReport) {
-  console.log(chalk.yellow('Loading and Opened Bundle Analyzer'));
+  signale.info('Loading and Opened Bundle Analyzer');
   const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
-  webpackConfig.plugins.push(new BundleAnalyzerPlugin())
+  webpackConfig.plugins.push(new BundleAnalyzerPlugin());
 }
 
 module.exports = webpackConfig;

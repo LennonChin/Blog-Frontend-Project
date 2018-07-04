@@ -11,7 +11,7 @@ const VueServerRenderer = require('vue-server-renderer');
 
 const serverRender = require('./server-render');
 const serverConfig = require('../../build/webpack.server.conf');
-const chalk = require('chalk');
+const signale = require('../../build/logger');
 
 // 编译webpack，生成一个webpack实例
 const serverCompiler = webpack(serverConfig);
@@ -25,21 +25,21 @@ serverCompiler.watch({}, (err, stats) => {
   if (err) throw err;
   stats = stats.toJson();
   // 有些eslint之类的错误会放在stats的errors和warnings中
-  stats.errors.forEach(err => console.log(err));
-  stats.warnings.forEach(warn => console.warn(err));
+  stats.errors.forEach(err => signale.error(err));
+  stats.warnings.forEach(warn => signale.warn(err));
 
   const bundlePath = path.join(
     serverConfig.output.path,
     'vue-ssr-server-bundle.json' // 可以在VueServerPlugin实例化时指定filename，默认是这个名字
   );
   bundle = JSON.parse(mfs.readFileSync(bundlePath, 'utf-8'));
-  console.log(chalk.green('new bundle generated'));
+  signale.success('New Bundle Generated');
 });
 
 const handleSSR = async (ctx) => {
   if (!bundle) {
     // 服务刚启动的时候bundle打包会非常慢
-    ctx.body = 'Waiting a moment for bundle generating';
+    ctx.body = '<h2>Waiting a moment for bundle generating</h2>';
     return;
   }
   const clientManifestResp = await axios.get(

@@ -1,7 +1,7 @@
 const Koa = require('koa');
 const send = require('koa-send');
 const path = require('path');
-const chalk = require('chalk');
+const signale = require('../build/logger');
 const staticRouter = require('./routers/static');
 
 const app = new Koa();
@@ -10,16 +10,15 @@ const isDev = process.env.NODE_ENV === 'development';
 
 app.use(async (ctx, next) => {
   try {
-    console.log(chalk.green(`request with url ${ctx.url}`));
+    signale.note(`request with url ${ctx.url}`);
     await next();
-  } catch (err) {
-    console.log(chalk.red(`error request with url ${ctx.url}`));
-    console.log(chalk.red(err));
+  } catch (error) {
+    signale.fatal(new Error(`Request ${error.message}, request with url : ${ctx.url}`));
     ctx.status = 500;
     if (isDev) {
-      ctx.body = err.message;
+      ctx.body = error.message;
     } else {
-      ctx.body = 'please try again later';
+      ctx.body = '<h2>Please try again later</h2>';
     }
   }
 });
@@ -49,5 +48,5 @@ const HOST = process.env.HOST || '0.0.0.0';
 const PORT = process.env.PORT || 9999;
 
 app.listen(PORT, HOST, () => {
-  console.log(chalk.green(`server is listening on ${HOST}:${PORT}`));
+  signale.debug(`server is listening on ${HOST}:${PORT}`);
 });
