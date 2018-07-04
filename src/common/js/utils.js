@@ -279,7 +279,7 @@ export const mixin = {
     })
   },
   methods: {
-    // 用于添加图片前缀
+    // 用于处理图片Base URL
     resolveImageTagsUrl(images) {
       images.forEach((image) => {
         let imageSrc = image.getAttribute('data-src');
@@ -299,6 +299,7 @@ export const mixin = {
         return url;
       }
     },
+    // 用于处理国际化相关
     resolveI18N(key) {
       if (this.$i18n.locale === 'CN') {
         if (key.indexOf('en_') === 0) {
@@ -307,6 +308,17 @@ export const mixin = {
         return key;
       }
       return `${this.$i18n.locale.toLowerCase()}_${key}`;
+    },
+    // 滚动到评论区域
+    scrollToComments() {
+      try {
+        let commentEle = document.querySelector('#comments');
+        const sTop = document.documentElement.scrollTop || document.body.scrollTop;
+        const commentEleSTop = commentEle.offsetTop;
+        scrollTop(window, sTop, commentEleSTop, Math.max((commentEleSTop - sTop) / 10, 1000));
+      } catch (error) {
+        console.log(error);
+      }
     }
   },
   filters: {

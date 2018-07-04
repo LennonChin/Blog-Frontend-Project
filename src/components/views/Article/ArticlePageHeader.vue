@@ -23,7 +23,7 @@
       <i-col :xs="24" :sm="14" :md="14" :lg="14" style="padding-left: 0;padding-right: 0;">
         <p class="operate_info">
           <span class="readings"><a><i-icon type="eye"></i-icon> {{article.click_num}} {{ $t("article.read") }}</a></span>
-          <span class="comments"><a><i-icon type="compose"></i-icon> {{article.comment_num}} {{ $t("article.comments") }}</a></span>
+          <span class="comments"><a @click="scrollToComments"><i-icon type="compose"></i-icon> {{article.comment_num}} {{ $t("article.comments") }}</a></span>
           <span class="likes"><a @click="likePost(article)"><i-icon type="heart"></i-icon> {{article.like_num}} {{ $t("article.likes") }}</a></span>
         </p>
       </i-col>

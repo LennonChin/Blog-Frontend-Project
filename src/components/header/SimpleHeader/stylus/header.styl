@@ -5,16 +5,12 @@ html
 
 body
 	#header
-		position fixed
 		display flex
 		justify-content space-between
 		padding 0 30px
 		width 100%
-		top 0
 		background-color $default-header-background-color
 		border-bottom 1px solid $default-header-border-color
-		transition all 0.4s 0.1s cubic-bezier(0.4, 0, 0, 1)
-		transform translate(0, -100%)
 		z-index 1003
 		&.show
 			transform translate(0, 0)
@@ -124,21 +120,14 @@ body
 					color $default-link-hover-color
 	// 小屏模式下的导航栏
 	#mobile-bar
-		position fixed
-		top 0
-		left 0
 		width 100%
 		height $mobile-header-height
 		line-height $mobile-header-height
 		background-color $default-background-color
 		border-bottom 1px solid $default-border-color
 		box-shadow 0 0 2px $default-box-shadow-color
-		transition all 0.4s 0.1s cubic-bezier(0.4, 0, 0, 1)
-		transform translate(0, -100%)
 		z-index 1003
 		display none
-		&.show
-			transform translate(0, 0)
 		.menu-button
 			position absolute
 			cursor pointer

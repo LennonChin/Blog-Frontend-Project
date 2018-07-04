@@ -26,8 +26,8 @@ module.exports = async (ctx, renderer, template) => {
       scripts: context.renderScripts(),
       initialState: context.renderState()
     });
-  } catch (err) {
-    console.log(chalk.red('Render Error ', err));
-    throw err;
+  } catch (error) {
+    console.log(chalk.red('Render Error: ', error));
+    throw error;
   }
 };

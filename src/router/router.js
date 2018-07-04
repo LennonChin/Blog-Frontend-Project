@@ -126,11 +126,15 @@ export default () => {
     mode: 'history',
     linkActiveClass: 'active-link',
     linkExactActiveClass: 'exact-active-link',
-    scrollBehavior (to, from, savedPosition) {
+    scrollBehavior(to, from, savedPosition) {
+      if (to.hash) {
+        // 先判断目标路由有没有hash值
+        return {selector: to.hash};
+      }
       if (savedPosition) {
         return savedPosition;
       } else {
-        return { x: 0, y: 0 };
+        return {x: 0, y: 0};
       }
     }
   });

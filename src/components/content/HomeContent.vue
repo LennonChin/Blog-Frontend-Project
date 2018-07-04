@@ -87,6 +87,7 @@
           <about></about>
           <recommend style="margin-top:15px;"></recommend>
           <hot style="margin-top:15px;"></hot>
+					<tag-wall style="margin-top: 15px;"></tag-wall>
           <friend-links style="margin-top:15px;"></friend-links>
         </div>
       </i-col>
@@ -108,6 +109,7 @@
   import About from '@/components/views/About';
   import Recommend from '@/components/views/Recommend';
   import Hot from '@/components/views/Hot';
+  import TagWall from '@/components/views/TagWall';
   import FriendLinks from '@/components/views/FriendLinks';
   import SideToc from '@/components/views/SideToc';
 
@@ -515,6 +517,7 @@
       'about': About,
       'recommend': Recommend,
       'hot': Hot,
+      'tag-wall': TagWall,
       'friend-links': FriendLinks,
       'side-toc': SideToc
     }
