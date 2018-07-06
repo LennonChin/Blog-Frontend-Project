@@ -54,6 +54,23 @@ body.dark
 						color $dark-desc-color
 	// article header
 	.article-page-header
+		.status
+			.switches
+				.ivu-btn-ghost
+					border-color $dark-info-color
+					i::before, span
+						color $dark-desc-color
+					&:hover
+						color $dark-desc-hover-color
+						i::before, span
+							color $dark-desc-hover-color
+				.ivu-btn-ghost[disabled]
+					background-color $dark-background-hover-color
+					i::before, span
+						color $dark-info-color
+					&:hover
+						i::before, span
+							color $dark-info-color
 		.title
 			color $dark-title-color
 		.info, .operate_info

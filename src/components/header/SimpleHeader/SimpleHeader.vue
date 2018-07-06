@@ -1,6 +1,6 @@
 <template>
 	<div class="simple-header" v-if="siteInfo">
-		<head-room :speed="600" :zIndex="1003">
+		<head-room :speed="600" :zIndex="1003" style="position: fixed;">
 			<header>
 				<div id="mobile-bar">
 					<router-link class="logo" to="/">
@@ -54,7 +54,7 @@
 								{{ navigation[resolveI18N('name')] }}
 							</a>
 						</li>
-						<li class="switchs">
+						<li class="switches">
 							<i-button-group size="small">
 								<i-button style="width:30px;" type="ghost" :icon="isDark ? 'android-sunny' : 'ios-moon'"
 													@click="toggleTheme">

@@ -4,7 +4,7 @@
       <div class="tags">
         <i-tag color="blue" v-for="tag in article.tags" :key="tag.id" class="dot-tag">{{tag[resolveI18N('name')]}}</i-tag>
       </div>
-      <div class="toggleI18N" v-if="languages.length > 1">
+      <div class="switches" v-if="languages.length > 1">
         <i-button-group size="small">
           <i-button type="ghost" :disabled="isLanguageActive(language)" @click.native="selectedLanguage(language)" v-for="language in languages" :key="language">
             {{ $i18n.messages[language.toUpperCase()].title }}
@@ -84,11 +84,23 @@
 			display flex
 			margin-bottom 10px
 			line-height 100%
-			.toggleI18N
+			.switches
 				flex 1
 				display flex
 				justify-content flex-end
 				cursor pointer
+				.ivu-btn-ghost
+					i::before, span
+						color $default-desc-color
+					&:hover
+						i::before, span
+							color $default-desc-hover-color
+				.ivu-btn-ghost[disabled]
+					i::before, span
+						color $default-info-color
+					&:hover
+						i::before, span
+							color $default-info-color
 		.title
 			font-weight 500
 			color $default-title-color
