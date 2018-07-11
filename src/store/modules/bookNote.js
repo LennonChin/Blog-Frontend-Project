@@ -7,11 +7,13 @@ export default () => {
     namespaced: true,
     state: {
       bookNote: {},
-      needAuth: false
+      needAuth: false,
+      languages: []
     },
     mutations: {
       UPDATE_BOOKNOTE_DETAIL_INFO(state, bookNote) {
         state.bookNote = bookNote;
+        state.languages = Array.from(new Set(bookNote.details.map(detail => detail.language)));
       },
       UPDATE_BOOK_DOUBAN_INFO(state, bookDoubanInfo) {
         state.bookDoubanInfo = bookDoubanInfo;

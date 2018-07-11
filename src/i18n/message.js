@@ -81,6 +81,7 @@ export default {
       noteDone: '笔记已完成',
       showToc: '展开查看所有目录',
       hideToc: '收起目录',
+      bookInfo: '图书信息',
       readCatelog: '读书目录',
       catelog: '原书目录',
       readThink: '读后感'

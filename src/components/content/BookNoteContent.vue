@@ -1,9 +1,9 @@
 <template>
   <div class="book-note-content layout-content" v-if="Object.keys(bookNote).length > 0">
     <i-row v-if="!needAuth">
-      <i-col :xs="24" :sm="24" :md="24" :lg="17">
+      <i-col :xs="24" :sm="24" :md="24" :lg="ExpandLeftColumn ? 24 : 17">
         <div class="layout-left">
-          <article-page-header :article="bookNote"></article-page-header>
+          <article-page-header :article="bookNote" :languages="languages"></article-page-header>
           <article-page-content>
             <div class="article-details" id="article-main-page" slot="content" ref="article" v-viewer>
               <div class="detail" v-if="bookNote !== undefined" v-for="detail in bookNote.details">
@@ -18,7 +18,7 @@
           <article-page-footer :article="bookNote"></article-page-footer>
         </div>
       </i-col>
-      <i-col :xs="24" :sm="24" :md="24" :lg="7">
+      <i-col :xs="24" :sm="24" :md="24" :lg="ExpandLeftColumn ? 0 : 7">
         <div class="layout-right">
           <book-info :book="bookNote.book"></book-info>
           <recommend style="margin-top: 15px;"></recommend>
@@ -121,7 +121,9 @@
     computed: {
       ...mapState({
         bookNote: state => state.bookNote.bookNote,
-        needAuth: state => state.bookNote.needAuth
+        languages: state => state.bookNote.languages,
+        needAuth: state => state.bookNote.needAuth,
+        ExpandLeftColumn: state => state.base.ExpandLeftColumn
       })
     },
     methods: {

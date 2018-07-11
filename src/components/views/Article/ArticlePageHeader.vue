@@ -4,7 +4,7 @@
       <div class="tags">
         <i-tag color="blue" v-for="tag in article.tags" :key="tag.id" class="dot-tag">{{tag[resolveI18N('name')]}}</i-tag>
       </div>
-      <div class="switches" v-if="languages.length > 1">
+      <div class="switches" v-if="languages && languages.length > 1">
         <i-button-group size="small">
           <i-button type="ghost" :disabled="isLanguageActive(language)" @click.native="selectedLanguage(language)" v-for="language in languages" :key="language">
             {{ $i18n.messages[language.toUpperCase()].title }}
