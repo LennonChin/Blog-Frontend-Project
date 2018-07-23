@@ -294,14 +294,14 @@
           isCollapsedClass: 'is-collapsed',
           collapsibleClass: 'is-collapsible',
           listItemClass: 'toc-list-item',
-          collapseDepth: 0,
+          collapseDepth: 3,
           scrollSmooth: true,
           scrollSmoothDuration: 420,
           headingsOffset: 1,
           throttleTimeout: 50,
           positionFixedClass: 'is-position-fixed',
           fixedSidebarOffset: 'auto',
-          includeHtml: false,
+          includeHtml: true,
           onClick: false
         });
       }
