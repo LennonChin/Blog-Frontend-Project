@@ -9,8 +9,9 @@
               <div class="detail" v-if="bookNote !== undefined" v-for="detail in bookNote.details">
                 <article class="typo container article-main-content" v-html="detail.formatted_content">
                 </article>
-                <div class="detail-footer">以上内容添加于 {{ detail.add_time | socialDate
-                  }} &nbsp;&nbsp;&nbsp; 更新于 {{ detail.update_time | socialDate }}
+                <div class="detail-footer">
+                  {{ $t('common.detailAddTip') }} {{ detail.add_time | socialDate }} &nbsp;&nbsp;&nbsp;
+                  {{ $t('common.detailUpdateTip') }} {{ detail.update_time | socialDate }}
                 </div>
               </div>
             </div>

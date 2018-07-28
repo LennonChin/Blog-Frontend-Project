@@ -6,9 +6,11 @@
         <div class="text-wrapper">
           <h4 class="title">
             <i-tool-tip placement="right" :content="$t('book.authTip')" v-if="book.need_auth">
-              <i-icon type="android-lock" color="#FA5555" v-if="book.need_auth"></i-icon>
+              <i-icon type="android-lock" color="#FA5555" v-if="book.need_auth"></i-icon>&nbsp;
             </i-tool-tip>
-            <a @click.prevent="gotoPostDetail(book)" :href="`${book.post_type}/${book.id}`">{{book[resolveI18N('title')]}}</a>
+            <a @click.prevent="gotoPostDetail(book)" :href="`${book.post_type}/${book.id}`">
+              <i-icon type="ios-book"></i-icon>&nbsp;&nbsp;{{book[resolveI18N('title')]}}
+            </a>
             <span class="special" v-if="book.index > 0" :title="$t('others.stickyTip')">{{ $t('others.sticky') }}</span>
           </h4>
           <div class="tags">

@@ -12,7 +12,7 @@
             <span class="special" v-if="bookNote.index > 0" :title="$t('others.stickyTip')">{{ $t('others.sticky') }}</span>
           </h4>
           <p class="book-info">
-            <i-icon type="ios-book"></i-icon>《{{bookNote.book.book_name }}》&nbsp;
+            <i-icon type="ios-book"></i-icon>&nbsp;&nbsp;{{bookNote.book[resolveI18N('title')]}}&nbsp;
             <i-icon type="paintbrush"></i-icon>&nbsp;&nbsp;{{bookNote.book.book_author }}
           </p>
           <p class="book-info">
