@@ -8,14 +8,14 @@
             <i-tool-tip placement="right" :content="$t('article.authTip')" v-if="article.need_auth">
               <i-icon type="android-lock" color="#FA5555" v-if="article.need_auth"></i-icon>
             </i-tool-tip>
-            <a @click.prevent="gotoPostDetail(article)" :href="`${article.post_type}/${article.id}`"> {{article[resolveI18N('title')]}}</a>
+            <a @click.prevent="gotoPostDetail(article)" :href="`/${article.post_type}/${article.id}`"> {{article[resolveI18N('title')]}}</a>
             <span class="special" v-if="article.index > 0" :title="$t('others.stickyTip')">{{ $t('others.sticky') }}</span>
           </h4>
           <div class="tags">
             <i-tag :color="tag.color" type="border" v-for="tag in article.tags" :key="tag.id" class="border-tag">{{tag[resolveI18N('name')]}}</i-tag>
           </div>
           <p class="desc">{{article[resolveI18N('desc')] | textLineBreak(90) }}
-            <a @click.prevent="gotoPostDetail(article)" :href="`${article.post_type}/${article.id}`"> {{ $t('common.viewmore') }}
+            <a @click.prevent="gotoPostDetail(article)" :href="`/${article.post_type}/${article.id}`"> {{ $t('common.viewmore') }}
               <i-icon type="arrow-right-b"></i-icon>
             </a>
           </p>

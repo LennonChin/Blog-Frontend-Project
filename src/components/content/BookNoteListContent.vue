@@ -164,7 +164,7 @@
       browseMore() {
         console.log('browseMoreBooks');
         this.page++;
-        this.updateBookNotesInfo();
+        this.updateBookNotesInfo(false);
       },
       selectCategory(categoryId) {
         console.log(categoryId);

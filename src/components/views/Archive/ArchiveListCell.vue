@@ -1,6 +1,6 @@
 <template>
   <div class="archive-list-cell">
-    <div class="info" @click.prevent="gotoPostDetail(post)" :href="`${post.post_type}/${post.id}`">
+    <div class="info" @click.prevent="gotoPostDetail(post)" :href="`/${post.post_type}/${post.id}`">
       <i-tag class="time-tag border-tag">{{ post.add_time | formatDate}}</i-tag>
       <div class="base-info">
         <a class="title">

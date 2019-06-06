@@ -58,10 +58,12 @@ export default () => {
             if (response.data.douban_infos) {
               commit('UPDATE_BOOK_DOUBAN_INFO', formatBookInfo(JSON.parse(response.data.douban_infos)));
             } else {
-              dispatch('GET_BOOK_DOUBAN_INFO', {
-                id: response.data.douban_id,
-                type: response.data.douban_type
-              });
+              // dispatch('GET_BOOK_DOUBAN_INFO', {
+              //   id: response.data.douban_id,
+              //   type: response.data.douban_type
+              // });
+              // 豆瓣API无法使用了
+              commit('UPDATE_BOOK_DOUBAN_INFO', {});
             }
             // 更新图书页的meta信息
             commit('UPDATE_DOCUMENT_TITLE', response.data.title, { root: true });

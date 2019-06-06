@@ -8,7 +8,7 @@
             <i-tool-tip placement="right" :content="$t('bookNote.authTip')" v-if="bookNote.need_auth">
               <i-icon type="android-lock" color="#FA5555" v-if="bookNote.need_auth"></i-icon>
             </i-tool-tip>
-            <a @click.prevent="gotoPostDetail(bookNote)" :href="`${bookNote.post_type}/${bookNote.id}`"> {{bookNote[resolveI18N('title')]}}</a>
+            <a @click.prevent="gotoPostDetail(bookNote)" :href="`/${bookNote.post_type}/${bookNote.id}`"> {{bookNote[resolveI18N('title')]}}</a>
             <span class="special" v-if="bookNote.index > 0" :title="$t('others.stickyTip')">{{ $t('others.sticky') }}</span>
           </h4>
           <p class="book-info">
@@ -22,7 +22,7 @@
             <i-tag :color="tag.color" type="border" v-for="tag in bookNote.tags" :key="tag.id" class="border-tag">{{ tag.name }}</i-tag>
           </div>
           <p class="desc">{{ bookNote[resolveI18N('desc')] | textLineBreak(70) }}
-            <a @click.prevent="gotoPostDetail(bookNote)" :href="`${bookNote.post_type}/${bookNote.id}`"> View More
+            <a @click.prevent="gotoPostDetail(bookNote)" :href="`/${bookNote.post_type}/${bookNote.id}`"> View More
               <i-icon type="arrow-right-b"></i-icon>
             </a>
           </p>

@@ -169,7 +169,7 @@
       browseMore() {
         console.log('browseMore');
         this.page++;
-        this.updateArticlesInfo();
+        this.updateArticlesInfo(false);
       },
       selectCategory(categoryId) {
         this.selected_category = categoryId;

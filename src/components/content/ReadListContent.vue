@@ -263,7 +263,7 @@
       browseMoreBooks() {
         console.log('browseMoreBooks');
         this.booksPage++;
-        this.updateBooksInfo();
+        this.updateBooksInfo(false);
       },
       refreshBooks() {
         this.selected_category = parseInt(this.$route.params.id);
@@ -303,7 +303,7 @@
       browseMoreBookNotes() {
         console.log('getBookNoteBaseInfo');
         this.bookNotesPage++;
-        this.updateBookNotesInfo();
+        this.updateBookNotesInfo(false);
       },
       refreshBookNotes() {
         this.selected_category = parseInt(this.$route.params.id);

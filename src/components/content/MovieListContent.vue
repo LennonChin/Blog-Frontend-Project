@@ -168,7 +168,7 @@
       browseMore() {
         console.log('browseMore');
         this.page++;
-        this.updateMoviesInfo();
+        this.updateMoviesInfo(false);
       },
       selectCategory(categoryId) {
         this.selected_category = categoryId;

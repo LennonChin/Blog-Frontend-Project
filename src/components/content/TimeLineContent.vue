@@ -123,7 +123,7 @@
       }),
       browseMore() {
         this.page++;
-        this.updateTimeLineInfo();
+        this.updateTimeLineInfo(false);
       },
       updateTimeLineInfo(reset) {
         // 排序条件
