@@ -271,6 +271,7 @@
         this.booksMostComment = undefined;
         this.booksRecommend = undefined;
         this.booksPage = 0;
+        this.limit_size = DefaultLimitSize;
         this.booksSelectedDateRange = [];
         this.updateBooksInfo(true);
       },
@@ -311,6 +312,7 @@
         this.bookNotesMostComment = undefined;
         this.bookNotesRecommend = undefined;
         this.bookNotesPage = 0;
+        this.limit_size = DefaultLimitSize;
         this.bookNotesSelectedDateRange = [];
         this.updateBookNotesInfo(true);
       },

@@ -14,7 +14,7 @@ export default () => {
       UPDATE_ARTICLES_BASE_INFO(state, datas) {
         // 记录已有的post数量
         state.totalCount += datas.results.length;
-        state.articles = datas.results;
+        state.articles = state.articles.concat(datas.results);
         // 判断是否还有更多
         state.noMoreData = state.totalCount >= datas.count;
       },
@@ -30,6 +30,7 @@ export default () => {
       GET_ARTICLES_BASE_INFO({state, commit}, {params, reset}) {
         return new Promise((resolve, reject) => {
           API.getArticleBaseInfo(params).then((response) => {
+            console.log(reset);
             // 更新文章
             if (reset) {
               // 如果是重置，则先删除原有数据

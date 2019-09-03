@@ -180,6 +180,7 @@
         this.mostComment = undefined;
         this.recommend = undefined;
         this.page = 0;
+        this.limit_size = DefaultLimitSize;
         this.selectedDateRange = [];
         this.updateMoviesInfo(true);
       },

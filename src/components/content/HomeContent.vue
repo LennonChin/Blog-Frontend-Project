@@ -182,7 +182,7 @@
             is_recommend: this.recommendArticles,
             is_hot: this.hotArticles,
             ordering: this.mostCommentArticles,
-            limit: 6,
+            limit: 30,
             offset: 0
           }
         }),
@@ -191,7 +191,7 @@
             is_recommend: this.recommendBooks,
             is_hot: this.hotBooks,
             ordering: this.mostCommentBooks,
-            limit: 6,
+            limit: 10,
             offset: 0
           }
         }),
@@ -200,7 +200,7 @@
             is_recommend: this.recommendBooks,
             is_hot: this.hotBooks,
             ordering: this.mostCommentBooks,
-            limit: 6,
+            limit: 10,
             offset: 0
           }
         }),
@@ -257,7 +257,7 @@
             is_recommend: this.recommendArticles,
             is_hot: this.hotArticles,
             ordering: this.mostCommentArticles,
-            limit: 6,
+            limit: 30,
             offset: 0
           }
         });
@@ -268,7 +268,7 @@
             is_recommend: this.recommendBooks,
             is_hot: this.hotBooks,
             ordering: this.mostCommentBooks,
-            limit: 6,
+            limit: 10,
             offset: 0
           }
         });
@@ -279,7 +279,7 @@
             is_recommend: this.recommendBooks,
             is_hot: this.hotBooks,
             ordering: this.mostCommentBooks,
-            limit: 6,
+            limit: 10,
             offset: 0
           }
         });
@@ -330,7 +330,7 @@
             is_recommend: this.recommendArticles,
             is_hot: this.hotArticles,
             ordering: this.mostCommentArticles,
-            limit: 6,
+            limit: 30,
             offset: 0
           }
         });
@@ -358,7 +358,7 @@
             is_recommend: this.recommendBooks,
             is_hot: this.hotBooks,
             ordering: this.mostCommentBooks,
-            limit: 6,
+            limit: 10,
             offset: 0
           }
         });
@@ -372,7 +372,7 @@
             is_recommend: this.recommendBooks,
             is_hot: this.hotBooks,
             ordering: this.mostCommentBooks,
-            limit: 6,
+            limit: 10,
             offset: 0
           }
         });

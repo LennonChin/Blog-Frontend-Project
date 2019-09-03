@@ -146,7 +146,7 @@
       .tags
         margin-bottom 10px
       .title
-        text-align justify
+        text-align left
         font-size 16px
         line-height 23px
         margin-bottom 5px

@@ -17,7 +17,7 @@ export default () => {
       UPDATE_BOOKS_BASE_INFO(state, datas) {
         // 记录已有的图书数量
         state.totalBooksCount += datas.results.length;
-        state.books = datas.results;
+        state.books = state.books.concat(datas.results);
         // 判断是否还有更多
         state.noMoreBooksData = state.totalBooksCount >= datas.count;
       },

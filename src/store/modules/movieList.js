@@ -14,7 +14,7 @@ export default () => {
       UPDATE_MOVIES_BASE_INFO(state, datas) {
         // 记录已有的post数量
         state.totalCount += datas.results.length;
-        state.movies = datas.results;
+        state.movies = state.movies.concat(datas.results);
         // 判断是否还有更多
         state.noMoreData = state.totalCount >= datas.count;
       },

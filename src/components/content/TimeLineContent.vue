@@ -71,7 +71,7 @@
         timeSorted: false,
         mostComment: undefined,
         recommend: undefined,
-        limit_size: DefaultLimitSize * 2,
+        limit_size: DefaultLimitSize * 10,
         page: 0,
         menus: SectionTitleDefaultMenus,
         datePickerOptions: SectionTitleDefaultDatePickerOptions,
@@ -85,7 +85,7 @@
           params: {
             params: {
               ordering: '-add_time',
-              limit: DefaultLimitSize * 2
+              limit: DefaultLimitSize * 10
             }
           },
           reset: true
@@ -211,7 +211,7 @@
       dateSelectClear() {
         this.selectedDateRange = [];
         this.page = 0;
-        this.limit_size = DefaultLimitSize * 2;
+        this.limit_size = DefaultLimitSize * 10;
         this.updateTimeLineInfo(true);
       }
     },

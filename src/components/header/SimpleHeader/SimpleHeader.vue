@@ -6,13 +6,13 @@
 					<router-link class="logo" to="/">
 						<img :src="siteInfo.icon">
 					</router-link>
-					<transition name="fade">
-						<div class="search-area" v-show="showMobileSearchView">
-							<search-view></search-view>
-						</div>
-					</transition>
+					<!--<transition name="fade">-->
+						<!--<div class="search-area" v-show="showMobileSearchView">-->
+							<!--<search-view></search-view>-->
+						<!--</div>-->
+					<!--</transition>-->
 					<a class="menu-button" @click="showMobileMenu"></a>
-					<a class="search-button" @click="showSearchView"></a>
+					<!--<a class="search-button" @click="showSearchView"></a>-->
 				</div>
 				<div id="header" class="show">
 					<router-link id="logo" to="/">
@@ -24,9 +24,9 @@
 					</router-link>
 					<ul id="nav">
 						<!-- 搜索框 -->
-						<li class="search-area">
-							<search-view></search-view>
-						</li>
+						<!--<li class="search-area">-->
+							<!--<search-view></search-view>-->
+						<!--</li>-->
 						<!-- 类别导航 -->
 						<li class="nav-dropdown-container" v-for="category_level1 in allCategorysInfo"
 								v-if="category_level1.is_tab">
@@ -50,9 +50,12 @@
 						</li>
 						<!-- 自定义的导航 -->
 						<li class="nav-dropdown-container" v-for="navigation in siteInfo.navigations">
-							<a class="nav-link" :href="navigation.url" :target="navigation.target">
+							<a v-if="navigation.target === '_blank'" class="nav-link" :href="navigation.url" :target="navigation.target">
 								{{ navigation[resolveI18N('name')] }}
 							</a>
+							<router-link v-if="navigation.target === '_self'" class="nav-link" :to="navigation.url">
+								{{ navigation[resolveI18N('name')] }}
+							</router-link>
 						</li>
 						<li class="switches">
 							<i-button-group size="small">

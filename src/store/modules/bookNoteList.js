@@ -14,7 +14,7 @@ export default () => {
       UPDATE_BOOKNOTES_BASE_INFO(state, datas) {
         // 记录已有的图书数量
         state.totalCount += datas.results.length;
-        state.bookNotes = datas.results;
+        state.bookNotes = state.bookNotes.concat(datas.results);
         // 判断是否还有更多
         state.noMoreData = state.totalCount >= datas.count;
       },

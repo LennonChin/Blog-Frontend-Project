@@ -177,11 +177,13 @@
         this.updateArticlesInfo(true);
       },
       refresh() {
+        console.log('refresh');
         this.timeSorted = false;
         this.mostComment = undefined;
         this.recommend = undefined;
         this.selectedDateRange = [];
         this.page = 0;
+        this.limit_size = DefaultLimitSize;
         this.updateArticlesInfo(true);
       },
       menusControl(params) {

@@ -184,6 +184,7 @@
         this.recommend = undefined;
         this.selectedDateRange = [];
         this.page = 0;
+        this.limit_size = DefaultLimitSize;
         this.updateBooksInfo(true);
       },
       menusControl(params) {
