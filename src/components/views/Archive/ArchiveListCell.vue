@@ -1,7 +1,7 @@
 <template>
   <div class="archive-list-cell">
     <div class="info" @click.prevent="gotoPostDetail(post)" :href="`/${post.post_type}/${post.id}`">
-      <i-tag class="time-tag border-tag">{{ post.add_time | formatDate}}</i-tag>
+      <i-tag class="time-tag border-tag">{{ post.add_time | formatDate }}</i-tag>
       <div class="base-info">
         <a class="title">
           <i-tool-tip placement="right" :content="routerInfos(post).message" v-if="post.need_auth">
@@ -60,16 +60,16 @@
         let router = {};
         switch (post.post_type) {
           case 'article':
-            router.message = '该文章已图集，您需要输入阅读密码';
+            router.message = '该文章已加密，您需要输入访问密码';
             break;
           case 'album':
-            router.message = '该图集已加密，您需要输入阅读密码';
+            router.message = '该图集已加密，您需要输入访问密码';
             break;
           case 'movie':
-            router.message = '该文章已图集，您需要输入阅读密码';
+            router.message = '该文章已加密，您需要输入访问密码';
             break;
           default:
-            router.message = '该文章已图集，您需要输入阅读密码';
+            router.message = '该文章已加密，您需要输入访问密码';
         }
         return router;
       }

@@ -28,7 +28,7 @@
     mixins: [mixin],
     methods: {
       gotoPostDetail(post) {
-        checkPostAuth.call(this, post, '提示', '该文章已加密，您需要输入阅读密码', () => {
+        checkPostAuth.call(this, post, '提示', '该文章已加密，您需要输入访问密码', () => {
           this.$router.push({name: post.post_type, params: {id: post.id}});
         }, (encryptedBrowseAuth) => {
           this.$router.push({

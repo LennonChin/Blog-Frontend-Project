@@ -56,7 +56,7 @@
       <div class="comment-tip">
         <a href="https://guides.github.com/features/mastering-markdown/" target="_blank">
           <i-icon type="social-markdown"></i-icon>
-          {{ $t('comments.suppportMarkdown') }}</a>
+          {{ $t('comments.supportMarkdown') }}</a>
       </div>
       <div class="publish-area">
         <!--<img src="../../assets/captcha.png" style="height: 32px; padding-right: 5px">-->

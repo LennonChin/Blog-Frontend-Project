@@ -139,7 +139,7 @@
     },
     methods: {
       gotoPostDetail(post) {
-        checkPostAuth.call(this, post, '提示', '该文章已加密，您需要输入阅读密码', () => {
+        checkPostAuth.call(this, post, '提示', '该文章已加密，您需要输入访问密码', () => {
           this.$router.push({name: post.post_type, params: {id: post.id}});
         }, (encryptedBrowseAuth) => {
           this.$router.push({
@@ -195,9 +195,9 @@
       @media only screen and (max-width: 768px)
         padding 10px 10px 0 10px
       .title
-        font-size 23px
+        font-size 20px
         font-weight 100
-        line-height 27px
+        line-height 24px
         @media only screen and (max-width: 768px)
           font-size 17px
           line-height 23px

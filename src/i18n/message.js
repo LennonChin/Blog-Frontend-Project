@@ -51,7 +51,7 @@ export default {
       comments: '评论',
       likes: '赞',
       desc: '简介',
-      authTip: '该文章已加密，您需要输入阅读密码',
+      authTip: '该文章已加密，您需要输入访问密码',
       filter: {
         mostComment: '评论最多',
         hot: '最热',
@@ -63,7 +63,7 @@ export default {
       read: '阅读',
       comments: '评论',
       likes: '赞',
-      authTip: '该图书文章已加密，您需要输入阅读密码',
+      authTip: '该图书文章已加密，您需要输入访问密码',
       filter: {
         mostComment: '评论最多',
         hot: '最热',
@@ -79,8 +79,6 @@ export default {
       reading: '正在阅读',
       noRead: '未读',
       noteDone: '笔记已完成',
-      showToc: '展开查看所有目录',
-      hideToc: '收起目录',
       bookInfo: '图书信息',
       readCatelog: '读书目录',
       catelog: '原书目录',
@@ -91,7 +89,7 @@ export default {
       read: '阅读',
       comments: '评论',
       likes: '赞',
-      authTip: '该笔记文章已加密，您需要输入阅读密码',
+      authTip: '该笔记文章已加密，您需要输入访问密码',
       filter: {
         mostComment: '评论最多',
         hot: '最热',
@@ -108,7 +106,7 @@ export default {
       comments: '评论',
       likes: '赞',
       desc: '简介',
-      authTip: '该电影文章已加密，您需要输入阅读密码',
+      authTip: '该电影文章已加密，您需要输入访问密码',
       history: '历史观影',
       recent: '最近观影',
       recommend: '推荐观影',
@@ -129,7 +127,7 @@ export default {
       read: '阅读',
       comments: '评论',
       likes: '赞',
-      authTip: '该图集已加密，您需要输入阅读密码'
+      authTip: '该图集已加密，您需要输入访问密码'
     },
     comments: {
       placeholder: '请输入内容...',
@@ -140,7 +138,7 @@ export default {
       nicknameTip: '请输入您的昵称',
       emailTip: '及邮箱以评论',
       commentClosed: '该文章关闭了评论功能',
-      suppportMarkdown: '支持Markdown',
+      supportMarkdown: '支持Markdown',
       publish: '发布',
       publishing: '发布中'
     },
@@ -247,8 +245,6 @@ export default {
       reading: 'Reading Now',
       noRead: 'Unread',
       noteDone: 'Note Done',
-      showToc: 'Show all Toc',
-      hideToc: 'Hide Toc',
       bookInfo: 'Book Info',
       readCatelog: 'Read Catelog',
       catelog: 'Catelog',
@@ -308,7 +304,7 @@ export default {
       nicknameTip: 'Please input nickname',
       emailTip: 'and email to comment',
       commentClosed: 'This post cannot be commented',
-      suppportMarkdown: 'Support Markdown',
+      supportMarkdown: 'Support Markdown',
       publish: 'Publish',
       publishing: 'Publishing'
     },

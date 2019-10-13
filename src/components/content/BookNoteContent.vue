@@ -93,11 +93,11 @@
       let that = this;
       if (this.needAuth) {
         this.$Notice.error({
-          title: '您输入的阅读密码错误',
+          title: '您输入的访问密码错误',
           duration: 3,
           closable: true,
           onClose: () => {
-            that.checkPassword('该文章为加密文章，<br />您输入的阅读密码错误，请重新验证');
+            that.checkPassword('该文章已加密，<br />您输入的访问密码错误，请重新验证');
           }
         });
       } else {
@@ -149,15 +149,15 @@
           if (error.code === 401) {
             if (that.browse_auth) {
               that.$Notice.error({
-                title: '您输入的阅读密码错误',
+                title: '您输入的访问密码错误',
                 duration: 3,
                 closable: true,
                 onClose: () => {
-                  that.checkPassword('该文章为加密文章，<br />您输入的阅读密码错误，请重新验证');
+                  that.checkPassword('该文章已加密，<br />您输入的访问密码错误，请重新验证');
                 }
               });
             } else {
-              that.checkPassword('该文章为加密文章，请输入阅读密码');
+              that.checkPassword('该文章已加密，请输入访问密码');
             }
           }
         });
@@ -198,7 +198,7 @@
               props: {
                 type: 'password',
                 autofocus: true,
-                placeholder: '请输入阅读密码'
+                placeholder: '请输入访问密码'
               },
               'class': {
                 'modal-input': true

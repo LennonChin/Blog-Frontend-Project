@@ -204,7 +204,7 @@ export function checkPostAuth(post, title, message, noAuthCallback, successCallb
           props: {
             type: 'password',
             autofocus: true,
-            placeholder: '请输入阅读密码'
+            placeholder: '请输入访问密码'
           },
           'class': {
             'modal-input': true

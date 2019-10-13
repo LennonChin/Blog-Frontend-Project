@@ -1,5 +1,5 @@
 <template>
-  <div class="book-catalog" :class="{'open': showMoreToc}" v-if="book != undefined">
+  <div class="book-catalog" v-if="book != undefined">
     <ul class="book-toc-list">
       <li class="book-toc-list-item" v-for="note1 in book.book_note">
         <a class="book-toc-link" :class="{'is-active-link' : note1.is_reading}" @click.prevent="gotoBookNoteDetail(note1)" :href="`${note1.post_type}/${note1.id}`">
@@ -11,7 +11,7 @@
             <i-icon type="ios-compose"></i-icon>
           </i-tool-tip>
         </a>
-        <ul class="book-toc-list is-collapsible" v-if="note1.sub_note.length > 0">
+        <ul class="book-toc-list" v-if="note1.sub_note.length > 0">
           <li class="book-toc-list-item" v-for="note2 in note1.sub_note">
             <a class="book-toc-link" :class="{'is-active-link' : note2.is_reading}" @click.prevent="gotoBookNoteDetail(note2)":href="`${note2.post_type}/${note2.id}`">
               <i-tool-tip placement="right" :content="note2.is_completed ? $t('book.readDone') : (note2.is_reading ? $t('book.reading') : $t('book.noRead'))">
@@ -26,13 +26,6 @@
         </ul>
       </li>
     </ul>
-    <a class="toggle-more" @click="openToc" v-if="showToggleMoreMenu">
-      <span style="z-index: 10;">
-        {{ showMoreToc ? $t('book.hideToc') : $t('book.showToc') }}
-        <i-icon :type="showMoreToc ? 'chevron-up' : 'chevron-down'"></i-icon>
-      </span>
-      <div class="mask" style="z-index: 9;"></div>
-    </a>
   </div>
 </template>
 
@@ -47,26 +40,7 @@
         default: undefined
       }
     },
-    data() {
-      return {
-        showMoreToc: false,
-        showToggleMoreMenu: false
-      };
-    },
-    mounted() {
-      this.$nextTick(() => {
-        let toc = document.querySelector('.book-catalog ul');
-        if (toc && toc.clientHeight >= 360) {
-          this.showToggleMoreMenu = true;
-        } else {
-          this.showToggleMoreMenu = false;
-        }
-      });
-    },
     methods: {
-      openToc() {
-        this.showMoreToc = !this.showMoreToc;
-      },
       gotoBookNoteDetail(note) {
         if (!note.is_noted) {
           this.$Notice.info({
@@ -74,7 +48,7 @@
           });
           return;
         }
-        checkPostAuth.call(this, note, '提示', '该文章已加密，您需要输入阅读密码', () => {
+        checkPostAuth.call(this, note, '提示', '该文章已加密，您需要输入访问密码', () => {
           this.$router.push({name: note.post_type, params: {id: note.id}});
         }, (encryptedBrowseAuth) => {
           this.$router.push({
@@ -104,11 +78,9 @@
       padding-left 25px
       overflow-y hidden
     > .book-toc-list
-      max-height 360px
       padding-left 8px
     .book-toc-list-item
       a.book-toc-link
-        height 100%
         line-height 30px
         padding 5px 0
         color $default-desc-color
@@ -119,36 +91,4 @@
           color $default-link-hover-color
         &:hover
           color $default-link-hover-color
-    &.is-collapsible
-      max-height 1000px
-      overflow hidden
-      transition all 300ms ease-in-out
-    &.is-collapsed
-      max-height 0
-    .toggle-more
-      position relative
-      display block
-      color $default-link-hover-color
-      background-color transparent
-      margin-top -40px
-      padding 60px 0 10px
-      text-align center
-      span
-        position relative
-      .mask
-        position absolute
-        left 0
-        right 0
-        top 0
-        bottom 0
-        opacity 1
-        background-image linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 1))
-  &.open
-    > .book-toc-list
-      max-height inherit
-      overflow hidden
-      transition all 300ms ease-in-out
-    .toggle-more
-      .mask
-        opacity 0
 </style>
