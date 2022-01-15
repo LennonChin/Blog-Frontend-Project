@@ -82,7 +82,7 @@
     "qiniu": "^7.2.1",
     "rimraf": "^2.6.0",
     "semver": "^5.5.0",
-    "shelljs": "^0.7.6",
+    "shelljs": "^0.8.5",
     "signale": "^1.2.1",
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.1",
